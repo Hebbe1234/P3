@@ -24,6 +24,11 @@ namespace NorthernWinterBeat.Pages
                 return RedirectToPage("./MakeUserLogin");
             }
 
+            if (UsernameEntered == "")
+            {
+                return RedirectToPage("./MakeUserLogin");
+            }
+
             return RedirectToPage("./MakeUserLogin");
         }
     }

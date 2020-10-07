@@ -14,6 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\NorthernWinterBeatLibrary\NorthernWinterBeatLibrary.csproj" />
     <ProjectReference Include="..\NorthernWinterBeat\NorthernWinterBeat.csproj" />
   </ItemGroup>
 

@@ -1,0 +1,70 @@
+﻿@page
+@model NorthernWinterBeat.Pages.AttendeeConcertOverviewModel
+@{
+    ViewData["Title"] = "Concert Overview";
+}
+
+<div class="btn-group" role="group" aria-label="Basic example">
+    <button type="button" class="btn btn-secondary">Mandag</button>
+    <button type="button" class="btn btn-secondary">Tirsdag</button>
+    <button type="button" class="btn btn-secondary">Onsdag</button>
+</div>
+
+<div class="list-group">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Kunstner</th>
+                <th scope="col">Tid</th>
+                <th scope="col">Lokation</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+                <tr>
+                    <th scope="row">1</th>
+                    <td><a class="btn-link text-dark" asp-area="" asp-page="/Attendee/AttendeeArtist">Mark</a></td>
+                    <td>20:00</td>
+                    <td>Bones</td>
+                </tr>
+            <tr>
+                <th scope="row">2</th>
+                <td>Jacob</td>
+                <td>20:00</td>
+                <td>Studenterhuset</td>
+                
+            </tr>
+            <tr>
+                <th scope="row">3</th>
+                <td>Larry</td>
+                <td>20:00</td>
+                <td>Fame</td>
+            </tr>
+        </tbody>
+</table>
+</div>
+
+<div>
+    <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam vestibulum posuere ipsum sed posuere. Maecenas non libero aliquet, pulvinar lorem vitae, vehicula magna. Nullam porttitor ligula tellus, a vulputate mi ultrices sed. Mauris non scelerisque odio, sit amet suscipit urna. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Phasellus molestie est ac sem varius vehicula. Suspendisse potenti.
+
+        Cras nec condimentum odio. Aenean lobortis mauris vitae volutpat ultrices. Fusce nec lectus gravida sapien imperdiet lacinia in in diam. Suspendisse egestas dolor id dictum consectetur. Vivamus sed velit ac augue pharetra rutrum. Vestibulum ultricies mollis porta. Nam accumsan orci non libero ultricies consequat. Morbi dignissim pulvinar mattis. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
+
+        In sit amet justo quam. Ut non aliquet risus. Ut tristique, urna sit amet porta malesuada, turpis ante sollicitudin tellus, at tempor quam urna ut erat. Nulla lobortis ornare purus, eget convallis quam lacinia vitae. Donec neque arcu, finibus a iaculis sit amet, placerat et purus. Cras fermentum id felis a condimentum. Curabitur tristique magna vel erat ornare lacinia. Donec interdum ante at lectus pretium fringilla.
+
+        Aliquam hendrerit erat lacus, vel commodo mi gravida eu. Aenean vel elementum sem, sit amet sollicitudin risus. Sed euismod scelerisque viverra. Proin consectetur ultrices lacus vitae pulvinar. Aenean dictum metus eu leo rutrum euismod. Sed vestibulum malesuada sem ac viverra. Pellentesque metus nunc, finibus vitae faucibus eget, scelerisque eget eros. Nunc volutpat, magna et semper fermentum, diam ligula bibendum tortor, ut blandit nulla lacus eget sapien. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Integer purus neque, pulvinar interdum ultrices vel, sagittis vitae purus. Quisque pretium ullamcorper nulla nec tincidunt. Nunc et erat sed nibh ornare mattis sit amet id nibh. Curabitur maximus dolor sed viverra vehicula. In egestas ultrices massa non facilisis.
+
+        Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Integer purus sapien, aliquam nec vestibulum eu, mattis eu magna. Morbi vitae facilisis sapien, non viverra dui. Vivamus quis nulla odio. Duis pretium orci turpis, eu tempor risus vehicula porta. Maecenas sit amet ante ac elit molestie laoreet. Sed viverra purus sapien, nec placerat elit venenatis a.
+
+        Mauris tincidunt, eros in volutpat maximus, libero urna pretium dolor, eu accumsan lacus augue non erat. Curabitur porttitor nunc eu est viverra, sit amet efficitur orci pharetra. Pellentesque semper risus ac mi cursus gravida. Curabitur vitae lorem nibh. Nulla interdum tincidunt interdum. Maecenas ac mi leo. Donec nec erat tellus. Donec quis ex a dui blandit ornare. Pellentesque ac leo venenatis, viverra quam molestie, semper neque. Aliquam a lacus semper, blandit mi sit amet, luctus magna. Quisque et tempor velit, eu porttitor ex. Nulla venenatis magna mi, sed molestie elit finibus non. Mauris ut nibh sed lacus ornare fermentum vitae molestie quam. Curabitur sed nisl ut ante suscipit placerat ac dictum arcu. Curabitur eu felis interdum, accumsan felis vel, volutpat dolor. Vestibulum dictum diam vitae lectus eleifend commodo.
+
+        Pellentesque lacus velit, finibus id libero ut, placerat ornare lacus. Proin efficitur est viverra, efficitur metus at, vehicula diam. Praesent fringilla massa lorem, id auctor elit venenatis at. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nullam condimentum, mi sit amet mollis accumsan, elit justo cursus neque, ac semper magna erat eu metus. Curabitur rhoncus sollicitudin quam, tempor eleifend lorem convallis sed. Quisque finibus tempus scelerisque. Duis varius commodo sem, eu condimentum leo placerat non. Maecenas auctor, massa id dignissim pulvinar, velit dolor fringilla nunc, sed pellentesque diam nulla id ipsum. Curabitur sagittis justo eget sapien cursus, sed bibendum sapien porta. Morbi consequat vulputate urna, in sagittis dolor blandit in.
+
+        Etiam laoreet imperdiet nisl sed elementum. Sed tempus lacinia eros non bibendum. Etiam quis fermentum dui. Sed ut odio ut lorem pulvinar fringilla nec non nunc. Nulla vestibulum purus vitae mi scelerisque bibendum. Phasellus aliquam, ligula fermentum faucibus laoreet, massa ex ullamcorper sem, id commodo sapien metus et eros. Ut eget nulla id sem tincidunt accumsan eget vel metus. Sed in dolor justo. Vestibulum eget elit tellus. Maecenas scelerisque maximus nisl ultricies porta. Vivamus posuere, eros non tempor porttitor, orci leo malesuada risus, et tempus urna quam quis neque. Vestibulum tristique sapien nunc, et aliquam libero lobortis ac. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vivamus ornare massa eu aliquet fermentum. Pellentesque dictum vulputate elit non convallis. Donec ut pulvinar dolor.
+
+        Nulla facilisi. Fusce pretium neque non ex dapibus, at tristique felis vestibulum. Vivamus nec odio vitae neque gravida lacinia ut a urna. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Suspendisse eu sapien bibendum, rhoncus ex vel, commodo ante. Proin sed urna aliquet, sollicitudin neque nec, finibus orci. Mauris a lectus leo. Sed tincidunt ipsum urna, eget porttitor quam sagittis ut. Phasellus ante nisl, vehicula nec dignissim in, scelerisque consequat nunc. Aliquam dictum enim quis ligula cursus auctor. Phasellus non lobortis enim. Nulla leo lectus, luctus vel nulla et, vehicula sollicitudin tellus. Vivamus mollis dapibus ex quis fringilla. Quisque egestas hendrerit turpis.
+
+        Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Etiam volutpat, elit a eleifend ornare, odio eros pellentesque ipsum, non volutpat velit augue sed est. Sed a iaculis neque. Maecenas non varius augue, eget vestibulum felis. Vivamus ut neque eget felis lacinia finibus. Interdum et malesuada fames ac ante ipsum primis in faucibus. Ut fermentum condimentum erat, non interdum est porta a. Cras porta auctor sem id eleifend. Duis sit amet vestibulum velit, at sagittis elit.
+    </p>
+</div>
