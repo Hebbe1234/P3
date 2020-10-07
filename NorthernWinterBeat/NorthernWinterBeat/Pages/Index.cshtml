@@ -1,10 +1,19 @@
 ﻿@page
-@model IndexModel
+@model NorthernWinterBeat.Pages.IndexModel
 @{
     ViewData["Title"] = "Home page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<form method="post">
+    <h2>Registrer billet</h2>
+    <br>
+    <input type="text" name="TicketEntered" placeholder="TicketID" minlength="0" maxlength="12"/> @*Vælg restrictioner*@
+    <br>
+    <input type="submit" value="Billet indtastet" />
+    <h2>Login</h2>
+    <input type="email" name="EmailEntered" placeholder="Email" />
+    <br>
+    <input type="password" name="PasswordEntered" placeholder="Password" minlength="0" />
+    <br>
+    <input type="submit" value="Login" />
+</form>

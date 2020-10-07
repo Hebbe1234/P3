@@ -17,8 +17,40 @@ namespace NorthernWinterBeat.Pages
             _logger = logger;
         }
 
+
+
         public void OnGet()
         {
+
+        }
+        public IActionResult OnPost()
+        {
+            string TicketInput = Request.Form["TicketEntered"];
+            string EmailInput = Request.Form["EmailEntered"];
+            string PasswordInput = Request.Form["PasswordEntered"];
+
+            //Her testes hvorvidt en billet er indtastet, og valideringen skal ske her. 
+            if(TicketInput != "")
+            {
+                return RedirectToPage("./MakeUserLogin");
+            }
+
+            //Her ender vi når en billet ikke er indtastet, hvilket betyder der skal logges ind. 
+            if (PasswordInput == "Admin")
+            {
+                return RedirectToPage("./Admin/IndexAdmin");
+            }
+            else if (PasswordInput == "Participant")
+            {
+                return RedirectToPage("./Participant/IndexParticipant");
+            }
+            else if (PasswordInput == "Venue")
+            {
+                return RedirectToPage("./Venue/IndexVenue");
+            }
+
+            //Her endes der hvis der er indtastet noget forkert eller intet, derfor reloades der. 
+            return RedirectToPage("./Index");
 
         }
     }
