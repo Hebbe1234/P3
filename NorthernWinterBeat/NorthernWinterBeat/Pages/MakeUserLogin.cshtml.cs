@@ -19,11 +19,14 @@ namespace NorthernWinterBeat.Pages
             string Password1Entered = Request.Form["Password1Entered"];
             string Password2Entered = Request.Form["Password2Entered"];
 
+            //Her kan koden valideres
+            
             if(Password1Entered != Password2Entered)
             {
                 return RedirectToPage("./MakeUserLogin");
             }
 
+            //Her kan det valideres hvorvidt usernamet er korrekt. 
             if (UsernameEntered == "")
             {
                 return RedirectToPage("./MakeUserLogin");
