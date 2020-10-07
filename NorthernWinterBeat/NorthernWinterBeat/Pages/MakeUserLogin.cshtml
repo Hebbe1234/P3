@@ -1,0 +1,15 @@
+﻿@page
+@model NorthernWinterBeat.Pages.MakeUserLoginModel
+@{
+}
+
+<form method="post">@*Bestem hvor dataen skal hensendes *@
+    <h3>Brugernavn</h3>
+    <input name="UsernameEntered" type="text" placeholder="Intast Brugernavn" />
+    <br>
+    <label for="pwd">Password:</label>
+    <br>
+    <input name="Password1Entered" type="password" id="pwd1" minlength="8"><br><br>
+    <input name="Password2Entered" type="password" id="pwd2" minlength="8"><br><br>
+    <input type="submit" value="Indsend bla bla">
+</form>

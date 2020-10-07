@@ -17,8 +17,39 @@ namespace NorthernWinterBeat.Pages
             _logger = logger;
         }
 
+
+
         public void OnGet()
         {
+
+        }
+        public IActionResult OnPost()
+        {
+            string TicketInput = Request.Form["TicketEntered"];
+            string EmailInput = Request.Form["EmailEntered"];
+            string PasswordInput = Request.Form["PasswordEntered"];
+
+
+            if(TicketInput != "")
+            {
+                return RedirectToPage("./MakeUserLogin");
+            }
+
+            if (PasswordInput == "Admin")
+            {
+                return RedirectToPage("./Admin/IndexAdmin");
+            }
+            else if (PasswordInput == "Participant")
+            {
+                return RedirectToPage("./Participant/IndexParticipant");
+            }
+            else if (PasswordInput == "Venue")
+            {
+                return RedirectToPage("./Venue/IndexVenue");
+            }
+
+
+            return RedirectToPage("./Index");
 
         }
     }
