@@ -1,4 +1,4 @@
-name: .NET Core
+name: dotnet-core
 
 on:
   push:
@@ -11,6 +11,9 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./NorthernWinterBeat
 
     steps:
     - uses: actions/checkout@v2

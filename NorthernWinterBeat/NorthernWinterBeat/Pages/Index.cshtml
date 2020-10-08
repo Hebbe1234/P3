@@ -1,24 +1,19 @@
 ﻿@page
-@model IndexModel
+@model NorthernWinterBeat.Pages.IndexModel
 @{
     ViewData["Title"] = "Home page";
 }
 
-<form>
-    <h2>Register</h2>
+<form method="post">
+    <h2>Registrer billet</h2>
     <br>
-    <input type="text" placeholder="TicketID" />
+    <input type="text" name="TicketEntered" placeholder="TicketID" minlength="0" maxlength="12"/> @*Vælg restrictioner*@
     <br>
-    <a class="nav-link text-dark" asp-area="" asp-page="/Register">
-        <input type="button" value="Register" />
-    </a>
+    <input type="submit" value="Billet indtastet" />
     <h2>Login</h2>
-    <input type="text" placeholder="Email" />
+    <input type="email" name="EmailEntered" placeholder="Email" />
     <br>
-    <input type="text" placeholder="Password" />
+    <input type="password" name="PasswordEntered" placeholder="Password" minlength="0" />
     <br>
-    <a class="nav-link text-dark" asp-area="" asp-page="/Attendee/AttendeeConcertOverview">
-        <input type="button" value="Login" />
-    </a>
-    <br>
+    <input type="submit" value="Login" />
 </form>
