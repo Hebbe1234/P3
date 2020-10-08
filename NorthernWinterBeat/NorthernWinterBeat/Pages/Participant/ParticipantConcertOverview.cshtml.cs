@@ -9,6 +9,9 @@ namespace NorthernWinterBeat.Pages
 {
     public class ParticipantConcertOverviewModel : PageModel
     {
+        [BindProperty(SupportsGet = true)]
+
+        //Dummy Concerts, which is to get retrieved from the DB
         public static List<Concert> Concerts { get; set; } = new List<Concert>() {
             new Concert(new DateTime(2020, 10, 08, 20, 00, 00), new DateTime(2020, 10, 08, 21, 00, 00), new Models.Venue("Studenterhuset", "Budolfi Plads", 30 ), "Lil Pump", "Han er sej" ),
             new Concert(new DateTime(2020, 10, 08, 20, 00, 00), new DateTime(2020, 10, 08, 21, 00, 00), new Models.Venue("Studenterhuset", "Budolfi Plads", 30 ), "Lil Pump", "Han er sej" ),
@@ -26,16 +29,15 @@ namespace NorthernWinterBeat.Pages
 
 
 
-        [BindProperty(SupportsGet = true)]
         public DateTime Day { get; set; } = new DateTime(2002, 08, 10);
         public void OnGet()
         {
 
         }
 
+        // Different Post-method-handlers, called in each button in the DOM
         public IActionResult OnPostMonday()
         {
-            Console.WriteLine("Hello");
             return RedirectToPage("./ParticipantConcertOverview", new { Day = new DateTime(2020, 10, 08) });
         }
         public IActionResult OnPostTuesday()
@@ -47,10 +49,9 @@ namespace NorthernWinterBeat.Pages
             return RedirectToPage("./ParticipantConcertOverview", new { Day = new DateTime(2020, 10, 10) });
         }
 
+        // Function that returns a list of concerts on a given date
         public List<Concert> ConcertDayChooser(DateTime ConcertDay)
-        {
-            Console.WriteLine("helloo" + ConcertDay);
-        
+        {        
                 return Concerts.FindAll(c => c.Start.Date.ToShortDateString() == ConcertDay.ToShortDateString());
         }
     }
