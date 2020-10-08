@@ -14,7 +14,7 @@
 
             </th>
             <th>
-                <form asp-page-handler="SortByArtist" method="post">
+                <form asp-page-handler="SortByVenue" method="post">
                     <button class="btn btn-default">Venue</button>
                 </form>
             </th>
@@ -39,6 +39,7 @@
             SortConcert = Model.SortConcertBy(SortConcert); 
 
             string zero = "00";
+
             foreach (var item in SortConcert)
             {
                 <tr>
@@ -48,7 +49,7 @@
                     </td>
                     <td>@*@item.Bookings.Length*@/@item.Venue.Capacity</td>       @*MANGLER: Mulighed for at se current capacity. Det kræver ændring i Concert klassen, som jeg ikke vil lave her*@  
                 </tr>
-                }
+            }
         }
 
 

@@ -15,6 +15,7 @@ namespace NorthernWinterBeat.Pages.Admin
             new Concert( new DateTime(2021, 01, 28, 21, 00, 00), new DateTime(2021, 01, 28, 21, 30, 00), new Models.Venue("Studenterhuset", "Borgergase 2", 36), "ANders Hansen", "Fuckig sejg"),
             new Concert( new DateTime(2021, 01, 28, 19, 00, 00), new DateTime(2021, 01, 28, 19, 30, 00), new Models.Venue("Studenterhuset", "Borgergase 2", 38), "Martsefs Hansen", "Fuckig sejg"),
             new Concert( new DateTime(2021, 01, 28, 19, 45, 00), new DateTime(2021, 01, 28, 20, 45, 00), new Models.Venue("Studenterhuset", "Borgergase 2", 30), "Marsefsetin Hansen", "Fuckig sejg") };
+        
         [BindProperty (SupportsGet = true)] 
         public string SortBy { get; set; } 
 
@@ -47,12 +48,11 @@ namespace NorthernWinterBeat.Pages.Admin
             }
             else if (SortBy == "Time")
             {
-
                 SortConcert = SortConcert.OrderBy(o => o.Start).ThenBy(o => o.End).ThenBy(o => o.Artist).ToList<Concert>();
             }
             else if (SortBy == "Venue")
             {
-                SortConcert = SortConcert.OrderBy(o => o.Venue).ThenBy(o => o.Start).ToList<Concert>();
+                SortConcert = SortConcert.OrderBy(o => o.Venue.Name).ThenBy(o => o.Start).ToList<Concert>();
             }
             else if (SortBy == "Capacity")
             {
@@ -61,5 +61,6 @@ namespace NorthernWinterBeat.Pages.Admin
 
             return SortConcert; 
         }
+
     }
 }
