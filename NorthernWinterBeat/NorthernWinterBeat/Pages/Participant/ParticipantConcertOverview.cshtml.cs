@@ -35,6 +35,7 @@ namespace NorthernWinterBeat.Pages
         }
 
         // Different Post-method-handlers, called in each button in the DOM
+        // Handlers should be made independent of the particular weekday.
         public IActionResult OnPostMonday()
         {
             return RedirectToPage("./ParticipantConcertOverview", new { Day = new DateTime(2020, 10, 08) });
