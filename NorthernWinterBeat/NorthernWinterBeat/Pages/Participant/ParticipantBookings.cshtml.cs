@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace NorthernWinterBeat.Pages
 {
-    public class AttendeeFAQModel : PageModel
+    public class ParticipantBookingsModel : PageModel
     {
         public void OnGet()
         {

@@ -1,13 +1,21 @@
 ﻿@page
-@model NorthernWinterBeat.Pages.AttendeeConcertOverviewModel
+@model NorthernWinterBeat.Pages.ParticipantConcertOverviewModel
 @{
     ViewData["Title"] = "Concert Overview";
 }
 
+
 <div class="btn-group" role="group" aria-label="Basic example">
-    <button type="button" class="btn btn-secondary">Mandag</button>
-    <button type="button" class="btn btn-secondary">Tirsdag</button>
-    <button type="button" class="btn btn-secondary">Onsdag</button>
+    <form asp-page-handler="Monday" method="post">
+        <button class="btn btn-secondary">Mandag</button>
+    </form>
+    <form asp-page-handler="Tuesday" method="post">
+        <button class="btn btn-secondary">Tirsdag</button>
+    </form>
+
+    <form asp-page-handler="Wednesday" method="post">
+        <button class="btn btn-secondary">Onsdag</button>
+    </form>
 </div>
 
 <div class="list-group">
@@ -21,26 +29,32 @@
             </tr>
         </thead>
         <tbody>
-            
-                <tr>
-                    <th scope="row">1</th>
-                    <td><a class="btn-link text-dark" asp-area="" asp-page="/Attendee/AttendeeArtist">Mark</a></td>
-                    <td>20:00</td>
-                    <td>Bones</td>
-                </tr>
-            <tr>
-                <th scope="row">2</th>
-                <td>Jacob</td>
-                <td>20:00</td>
-                <td>Studenterhuset</td>
+
+            @{
+
+
                 
-            </tr>
+                // Addning rows of concerts based on which day is chosen in the buttons above.
+                foreach (Concert concert in Model.ConcertDayChooser(Model.Day))
+                {
+                    <tr>
+                        <th scope="row">1</th>
+                        <td>@concert.Artist</td>
+                        <td>@concert.Start.Hour - @concert.End.Hour</td>
+                        <td>@concert.Venue.Name</td>
+                    </tr>
+                }
+
+
+
+            }
             <tr>
-                <th scope="row">3</th>
-                <td>Larry</td>
+                <th scope="row">1</th>
+                <td><a class="btn-link text-dark" asp-area="" asp-page="/Participant/ParticipantArtist">Dummy Hardcode Shit</a></td>
                 <td>20:00</td>
-                <td>Fame</td>
+                <td>Bones</td>
             </tr>
+
         </tbody>
 </table>
 </div>

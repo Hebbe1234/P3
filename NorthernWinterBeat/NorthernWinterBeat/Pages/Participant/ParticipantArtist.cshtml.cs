@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace NorthernWinterBeat.Pages
+namespace NorthernWinterBeat.Pages.Participant
 {
-    public class AttendeeConcertOverviewModel : PageModel
+    public class ParticipantArtistModel : PageModel
     {
         public void OnGet()
         {
