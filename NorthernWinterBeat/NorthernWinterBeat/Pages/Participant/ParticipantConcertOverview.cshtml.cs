@@ -9,7 +9,6 @@ namespace NorthernWinterBeat.Pages
 {
     public class ParticipantConcertOverviewModel : PageModel
     {
-        [BindProperty(SupportsGet = true)]
 
         //Dummy Concerts, which is to get retrieved from the DB
         public static List<Concert> Concerts { get; set; } = new List<Concert>() {
@@ -28,8 +27,8 @@ namespace NorthernWinterBeat.Pages
         };
 
 
-
-        public DateTime Day { get; set; } = new DateTime(2002, 08, 10);
+        [BindProperty(SupportsGet = true)]
+        public DateTime Day { get; set; } = default;
         public void OnGet()
         {
 
@@ -52,7 +51,11 @@ namespace NorthernWinterBeat.Pages
         // Function that returns a list of concerts on a given date
         public List<Concert> ConcertDayChooser(DateTime ConcertDay)
         {        
-                return Concerts.FindAll(c => c.Start.Date.ToShortDateString() == ConcertDay.ToShortDateString());
+                return Concerts.FindAll(c => {
+                    Console.WriteLine(c.Start.Date.ToShortDateString() + ":" + ConcertDay.ToShortDateString());
+
+                    return c.Start.Date.ToShortDateString() == ConcertDay.ToShortDateString();
+                    });
         }
     }
 }
