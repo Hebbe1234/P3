@@ -15,7 +15,7 @@ namespace NorthernWinterBeat.Pages
             new Concert(new DateTime(2020, 10, 08, 20, 00, 00), new DateTime(2020, 10, 08, 21, 00, 00), new Models.Venue("Studenterhuset", "Budolfi Plads", 30 ), "Lil Pump", "Han er sej" ),
             new Concert(new DateTime(2020, 10, 08, 20, 00, 00), new DateTime(2020, 10, 08, 21, 00, 00), new Models.Venue("Studenterhuset", "Budolfi Plads", 30 ), "Lil Pump", "Han er sej" ),
             new Concert(new DateTime(2020, 10, 08, 20, 00, 00), new DateTime(2020, 10, 08, 21, 00, 00), new Models.Venue("Studenterhuset", "Budolfi Plads", 30 ), "Lil Pump", "Han er sej" ),
-           
+
             new Concert(new DateTime(2020, 10, 09, 20, 00, 00), new DateTime(2020, 10, 08, 21, 00, 00), new Models.Venue("Studenterhuset", "Budolfi Plads", 30 ), "Bad Bunny", "Han er sej" ),
             new Concert(new DateTime(2020, 10, 09, 20, 00, 00), new DateTime(2020, 10, 08, 21, 00, 00), new Models.Venue("Studenterhuset", "Budolfi Plads", 30 ), "Bad Bunny", "Han er sej" ),
             new Concert(new DateTime(2020, 10, 09, 20, 00, 00), new DateTime(2020, 10, 08, 21, 00, 00), new Models.Venue("Studenterhuset", "Budolfi Plads", 30 ), "Bad Bunny", "Han er sej" ),
@@ -28,7 +28,7 @@ namespace NorthernWinterBeat.Pages
 
 
         [BindProperty(SupportsGet = true)]
-        public DateTime Day { get; set; } = default;
+        public DateTime Day { get; set; }
         public void OnGet()
         {
 
@@ -50,12 +50,8 @@ namespace NorthernWinterBeat.Pages
 
         // Function that returns a list of concerts on a given date
         public List<Concert> ConcertDayChooser(DateTime ConcertDay)
-        {        
-                return Concerts.FindAll(c => {
-                    Console.WriteLine(c.Start.Date.ToShortDateString() + ":" + ConcertDay.ToShortDateString());
-
-                    return c.Start.Date.ToShortDateString() == ConcertDay.ToShortDateString();
-                    });
+        {
+            return Concerts.FindAll(c => c.Start.Date.ToShortDateString() == ConcertDay.ToShortDateString());
         }
     }
 }
