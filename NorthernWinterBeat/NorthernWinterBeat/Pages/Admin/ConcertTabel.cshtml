@@ -43,37 +43,26 @@
             int i = 0;
             foreach (var item in SortConcert)
             {
-                <tr>
+                <tr onclick="location.href = '@(Url.Page("ConcertPage", new { id = i }))'">
                     <td>
-
-                        <form asp-page-handler="ConcertClicked" method="post" asp-route-ConcertID="@i">
-                            <button class="btn btn-default"> @item.Artist</button>
-                        </form>
+                        @item.Artist
                     </td>
 
 
                     <td>
-                        <form asp-page-handler="ConcertClicked" method="post" asp-route-ConcertID="@i">
-                            <button class="btn btn-default">@item.Venue.Name</button>
-                        </form>
+                        @item.Venue.Name
                     </td>
 
                     <td>
-                        <form asp-page-handler="ConcertClicked" method="post" asp-route-ConcertID="@i">
-                            <button class="btn btn-default">
-                                @item.Start.Hour:@if (item.Start.Minute == 0)
-                                {@zero;} else{@item.Start.Minute}
-                                @item.Venue.Name
-                            </button>
-                        </form>
+                        @item.Start.Hour:@if (item.Start.Minute == 0)
+                        {@zero;
+                    }
+                    else
+                    {@item.Start.Minute}
                     </td>
+
                     <td>
-                        <form asp-page-handler="ConcertClicked" method="post" asp-route-ConcertID="@i">
-                            <button class="btn btn-default">
-                                @item.Venue.Name
-                            @*@item.Bookings.Length*@/@item.Venue.Capacity
-                        </button>
-                    </form>
+                        @*@item.Bookings.Length*@/@item.Venue.Capacity
                     </td>       @*MANGLER: Mulighed for at se current capacity. Det kræver ændring i Concert klassen, som jeg ikke vil lave her*@
                 </tr>
                 i++;
