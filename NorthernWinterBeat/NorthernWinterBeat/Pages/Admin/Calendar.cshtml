@@ -1,0 +1,61 @@
+﻿@page
+@model NorthernWinterBeat.Pages.Admin.CalendarModel
+@{
+    ViewData["Title"] = "Calendar";
+}
+
+<button class="btn btn-secondary float-right" style="margin: 20px" data-toggle="modal" data-target="#newConcert"> Tilføj koncert 
+    <i class="fas fa-plus-circle"></i> </button>
+
+<div class="modal fade" id="newConcert" tabindex="-1" role="dialog" aria-labelledby="newConcertLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="newConcert"> add new concert ? </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                nah
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal"> Nej </button>
+                <a class="nav-link text-dark" asp-area="" asp-page="/Admin/Concert">
+                    <input type="button" class="btn btn-primary" value="Ja" />
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<table class="table" style="width: 100%">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col"> Kunstner </th>
+            <th scope="col"> Venue </th>
+            <th scope="col"> Spilletid </th>
+            <th scope="col"> Kapacitet </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <th scope="row">1</th>
+            <td><a class="btn-link text-dark" asp-area="" asp-page="/Admin/Concerts"> Mark </a></td>
+            <td>7</td>
+            <td> 19/21 </td>
+        </tr>
+        <tr>
+            <th scope="row">2</th>
+            <td><a class="btn-link text-dark" asp-area="" asp-page="/Admin/Concerts"> Ole </a></td>
+            <td>3</td>
+            <td> 20/49 </td>
+        </tr>
+        <tr>
+            <th scope="row">3</th>
+            <td><a class="btn-link text-dark" asp-area="" asp-page="/Admin/Concerts"> Joachim the shitboy </a></td>
+            <td>29</td>
+            <td> 5/9 </td>
+        </tr>
+    </tbody>
+</table>

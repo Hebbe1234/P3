@@ -1,0 +1,31 @@
+﻿@page
+@model NorthernWinterBeat.Pages.Admin.Pages.ConcertModel
+@{
+}
+
+<div class="text-lg-center">
+    <h1 class="display-3"> Add concert information </h1>
+</div>
+
+<form>
+
+    <h3>Kunstner</h3>
+    <input name="ArtistEntered" type="text" placeholder="Indtast kunstner" />
+    <br>
+    <h3>Venue</h3>
+    <input name="VenueEntered" type="text" placeholder="Indtast venue" />
+    <br>
+    <h3>Dato</h3>
+    <input name="DateEntered" type="date" placeholder="Indtast dato" />
+    <br>
+    <h3>Start tid</h3>
+    <input name="StartTimeEntered" type="time" placeholder="Indtast start tid" />
+    <br>
+    <h3>Slut tid</h3>
+    <input name="EndTimeEntered" type="time" placeholder="Indtast slut tid" />
+    <br>
+    <br>
+
+    <input type="submit" value="Confirm">
+    <input type="submit" value="Cancel">
+</form>

@@ -1,0 +1,117 @@
+﻿@page
+@model NorthernWinterBeat.Pages.Admin.ConcertsModel
+@{
+    ViewData["Title"] = "Concerts";
+}
+
+<div class="card">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-8"> <h3> Kunstner </h3> </div>
+            <div class="col-4"> <p class="float-right"> Kapacitet </p> </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-8"> <p> Venue </p> </div>
+            <div class="col-4"> 
+                <button type="button" class="float-right" data-toggle="modal" data-target="#editConcert"> 
+                    <i class="fas fa-pencil-alt"></i> 
+                </button> 
+            </div>
+
+            <div class="modal fade" id="editConcert" tabindex="-1" role="dialog" aria-labelledby="editConcertLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="editConcert"> edit concert ? </h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            nah
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal"> Nej </button>
+                            <form asp-page-handler="CreateConcert" method="post">
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Admin/Concerts">
+                                <input type="submit" class="btn btn-primary" value="Ja" />
+                            </a>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="list-group">
+    <table class="table table-hover">
+        <thread>
+            <tr>
+                <th scope="col"> Email adresse </th>
+                <th scope="col"> Booking dato </th>
+            </tr>
+        </thread>
+        <tbody>
+            <tr>
+                <td> emailiscool </td>
+                <td> 11-12-2020 </td>
+                <td> <button class="btn btn-secondary float-right" style="margin: 20px" data-toggle="modal" data-target="#afmeldConcert"> Afmeld </i> </button> </td>
+
+                <div class="modal fade" id="afmeldConcert" tabindex="-1" role="dialog" aria-labelledby="afmeldConcertLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="afmeldConcert"> afmeld deltager ? </h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                Er du sikker på at du vil afmelde (email) fra denne koncert?
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal"> Nej </button>
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Admin/Concerts">
+                                    <input type="button" class="btn btn-primary" value="Ja" />
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </tr>
+
+            <tr>
+                <td> emailiscool </td>
+                <td> 11-12-2020 </td>
+                <td> <button class="btn btn-secondary float-right" style="margin: 20px" data-toggle="modal" data-target="#afmeldConcert"> Afmeld </i> </button> </td>
+
+                <div class="modal fade" id="afmeldConcert" tabindex="-1" role="dialog" aria-labelledby="afmeldConcertLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="afmeldConcert"> afmeld deltager ? </h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                yeh
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal"> Nej </button>
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Admin/Concerts">
+                                    <input type="button" class="btn btn-primary" value="Ja" />
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </tr>
+
+        </tbody>
+    </table>
+</div>

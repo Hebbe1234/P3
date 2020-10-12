@@ -1,49 +1,162 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
+    <script src="https://kit.fontawesome.com/faf20a1912.js" crossorigin="anonymous"></script>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - NorthernWinterBeat</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <title>@ViewData["Title"] - Sample</title>
+
+    @*<link rel="stylesheet" href="~/lib/startbootstrap-simple-sidebar-gh-pages/css/simple-sidebar.css">*@
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+
+    <style>
+
+        body {
+            overflow-x: hidden;
+        }
+
+        .container-fluid {
+            width: auto;
+        }
+
+        /* Toggle Styles */
+
+        #wrapper {
+            padding-left: 0;
+            -webkit-transition: all 0.5s ease;
+            -moz-transition: all 0.5s ease;
+            -o-transition: all 0.5s ease;
+            transition: all 0.5s ease;
+        }
+
+            #wrapper.toggled {
+                padding-left: 20vw;
+            }
+
+        #sidebar-wrapper {
+            z-index: 1000;
+            position: fixed;
+            left: 20vw;
+            width: 0;
+            height: 100%;
+            margin-left: -20vw;
+            overflow-y: auto;
+            background: #000;
+            -webkit-transition: all 0.5s ease;
+            -moz-transition: all 0.5s ease;
+            -o-transition: all 0.5s ease;
+            transition: all 0.5s ease;
+        }
+
+        #wrapper.toggled #sidebar-wrapper {
+            width: 20vw;
+        }
+
+        #page-content-wrapper {
+            width: 80vw;
+            position: absolute;
+            padding: 15px;
+        }
+
+        #wrapper.toggled #page-content-wrapper {
+            position: absolute;
+            margin-right: -20vw;
+        }
+
+        /* Sidebar Styles */
+
+        .sidebar-nav {
+            position: absolute;
+            top: 0;
+            width: 20vw;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            margin-top: 20px;
+        }
+
+            .sidebar-nav li {
+                text-indent: 20px;
+                line-height: 40px;
+            }
+
+                .sidebar-nav li a {
+                    display: block;
+                    text-decoration: none;
+                    color: #999999;
+                }
+
+                    .sidebar-nav li a:hover {
+                        text-decoration: none;
+                        color: #fff;
+                        background: rgba(255,255,255,0.2);
+                    }
+
+                    .sidebar-nav li a:active,
+                    .sidebar-nav li a:focus {
+                        text-decoration: none;
+                    }
+
+            .sidebar-nav > .sidebar-brand {
+                height: 65px;
+                font-size: 18px;
+                line-height: 60px;
+            }
+
+                .sidebar-nav > .sidebar-brand a {
+                    color: #999999;
+                }
+
+                    .sidebar-nav > .sidebar-brand a:hover {
+                        color: #fff;
+                        background: none;
+                    }
+    </style>
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-page="/Index">NorthernWinterBeat</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
-
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2020 - NorthernWinterBeat - <a asp-area="" asp-page="/Privacy">Privacy</a>
+   
+    <div id="wrapper"class="toggled">
+        
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper">
+            <ul class="sidebar-nav">
+                <li class="sidebar-brand">
+                    <H3 style="color: ghostwhite"> Admin startside </H3>
+                </li>
+                <li>
+                    <a class = "nav-link text-light" asp-area="" asp-page="/Admin/Calendar"> Kalender </a>
+                </li>
+                <li>
+                    <a class="nav-link text-light" asp-area="" asp-page="/Admin/venues"> Venues </a>
+                </li>
+            </ul>
         </div>
-    </footer>
+        <!-- /#sidebar-wrapper -->
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            @*<a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>*@
 
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+            <div class="container-fluid">
+                @RenderBody()
+            </div>
+            <footer></footer>
+        </div>
+        <!-- /#page-content-wrapper -->
+
+    </div>
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+
+    <script>
+        $(document).ready(function () {
+            $("#menu-toggle").click(function (e) {
+                e.preventDefault();
+                $("#wrapper").toggleClass("toggled");
+            });
+        });
+    </script>
 
     @RenderSection("Scripts", required: false)
 </body>

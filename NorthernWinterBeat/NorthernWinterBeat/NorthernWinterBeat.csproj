@@ -4,4 +4,15 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="Pages\Admin\NewFolder1\**" />
+    <Content Remove="Pages\Admin\NewFolder1\**" />
+    <EmbeddedResource Remove="Pages\Admin\NewFolder1\**" />
+    <None Remove="Pages\Admin\NewFolder1\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Pages\Admin\Pages\" />
+  </ItemGroup>
+
 </Project>
