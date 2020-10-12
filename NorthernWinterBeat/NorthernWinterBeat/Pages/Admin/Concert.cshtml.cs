@@ -12,5 +12,28 @@ namespace NorthernWinterBeat.Pages.Admin.Pages
         public void OnGet()
         {
         }
+
+        public IActionResult OnPost()
+        {
+            string Artist = Request.Form["ArtistEntered"];
+            string Venue = Request.Form["VenueEntered"];
+            string Date = Request.Form["DateEntered"];
+            string StartTime = Request.Form["StartTimeEntered"];
+            string EndTime = Request.Form["EndTimeEntered"];
+
+            int Year = int.Parse(Date.Substring(0, 4));
+            int Month = int.Parse(Date.Substring(5, 2));
+            int Day = int.Parse(Date.Substring(8, 2));
+            int StartHour = int.Parse(StartTime.Substring(0, 2));
+            int StartMinute = int.Parse(StartTime.Substring(3, 2));
+            int EndHour = int.Parse(EndTime.Substring(0, 2));
+            int EndMinute = int.Parse(EndTime.Substring(3, 2));
+
+            DateTime Start = new DateTime(Year, Month, Day, StartHour, StartMinute, 0);
+            DateTime End = new DateTime(Year, Month, Day, EndHour, EndMinute, 0);
+
+            return RedirectToPage("./Concert");
+        }
+
     }
 }

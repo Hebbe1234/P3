@@ -1,28 +1,28 @@
 ﻿@page
-@model NorthernWinterBeat.Pages.Admin.Pages.ConcertModel
+@model NorthernWinterBeat.Pages.Admin.EditConcertModel
 @{
 }
 
 <div class="text-lg-center">
-    <h1 class="display-3"> Tilføj koncert information </h1>
+    <h1 class="display-3"> Rediger koncert information </h1>
 </div>
 
 <form method="post">
 
     <h3>Kunstner</h3>
-    <input name="ArtistEntered" type="text" placeholder="Indtast kunstner" minlength="1" required />
+    <input name="ArtistEntered" type="text" placeholder="Indtast kunstner" minlength="1" contenteditable="true" value="Stine"/>
     <br>
     <h3>Venue</h3>
-    <input name="VenueEntered" type="text" placeholder="Indtast venue" minlength="1" required />
+    <input name="VenueEntered" type="text" placeholder="Indtast venue" minlength="1" contenteditable="true" value="Hej"/>
     <br>
     <h3>Dato</h3>
-    <input name="DateEntered" type="date" placeholder="Indtast dato" min="2021-01-28" max="2021-01-30" required />
+    <input name="DateEntered" type="date" placeholder="Indtast dato" contenteditable="true" min="2021-01-28" max="2021-01-30" value="2021-01-28"/>
     <br>
     <h3>Start tid</h3>
-    <input name="StartTimeEntered" type="time" placeholder="Indtast start tid" required />
+    <input name="StartTimeEntered" type="time" placeholder="Indtast start tid" contenteditable="true" value="12:48"/>
     <br>
     <h3>Slut tid</h3>
-    <input name="EndTimeEntered" type="time" placeholder="Indtast slut tid" required />
+    <input name="EndTimeEntered" type="time" placeholder="Indtast slut tid" contenteditable="true" value="14:20" />
     <br>
     <br>
 
@@ -34,17 +34,17 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="Cancel"> Afslut koncert tilføjelse ? </h5>
+                    <h5 class="modal-title" id="Cancel"> Redigér koncert ? </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    Er du sikker på at du vil afslutte tilføjelse fra denne koncert?
+                    Er du sikker på at du vil afslutte redigering af denne koncert uden at gemme?
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal"> Nej </button>
-                    <a class="nav-link text-dark" asp-area="" asp-page="/Admin/Calendar">
+                    <a class="nav-link text-dark" asp-area="" asp-page="/Admin/Concerts">
                         <input type="button" class="btn btn-primary" value="Ja" />
                     </a>
                 </div>
