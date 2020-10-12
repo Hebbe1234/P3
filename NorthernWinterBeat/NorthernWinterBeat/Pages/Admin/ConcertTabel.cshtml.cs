@@ -28,8 +28,6 @@ namespace NorthernWinterBeat.Pages.Admin
 
         public IActionResult OnPostConcertClicked(int ConcertID)
         {
-            Console.WriteLine(ConcertID + "*************************************");
-
             return RedirectToPage("./ConcertPage", new { ConcertID = ConcertID });
         }
 
