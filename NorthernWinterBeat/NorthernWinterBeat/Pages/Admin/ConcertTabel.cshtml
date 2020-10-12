@@ -36,19 +36,36 @@
         @{
             List<Concert> SortConcert = new List<Concert>(Model.Concerts);
 
-            SortConcert = Model.SortConcertBy(SortConcert); 
+            SortConcert = Model.SortConcertBy(SortConcert);
 
             string zero = "00";
 
+            int i = 0;
             foreach (var item in SortConcert)
             {
-                <tr>
-                    <td>@item.Artist</td>
-                    <td>@item.Venue.Name</td>
-                    <td>@item.Start.Hour:@if (item.Start.Minute == 0) { @zero;} else {@item.Start.Minute}
+                <tr onclick="location.href = '@(Url.Page("ConcertPage", new { id = i }))'">
+                    <td>
+                        @item.Artist
                     </td>
-                    <td>@*@item.Bookings.Length*@/@item.Venue.Capacity</td>       @*MANGLER: Mulighed for at se current capacity. Det kræver ændring i Concert klassen, som jeg ikke vil lave her*@  
+
+
+                    <td>
+                        @item.Venue.Name
+                    </td>
+
+                    <td>
+                        @item.Start.Hour:@if (item.Start.Minute == 0)
+                        {@zero;
+                    }
+                    else
+                    {@item.Start.Minute}
+                    </td>
+
+                    <td>
+                        @*@item.Bookings.Length*@/@item.Venue.Capacity
+                    </td>       @*MANGLER: Mulighed for at se current capacity. Det kræver ændring i Concert klassen, som jeg ikke vil lave her*@
                 </tr>
+                i++;
             }
         }
 
