@@ -42,7 +42,7 @@ namespace NorthernWinterBeat.Pages
             }
             else if (PasswordInput == "Participant")
             {
-                return RedirectToPage("./Participant/IndexParticipant");
+                return RedirectToPage("./Participant/ParticipantConcertOverview");
             }
             else if (PasswordInput == "Venue")
             {
