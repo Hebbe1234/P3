@@ -1,0 +1,13 @@
+﻿@page
+@model NorthernWinterBeat.Pages.Admin.ConcertPageModel
+@{
+}
+
+@{
+    <p>@Model.ConcertID</p>
+    <p> @Model.Concerts[Model.ConcertID].Artist </p>
+    <p> @Model.Concerts[Model.ConcertID].Venue.Name </p>
+    <p> @Model.Concerts[Model.ConcertID].Capacity </p>
+    <p> @Model.Concerts[Model.ConcertID].Start </p>
+
+}

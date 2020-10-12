@@ -17,13 +17,22 @@ namespace NorthernWinterBeat.Pages.Admin
             new Concert( new DateTime(2021, 01, 28, 19, 45, 00), new DateTime(2021, 01, 28, 20, 45, 00), new Models.Venue("Studenterhuset", "Borgergase 2", 30), "Marsefsetin Hansen", "Fuckig sejg") };
         
         [BindProperty (SupportsGet = true)] 
-        public string SortBy { get; set; } 
+        public string SortBy { get; set; }
 
+        [BindProperty (SupportsGet = true)] 
+        public int ConcertClicked { get; set; }
         public void OnGet()
         {
 
         }
-        
+
+        public IActionResult OnPostConcertClicked(int ConcertID)
+        {
+            Console.WriteLine(ConcertID + "*************************************");
+
+            return RedirectToPage("./ConcertPage", new { ConcertID = ConcertID });
+        }
+
         public IActionResult OnPostSortByTime()
         {
             return RedirectToPage("./ConcertTabel", new { SortBy = "Time" });
