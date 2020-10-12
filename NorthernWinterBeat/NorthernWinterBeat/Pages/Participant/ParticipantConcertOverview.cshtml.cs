@@ -49,6 +49,11 @@ namespace NorthernWinterBeat.Pages
             return RedirectToPage("./ParticipantConcertOverview", new { Day = new DateTime(2020, 10, 10) });
         }
 
+        public IActionResult OnGetSelectArtist(int? id = 0)
+        {
+            return RedirectToPage("ParticipantArtist", "Participant", new { id = id });
+        }
+
         // Function that returns a list of concerts on a given date
         public List<Concert> ConcertDayChooser(DateTime ConcertDay)
         {
