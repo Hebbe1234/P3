@@ -8,6 +8,11 @@ namespace NorthernWinterBeat.Models
     public class Venue
     {
   
+        public Venue()
+        {
+
+        }
+
         public Venue(string _name, string _address, int _capacity)
         {
             Name = _name;

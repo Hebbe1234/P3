@@ -1,26 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
 
-public class Participant 
+namespace NorthernWinterBeat.Models
 {
-	public Participant(Ticket _ticket)
+	public class Participant
 	{
-		Ticket = _ticket; 
+		public Participant(Ticket _ticket)
+		{
+			Ticket = _ticket;
+		}
+
+		public string Name { get; set; } = "";
+		public Ticket Ticket { get; protected set; }
+		public string Username { get; set; }
+		public string Password { get; set; }
+
+		private List<Booking> Bookings = new List<Booking>();
+
+		public void AddBooking(Booking booking)
+		{
+			Bookings.Add(booking);
+		}
+		public void RemoveBooking(Booking booking)
+		{
+			Bookings.Remove(booking);
+		}
 	}
 
-	public string Name { get; set; } = "";
-    public Ticket Ticket { get; protected set; }
-    public string Username { get; set; }
-    public string Password { get; set; }
-
-    private List<Booking> Bookings = new List<Booking>();
-	
-	public void AddBooking(Booking booking)
-    {
-		Bookings.Add(booking);
-    }
-	public void RemoveBooking(Booking booking)
-    {
-		Bookings.Remove(booking);
-    }
 }
