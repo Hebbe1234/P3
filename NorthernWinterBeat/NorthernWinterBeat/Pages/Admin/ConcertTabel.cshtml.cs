@@ -18,13 +18,20 @@ namespace NorthernWinterBeat.Pages.Admin
         };
         
         [BindProperty (SupportsGet = true)] 
-        public string SortBy { get; set; } 
+        public string SortBy { get; set; }
 
+        [BindProperty (SupportsGet = true)] 
+        public int ConcertClicked { get; set; }
         public void OnGet()
         {
 
         }
-        
+
+        public IActionResult OnPostConcertClicked(int ConcertID)
+        {
+            return RedirectToPage("./ConcertPage", new { ConcertID = ConcertID });
+        }
+
         public IActionResult OnPostSortByTime()
         {
             return RedirectToPage("./ConcertTabel", new { SortBy = "Time" });
