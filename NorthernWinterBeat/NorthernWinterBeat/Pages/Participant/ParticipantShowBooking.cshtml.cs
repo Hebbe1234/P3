@@ -9,8 +9,10 @@ namespace NorthernWinterBeat.Pages.Participant
 {
     public class ParticipantShowBookingModel : PageModel
     {
+        public string ticketNumber { get; private set; }
         public void OnGet()
         {
+            ticketNumber = "ASDSD8AS9D98934";
         }
     }
 }

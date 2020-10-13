@@ -11,7 +11,7 @@ namespace NorthernWinterBeat.Pages
     {
 
         //Dummy Concerts, which is to get retrieved from the DB
-        public static List<Concert> Concerts { get; set; } = new List<Concert>() {
+        public List<Concert> Concerts { get; set; } = new List<Concert>() {
             new Concert(new DateTime(2020, 10, 08, 20, 00, 00), new DateTime(2020, 10, 08, 21, 00, 00), new Models.Venue("Studenterhuset", "Budolfi Plads", 30 ), "Lil Pump", "Han er sej" ),
             new Concert(new DateTime(2020, 10, 08, 20, 00, 00), new DateTime(2020, 10, 08, 21, 00, 00), new Models.Venue("Studenterhuset", "Budolfi Plads", 30 ), "Lil Pump", "Han er sej" ),
             new Concert(new DateTime(2020, 10, 08, 20, 00, 00), new DateTime(2020, 10, 08, 21, 00, 00), new Models.Venue("Studenterhuset", "Budolfi Plads", 30 ), "Lil Pump", "Han er sej" ),
@@ -28,30 +28,34 @@ namespace NorthernWinterBeat.Pages
 
 
         [BindProperty(SupportsGet = true)]
-        public DateTime Day { get; set; }
-        public void OnGet()
+        public DateTime? Day { get; set; } = null;
+        public void OnGet(DateTime? Day)
         {
+        
+            if(Day == null)
+            {
+                this.Day = new DateTime(2020, 10, 08);
+            }
+            
+        }
+
+        public IActionResult OnPostDate(string date)
+        {
+            return RedirectToPage("./ParticipantConcertOverview", new { Day = DateTime.Parse(date) });
 
         }
 
-        // Different Post-method-handlers, called in each button in the DOM
-        // Handlers should be made independent of the particular weekday.
-        public IActionResult OnPostMonday()
+        public IActionResult OnGetSelectArtist(int? id = 0)
         {
-            return RedirectToPage("./ParticipantConcertOverview", new { Day = new DateTime(2020, 10, 08) });
-        }
-        public IActionResult OnPostTuesday()
-        {
-            return RedirectToPage("./ParticipantConcertOverview", new { Day = new DateTime(2020, 10, 09) });
-        }
-        public IActionResult OnPostWednesday()
-        {
-            return RedirectToPage("./ParticipantConcertOverview", new { Day = new DateTime(2020, 10, 10) });
+            return RedirectToPage("ParticipantArtist", "Participant", new { id = id });
         }
 
         // Function that returns a list of concerts on a given date
         public List<Concert> ConcertDayChooser(DateTime ConcertDay)
         {
+            var t1 = Concerts.Select(c => c.Start.Date.ToShortDateString()).ToList();
+            var t2 = ConcertDay.ToShortDateString();
+
             return Concerts.FindAll(c => c.Start.Date.ToShortDateString() == ConcertDay.ToShortDateString());
         }
     }

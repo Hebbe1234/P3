@@ -1,4 +1,5 @@
 ﻿using System;
+using NorthernWinterBeat.Models;
 
 public class Booking
 {
