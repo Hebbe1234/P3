@@ -21,29 +21,29 @@
                 </ul>
             </div>
             <div class="text-center">
-                <button type="button" class="btn btn-primary text-center" data-toggle="modal" data-target="#showBooking">
-                    Vis booking
+                <button type="button" class="btn btn-primary text-center" data-toggle="modal" data-target="#activateBooking">
+                    Aktiver booking
                 </button>
                 <button type="button" class="btn btn-secondary text-center" data-toggle="modal" data-target="#removeBooking">
                     Afmeld booking
                 </button>
 
-                <!-- Show booking modal -->
-                <div class="modal fade " id="showBooking" tabindex="-1" role="dialog" aria-labelledby="showBookingLabel" aria-hidden="true">
+                <!-- Activate booking modal -->
+                <div class="modal fade " id="activateBooking" tabindex="-1" role="dialog" aria-labelledby="activateBookingLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="showBookingLabel">Vis booking</h5>
+                                <h5 class="modal-title" id="activateBookingLabel">Aktiver booking</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
                             <div class="modal-body">
-                                Er du sikker på du vil vise din booking? Bookingen er kun gyldig i 10 minutter efter visning.
+                                Bookingen skal aktiveres i døren, er du sikker på du vil aktivere din booking?
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Nej</button>
-                                <a class="nav-link text-dark" asp-area="" asp-page="/Participant/ParticipantShowBooking">
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Participant/ParticipantBookings">
                                     <input type="button" class="btn btn-primary" value="Ja" />
                                 </a>
                             </div>
@@ -66,7 +66,9 @@
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Nej</button>
-                                <button type="button" class="btn btn-primary">Ja</button>
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Participant/ParticipantBookings">
+                                    <input type="button" class="btn btn-primary" value="Ja" />
+                                </a>
                             </div>
                         </div>
                     </div>
