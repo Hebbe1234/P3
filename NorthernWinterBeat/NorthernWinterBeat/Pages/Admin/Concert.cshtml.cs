@@ -16,6 +16,7 @@ namespace NorthernWinterBeat.Pages.Admin.Pages
         public IActionResult OnPost()
         {
             string Artist = Request.Form["ArtistEntered"];
+            string Description = Request.Form["DescriptionEntered"];
             string Venue = Request.Form["VenueEntered"];
             string Date = Request.Form["DateEntered"];
             string StartTime = Request.Form["StartTimeEntered"];
