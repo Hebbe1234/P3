@@ -10,23 +10,23 @@
 <form method="post">
 
     <h3>Kunstner</h3>
-    <input name="ArtistEntered" type="text" placeholder="Indtast kunstner" minlength="1" contenteditable="true" value="Stine"/>
+    <input name="ArtistEntered" type="text" placeholder="Indtast kunstner" minlength="1" contenteditable="true" value="Stine" />
     <br>
     <h3>Venue</h3>
-    <input name="VenueEntered" type="text" placeholder="Indtast venue" minlength="1" contenteditable="true" value="Hej"/>
+    <input name="VenueEntered" type="text" placeholder="Indtast venue" minlength="1" contenteditable="true" value="Hej" />
     <br>
     <h3>Dato</h3>
-    <input name="DateEntered" type="date" placeholder="Indtast dato" contenteditable="true" min="2021-01-28" max="2021-01-30" value="2021-01-28"/>
+    <input name="DateEntered" type="date" placeholder="Indtast dato" contenteditable="true" min="2021-01-28" max="2021-01-30" value="2021-01-28" />
     <br>
     <h3>Start tid</h3>
-    <input name="StartTimeEntered" type="time" placeholder="Indtast start tid" contenteditable="true" value="12:48"/>
+    <input name="StartTimeEntered" type="time" placeholder="Indtast start tid" contenteditable="true" value="12:48" />
     <br>
     <h3>Slut tid</h3>
     <input name="EndTimeEntered" type="time" placeholder="Indtast slut tid" contenteditable="true" value="14:20" />
     <br>
     <br>
 
-    <input type="submit" value="Confirm">
+    <input type="submit" value="Confirm" asp-area="" asp-page="/Admin/Concerts">
 
     <input type="button" value="Cancel" data-toggle="modal" data-target="#Cancel">
 

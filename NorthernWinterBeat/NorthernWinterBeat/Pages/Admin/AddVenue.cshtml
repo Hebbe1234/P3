@@ -1,0 +1,47 @@
+﻿@page
+@model NorthernWinterBeat.Pages.Admin.AddVenueModel
+@{
+}
+
+<div class="text-lg-center">
+    <h1 class="display-3"> Tilføj venue information </h1>
+</div>
+
+<form method="post">
+
+    <h3>Venue</h3>
+    <input name="VenueEntered" type="text" placeholder="Indtast navn på venue" minlength="1" required />
+    <br>
+    <h3>Kapacitet</h3>
+    <input name="KapacitetEntered" type="number" placeholder="Indtast venue kapacitet" minlength="1" required />
+    <br>
+    <br>
+    
+    <input type="submit" value="Confirm" asp-area="" asp-page="/Admin/venues">
+
+    <input type="button" value="Cancel" data-toggle="modal" data-target="#Cancel">
+
+    <div class="modal fade" id="Cancel" tabindex="-1" role="dialog" aria-labelledby="CancelLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="Cancel"> Afslut venue tilføjelse ? </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Er du sikker på at du vil afslutte tilføjelse af denne venue?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal"> Nej </button>
+                    <a class="nav-link text-dark" asp-area="" asp-page="/Admin/venues">
+                        <input type="button" class="btn btn-primary" value="Ja" />
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</form>
