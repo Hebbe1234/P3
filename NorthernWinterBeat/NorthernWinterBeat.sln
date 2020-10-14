@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NorthernWinterBeat", "North
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NWB_TESTS", "NWB_TESTS\NWB_TESTS.csproj", "{97780154-9156-4EF4-A58D-0165A8F9FC80}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NorthernWinterBeatLibrary", "NorthernWinterBeatLibrary\NorthernWinterBeatLibrary.csproj", "{CE4E82C9-E771-4448-BE7C-0112870637AD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{97780154-9156-4EF4-A58D-0165A8F9FC80}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{97780154-9156-4EF4-A58D-0165A8F9FC80}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{97780154-9156-4EF4-A58D-0165A8F9FC80}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CE4E82C9-E771-4448-BE7C-0112870637AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CE4E82C9-E771-4448-BE7C-0112870637AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CE4E82C9-E771-4448-BE7C-0112870637AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CE4E82C9-E771-4448-BE7C-0112870637AD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

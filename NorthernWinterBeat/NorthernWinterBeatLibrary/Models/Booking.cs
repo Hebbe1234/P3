@@ -1,8 +1,11 @@
 ﻿using System;
+using NorthernWinterBeat.Models;
 
 public class Booking
 {
-	public Booking(Participant _participant, Concert _concert)
+
+    public int ID { get; set; }
+    public Booking(Participant _participant, Concert _concert)
 	{
 		Participant = _participant;
 		Concert = _concert;

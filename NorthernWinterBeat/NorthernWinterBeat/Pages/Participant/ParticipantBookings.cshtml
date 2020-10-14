@@ -1,0 +1,79 @@
+﻿@page
+@model NorthernWinterBeat.Pages.ParticipantBookingsModel
+@{
+}
+<h1>My Bookings</h1>
+@{
+    foreach (var booking in Model.bookings)
+    {
+        <div class="border">
+            <div>
+                <ul>
+                    <li>
+                        @booking.Concert.Artist
+                    </li>
+                    <li>
+                        @booking.Concert.Start
+                    </li>
+                    <li>
+                        @booking.Concert.Venue.Address
+                    </li>
+                </ul>
+            </div>
+            <div class="text-center">
+                <button type="button" class="btn btn-primary text-center" data-toggle="modal" data-target="#activateBooking">
+                    Activate booking
+                </button>
+                <button type="button" class="btn btn-secondary text-center" data-toggle="modal" data-target="#removeBooking">
+                    Remove booking
+                </button>
+
+                <!-- Activate booking modal -->
+                <div class="modal fade " id="activateBooking" tabindex="-1" role="dialog" aria-labelledby="activateBookingLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="activateBookingLabel">Activate booking</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                The booking needs to be activated when you are entering the concert, are you sure that you want to activate your booking?
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Participant/ParticipantBookings">
+                                    <input type="button" class="btn btn-primary" value="Yes" />
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Remove booking modal -->
+                <div class="modal fade " id="removeBooking" tabindex="-1" role="dialog" aria-labelledby="removeBookingLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="removeBookingLabel">Remove booking</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                Are you sure that you want to remove your booking? You cannot undo this.
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Participant/ParticipantBookings">
+                                    <input type="button" class="btn btn-primary" value="Yes" />
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+}

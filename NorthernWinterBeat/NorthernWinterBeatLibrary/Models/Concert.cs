@@ -5,6 +5,11 @@ using System.Collections.Generic;
 
 public class Concert
 {
+
+    public Concert()
+    {
+
+    }
 	public Concert(DateTime _start, DateTime _end, Venue _venue, string _artist, string _artistDescription)
 	{
         Start = _start;
@@ -14,6 +19,7 @@ public class Concert
         ArtistDescription = _artistDescription;
         Capacity = Venue.Capacity; 
 	}
+    public int ID { get; set; }
     public Venue Venue { get; set; }
     public string Artist { get; set; }
     public string ArtistDescription { get; set; }

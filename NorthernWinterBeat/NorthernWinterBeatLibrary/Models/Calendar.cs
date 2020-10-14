@@ -3,7 +3,9 @@ using System.Collections.Generic;
 
 public class Calendar
 {
-	public Calendar()
+    public int ID { get; set; }
+
+    public Calendar()
 	{
 	}
 
