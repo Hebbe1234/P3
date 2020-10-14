@@ -4,25 +4,25 @@
     ViewData["Title"] = "Calendar";
 }
 
-<button class="btn btn-secondary float-right" style="margin: 20px" data-toggle="modal" data-target="#newConcert"> Tilføj koncert 
+<button class="btn btn-secondary float-right" style="margin: 20px" data-toggle="modal" data-target="#newConcert"> Add concert 
     <i class="fas fa-plus-circle"></i> </button>
 
 <div class="modal fade" id="newConcert" tabindex="-1" role="dialog" aria-labelledby="newConcertLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="newConcert"> add new concert ? </h5>
+                <h5 class="modal-title" id="newConcert"> Add new concert? </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                nah
+                Do you want to add a new concert to the calendar?
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal"> Nej </button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal"> No </button>
                 <a class="nav-link text-dark" asp-area="" asp-page="/Admin/Concert">
-                    <input type="button" class="btn btn-primary" value="Ja" />
+                    <input type="button" class="btn btn-primary" value="Yes" />
                 </a>
             </div>
         </div>
@@ -32,10 +32,10 @@
 <table class="table" style="width: 100%">
     <thead class="thead-dark">
         <tr>
-            <th scope="col"> Kunstner </th>
+            <th scope="col"> Artist </th>
             <th scope="col"> Venue </th>
-            <th scope="col"> Spilletid </th>
-            <th scope="col"> Kapacitet </th>
+            <th scope="col"> Datetime </th>
+            <th scope="col"> Capacity </th>
         </tr>
     </thead>
     <tbody>

@@ -12,6 +12,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Remove="Pages\Admin\Index.cshtml.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="Pages\Admin\Index.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="Pages\Admin\Pages\" />
   </ItemGroup>
 

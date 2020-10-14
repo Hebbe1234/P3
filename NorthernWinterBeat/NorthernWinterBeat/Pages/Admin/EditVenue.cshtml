@@ -4,16 +4,16 @@
 }
 
 <div class="text-lg-center">
-    <h1 class="display-3"> Tilføj venue information </h1>
+    <h1 class="display-3"> Add venue information </h1>
 </div>
 
 <form method="post">
 
     <h3>Venue</h3>
-    <input name="VenueEntered" type="text" placeholder="Indtast navn på venue" minlength="1" required value="Hjemme" />
+    <input name="VenueEntered" type="text" placeholder="Add name of venue" minlength="1" required value="home" />
     <br>
-    <h3>Kapacitet</h3>
-    <input name="KapacitetEntered" type="number" placeholder="Indtast venue kapacitet" minlength="1" required value="20" />
+    <h3>Capacity</h3>
+    <input name="CapacityEntered" type="number" placeholder="Enter venue capacity" minlength="1" required value="20" />
     <br>
     <br>
 
@@ -25,18 +25,18 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="Cancel"> Afslut venue redigering ? </h5>
+                    <h5 class="modal-title" id="Cancel"> Finish editing venue? </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    Er du sikker på at du vil afslutte redigering af denne venue?
+                    Are you sure you want to finish editing this venue?
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal"> Nej </button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal"> No </button>
                     <a class="nav-link text-dark" asp-area="" asp-page="/Admin/Venue">
-                        <input type="button" class="btn btn-primary" value="Ja" />
+                        <input type="button" class="btn btn-primary" value="Yes" />
                     </a>
                 </div>
             </div>

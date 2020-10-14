@@ -17,6 +17,7 @@ namespace NorthernWinterBeat.Pages.Admin.Pages
         {
             string Artist = Request.Form["ArtistEntered"];
             string Description = Request.Form["DescriptionEntered"];
+            string Image = Request.Form["ImageEntered"];
             string Venue = Request.Form["VenueEntered"];
             string Date = Request.Form["DateEntered"];
             string StartTime = Request.Form["StartTimeEntered"];
@@ -34,7 +35,10 @@ namespace NorthernWinterBeat.Pages.Admin.Pages
             DateTime End = new DateTime(Year, Month, Day, EndHour, EndMinute, 0);
 
             return RedirectToPage("./Concert");
-        }
 
+    
+        }
     }
 }
+
+       

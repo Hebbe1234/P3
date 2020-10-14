@@ -7,11 +7,11 @@
     <div class="card-body">
         <div class="row">
             <div class="col-8"> <h3> Venue </h3> </div>
-            <div class="col-4"> <p class="float-right"> Kapacitet </p> </div>
+            <div class="col-4"> <p class="float-right"> Capacity </p> </div>
         </div>
 
         <div class="row">
-            <div class="col-8"> <p> Beskrivelse </p> </div>
+            <div class="col-8"> <p> Description </p> </div>
             <div class="col-4">
                 <button type="button" class="float-right" data-toggle="modal" data-target="#editVenue">
                     <i class="fas fa-pencil-alt"></i>
@@ -22,18 +22,18 @@
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="editVenue"> edit venue ? </h5>
+                            <h5 class="modal-title" id="editVenue"> Edit venue? </h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
                         <div class="modal-body">
-                            nah
+                            Are you sure you want to edit this venue?
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal"> Nej </button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal"> No </button>
                             <a class="nav-link text-dark" asp-area="" asp-page="/Admin/EditVenue">
-                                <input type="submit" class="btn btn-primary" value="Ja" />
+                                <input type="submit" class="btn btn-primary" value="Yes" />
                             </a>
                         </div>
                     </div>
@@ -47,9 +47,9 @@
     <table class="table table-hover">
         <thread>
             <tr>
-                <th scope="col"> Kunstner </th>
-                <th scope="col"> Tidspunkt </th>
-                <th scope="col"> Kapacitet </th>
+                <th scope="col"> Artist </th>
+                <th scope="col"> Datetime </th>
+                <th scope="col"> Capacity </th>
             </tr>
         </thread>
         <tbody>
@@ -57,24 +57,24 @@
                 <td> jokes </td>
                 <td> 11-12-2020 14.48.00 </td>
                 <td> 10/20 </td>
-                <td> <button class="btn btn-secondary float-right" style="margin: 20px" data-toggle="modal" data-target="#afmeldConcert"> Afmeld </button> </td>
+                <td> <button class="btn btn-secondary float-right" style="margin: 20px" data-toggle="modal" data-target="#unbookConcert"> Unbook </button> </td>
 
-                <div class="modal fade" id="afmeldConcert" tabindex="-1" role="dialog" aria-labelledby="afmeldConcertLabel" aria-hidden="true">
+                <div class="modal fade" id="unbookConcert" tabindex="-1" role="dialog" aria-labelledby="unbookConcertLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="afmeldConcert"> afmeld deltager ? </h5>
+                                <h5 class="modal-title" id="unbookConcert"> Unbook participant? </h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
                             <div class="modal-body">
-                                Er du sikker på at du vil afmelde (email) fra denne koncert?
+                                Are you sure you want to unbook this participant from the concert?
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal"> Nej </button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal"> No </button>
                                 <a class="nav-link text-dark" asp-area="" asp-page="/Admin/Venue">
-                                    <input type="button" class="btn btn-primary" value="Ja" />
+                                    <input type="button" class="btn btn-primary" value="Yes" />
                                 </a>
                             </div>
                         </div>
@@ -83,28 +83,27 @@
             </tr>
 
             <tr>
-                <td> emailiscool </td>
-                <td> 11-12-2020 </td>
-                <td> 11/90 </td>
+                <td> 2 cash </td>
+                <td> 11-12-2020 14.48.00 </td>
+                <td> 10/20 </td>
+                <td> <button class="btn btn-secondary float-right" style="margin: 20px" data-toggle="modal" data-target="#unbookConcert"> Unbook </button> </td>
 
-                <td> <button class="btn btn-secondary float-right" style="margin: 20px" data-toggle="modal" data-target="#afmeldConcert"> Afmeld </i> </button> </td>
-
-                <div class="modal fade" id="afmeldConcert" tabindex="-1" role="dialog" aria-labelledby="afmeldConcertLabel" aria-hidden="true">
+                <div class="modal fade" id="unbookConcert" tabindex="-1" role="dialog" aria-labelledby="unbookConcertLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="afmeldConcert"> afmeld deltager ? </h5>
+                                <h5 class="modal-title" id="unbookConcert"> Unbook participant? </h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
                             <div class="modal-body">
-                                yeh
+                                Are you sure you want to unbook this participant from the concert?
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal"> Nej </button>
-                                <a class="nav-link text-dark" asp-area="" asp-page="/Admin/Concerts">
-                                    <input type="button" class="btn btn-primary" value="Ja" />
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal"> No </button>
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Admin/Venue">
+                                    <input type="button" class="btn btn-primary" value="Yes" />
                                 </a>
                             </div>
                         </div>
