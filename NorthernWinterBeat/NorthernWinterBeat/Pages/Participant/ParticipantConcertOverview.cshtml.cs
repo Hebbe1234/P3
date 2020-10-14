@@ -38,6 +38,8 @@ namespace NorthernWinterBeat.Pages
         // Handlers should be made independent of the particular weekday.
         public IActionResult OnPostMonday()
         {
+
+
             return RedirectToPage("./ParticipantConcertOverview", new { Day = new DateTime(2020, 10, 08) });
         }
         public IActionResult OnPostTuesday()

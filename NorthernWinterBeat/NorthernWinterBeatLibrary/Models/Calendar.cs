@@ -9,17 +9,22 @@ public class Calendar
 	{
 	}
 
-    private List<Concert> Concerts = new List<Concert>(); 
+    private List<Concert> concerts = new List<Concert>(); 
         
 
 	public void AddConcert(Concert concert)
     {
-        Concerts.Add(concert);
+        concerts.Add(concert);
     }
 
     public void RemoveConcert(Concert concert)
     {
-        Concerts.Remove(concert);
+        concerts.Remove(concert);
+    }
+
+    public Concert GetConcert(int id)
+    {
+        return concerts.Find(c => c.ID == id);
     }
 }
 
