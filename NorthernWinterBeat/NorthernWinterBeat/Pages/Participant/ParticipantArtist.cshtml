@@ -5,64 +5,44 @@
 
 
 <div class="d-md-block" id="ArtistBlock">
-    <h1>Artist Name</h1>
+    <h1>@Model.ArtistName</h1>
 
     <img class="container-fluid" src="https://www.winterbeat.dk/wp-content/uploads/2020/08/joe-.jpg" />
 
-    <button type="button" class="btn btn-block btn-outline-primary">Book Spot</button>
+    <button type="button" class="btn btn-block btn-outline-primary text-center" data-toggle="modal" data-target="#bookSpot">
+        Book spot
+    </button>
+
+    <!-- Book spot modal -->
+    <div class="modal fade " id="bookSpot" tabindex="-1" role="dialog" aria-labelledby="bookSpotLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="bookSpotLabel">Book Spot</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Are you sure that you want to book a spot for this concert?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                    <a class="nav-link text-dark" asp-area="" asp-page="/Participant/ParticipantArtist">
+                        <input type="button" class="btn btn-primary" value="Yes" />
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div>
         <h2>Artist Description</h2>
         <p>
-            Joe & The Shitboys brings the perfect combination of humorous lyrics and old school punk gimmicks without getting tacky. The average song length is around 1:30 minutes, and that is all they need to make you feel like a shitty person. Which they manage to do with songs like “Life Is Great You Suck” and “If You Believe in Eating Meat, Start With Your Dog”. It’s painfully easy to ignore the roasting and enjoy the show, caused by the high energy the band delivers, and their charming and flamboyant frontman, Joe.
-
-
-            They have been able to land slots at Iceland Airwaves, Spot Festival and on the NME 100 Essential new artists for 2020 list in spite of their short existence as a band, and now they are hitting NWB21!
-
-
-
-            “Joe and The Shitboys were the best thing we saw at Iceland Airwaves … No-one is safe from their cheeky tongue and no-bullshit approach.” – NME
-
-
-
-            “The band are truly causing mayhem and we’re so here for it.” – The Line of Best Fit
-
-
-
-            “Chaotic” – Dork
+            @Model.Description
         </p>
     </div>
 
 </div>
 
 
-<div class="d-md-block" id="ArtistBlock">
-    <h1>Artist Name</h1>
-
-    <img class="container-fluid" src="https://www.winterbeat.dk/wp-content/uploads/2020/08/joe-.jpg" />
-
-    <button type="button" class="btn btn-block btn-outline-primary">Book Spot</button>
-
-    <div>
-        <h2>Artist Description</h2>
-        <p>
-            Joe & The Shitboys brings the perfect combination of humorous lyrics and old school punk gimmicks without getting tacky. The average song length is around 1:30 minutes, and that is all they need to make you feel like a shitty person. Which they manage to do with songs like “Life Is Great You Suck” and “If You Believe in Eating Meat, Start With Your Dog”. It’s painfully easy to ignore the roasting and enjoy the show, caused by the high energy the band delivers, and their charming and flamboyant frontman, Joe.
-
-
-            They have been able to land slots at Iceland Airwaves, Spot Festival and on the NME 100 Essential new artists for 2020 list in spite of their short existence as a band, and now they are hitting NWB21!
-
-
-
-            “Joe and The Shitboys were the best thing we saw at Iceland Airwaves … No-one is safe from their cheeky tongue and no-bullshit approach.” – NME
-
-
-
-            “The band are truly causing mayhem and we’re so here for it.” – The Line of Best Fit
-
-
-
-            “Chaotic” – Dork
-        </p>
-    </div>
-
-</div>
