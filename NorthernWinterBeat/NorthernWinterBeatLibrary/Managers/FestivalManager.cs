@@ -5,6 +5,10 @@ using System.Text;
 
 namespace NorthernWinterBeatLibrary.Managers
 {
+
+    /// <summary>
+    /// The responsibility of a FestivalManager is to be the primary access to the top hiearchy of the festival. (Calendar & Participants)
+    /// </summary>
     public class FestivalManager
     {
 
