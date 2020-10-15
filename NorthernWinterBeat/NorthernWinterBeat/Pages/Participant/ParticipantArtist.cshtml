@@ -8,11 +8,9 @@
     <h1>@Model.concert.Artist</h1>
 
     <img class="container-fluid" src="https://www.winterbeat.dk/wp-content/uploads/2020/08/joe-.jpg" />
-
-    <button type="button" class="btn btn-block btn-outline-primary text-center" data-toggle="modal" data-target="#bookSpot">
-        Book spot
-    </button>
-
+        <button type="button" class="btn btn-block btn-outline-primary text-center" data-toggle="modal" data-target="#bookSpot">
+            Book spot
+        </button>
     <!-- Book spot modal -->
     <div class="modal fade " id="bookSpot" tabindex="-1" role="dialog" aria-labelledby="bookSpotLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -28,9 +26,12 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-                    <a class="nav-link text-dark" asp-area="" asp-page="/Participant/ParticipantArtist">
-                        <input type="button" class="btn btn-primary" value="Yes" />
-                    </a>
+                    <form asp-page-handler="BookSpot" method="post">
+                        @Html.Hidden("id", Model.concert.ID)
+                        <button class="btn btn-primary">
+                            Yes
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>

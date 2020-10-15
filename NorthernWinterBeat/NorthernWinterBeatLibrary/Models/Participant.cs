@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NorthernWinterBeatLibrary.Managers;
+using System;
 using System.Collections.Generic;
 
 namespace NorthernWinterBeat.Models
@@ -16,17 +17,21 @@ namespace NorthernWinterBeat.Models
 		public string Username { get; set; }
 		public string Password { get; set; }
 
-		private List<Booking> Bookings = new List<Booking>();
+        public bool CanMakeBookingAt(Concert concert)
+        {
+			List<Concert> bookedConcerts =  FestivalManager.instance._calendar.GetConcerts().FindAll(c => c.Bookings.Find(b => b.Participant == this) != null);
+            foreach (var c in bookedConcerts)
+            {
+				if(concert.Start < c.End && concert.End > c.Start)
+                {
+					return false;
+                }
+            }
 
-		public void AddBooking(Booking booking)
-		{
-			Bookings.Add(booking);
-		}
-		public void RemoveBooking(Booking booking)
-		{
-			Bookings.Remove(booking);
-		}
-	}
+			return true;
+        }
+		
+    }
 
 	
 }
