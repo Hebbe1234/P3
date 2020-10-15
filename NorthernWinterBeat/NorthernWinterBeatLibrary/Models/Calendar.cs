@@ -7,12 +7,13 @@ public class Calendar
 
     public Calendar()
 	{
+        State = "Initializing"; 
 	}
 
-    private List<Concert> Concerts = new List<Concert>(); 
-        
+    private List<Concert> Concerts = new List<Concert>();
+    public string State { get; set; }
 
-	public void AddConcert(Concert concert)
+    public void AddConcert(Concert concert)
     {
         Concerts.Add(concert);
     }

@@ -7,10 +7,11 @@ namespace NorthernWinterBeat.Models
 		public Participant(Ticket _ticket)
 		{
 			Ticket = _ticket;
+			State = "Active"; 
 		}
 		public int ID { get; set; }
-
-		public string Name { get; set; } = "";
+        public string State { get; set; }
+        public string Name { get; set; } = "";
 		public Ticket Ticket { get; protected set; }
 		public string Username { get; set; }
 		public string Password { get; set; }
