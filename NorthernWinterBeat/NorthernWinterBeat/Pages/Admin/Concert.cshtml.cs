@@ -36,7 +36,7 @@ namespace NorthernWinterBeat.Pages.Admin.Pages
 
             return RedirectToPage("./Concert");
 
-    
+        // get "participentconcertoverview" til at displaye på "concerts" siden //
         }
     }
 }

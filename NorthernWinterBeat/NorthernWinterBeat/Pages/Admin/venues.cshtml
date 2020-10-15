@@ -5,10 +5,26 @@
 }
 
 
-<button class="btn btn-secondary float-right" style="margin: 20px" data-toggle="modal" data-target="#newVenue">
-    Tilføj venue
-    <i class="fas fa-plus-circle"></i>
-</button>
+<div class="card">
+    <div class="container">
+        <h3><a>Venue</a></h3>
+        <p>
+            Here you can see all of the information about the created venues: <br />
+            The name of the venue, the capacity, and the number of concerts at the venue. 
+            <br /><br />
+            Click the button "Add Venue" to create a new venue. <br />
+            To edit an existing venue, click the specific venue, and then edit.
+        </p>
+
+        <button class="btn btn-secondary float-right" style="margin: 20px" data-toggle="modal" data-target="#newVenue">
+            Add venue
+            <i class="fas fa-plus-circle"></i>
+        </button>
+
+
+    </div>
+</div>
+
 
 <div class="modal fade" id="newVenue" tabindex="-1" role="dialog" aria-labelledby="newVenueLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
