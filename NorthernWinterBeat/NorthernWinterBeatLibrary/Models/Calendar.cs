@@ -8,6 +8,7 @@ public class Calendar
 
     public Calendar()
     {
+        State = "Initializing";
         //Dummy Concerts, which is to get retrieved from the DB
         concerts = new List<Concert>() {
                 new Concert(new DateTime(2020, 10, 08, 20, 00, 00), new DateTime(2020, 10, 08, 21, 00, 00), new Venue("Studenterhuset", "Budolfi Plads", 30 ), "Lil Pump", "Han er sej" ) {ID =1 },
@@ -26,6 +27,8 @@ public class Calendar
 
     private List<Concert> concerts = new List<Concert>();
 
+    private List<Concert> Concerts = new List<Concert>();
+    public string State { get; set; }
 
     public void AddConcert(Concert concert)
     {
