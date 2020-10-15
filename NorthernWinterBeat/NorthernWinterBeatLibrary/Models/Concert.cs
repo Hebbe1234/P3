@@ -17,9 +17,11 @@ public class Concert
         Venue = _venue;
         Artist = _artist;
         ArtistDescription = _artistDescription;
-        Capacity = Venue.Capacity; 
+        Capacity = Venue.Capacity;
+        State = "Creation"; 
 	}
     public int ID { get; set; }
+    public string State { get; set; }
     public Venue Venue { get; set; }
     public string Artist { get; set; }
     public string ArtistDescription { get; set; }
