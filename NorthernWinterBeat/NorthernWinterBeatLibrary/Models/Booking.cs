@@ -9,9 +9,9 @@ public class Booking
 	{
 		Participant = _participant;
 		Concert = _concert;
+		State = "Active"; 
 	}
-
-	public Participant Participant { get; set; }
+    public string State { get; set; }
+    public Participant Participant { get; set; }
 	public Concert Concert { get; set; }
-
 }

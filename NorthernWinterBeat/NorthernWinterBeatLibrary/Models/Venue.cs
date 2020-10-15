@@ -17,12 +17,13 @@ namespace NorthernWinterBeat.Models
         {
             Name = _name;
             Address = _address;
-            Capacity = _capacity; 
+            Capacity = _capacity;
+            State = "Active"; 
         }
         public int ID { get; set; }
         public string Name { get; set; }
+        public string State { get; set; }
         public string Address { get; set; }
         public int Capacity { get; set; }
-
     }
 }
