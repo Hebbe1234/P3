@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using NorthernWinterBeat.Models;
 
 
-namespace NorthernWinterBeat.Pages
+namespace NorthernWinterBeat.Pages.ParticipantRazor
 {
     public class ParticipantBookingsModel : PageModel
     {

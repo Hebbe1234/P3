@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using NorthernWinterBeatLibrary.Managers;
 
-namespace NorthernWinterBeat.Pages.Participant
+namespace NorthernWinterBeat.Pages.ParticipantRazor
 {
     public class ParticipantArtistModel : PageModel
     {

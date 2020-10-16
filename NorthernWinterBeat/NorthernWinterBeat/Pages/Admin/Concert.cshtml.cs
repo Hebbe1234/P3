@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using NorthernWinterBeatLibrary.Managers;
+using NorthernWinterBeatLibrary;
 
 namespace NorthernWinterBeat.Pages.Admin.Pages
 {
@@ -33,7 +35,15 @@ namespace NorthernWinterBeat.Pages.Admin.Pages
 
             DateTime Start = new DateTime(Year, Month, Day, StartHour, StartMinute, 0);
             DateTime End = new DateTime(Year, Month, Day, EndHour, EndMinute, 0);
+            Concert NewConcert = new Concert();
+            NewConcert.Start = Start;
+            NewConcert.End = End;
+            NewConcert.Artist = Artist;
+            NewConcert.ArtistDescription = Description;
+            NewConcert.State = "Initializing";
 
+            FestivalManager.instance._calendar.AddConcert(NewConcert);
+            //Console.WriteLine(FestivalManager.instance._calendar.);
             return RedirectToPage("./Concert");
 
         // get "participentconcertoverview" til at displaye på "concerts" siden //

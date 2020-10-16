@@ -4,33 +4,29 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using NorthernWinterBeatLibrary.Managers;
 
 namespace NorthernWinterBeat.Pages.Admin
 {
     public class ConcertTabelModel : PageModel
     {
-        //public Concert(DateTime _start, DateTime _end, Venue _venue, string _artist, string _artistDescription)
-        public List<Concert> Concerts { get; set; } = new List<Concert>() {
-            new Concert( new DateTime(2021, 01, 28, 20, 00, 00), new DateTime(2021, 01, 28, 20, 30, 00), new Models.Venue("Studenterhuset", "Borgergase 2", 33), "Martin Hansen", "Fuckig sejg"),
-            new Concert( new DateTime(2021, 01, 28, 21, 00, 00), new DateTime(2021, 01, 28, 21, 30, 00), new Models.Venue("Studenterhuset", "Borgergase 2", 36), "ANders Hansen", "Fuckig sejg"),
-            new Concert( new DateTime(2021, 01, 28, 19, 00, 00), new DateTime(2021, 01, 28, 19, 30, 00), new Models.Venue("Studenterhuset", "Borgergase 2", 38), "Martsefs Hansen", "Fuckig sejg"),
-            new Concert( new DateTime(2021, 01, 28, 19, 45, 00), new DateTime(2021, 01, 28, 20, 45, 00), new Models.Venue("Studenterhuset", "Borgergase 2", 30), "Marsefsetin Hansen", "Fuckig sejg") 
-        };
+        public List<Concert> Concerts { get; set; } = new List<Concert>();
+
         
         [BindProperty (SupportsGet = true)] 
         public string SortBy { get; set; }
 
-        [BindProperty (SupportsGet = true)] 
-        public int ConcertClicked { get; set; }
+        //[BindProperty (SupportsGet = true)] 
+        //public int ConcertClicked { get; set; }
         public void OnGet()
         {
-
+            Concerts = FestivalManager.instance._calendar.GetConcerts(); 
         }
 
-        public IActionResult OnPostConcertClicked(int ConcertID)
-        {
-            return RedirectToPage("./ConcertPage", new { ConcertID = ConcertID });
-        }
+        //public IActionResult OnPostConcertClicked(int ConcertID)
+        //{
+        //    return RedirectToPage("./ConcertPage", new { ConcertID = ConcertID });
+        //}
 
         public IActionResult OnPostSortByTime()
         {
