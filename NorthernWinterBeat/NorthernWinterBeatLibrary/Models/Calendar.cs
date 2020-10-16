@@ -4,11 +4,16 @@ using System.Collections.Generic;
 
 public class Calendar
 {
+    public enum CalendarState
+    {
+        INITIALIZING
+    }
+
     public int ID { get; set; }
 
     public Calendar()
     {
-        State = "Initializing";
+        State = CalendarState.INITIALIZING;
         //Dummy Concerts, which is to get retrieved from the DB
         concerts = new List<Concert>() {
                 new Concert(new DateTime(2020, 10, 08, 20, 00, 00), new DateTime(2020, 10, 08, 21, 00, 00), new Venue("Studenterhuset", "Budolfi Plads", 30 ), "Lil Pump", "Han er sej" ) {ID =1 },
@@ -36,11 +41,9 @@ public class Calendar
 
     private List<Concert> concerts = new List<Concert>();
 
-    private List<Concert> Concerts = new List<Concert>();
-
     private List<Venue> venues = new List<Venue>(); 
 
-    public string State { get; set; }
+    public CalendarState State { get; set; }
 
     public void AddConcert(Concert concert, string VenueName = "")
     {

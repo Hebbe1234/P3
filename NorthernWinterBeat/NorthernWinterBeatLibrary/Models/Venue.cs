@@ -7,10 +7,14 @@ namespace NorthernWinterBeat.Models
 {
     public class Venue
     {
-  
+
+        public enum VenueState
+        {
+            ACTIVE
+        }
+
         public Venue()
         {
-
         }
 
         public Venue(string _name, string _address, int _capacity)
@@ -18,11 +22,11 @@ namespace NorthernWinterBeat.Models
             Name = _name;
             Address = _address;
             Capacity = _capacity;
-            State = "Active"; 
+            State = VenueState.ACTIVE; 
         }
         public int ID { get; set; }
         public string Name { get; set; }
-        public string State { get; set; }
+        public VenueState State { get; set; }
         public string Address { get; set; }
         public int Capacity { get; set; }
     }
