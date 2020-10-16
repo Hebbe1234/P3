@@ -11,7 +11,7 @@ namespace NorthernWinterBeat.Pages.Admin
 {
     public class CalendarModel : PageModel
     {
-        public List<Concert> Concerts { get; set; } = new List<Concert>();
+        public List<Concert> concerts { get; set; } = new List<Concert>();
 
 
         [BindProperty(SupportsGet = true)]
@@ -19,9 +19,13 @@ namespace NorthernWinterBeat.Pages.Admin
 
         //[BindProperty (SupportsGet = true)] 
         //public int ConcertClicked { get; set; }
+        public CalendarModel()
+        {
+            concerts = FestivalManager.instance._calendar.GetConcerts();
+        }
         public void OnGet()
         {
-            Concerts = FestivalManager.instance._calendar.GetConcerts();
+            concerts = FestivalManager.instance._calendar.GetConcerts();
         }
 
         //public IActionResult OnPostConcertClicked(int ConcertID)
@@ -61,7 +65,7 @@ namespace NorthernWinterBeat.Pages.Admin
             }
             else if (SortBy == "Capacity")
             {
-                SortConcert = SortConcert.OrderBy(o => o.Capacity).ThenBy(o => o.Start).ToList<Concert>();
+                SortConcert = SortConcert.OrderBy(o => o.Venue.Capacity).ThenBy(o => o.Start).ToList<Concert>();
             }
 
             return SortConcert;

@@ -107,7 +107,7 @@
     <tbody>
 
         @{
-            List<Concert> SortConcert = new List<Concert>(Model.Concerts);
+            List<Concert> SortConcert = new List<Concert>(Model.concerts);
 
             SortConcert = Model.SortConcertBy(SortConcert);
 

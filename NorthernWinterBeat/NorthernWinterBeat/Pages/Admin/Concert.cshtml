@@ -7,7 +7,7 @@
     <h1 class="display-3"> Add concert information </h1>
 </div>
 
-<form method="post">
+<form method="post" asp-page-handler="CreateConcert">
 
     <h3>Artist</h3>
     <input name="ArtistEntered" type="text" placeholder="Enter artist" minlength="1" required />
@@ -18,8 +18,18 @@
     <h3>Image</h3>
     <input name="ImageEntered" type="file" placeholder="Add image" required />
     <br>
+    <br>
     <h3>Venue</h3>
-    <input name="VenueEntered" type="text" placeholder="Enter venue" minlength="1" required />
+    @*<label></label>*@
+    <select id="myList" name="VenueEntered">
+        @{ 
+            foreach (var venue in Model.venues)
+            {
+                <option value="@venue.Name"> @venue.Name</option>
+            }
+        }
+    </select>
+
     <br>
     <h3>Date</h3>
     <input name="DateEntered" type="date" placeholder="Enter date" min="2021-01-28" max="2021-01-30" required />
@@ -32,7 +42,9 @@
     <br>
     <br>
 
-    <input type="submit" value="Confirm" asp-area="" asp-page="/Admin/Calendar">
+    @*<button class="btn btn-default">Confirm</button>*@
+
+    <input type="submit" value="Confirm" />
 
     <input type="button" value="Cancel" data-toggle="modal" data-target="#Cancel">
 
