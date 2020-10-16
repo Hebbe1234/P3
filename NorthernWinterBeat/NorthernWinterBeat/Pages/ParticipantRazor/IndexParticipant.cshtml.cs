@@ -5,14 +5,12 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace NorthernWinterBeat.Pages.Participant
+namespace NorthernWinterBeat.Pages.ParticipantRazor
 {
-    public class ParticipantShowBookingModel : PageModel
+    public class IndexUserModel : PageModel
     {
-        public string ticketNumber { get; private set; }
         public void OnGet()
         {
-            ticketNumber = "ASDSD8AS9D98934";
         }
     }
 }
