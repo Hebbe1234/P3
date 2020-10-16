@@ -6,9 +6,14 @@ using System.Collections.Generic;
 public class Concert
 {
 
+    public enum ConcertState
+    {
+        CREATION, MAX_CAPACITY, ACTIVE, CONCERT_HELD, INACTIVE
+    }
+
     public Concert()
     {
-        State = "Creation"; 
+        State = ConcertState.CREATION; 
     }
     public Concert(DateTime _start, DateTime _end, string _artist, string _artistDescription)
     {
@@ -16,7 +21,7 @@ public class Concert
         End = _end;
         Artist = _artist;
         ArtistDescription = _artistDescription;
-        State = "Creation";
+        State = ConcertState.CREATION;
     }
     public Concert(DateTime _start, DateTime _end, Venue _venue, string _artist, string _artistDescription)
 	{
@@ -25,10 +30,10 @@ public class Concert
         Venue = _venue;
         Artist = _artist;
         ArtistDescription = _artistDescription;
-        State = "Creation"; 
+        State = ConcertState.CREATION; 
 	}
     public int ID { get; set; }
-    public string State { get; set; }
+    public ConcertState State { get; set; }
     public Venue Venue { get; set; }
     public string Artist { get; set; }
     public string ArtistDescription { get; set; }
@@ -49,7 +54,7 @@ public class Concert
     {
         Booking booking = null;
 
-        if (State != "Maximum Capacity" && p.CanMakeBookingAt(this))
+        if (State != ConcertState.MAX_CAPACITY && p.CanMakeBookingAt(this))
         {
             booking =  new Booking(p, this);
             Bookings.Add(booking);
