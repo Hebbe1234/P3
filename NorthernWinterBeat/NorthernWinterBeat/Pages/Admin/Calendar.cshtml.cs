@@ -6,21 +6,22 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using NorthernWinterBeatLibrary.Managers;
 
+
 namespace NorthernWinterBeat.Pages.Admin
 {
-    public class ConcertTabelModel : PageModel
+    public class CalendarModel : PageModel
     {
         public List<Concert> Concerts { get; set; } = new List<Concert>();
 
-        
-        [BindProperty (SupportsGet = true)] 
+
+        [BindProperty(SupportsGet = true)]
         public string SortBy { get; set; }
 
         //[BindProperty (SupportsGet = true)] 
         //public int ConcertClicked { get; set; }
         public void OnGet()
         {
-            Concerts = FestivalManager.instance._calendar.GetConcerts(); 
+            Concerts = FestivalManager.instance._calendar.GetConcerts();
         }
 
         //public IActionResult OnPostConcertClicked(int ConcertID)
@@ -30,19 +31,19 @@ namespace NorthernWinterBeat.Pages.Admin
 
         public IActionResult OnPostSortByTime()
         {
-            return RedirectToPage("./ConcertTabel", new { SortBy = "Time" });
+            return RedirectToPage("./Calendar", new { SortBy = "Time" });
         }
         public IActionResult OnPostSortByArtist()
         {
-            return RedirectToPage("./ConcertTabel", new { SortBy = "Artist" });
+            return RedirectToPage("./Calendar", new { SortBy = "Artist" });
         }
         public IActionResult OnPostSortByVenue()
         {
-            return RedirectToPage("./ConcertTabel", new { SortBy = "Venue" });
+            return RedirectToPage("./Calendar", new { SortBy = "Venue" });
         }
         public IActionResult OnPostSortByCapacity()
         {
-            return RedirectToPage("./ConcertTabel", new { SortBy = "Capacity" });
+            return RedirectToPage("./Calendar", new { SortBy = "Capacity" });
         }
         public List<Concert> SortConcertBy(List<Concert> SortConcert)
         {
@@ -63,7 +64,7 @@ namespace NorthernWinterBeat.Pages.Admin
                 SortConcert = SortConcert.OrderBy(o => o.Capacity).ThenBy(o => o.Start).ToList<Concert>();
             }
 
-            return SortConcert; 
+            return SortConcert;
         }
 
     }

@@ -1,0 +1,63 @@
+﻿@page
+@model NorthernWinterBeat.Pages.Admin.EditConcertModel
+@{
+}
+
+<div class="text-lg-center">
+    <h1 class="display-3"> Edit concert information </h1>
+</div>
+
+<form method="post">
+
+    <h3>Artist</h3>
+    <input name="ArtistEntered" type="text" placeholder="Enter artist" minlength="1" contenteditable="true" value="Stine" />
+    <br>
+    <h3>Description</h3>
+    <input name="DescriptionEntered" type="text" placeholder="Enter description" minlength="1" value="nice concert" />
+    <br>
+    <h3>Image</h3>
+    <input name="ImageEntered" type="file" placeholder="Add image" />
+    <br>
+    <h3>Venue</h3>
+    <input name="VenueEntered" type="text" placeholder="Enter venue" minlength="1" contenteditable="true" value="Henlo" />
+    <br>
+    <h3>Date</h3>
+    <input name="DateEntered" type="date" placeholder="Enter date" contenteditable="true" min="2021-01-28" max="2021-01-30" value="2021-01-28" />
+    <br>
+    <h3>Start time</h3>
+    <input name="StartTimeEntered" type="time" placeholder="Enter start time" contenteditable="true" value="12:48" />
+    <br>
+    <h3>End time</h3>
+    <input name="EndTimeEntered" type="time" placeholder="Enter end time" contenteditable="true" value="14:20" />
+    <br>
+    <br>
+
+    <input type="submit" value="Confirm" asp-area="" asp-page="/Admin/Concerts">
+
+
+    <input type="button" value="Cancel" data-toggle="modal" data-target="#Cancel">
+
+    <div class="modal fade" id="Cancel" tabindex="-1" role="dialog" aria-labelledby="CancelLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="Cancel"> Edit concert ? </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                     Are you sure you want to finish editing without saving?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal"> No </button>
+                    <a class="nav-link text-dark" asp-area="" asp-page="/Admin/Concerts">
+                        <input type="button" class="btn btn-primary" value="Yes" />
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</form>
