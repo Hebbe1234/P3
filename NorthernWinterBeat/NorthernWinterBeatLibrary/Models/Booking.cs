@@ -5,7 +5,7 @@ public class Booking
 {
 	public enum BookingState
     {
-		ACTIVE
+		ACTIVE, INACTIVE
     }
     public int ID { get; set; }
     public Booking(Participant _participant, Concert _concert)

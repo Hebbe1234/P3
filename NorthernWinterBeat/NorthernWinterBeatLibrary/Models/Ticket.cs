@@ -5,7 +5,7 @@ public class Ticket
 {
     public enum TicketState
     {
-        AWAIT_VALIDATION
+        AWAIT_VALIDATION, ACTIVE, INACTIVE
     }
     public Ticket(int _ticketNumber)
     {

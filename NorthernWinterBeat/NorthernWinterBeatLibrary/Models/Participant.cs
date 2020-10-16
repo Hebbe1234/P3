@@ -7,7 +7,7 @@ namespace NorthernWinterBeat.Models
 	{
 		public enum ParticipantState
         {
-			ACTIVE
+			ACTIVE, INACTIVE
         }
 		public Participant(Ticket _ticket)
 		{

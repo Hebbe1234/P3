@@ -10,7 +10,7 @@ namespace NorthernWinterBeat.Models
 
         public enum VenueState
         {
-            ACTIVE
+            ACTIVE, INACTIVE
         }
 
         public Venue()

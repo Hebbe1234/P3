@@ -8,7 +8,7 @@ public class Concert
 
     public enum ConcertState
     {
-        CREATION, MAX_CAPACITY
+        CREATION, MAX_CAPACITY, ACTIVE, CONCERT_HELD, INACTIVE
     }
 
     public Concert()

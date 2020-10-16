@@ -6,7 +6,7 @@ public class Calendar
 {
     public enum CalendarState
     {
-        INITIALIZING
+        INITIALIZING, ACTIVE, INACTIVE
     }
 
     public int ID { get; set; }
