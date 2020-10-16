@@ -23,15 +23,31 @@ public class Calendar
                 new Concert(new DateTime(2020, 10, 10, 20, 00, 00), new DateTime(2020, 10, 08, 21, 00, 00), new Venue("Studenterhuset", "Budolfi Plads", 30 ), "Drake", "Han er sej" ){ID =8 },
                 new Concert(new DateTime(2020, 10, 10, 20, 00, 00), new DateTime(2020, 10, 08, 21, 00, 00), new Venue("Studenterhuset", "Budolfi Plads", 30 ), "Drake", "Han er sej" ){ID =9 }
             };
+        //Dummy Venues, which is to get retrieced from the DB
+        venues = new List<Venue>()
+        {
+            new Venue("Studenterhuset", "Borgergade 3, Aalborg, 9000", 35),
+            new Venue("Martinshust", "Borgergade 4, Aalborg, 9000", 2),
+            new Venue("JoachimsHus", "Borgergade 5, Aalborg, 9000", 8),
+            new Venue("RasmusHus", "Borgergade 6, Aalborg, 9000", 40),
+            new Venue("StinesHus", "Borgergade 7, Aalborg, 9000", 20),
+        };
     }
 
     private List<Concert> concerts = new List<Concert>();
 
     private List<Concert> Concerts = new List<Concert>();
+
+    private List<Venue> venues = new List<Venue>(); 
+
     public string State { get; set; }
 
-    public void AddConcert(Concert concert)
+    public void AddConcert(Concert concert, string VenueName = "")
     {
+        if(VenueName != "")
+        {
+            concert.Venue = venues.Find(v => v.Name == VenueName);
+        }
         concerts.Add(concert);
     }
 
@@ -44,7 +60,10 @@ public class Calendar
     {
         return concerts.Find(c => c.ID == id);
     }
-
+    public List<Venue> GetVenues()
+    {
+        return venues; 
+    }
     public List<Concert> GetConcerts()
     {
         return concerts;
