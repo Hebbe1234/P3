@@ -1,9 +1,10 @@
 ﻿using NorthernWinterBeatLibrary.Managers;
+using NorthernWinterBeatLibrary.Models;
 using System;
 using System.Collections.Generic;
 
 namespace NorthernWinterBeat.Models
-{	public class Participant
+{	public class Participant : User
 	{
 		public enum ParticipantState
         {
@@ -18,8 +19,8 @@ namespace NorthernWinterBeat.Models
         public ParticipantState State { get; set; }
         public string Name { get; set; } = "";
 		public Ticket Ticket { get; protected set; }
-		public string Username { get; set; }
-		public string Password { get; set; }
+		//public string Username { get; set; }
+		//public string Password { get; set; }
 
         public bool CanMakeBookingAt(Concert concert)
         {
@@ -33,9 +34,6 @@ namespace NorthernWinterBeat.Models
             }
 
 			return true;
-        }
-		
+        }	
     }
-
-	
 }
