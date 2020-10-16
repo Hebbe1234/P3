@@ -14,6 +14,8 @@ namespace NorthernWinterBeatLibrary.Managers
 
         public static FestivalManager instance;
 
+        private List<Participant> participants = new List<Participant>() { new Participant(new Ticket(234)) };
+
         public FestivalManager()
         {
             if(instance == null)
@@ -47,12 +49,13 @@ namespace NorthernWinterBeatLibrary.Managers
                 ID = 10
             });
 
-            
-    }
+
+        }
 
         public List<Participant> GetParticipants()
         {
-            return new List<Participant>();
+            return participants;
+
         }
 
 

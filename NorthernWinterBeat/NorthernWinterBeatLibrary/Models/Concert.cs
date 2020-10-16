@@ -10,7 +10,7 @@ public class Concert
     {
 
     }
-	public Concert(DateTime _start, DateTime _end, Venue _venue, string _artist, string _artistDescription)
+    public Concert(DateTime _start, DateTime _end, Venue _venue, string _artist, string _artistDescription)
 	{
         Start = _start;
         End = _end;
@@ -28,7 +28,7 @@ public class Concert
     public DateTime Start { get; set; }
     public DateTime End { get; set; }
     public int Capacity { get; set; }
-    private List<Booking> Bookings = new List<Booking>();
+    public List<Booking> Bookings = new List<Booking>();
 
 	public void AddBooking(Booking booking)
     {
@@ -38,4 +38,19 @@ public class Concert
     {
 		Bookings.Remove(booking);
     }
+
+    public Booking MakeBooking(Participant p)
+    {
+        Booking booking = null;
+
+        if (State != "Maximum Capacity" && p.CanMakeBookingAt(this))
+        {
+            booking =  new Booking(p, this);
+            Bookings.Add(booking);
+        }
+
+        
+        return booking;
+    }
+
 }

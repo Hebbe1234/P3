@@ -17,16 +17,16 @@ namespace NorthernWinterBeat.Pages.ParticipantRazor
                 new Booking(
                     new Models.Participant(new Ticket(1))
                     ,
-                    new Concert() 
-                    { 
-                        Artist = "Martin", 
-                        Start = DateTime.Now, 
-                        Venue = new Models.Venue() 
-                        { 
-                            Address = "Studenterhuset" 
-                        } 
+                    new Concert()
+                    {
+                        Artist = "Martin",
+                        Start = DateTime.Now,
+                        Venue = new Models.Venue()
+                        {
+                            Address = "Studenterhuset"
+                        }
                     }
-                )    
+                )
             );
             bookings.Add(
                 new Booking(
