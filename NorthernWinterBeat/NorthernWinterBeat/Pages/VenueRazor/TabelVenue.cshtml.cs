@@ -50,7 +50,7 @@ namespace NorthernWinterBeat.Pages.VenueRazor
                 return Concerts.OrderBy(o => o.Artist).ThenBy(o => o.Start).ToList<Concert>();
             } else if(SortBy == "Capacity")
             {
-                return Concerts.OrderBy(o => o.Capacity).ThenBy(o => o.Start).ToList<Concert>();
+                return Concerts.OrderBy(o => o.Venue.Capacity).ThenBy(o => o.Start).ToList<Concert>();
             } else
             {
                 return Concerts.OrderBy(o => o.Start).ThenBy(o => o.End).ThenBy(o => o.Artist).ToList<Concert>();

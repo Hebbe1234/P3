@@ -11,7 +11,6 @@ namespace NorthernWinterBeatLibrary.Managers
     /// </summary>
     public class FestivalManager
     {
-
         public static FestivalManager instance;
 
         private List<Participant> participants = new List<Participant>() { new Participant(new Ticket(234)) };
@@ -42,7 +41,6 @@ namespace NorthernWinterBeatLibrary.Managers
                 + "“Joe and The Shitboys were the best thing we saw at Iceland Airwaves … No - one is safe from their cheeky tongue and no - bullshit approach.” – NME"
                 + "“The band are truly causing mayhem and we’re so here for it.” – The Line of Best Fit"
                 + "“Chaotic” – Dork",
-                Capacity = 59,
                 Start = DateTime.Now,
                 End = DateTime.Now.AddMinutes(100),
                 Venue = new Venue("Shit", "shit", 59),

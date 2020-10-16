@@ -8,7 +8,15 @@ public class Concert
 
     public Concert()
     {
-
+        State = "Creation"; 
+    }
+    public Concert(DateTime _start, DateTime _end, string _artist, string _artistDescription)
+    {
+        Start = _start;
+        End = _end;
+        Artist = _artist;
+        ArtistDescription = _artistDescription;
+        State = "Creation";
     }
     public Concert(DateTime _start, DateTime _end, Venue _venue, string _artist, string _artistDescription)
 	{
@@ -17,7 +25,6 @@ public class Concert
         Venue = _venue;
         Artist = _artist;
         ArtistDescription = _artistDescription;
-        Capacity = Venue.Capacity;
         State = "Creation"; 
 	}
     public int ID { get; set; }
@@ -27,7 +34,6 @@ public class Concert
     public string ArtistDescription { get; set; }
     public DateTime Start { get; set; }
     public DateTime End { get; set; }
-    public int Capacity { get; set; }
     public List<Booking> Bookings = new List<Booking>();
 
 	public void AddBooking(Booking booking)
@@ -52,5 +58,4 @@ public class Concert
         
         return booking;
     }
-
 }
