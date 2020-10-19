@@ -31,11 +31,11 @@ public class Calendar
         //Dummy Venues, which is to get retrieced from the DB
         venues = new List<Venue>()
         {
-            new Venue("Studenterhuset", "Borgergade 3, Aalborg, 9000", 35),
-            new Venue("Martinshust", "Borgergade 4, Aalborg, 9000", 2),
-            new Venue("JoachimsHus", "Borgergade 5, Aalborg, 9000", 8),
-            new Venue("RasmusHus", "Borgergade 6, Aalborg, 9000", 40),
-            new Venue("StinesHus", "Borgergade 7, Aalborg, 9000", 20),
+            new Venue("Studenterhuset", "Borgergade 3, Aalborg, 9000", 35){ID = 0 },
+            new Venue("Martinshust", "Borgergade 4, Aalborg, 9000", 2){ID = 1 },
+            new Venue("JoachimsHus", "Borgergade 5, Aalborg, 9000", 8){ID = 2 },
+            new Venue("RasmusHus", "Borgergade 6, Aalborg, 9000", 40){ID = 3 },
+            new Venue("StinesHus", "Borgergade 7, Aalborg, 9000", 20){ID = 4 },
         };
     }
 
@@ -53,6 +53,10 @@ public class Calendar
         }
         concerts.Add(concert);
     }
+    public void AddVenue(Venue venue)
+    {
+        venues.Add(venue); 
+    }
 
     public void RemoveConcert(Concert concert)
     {
@@ -63,14 +67,21 @@ public class Calendar
     {
         return concerts.Find(c => c.ID == id);
     }
+    public Venue GetVenue(int id)
+    {
+        return venues.Find(v => v.ID == id); 
+    }
     public List<Venue> GetVenues()
     {
         return venues; 
     }
+    public List<Concert> GetConcertsAtVenue(string name)
+    {
+        return concerts.FindAll(c => c.Venue.Name == name); 
+    }
     public List<Concert> GetConcerts()
     {
         return concerts;
-
     }
 }
 
