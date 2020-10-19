@@ -6,13 +6,17 @@ using System.Collections.Generic;
 namespace NorthernWinterBeat.Models
 {	public class Participant : User
 	{
+		public enum ParticipantState
+        {
+			ACTIVE, INACTIVE
+        }
 		public Participant(Ticket _ticket)
 		{
 			Ticket = _ticket;
-			State = "Active"; 
+			State = ParticipantState.ACTIVE; 
 		}
 		public int ID { get; set; }
-        public string State { get; set; }
+        public ParticipantState State { get; set; }
         public string Name { get; set; } = "";
 		public Ticket Ticket { get; protected set; }
 		//public string Username { get; set; }
