@@ -14,7 +14,7 @@
         <div class="row">
             <div class="col-8"> <p> Address: @Model.venue.Address</p> </div>
             <div class="col-4">
-                <button type="button" class="float-right" data-toggle="modal" data-target="#editVenue">
+                <button type="button" class="float-right" data-toggle="modal" onclick="location.href = '@(Url.Page("EditVenue", new { id = Model.id }))'">
                     <i class="fas fa-pencil-alt"></i>
                 </button>
             </div>
@@ -30,19 +30,22 @@
         <tr>
             <th>
                 <form asp-page-handler="SortByArtist" method="post">
-                    <button class="btn btn-default">Kunstner</button>
+                    @Html.Hidden("id", Model.venue.ID)
+                    <button class="btn btn-default">Artist</button>
                 </form>
 
             </th>
             <th>
                 <form asp-page-handler="SortByTime" method="post">
-                    <button class="btn btn-default">Spilletid</button>
+                    @Html.Hidden("id", Model.venue.ID)
+                    <button class="btn btn-default">Play Time</button>
                 </form>
 
             </th>
             <th>
                 <form asp-page-handler="SortByCapacity" method="post">
-                    <button class="btn btn-default">Kapacitet</button>
+                    @Html.Hidden("id", Model.venue.ID)
+                    <button class="btn btn-default">Capacity</button>
                 </form>
             </th>
         </tr>
@@ -50,15 +53,16 @@
     <tbody>
 
         @{
-            //List<Concert> SortConcert = new List<Concert>(Model.concerts);
 
-            //SortConcert = Model.SortConcertBy(SortConcert);
+
 
             string zero = "00";
 
             int i = 0;
             if (Model.concerts != null)
             {
+                List<Concert> SortConcert = new List<Concert>(Model.concerts);
+                SortConcert = Model.SortConcerts(SortConcert);
                 foreach (var item in Model.concerts)
                 {
                     <tr onclick="location.href = '@(Url.Page("ConcertPage", new { id = item.ID }))'">
@@ -70,9 +74,9 @@
                         <td>
                             @item.Start.Hour:@if (item.Start.Minute == 0)
                             {@zero;
-                            }
-                            else
-                            {@item.Start.Minute}
+                        }
+                        else
+                        {@item.Start.Minute}
                         </td>
 
                         <td>
@@ -81,7 +85,8 @@
                     </tr>
                     i++;
                 }
-            } else
+            }
+            else
             {
                 <p> Der er vidst indgen koncerter der høre til denne venue</p>
             }
@@ -118,39 +123,38 @@
 
 
 
+@*
+    <div class="list-group">
+        <table>
+            <thread>
+                <tr>
+                    <th scope="col"> Artist </th>
+                    <th scope="col"> Datetime </th>
+                    <th scope="col"> Capacity </th>
+                </tr>
+            </thread>
+            <tbody>
+                <tr>
+                    <td> jokes </td>
+                    <td> 11-12-2020 14.48.00 </td>
+                    <td> 10/20 </td>
+                    <td> <button class="btn btn-secondary float-right" style="margin: 20px" data-toggle="modal" data-target="#unbookConcert"> Unbook </button> </td>
 
 
-<div class="list-group">
-    <table>
-        <thread>
-            <tr>
-                <th scope="col"> Artist </th>
-                <th scope="col"> Datetime </th>
-                <th scope="col"> Capacity </th>
-            </tr>
-        </thread>
-        <tbody>
-            <tr>
-                <td> jokes </td>
-                <td> 11-12-2020 14.48.00 </td>
-                <td> 10/20 </td>
-                <td> <button class="btn btn-secondary float-right" style="margin: 20px" data-toggle="modal" data-target="#unbookConcert"> Unbook </button> </td>
+                </tr>
 
+                <tr>
+                    <td> 2 cash </td>
+                    <td> 11-12-2020 14.48.00 </td>
+                    <td> 10/20 </td>
+                    <td> <button class="btn btn-secondary float-right" style="margin: 20px" data-toggle="modal" data-target="#unbookConcert"> Unbook </button> </td>
 
-            </tr>
+                </tr>
 
-            <tr>
-                <td> 2 cash </td>
-                <td> 11-12-2020 14.48.00 </td>
-                <td> 10/20 </td>
-                <td> <button class="btn btn-secondary float-right" style="margin: 20px" data-toggle="modal" data-target="#unbookConcert"> Unbook </button> </td>
-
-            </tr>
-
-        </tbody>
-    </table>
-</div>
-
+            </tbody>
+        </table>
+    </div>
+*@
 <div class="modal fade" id="editVenue" tabindex="-1" role="dialog" aria-labelledby="editVenueLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">

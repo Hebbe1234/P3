@@ -28,16 +28,16 @@ namespace NorthernWinterBeat.Pages.Admin
 
         public IActionResult OnPostSortByVenue()
         {
-            return RedirectToPage("./venues", new { SortBy = "Venue" });
+            return RedirectToPage("./Venues", new { SortBy = "Venue" });
 
         }
         public IActionResult OnPostSortByCapacity()
         {
-            return RedirectToPage("./venues", new { SortBy = "Capacity" });
+            return RedirectToPage("./Venues", new { SortBy = "Capacity" });
         }
         public IActionResult OnPostSortByAddress()
         {
-            return RedirectToPage("./venues", new { SortBy = "Address" });
+            return RedirectToPage("./Venues", new { SortBy = "Address" });
         }
         
         public List<Venue> SortVenues(List<Venue> SortVenues)

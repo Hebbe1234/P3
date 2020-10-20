@@ -17,15 +17,15 @@ public class Calendar
         //Dummy Concerts, which is to get retrieved from the DB
         concerts = new List<Concert>() {
                 new Concert(new DateTime(2020, 10, 08, 20, 00, 00), new DateTime(2020, 10, 08, 21, 00, 00), new Venue("Studenterhuset", "Budolfi Plads", 30 ), "Lil Pump", "Han er sej" ) {ID =1 },
-                new Concert(new DateTime(2020, 10, 08, 20, 00, 00), new DateTime(2020, 10, 08, 21, 00, 00), new Venue("Studenterhuset", "Budolfi Plads", 30 ), "Lil Pump", "Han er sej" ){ID =2 },
-                new Concert(new DateTime(2020, 10, 08, 20, 00, 00), new DateTime(2020, 10, 08, 21, 00, 00), new Venue("Studenterhuset", "Budolfi Plads", 30 ), "Lil Pump", "Han er sej" ){ID =3 },
+                new Concert(new DateTime(2020, 10, 08, 20, 00, 00), new DateTime(2020, 10, 08, 21, 00, 00), new Venue("Martinshust", "Budolfi Plads", 30 ), "Lil Pump", "Han er sej" ){ID =2 },
+                new Concert(new DateTime(2020, 10, 08, 20, 00, 00), new DateTime(2020, 10, 08, 21, 00, 00), new Venue("Martinshust", "Budolfi Plads", 30 ), "Lil Pump", "Han er sej" ){ID =3 },
 
                 new Concert(new DateTime(2020, 10, 09, 20, 00, 00), new DateTime(2020, 10, 08, 21, 00, 00), new Venue("Studenterhuset", "Budolfi Plads", 30 ), "Bad Bunny", "Han er sej" ){ID =4 },
-                new Concert(new DateTime(2020, 10, 09, 20, 00, 00), new DateTime(2020, 10, 08, 21, 00, 00), new Venue("Studenterhuset", "Budolfi Plads", 30 ), "Bad Bunny", "Han er sej" ){ID =5 },
-                new Concert(new DateTime(2020, 10, 09, 20, 00, 00), new DateTime(2020, 10, 08, 21, 00, 00), new Venue("Studenterhuset", "Budolfi Plads", 30 ), "Bad Bunny", "Han er sej" ){ID =6 },
+                new Concert(new DateTime(2020, 10, 09, 20, 00, 00), new DateTime(2020, 10, 08, 21, 00, 00), new Venue("JoachimsHus", "Budolfi Plads", 30 ), "Bad Bunny", "Han er sej" ){ID =5 },
+                new Concert(new DateTime(2020, 10, 09, 20, 00, 00), new DateTime(2020, 10, 08, 21, 00, 00), new Venue("JoachimsHus", "Budolfi Plads", 30 ), "Bad Bunny", "Han er sej" ){ID =6 },
 
-                new Concert(new DateTime(2020, 10, 10, 20, 00, 00), new DateTime(2020, 10, 08, 21, 00, 00), new Venue("Studenterhuset", "Budolfi Plads", 30 ), "Drake", "Han er sej" ){ID =7 },
-                new Concert(new DateTime(2020, 10, 10, 20, 00, 00), new DateTime(2020, 10, 08, 21, 00, 00), new Venue("Studenterhuset", "Budolfi Plads", 30 ), "Drake", "Han er sej" ){ID =8 },
+                new Concert(new DateTime(2020, 10, 10, 20, 00, 00), new DateTime(2020, 10, 08, 21, 00, 00), new Venue("StinesHus", "Budolfi Plads", 30 ), "Drake", "Han er sej" ){ID =7 },
+                new Concert(new DateTime(2020, 10, 10, 20, 00, 00), new DateTime(2020, 10, 08, 21, 00, 00), new Venue("StinesHus", "Budolfi Plads", 30 ), "Drake", "Han er sej" ){ID =8 },
                 new Concert(new DateTime(2020, 10, 10, 20, 00, 00), new DateTime(2020, 10, 08, 21, 00, 00), new Venue("Studenterhuset", "Budolfi Plads", 30 ), "Drake", "Han er sej" ){ID =9 }
             };
         //Dummy Venues, which is to get retrieced from the DB
@@ -82,6 +82,14 @@ public class Calendar
     public List<Concert> GetConcerts()
     {
         return concerts;
+    }
+
+    public void EditVenue(int id, Venue NewVenueInfo)
+    {
+        Venue venue = venues.Find(v => v.ID == id);
+        venue.Capacity = NewVenueInfo.Capacity;
+        venue.Address = NewVenueInfo.Address;
+        venue.Name = NewVenueInfo.Name;
     }
 }
 
