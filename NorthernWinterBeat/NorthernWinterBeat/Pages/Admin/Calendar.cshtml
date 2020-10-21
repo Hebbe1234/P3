@@ -22,61 +22,6 @@
     </div>
 </div>
 
-
-<div class="modal fade" id="newConcert" tabindex="-1" role="dialog" aria-labelledby="newConcertLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="newConcert"> Add new concert? </h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                Do you want to add a new concert to the calendar?
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal"> No </button>
-                <a class="nav-link text-dark" asp-area="" asp-page="/Admin/Concert">
-                    <input type="button" class="btn btn-primary" value="Yes" />
-                </a>
-            </div>
-        </div>
-    </div>
-</div>
-
-@*<table class="table" style="width: 100%">
-        <thead class="thead-dark">
-            <tr>
-                <th scope="col"> Artist </th>
-                <th scope="col"> Venue </th>
-                <th scope="col"> Datetime </th>
-                <th scope="col"> Capacity </th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td><a class="btn-link text-dark" asp-area="" asp-page="/Admin/Concerts"> Mark </a></td>
-                <td>udenfor</td>
-                <td>14.30</td>
-                <td> 19/21 </td>
-            </tr>
-            <tr>
-                <td><a class="btn-link text-dark" asp-area="" asp-page="/Admin/Concerts"> Ole </a></td>
-                <td>udenfor</td>
-                <td>14.30</td>
-                <td> 20/49 </td>
-            </tr>
-            <tr>
-                <td><a class="btn-link text-dark" asp-area="" asp-page="/Admin/Concerts"> Joachim the shitboy </a></td>
-                <td>udenfor</td>
-                <td>14.30</td>
-                <td> 5/9 </td>
-            </tr>
-        </tbody>
-    </table>*@
-
-
 <table class="table table-hover" table-bordered>
     <thead>
         <tr>
@@ -105,10 +50,8 @@
         </tr>
     </thead>
     <tbody>
-
         @{
             List<Concert> SortConcert = new List<Concert>(Model.concerts);
-
             SortConcert = Model.SortConcertBy(SortConcert);
 
             string zero = "00";
@@ -116,12 +59,10 @@
             int i = 0;
             foreach (var item in SortConcert)
             {
-                <tr onclick="location.href = '@(Url.Page("Concerts", new { id = item.ID }))'">
+                <tr onclick="location.href = '@(Url.Page("ConcertPage", new { id = item.ID }))'">
                     <td>
                         @item.Artist
                     </td>
-
-
                     <td>
                         @item.Venue.Name
                     </td>
@@ -141,14 +82,34 @@
                 i++;
             }
         }
-
-
     </tbody>
 </table>
 
 
 <input type="button" value="Publish" data-toggle="modal" data-target="#Publish">
 
+
+<div class="modal fade" id="newConcert" tabindex="-1" role="dialog" aria-labelledby="newConcertLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="newConcert"> Add new concert? </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Do you want to add a new concert to the calendar?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal"> No </button>
+                <a class="nav-link text-dark" asp-area="" asp-page="/Admin/Concert">
+                    <input type="button" class="btn btn-primary" value="Yes" />
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="modal fade" id="Publish" tabindex="-1" role="dialog" aria-labelledby="PublishLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">

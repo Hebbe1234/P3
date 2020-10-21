@@ -25,7 +25,6 @@ namespace NorthernWinterBeat.Pages.Admin.Pages
 
         public IActionResult OnPostCreateConcert()
         {
-
             string Artist = Request.Form["ArtistEntered"];
             string Description = Request.Form["DescriptionEntered"];
             string Image = Request.Form["ImageEntered"];   // Dette virker lidt fjollet umiddelbart. 

@@ -1,14 +1,174 @@
 ﻿@page
 @model NorthernWinterBeat.Pages.Admin.ConcertPageModel
 @{
+    ViewData["Title"] = "Concerts";
 }
-Her skal siden med information omkring den specifikke koncert være. 
-@{
 
-    <p>@Model.concert.ID</p>
-    <p>@Model.concert.Artist</p>
-    <p>@Model.concert.Venue.Name</p>
-    <p>@Model.concert.Venue.Capacity</p>
-    <p>@Model.concert.Start</p>
 
-}
+<div class="card">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-8"> <h3> @Model.concert.Artist </h3> </div>
+        </div>
+
+        <div class="row">
+            <div class="col-8"> <p>Capacity: @Model.concert.Venue.Capacity </p> </div>
+            <div class="col-8"> <p>Venue: @Model.concert.Venue.Name </p> </div>
+            <div class="col-8"> <p>Start: @Model.concert.Start </p> </div>
+            <div class="col-8"> <p> Beskrivelse: @Model.concert.ArtistDescription </p> </div>
+            <div class="col-4">
+                <button type="button" class="float-right" data-toggle="modal" onclick="location.href = '@(Url.Page("EditConcert", new { id = Model.concert.ID }))'">
+                    <i class="fas fa-pencil-alt"></i>
+                </button>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+<br>
+
+<table>
+    <thead>
+        <tr>
+            <th>
+                <button class="btn btn-default">Email Address</button>
+            </th>
+            <th>
+                <button class="btn btn-default">Booking Date</button>
+            </th>
+            <th>
+                <button class="btn btn-default">Remove Booking</button>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @{ 
+            Console.WriteLine("Hej 47");
+            foreach(Booking item in Model.concert.Bookings)
+            {
+                <tr>
+                    <td>
+                        @item.Participant.Name
+                    </td>
+                    <td>
+                        @item.Concert.Artist
+                    </td>
+                    <td> 
+                    <button class="btn btn-secondary float-right" style="margin: 20px" data-toggle="modal" data-target="#cancelConcert">
+                        Cancel 
+                        </button> </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+
+<br>
+<br>
+
+<div class="list-group">
+    <table class="table table-hover">
+        <thread>
+            <tr>
+                <th scope="col"> Email address </th>
+                <th scope="col"> Booking date </th>
+                <th scope="col"> Remove Booking </th>
+            </tr>
+        </thread>
+        <tbody>
+            <tr>
+                <td> emailiscool </td>
+                <td> 11-12-2020 </td>
+                <td> <button class="btn btn-secondary float-right" style="margin: 20px" data-toggle="modal" data-target="#cancelConcert"> Cancel </i> </button> </td>
+            </tr>
+            <tr>
+                <td> emailiscooler </td>
+                <td> 11-12-2020 </td>
+                <td> <button class="btn btn-secondary float-right" style="margin: 20px" data-toggle="modal" data-target="#cancelConcert"> Cancel </i> </button> </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="modal fade" id="editConcert" tabindex="-1" role="dialog" aria-labelledby="editConcertLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editConcert"> Edit Concert? </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Edit concert information
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal"> No </button>
+                <a class="nav-link text-dark" asp-area="" asp-page="/Admin/EditConcert">
+                    <input type="submit" class="btn btn-primary" value="Yes" />
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="cancelConcert" tabindex="-1" role="dialog" aria-labelledby="cancelConcertLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="cancelConcert"> Cancel participant ? </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to cancel this user from this concert?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal"> No </button>
+                <a class="nav-link text-dark" asp-area="" asp-page="/Admin/Concerts">
+                    <input type="button" class="btn btn-primary" value="Yes" />
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="cancelConcert" tabindex="-1" role="dialog" aria-labelledby="cancelConcertLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="cancelConcert"> Cancel participant ? </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to cancel this user from this concert?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal"> No </button>
+                <a class="nav-link text-dark" asp-area="" asp-page="/Admin/Concerts">
+                    <input type="button" class="btn btn-primary" value="Yes" />
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
