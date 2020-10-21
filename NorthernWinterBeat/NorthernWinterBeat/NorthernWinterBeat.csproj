@@ -6,9 +6,13 @@
 
   <ItemGroup>
     <Compile Remove="Pages\Admin\NewFolder1\**" />
+    <Compile Remove="Pages\Admin\Pages\**" />
     <Content Remove="Pages\Admin\NewFolder1\**" />
+    <Content Remove="Pages\Admin\Pages\**" />
     <EmbeddedResource Remove="Pages\Admin\NewFolder1\**" />
+    <EmbeddedResource Remove="Pages\Admin\Pages\**" />
     <None Remove="Pages\Admin\NewFolder1\**" />
+    <None Remove="Pages\Admin\Pages\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -17,10 +21,6 @@
 
   <ItemGroup>
     <Content Remove="Pages\Admin\Index.cshtml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Pages\Admin\Pages\" />
   </ItemGroup>
 
   <ItemGroup>

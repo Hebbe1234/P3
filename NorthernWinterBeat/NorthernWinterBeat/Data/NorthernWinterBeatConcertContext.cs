@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage;
+using NorthernWinterBeat.Models;
 
 namespace NorthernWinterBeat.Data
 {
@@ -26,11 +27,13 @@ namespace NorthernWinterBeat.Data
             }
             catch (Exception)
             {
-                modelBuilder.Entity<Concert>().ToTable("ConcertsTest");
+                modelBuilder.Entity<Concert>().ToTable("Concert");
             }
 
        
         }
+
+        public DbSet<NorthernWinterBeat.Models.Venue> Venue { get; set; }
 
     }
 }
