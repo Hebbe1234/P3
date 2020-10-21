@@ -11,7 +11,7 @@ namespace NorthernWinterBeat.Pages.Admin
 {
     public class EditVenueModel : PageModel
     {
-        public Venue venue { get; set; } = new Venue("Hej", "Mit Hus", 55);
+        public Venue venue { get; set; }
 
         public void OnGet(int id)
         {
