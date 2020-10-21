@@ -59,6 +59,5 @@ namespace NorthernWinterBeat.Pages.Admin
                 return sortConcerts.OrderBy(c => c.Start).ToList<Concert>();
             }
         }
-
     }
 }
