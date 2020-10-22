@@ -35,6 +35,7 @@ namespace NorthernWinterBeat.Pages.Admin
                 return Page();
             }
 
+            //To be moved down to a function in Model.????? 
             _context.Concert.Add(Concert);
             await _context.SaveChangesAsync();
 
