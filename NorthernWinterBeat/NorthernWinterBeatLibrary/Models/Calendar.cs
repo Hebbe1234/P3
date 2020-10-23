@@ -1,6 +1,8 @@
 ﻿using NorthernWinterBeat.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+
 
 public class Calendar
 {
@@ -51,6 +53,9 @@ public class Calendar
         {
             concert.Venue = venues.Find(v => v.Name == VenueName);
         }
+
+        //_context.Concert.Add(concert);
+        //await _context.SaveChangesAsync();
         concerts.Add(concert);
     }
 

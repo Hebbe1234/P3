@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage;
 using NorthernWinterBeat.Models;
 
-namespace NorthernWinterBeat.Data
+namespace NorthernWinterBeatLibrary.Managers
 {
     public class NorthernWinterBeatConcertContext : DbContext
     {
@@ -18,7 +18,7 @@ namespace NorthernWinterBeat.Data
             try
             {
                 var databaseCreator = (Database.GetService<IDatabaseCreator>() as RelationalDatabaseCreator);
-                databaseCreator.CreateTables();
+                //databaseCreator.CreateTables();  //Denne her er træls, og vil fucke op hvis der allerede er en tabel
             }
             catch (SqlException e)
             {

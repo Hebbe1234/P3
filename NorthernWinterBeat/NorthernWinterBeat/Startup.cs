@@ -9,7 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
-using NorthernWinterBeat.Data;
+using NorthernWinterBeatLibrary.Managers;
 
 namespace NorthernWinterBeat
 {

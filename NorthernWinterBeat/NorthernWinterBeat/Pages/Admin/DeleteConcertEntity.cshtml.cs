@@ -5,15 +5,15 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using NorthernWinterBeat.Data;
+using NorthernWinterBeatLibrary.Managers;
 
 namespace NorthernWinterBeat.Pages.Admin
 {
     public class DeleteConcertEntityModel : PageModel
     {
-        private readonly NorthernWinterBeat.Data.NorthernWinterBeatConcertContext _context;
+        private readonly NorthernWinterBeatConcertContext _context;
 
-        public DeleteConcertEntityModel(NorthernWinterBeat.Data.NorthernWinterBeatConcertContext context)
+        public DeleteConcertEntityModel(NorthernWinterBeatConcertContext context)
         {
             _context = context;
         }

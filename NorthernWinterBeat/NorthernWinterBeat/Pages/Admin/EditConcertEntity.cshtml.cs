@@ -6,15 +6,15 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using NorthernWinterBeat.Data;
+using NorthernWinterBeatLibrary.Managers;
 
 namespace NorthernWinterBeat.Pages.Admin
 {
     public class EditConcertEntityModel : PageModel
     {
-        private readonly NorthernWinterBeat.Data.NorthernWinterBeatConcertContext _context;
+        private readonly NorthernWinterBeatConcertContext _context;
 
-        public EditConcertEntityModel(NorthernWinterBeat.Data.NorthernWinterBeatConcertContext context)
+        public EditConcertEntityModel(NorthernWinterBeatConcertContext context)
         {
             _context = context;
         }

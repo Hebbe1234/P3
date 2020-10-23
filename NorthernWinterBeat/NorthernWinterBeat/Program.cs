@@ -7,7 +7,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using NorthernWinterBeatLibrary.Managers;
-using NorthernWinterBeat.Data;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace NorthernWinterBeat
