@@ -81,66 +81,29 @@
     <thead>
         <tr>
             <th>
-                <form asp-page-handler="SortByArtist" method="post">
-                    <button class="btn btn-default">Kunstner</button>
-                </form>
+                <button class="btn btn-default" value="Artist">Kunstner</button>
+
 
             </th>
             <th>
-                <form asp-page-handler="SortByVenue" method="post">
-                    <button class="btn btn-default">Venue</button>
-                </form>
-            </th>
-            <th>
-                <form asp-page-handler="SortByTime" method="post">
-                    <button class="btn btn-default">Spilletid</button>
-                </form>
+                <button class="btn btn-default" value="Venue">Venue</button>
 
             </th>
             <th>
-                <form asp-page-handler="SortByCapacity" method="post">
-                    <button class="btn btn-default">Kapacitet</button>
-                </form>
+                <button class="btn btn-default" value="Time">Spilletid</button>
+
+
+            </th>
+            <th>
+                <button class="btn btn-default" value="Capacity">Kapacitet</button>
+
             </th>
         </tr>
     </thead>
-    <tbody>
+    <tbody id="concertTable">
+        <!-- Add partial view here -->
 
-        @{
-            List<Concert> SortConcert = new List<Concert>(Model.concerts);
-
-            SortConcert = Model.SortConcertBy(SortConcert);
-
-            string zero = "00";
-
-            int i = 0;
-            foreach (var item in SortConcert)
-            {
-                <tr onclick="location.href = '@(Url.Page("Concerts", new { id = item.ID }))'">
-                    <td>
-                        @item.Artist
-                    </td>
-
-
-                    <td>
-                        @item.Venue.Name
-                    </td>
-
-                    <td>
-                        @item.Start.Hour:@if (item.Start.Minute == 0)
-                        {@zero;
-                    }
-                    else
-                    {@item.Start.Minute}
-                    </td>
-
-                    <td>
-                        @*@item.Bookings.Length*@/@item.Venue.Capacity
-                    </td>       @*MANGLER: Mulighed for at se current capacity. Det kræver ændring i Concert klassen, som jeg ikke vil lave her*@
-                </tr>
-                i++;
-            }
-        }
+        @Html.Partial("_ConcertTable", Model)
 
 
     </tbody>
@@ -172,3 +135,14 @@
         </div>
     </div>
 </div>
+
+@section scripts{
+    <script>
+        $(function () {
+            $('.btn').on('click', function () {
+                var sortBy = $(this).val()
+                $('#concertTable').load('?handler=ConcertPartial&sortBy=' + sortBy);
+            });
+        });
+    </script>
+}

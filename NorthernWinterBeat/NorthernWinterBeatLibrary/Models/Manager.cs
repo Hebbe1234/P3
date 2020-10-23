@@ -4,7 +4,7 @@ using System.Text;
 
 namespace NorthernWinterBeatLibrary.Models
 {
-    class Manager : User
+    public class Manager : User
     {
         public Manager(string _role)
         {

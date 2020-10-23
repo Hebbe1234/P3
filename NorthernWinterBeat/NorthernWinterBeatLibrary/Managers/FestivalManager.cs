@@ -29,7 +29,7 @@ namespace NorthernWinterBeatLibrary.Managers
         public void CreateCalendar()
         {
             _calendar = new Calendar();
-            _calendar.AddConcert(new Concert(DateTime.Now, DateTime.Now, new Venue("Shit", "shit", 10), "shit", "shitty") { ID = 0 });
+            _calendar.AddConcert(new Concert(DateTime.Now, DateTime.Now, new Venue("Hjemme", "Hjemme", 10), "Hjemlig", "Hjemlig") { ID = 0 });
             _calendar.AddConcert(new Concert()
             {
                 Artist = "Artist Name",
@@ -43,7 +43,7 @@ namespace NorthernWinterBeatLibrary.Managers
                 + "“Chaotic” – Dork",
                 Start = DateTime.Now,
                 End = DateTime.Now.AddMinutes(100),
-                Venue = new Venue("Shit", "shit", 59),
+                Venue = new Venue("Hjemme", "Hjemme", 59),
                 ID = 10
             });
 

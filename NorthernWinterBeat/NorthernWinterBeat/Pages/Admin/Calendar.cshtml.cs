@@ -28,27 +28,6 @@ namespace NorthernWinterBeat.Pages.Admin
             concerts = FestivalManager.instance._calendar.GetConcerts();
         }
 
-        //public IActionResult OnPostConcertClicked(int ConcertID)
-        //{
-        //    return RedirectToPage("./ConcertPage", new { ConcertID = ConcertID });
-        //}
-
-        public IActionResult OnPostSortByTime()
-        {
-            return RedirectToPage("./Calendar", new { SortBy = "Time" });
-        }
-        public IActionResult OnPostSortByArtist()
-        {
-            return RedirectToPage("./Calendar", new { SortBy = "Artist" });
-        }
-        public IActionResult OnPostSortByVenue()
-        {
-            return RedirectToPage("./Calendar", new { SortBy = "Venue" });
-        }
-        public IActionResult OnPostSortByCapacity()
-        {
-            return RedirectToPage("./Calendar", new { SortBy = "Capacity" });
-        }
         public List<Concert> SortConcertBy(List<Concert> SortConcert)
         {
             if (SortBy == "Artist" || SortBy == null)
@@ -71,5 +50,10 @@ namespace NorthernWinterBeat.Pages.Admin
             return SortConcert;
         }
 
+        public PartialViewResult OnGetConcertPartial(string sortBy)
+        {
+            this.SortBy = sortBy;
+            return Partial("_ConcertTable", this);
+        }
     }
 }
