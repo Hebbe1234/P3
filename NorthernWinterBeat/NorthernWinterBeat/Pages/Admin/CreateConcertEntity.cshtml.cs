@@ -34,7 +34,7 @@ namespace NorthernWinterBeat.Pages.Admin
             {
                 return Page();
             }
-
+            //FestivalManager.instance._calendar.AddConcert(Conc)
             //To be moved down to a function in Model.????? 
             _context.Concert.Add(Concert);
             await _context.SaveChangesAsync();

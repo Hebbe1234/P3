@@ -1,8 +1,9 @@
 ﻿using NorthernWinterBeat.Models;
+using NorthernWinterBeatLibrary.Managers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-
+using System.Threading.Tasks;
 
 public class Calendar
 {
@@ -47,15 +48,15 @@ public class Calendar
 
     public CalendarState State { get; set; }
 
-    public void AddConcert(Concert concert, string VenueName = "")
+    public async Task AddConcert(Concert concert, NorthernWinterBeatConcertContext context, string VenueName = "")
     {
         if(VenueName != "")
         {
             concert.Venue = venues.Find(v => v.Name == VenueName);
         }
 
-        //_context.Concert.Add(concert);
-        //await _context.SaveChangesAsync();
+        context.Concert.Add(concert);
+        await context.SaveChangesAsync();
         concerts.Add(concert);
     }
 
