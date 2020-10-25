@@ -27,11 +27,6 @@ namespace NorthernWinterBeat.Pages
 
             
         }
-        //public IActionResult OnPostDate(string date)
-        //{
-        //    return RedirectToPage("./ParticipantConcertOverview", new { Day = DateTime.Parse(date) });
-
-        //}
 
         public IActionResult OnGetSelectArtist(int? id = 0)
         {
