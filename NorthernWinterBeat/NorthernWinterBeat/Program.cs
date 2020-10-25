@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
@@ -16,6 +17,8 @@ namespace NorthernWinterBeat
         {
             FestivalManager festivalManager = new FestivalManager();
             CreateHostBuilder(args).Build().Run();
+
+
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
@@ -23,6 +26,9 @@ namespace NorthernWinterBeat
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
+                }).ConfigureAppConfiguration(builder =>
+                {
+                    builder.AddJsonFile("appSecret.json");
                 });
     }
 }
