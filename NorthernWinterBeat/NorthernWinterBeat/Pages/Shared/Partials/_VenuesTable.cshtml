@@ -1,0 +1,32 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model NorthernWinterBeat.Pages.Admin.VenuesModel
+
+@{
+    List<NorthernWinterBeat.Models.Venue> venues = new List<Models.Venue>(Model.venues);
+
+    venues = Model.SortVenues(venues);
+
+
+    int i = 0;
+    foreach (var item in venues)
+    {
+        <tr onclick="location.href = '@(Url.Page("VenuePage", new { id = item.ID }))'">
+            <td>
+                @item.Name
+            </td>
+
+
+            <td>
+                @*@item.Bookings.Length*@/@item.Capacity
+            </td> @*MANGLER: Mulighed for at se current capacity. Det kræver ændring i Concert klassen, som jeg ikke vil lave her*@
+
+            <td>
+                @item.Address
+            </td>
+
+        </tr>
+        i++;
+    }
+}
