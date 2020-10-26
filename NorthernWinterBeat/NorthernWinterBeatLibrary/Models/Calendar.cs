@@ -25,7 +25,7 @@ public class Calendar
     {
         //NorthernWinterBeatConcertDatabaseManager.context DatabaseManager.context = new NorthernWinterBeatConcertDatabaseManager.context();
         State = CalendarState.INITIALIZING;
-        concerts = DatabaseManager.context.Concert.ToList();
+        concerts = DatabaseManager.context.Concert.Include(c => c.Bookings).ToList();
         venues = DatabaseManager.context.Venue.ToList(); 
     }
 
