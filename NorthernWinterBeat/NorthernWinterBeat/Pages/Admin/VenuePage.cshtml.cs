@@ -15,8 +15,8 @@ namespace NorthernWinterBeat.Pages.Admin
         public List<Concert> concerts { get; set; }
         public VenuePageModel()
         {
-            venue = FestivalManager.instance._calendar.GetVenue(id);
-            concerts = FestivalManager.instance._calendar.GetConcertsAtVenue(venue.Name);
+            //venue = FestivalManager.instance._calendar.GetVenue(id);
+            //concerts = FestivalManager.instance._calendar.GetConcertsAtVenue(venue.Name);
         }
         [BindProperty (SupportsGet =true)]
         public int id { get; set; }
@@ -28,26 +28,13 @@ namespace NorthernWinterBeat.Pages.Admin
             venue = FestivalManager.instance._calendar.GetVenue(id);
             concerts = FestivalManager.instance?._calendar?.GetConcertsAtVenue(venue.Name); 
         }
-        public IActionResult OnPostSortByArtist(int id)
-        {
 
-            return RedirectToPage("./VenuePage", new { id = id, SortBy = "Artist" });
-
-        }
-        public IActionResult OnPostSortByCapacity()
-        {
-            return RedirectToPage("./VenuePage", new { id = id, SortBy = "Capacity" }) ;
-
-        }
-        public IActionResult OnPostSortByTime()
-        {
-            return RedirectToPage("./VenuePage", new { id = id, SortBy = "Time" });
-        }
         public List<Concert> SortConcerts(List<Concert> sortConcerts)
         {
             if(SortBy == "Artist")
             {
-                return sortConcerts.OrderBy(c => c.Artist).ToList<Concert>(); 
+                var list = sortConcerts.OrderBy(c => c.Artist).ToList<Concert>();
+                return list;
             } else if(SortBy == "Capacity")
             {
                 return sortConcerts.OrderBy(c => c.Venue.Capacity).ToList<Concert>();
@@ -58,6 +45,15 @@ namespace NorthernWinterBeat.Pages.Admin
             {
                 return sortConcerts.OrderBy(c => c.Start).ToList<Concert>();
             }
+        }
+
+        public PartialViewResult OnGetVenueConcertsPartial(string sortBy, int id)
+        {
+            this.SortBy = sortBy;
+            this.id = id;
+            this.venue = FestivalManager.instance._calendar.GetVenue(id);
+            this.concerts = FestivalManager.instance?._calendar?.GetConcertsAtVenue(venue.Name);
+            return Partial("Partials/_VenueConcertTable", this);
         }
     }
 }

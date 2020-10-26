@@ -26,20 +26,6 @@ namespace NorthernWinterBeat.Pages.Admin
             venues = FestivalManager.instance._calendar.GetVenues(); 
         }
 
-        public IActionResult OnPostSortByVenue()
-        {
-            return RedirectToPage("./Venues", new { SortBy = "Venue" });
-
-        }
-        public IActionResult OnPostSortByCapacity()
-        {
-            return RedirectToPage("./Venues", new { SortBy = "Capacity" });
-        }
-        public IActionResult OnPostSortByAddress()
-        {
-            return RedirectToPage("./Venues", new { SortBy = "Address" });
-        }
-        
         public List<Venue> SortVenues(List<Venue> SortVenues)
         {
             if(SortBy == "Venue")
@@ -55,6 +41,12 @@ namespace NorthernWinterBeat.Pages.Admin
             {
                 return SortVenues.OrderBy(o => o.Name).ToList<Venue>();
             }
+        }
+
+        public PartialViewResult OnGetVenuesPartial(string sortBy)
+        {
+            this.SortBy = sortBy;
+            return Partial("Partials/_VenuesTable", this);
         }
     }
 }
