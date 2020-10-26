@@ -15,7 +15,7 @@ namespace NorthernWinterBeat.Pages.ParticipantRazor
         {
             bookings.Add(
                 new Booking(
-                    new Models.Participant(new Ticket(1))
+                    new Models.Participant(new Ticket("1"))
                     ,
                     new Concert()
                     {
@@ -30,7 +30,7 @@ namespace NorthernWinterBeat.Pages.ParticipantRazor
             );
             bookings.Add(
                 new Booking(
-                    new Models.Participant(new Ticket(1))
+                    new Models.Participant(new Ticket("1"))
                     ,
                     new Concert()
                     {
@@ -44,7 +44,7 @@ namespace NorthernWinterBeat.Pages.ParticipantRazor
                 )
             ); bookings.Add(
                  new Booking(
-                     new Models.Participant(new Ticket(1))
+                     new Models.Participant(new Ticket("1"))
                      ,
                      new Concert()
                      {

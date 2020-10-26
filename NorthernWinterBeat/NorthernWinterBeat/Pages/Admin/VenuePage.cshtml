@@ -1,0 +1,172 @@
+﻿@page
+@model NorthernWinterBeat.Pages.Admin.VenuePageModel
+@{
+}
+
+
+<div class="card">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-8"> <h3> Venue Name: @Model.venue.Name </h3> </div>
+            <div class="col-4"> <p class="float-right"> Capacity: @Model.venue.Capacity </p> </div>
+        </div>
+
+        <div class="row">
+            <div class="col-8"> <p> Address: @Model.venue.Address</p> </div>
+            <div class="col-4">
+                <button type="button" class="float-right" data-toggle="modal" onclick="location.href = '@(Url.Page("EditVenue", new { id = Model.id }))'">
+                    <i class="fas fa-pencil-alt"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<table class="table table-hover" table-bordered>
+    <thead>
+        <tr>
+            <th>
+                <form asp-page-handler="SortByArtist" method="post">
+                    @Html.Hidden("id", Model.venue.ID)
+                    <button class="btn btn-default">Artist</button>
+                </form>
+
+            </th>
+            <th>
+                <form asp-page-handler="SortByTime" method="post">
+                    @Html.Hidden("id", Model.venue.ID)
+                    <button class="btn btn-default">Play Time</button>
+                </form>
+
+            </th>
+            <th>
+                <form asp-page-handler="SortByCapacity" method="post">
+                    @Html.Hidden("id", Model.venue.ID)
+                    <button class="btn btn-default">Capacity</button>
+                </form>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @{
+            string zero = "00";
+
+            int i = 0;
+            if (Model.concerts != null)
+            {
+                List<Concert> SortConcert = new List<Concert>(Model.concerts);
+                SortConcert = Model.SortConcerts(SortConcert);
+                foreach (var item in Model.concerts)
+                {
+                    <tr onclick="location.href = '@(Url.Page("ConcertPage", new { id = item.ID }))'">
+                        <td>
+                            @item.Artist
+                        </td>
+
+
+                        <td>
+                            @item.Start.Hour:@if (item.Start.Minute == 0)
+                            {@zero;
+                        }
+                        else
+                        {@item.Start.Minute}
+                        </td>
+
+                        <td>
+                            @*@item.Bookings.Length*@/@item.Venue.Capacity
+                        </td>       @*MANGLER: Mulighed for at se current capacity. Det kræver ændring i Concert klassen, som jeg ikke vil lave her*@
+                    </tr>
+                    i++;
+                }
+            }
+        }
+
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="modal fade" id="editVenue" tabindex="-1" role="dialog" aria-labelledby="editVenueLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editVenue"> Edit venue? </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to edit this venue?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal"> No </button>
+                <a class="nav-link text-dark" asp-area="" asp-page="/Admin/EditVenue">
+                    <input type="submit" class="btn btn-primary" value="Yes" />
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*<div class="modal fade" id="unbookConcert" tabindex="-1" role="dialog" aria-labelledby="unbookConcertLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="unbookConcert"> Unbook participant? </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Are you sure you want to unbook this participant from the concert?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal"> No </button>
+                    <a class="nav-link text-dark" asp-area="" asp-page="/Admin/Venue">
+                        <input type="button" class="btn btn-primary" value="Yes" />
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>*@
+
+
+<div class="modal fade" id="unbookConcert" tabindex="-1" role="dialog" aria-labelledby="unbookConcertLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="unbookConcert"> Unbook participant? </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to unbook this participant from the concert?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal"> No </button>
+                <a class="nav-link text-dark" asp-area="" asp-page="/Admin/Venue">
+                    <input type="button" class="btn btn-primary" value="Yes" />
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

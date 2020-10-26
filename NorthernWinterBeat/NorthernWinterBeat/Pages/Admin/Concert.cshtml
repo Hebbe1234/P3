@@ -20,7 +20,6 @@
     <br>
     <br>
     <h3>Venue</h3>
-    @*<label></label>*@
     <select id="myList" name="VenueEntered">
         @{ 
             foreach (var venue in Model.venues)
@@ -42,11 +41,16 @@
     <br>
     <br>
 
-    @*<button class="btn btn-default">Confirm</button>*@
-
     <input type="submit" value="Confirm" />
 
     <input type="button" value="Cancel" data-toggle="modal" data-target="#Cancel">
+
+
+
+
+
+
+
 
     <div class="modal fade" id="Cancel" tabindex="-1" role="dialog" aria-labelledby="CancelLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -69,6 +73,4 @@
             </div>
         </div>
     </div>
-
-
 </form>

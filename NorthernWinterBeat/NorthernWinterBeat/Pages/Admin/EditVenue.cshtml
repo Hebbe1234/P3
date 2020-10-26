@@ -7,41 +7,48 @@
     <h1 class="display-3"> Add venue information </h1>
 </div>
 
-<form method="post">
+<form method="post" asp-page-handler="EditVenue">
 
+    @Html.Hidden("id", Model.venue.ID)
     <h3>Venue</h3>
-    <input name="VenueEntered" type="text" placeholder="Add name of venue" minlength="1" required value="home" />
+    <input name="VenueEntered" type="text" placeholder="@Model.venue.Name" minlength="1" required value="@Model.venue.Name" />
     <br>
     <h3>Capacity</h3>
-    <input name="CapacityEntered" type="number" placeholder="Enter venue capacity" minlength="1" required value="20" />
+    <input name="CapacityEntered" type="number" placeholder="@Model.venue.Capacity" minlength="1" required value="@Model.venue.Capacity" />
     <br>
+    <h3>Address</h3>
+    <input name="AddressEntered" type="text" placeholder="@Model.venue.Address" minlength="1" required value="@Model.venue.Address" />
+
     <br>
 
-    <input type="submit" value="Confirm" asp-area="" asp-page="/Admin/Venues">
+    <input type="submit" value="Confirm" @*asp-area="" asp-page="/Admin/Venues"*@>
 
     <input type="button" value="Cancel" data-toggle="modal" data-target="#Cancel">
+</form>
 
-    <div class="modal fade" id="Cancel" tabindex="-1" role="dialog" aria-labelledby="CancelLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="Cancel"> Finish editing venue? </h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    Are you sure you want to finish editing this venue?
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal"> No </button>
-                    <a class="nav-link text-dark" asp-area="" asp-page="/Admin/Venue">
-                        <input type="button" class="btn btn-primary" value="Yes" />
-                    </a>
-                </div>
+
+
+
+
+
+<div class="modal fade" id="Cancel" tabindex="-1" role="dialog" aria-labelledby="CancelLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="Cancel"> Finish editing venue? </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to finish editing this venue?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal"> No </button>
+                <a class="nav-link text-dark" asp-area="" asp-page="/Admin/Venue">
+                    <input type="button" class="btn btn-primary" value="Yes" />
+                </a>
             </div>
         </div>
     </div>
-
-
-</form>
+</div>

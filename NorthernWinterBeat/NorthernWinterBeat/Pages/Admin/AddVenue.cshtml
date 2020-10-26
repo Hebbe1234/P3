@@ -7,41 +7,45 @@
     <h1 class="display-3"> Add venue information </h1>
 </div>
 
-
 <form method="post" asp-page-handler="CreateVenue">
+
     <h3>Venue</h3>
     <input name="VenueEntered" type="text" placeholder="Enter name of venue" minlength="1" required />
     <br>
     <h3>Capacity</h3>
     <input name="CapacityEntered" type="number" placeholder="Enter venue capacity" minlength="1" required />
     <br>
+    <h3>Address</h3>
+    <input name="AddressEntered" type="text" placeholder="Enter venue address" minlength="1" required />
     <br>
-    
-    <input type="submit" value="Confirm" asp-area="" asp-page="/Admin/Venues">
+    <br>
+
+    <input type="submit" value="Confirm" @*asp-area="" asp-page="/Admin/Venues"*@>
 
     <input type="button" value="Cancel" data-toggle="modal" data-target="#Cancel">
 
-    <div class="modal fade" id="Cancel" tabindex="-1" role="dialog" aria-labelledby="CancelLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="Cancel"> End venue adding ? </h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    Are you sure you want to end adding to this venue?
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal"> No </button>
-                    <a class="nav-link text-dark" asp-area="" asp-page="/Admin/Venues">
-                        <input type="button" class="btn btn-primary" value="Yes" />
-                    </a>
-                </div>
+</form>
+
+
+
+<div class="modal fade" id="Cancel" tabindex="-1" role="dialog" aria-labelledby="CancelLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="Cancel"> End venue adding ? </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to end adding to this venue?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal"> No </button>
+                <a class="nav-link text-dark" asp-area="" asp-page="/Admin/Venues">
+                    <input type="button" class="btn btn-primary" value="Yes" />
+                </a>
             </div>
         </div>
     </div>
-
-
-</form>
+</div>

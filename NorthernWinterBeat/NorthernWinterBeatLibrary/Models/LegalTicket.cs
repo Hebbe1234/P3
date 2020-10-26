@@ -5,11 +5,9 @@ using System.Text;
 
 namespace NorthernWinterBeatLibrary.Models
 {
-    public abstract class User
+    public class LegalTicket
     {
-        public string Username { get; set; }
-        public string Password { get; set; }
         [Key]
-        public int ID { get; set; }
+        public string TicketNumber { get; set; }
     }
 }

@@ -15,10 +15,11 @@ namespace NorthernWinterBeat
     {
         public static void Main(string[] args)
         {
-            FestivalManager festivalManager = new FestivalManager();
             var host = CreateHostBuilder(args).Build();
+            DatabaseManager databaseManager = new DatabaseManager(host.Services.GetService<IConfiguration>());
 
             CreateDbIfNotExists(host);
+            FestivalManager festivalManager = new FestivalManager();
 
             host.Run();
         }

@@ -6,16 +6,20 @@ namespace NorthernWinterBeatLibrary.Models
 {
     class Manager : User
     {
-        public Manager(string _role)
+        public enum Roles
+        {
+            ADMINISTRATOR, VENUE
+        }
+        public Roles Role { get; private set; }
+        public Manager(Roles _role)
         {
             Role = _role; 
         }
-        public Manager(string _role, string _username, string _password)
+        public Manager(Roles _role, string _username, string _password)
         {
             Username = _username;
             Password = _password; 
             Role = _role;
         }
-        public string Role { get; private set; }
     }
 }

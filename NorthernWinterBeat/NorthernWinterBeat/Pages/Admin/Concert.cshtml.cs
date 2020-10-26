@@ -42,7 +42,6 @@ namespace NorthernWinterBeat.Pages.Admin.Pages
 
         public async Task<IActionResult> OnPostAsyncCreateConcert()
         {
-
             string Artist = Request.Form["ArtistEntered"];
             string Description = Request.Form["DescriptionEntered"];
             string Image = Request.Form["ImageEntered"];   // Dette virker lidt fjollet umiddelbart. 
@@ -63,7 +62,7 @@ namespace NorthernWinterBeat.Pages.Admin.Pages
             DateTime End = new DateTime(Year, Month, Day, EndHour, EndMinute, 0);
             Concert NewConcert = new Concert(Start, End, Artist, Description);
 
-            await FestivalManager.instance._calendar.AddConcert(NewConcert, _context, Venue);
+            await FestivalManager.instance._calendar.AddConcert(NewConcert, Venue);
             return RedirectToPage("./Calendar");
         }
     }
