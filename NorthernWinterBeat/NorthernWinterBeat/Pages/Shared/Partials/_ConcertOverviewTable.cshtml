@@ -4,14 +4,10 @@
 @model NorthernWinterBeat.Pages.ParticipantConcertOverviewModel
 @{
 
-    int i = 0;
-
     // Addning rows of concerts based on which day is chosen in the buttons above.
     foreach (Concert concert in Model.ConcertDayChooser(Model.Day ?? default(DateTime)))
     {
-        { i++; ; }
         <tr onclick="location.href = '@(Url.Page("ParticipantArtist", new { id = concert.ID }))'">
-            <th scope="row">@i</th>
             <td><a class="btn-link text-dark">@concert.Artist</a></td>
             <td>@concert.Start.Hour - @concert.End.Hour</td>
             <td>@concert.Venue.Name</td>
