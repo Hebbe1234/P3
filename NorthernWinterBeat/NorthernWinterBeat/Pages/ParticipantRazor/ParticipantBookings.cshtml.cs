@@ -1,8 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using NorthernWinterBeat.Models;
-
+using NorthernWinterBeatLibrary.Managers;
 
 namespace NorthernWinterBeat.Pages.ParticipantRazor
 {
@@ -13,50 +14,7 @@ namespace NorthernWinterBeat.Pages.ParticipantRazor
 
         public void OnGet()
         {
-            bookings.Add(
-                new Booking(
-                    new Models.Participant(new Ticket("1"))
-                    ,
-                    new Concert()
-                    {
-                        Artist = "Martin",
-                        Start = DateTime.Now,
-                        Venue = new Models.Venue()
-                        {
-                            Address = "Studenterhuset"
-                        }
-                    }
-                )
-            );
-            bookings.Add(
-                new Booking(
-                    new Models.Participant(new Ticket("1"))
-                    ,
-                    new Concert()
-                    {
-                        Artist = "Jakob",
-                        Start = DateTime.Now,
-                        Venue = new Models.Venue()
-                        {
-                            Address = "Studenterhuset kælder"
-                        }
-                    }
-                )
-            ); bookings.Add(
-                 new Booking(
-                     new Models.Participant(new Ticket("1"))
-                     ,
-                     new Concert()
-                     {
-                         Artist = "Joachim",
-                         Start = DateTime.Now,
-                         Venue = new Models.Venue()
-                         {
-                             Address = "Studenterhuset"
-                         }
-                     }
-                 )
-             );
+            bookings = FestivalManager.instance.GetParticipants().First().GetParticipantBookings();
         }
     }
 }

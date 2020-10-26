@@ -3,6 +3,7 @@ using NorthernWinterBeatLibrary.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 
 namespace NorthernWinterBeat.Models
 {	public class Participant : User
@@ -36,5 +37,14 @@ namespace NorthernWinterBeat.Models
             }
 			return true;
         }	
+
+        public List<Booking> GetParticipantBookings()
+        {
+           return (FestivalManager.instance._calendar
+                .GetConcerts()
+                .SelectMany(c => c.Bookings))
+                .ToList()
+                .FindAll(b => b.Participant.ID == this.ID);
+        }
     }
 }
