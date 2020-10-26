@@ -26,6 +26,7 @@ namespace NorthernWinterBeatLibrary.Managers
             }
         }
 
+
         public List<Participant> GetParticipants()
         {
             return participants;

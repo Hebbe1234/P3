@@ -26,83 +26,38 @@
     <thead>
         <tr>
             <th>
-                <form asp-page-handler="SortByArtist" method="post">
-                    @Html.Hidden("id", Model.venue.ID)
-                    <button class="btn btn-default">Artist</button>
-                </form>
+                <button class="btn btn-default" value="Artist">Artist</button>
+
 
             </th>
             <th>
-                <form asp-page-handler="SortByTime" method="post">
-                    @Html.Hidden("id", Model.venue.ID)
-                    <button class="btn btn-default">Play Time</button>
-                </form>
+
+                    <button class="btn btn-default" value="Time">Play Time</button>
 
             </th>
             <th>
-                <form asp-page-handler="SortByCapacity" method="post">
-                    @Html.Hidden("id", Model.venue.ID)
-                    <button class="btn btn-default">Capacity</button>
-                </form>
+               
+                    <button class="btn btn-default" value="Capacity">Capacity</button>
             </th>
         </tr>
     </thead>
-    <tbody>
+    <tbody id="venueTable">
 
-        @{
-            string zero = "00";
-
-            int i = 0;
-            if (Model.concerts != null)
-            {
-                List<Concert> SortConcert = new List<Concert>(Model.concerts);
-                SortConcert = Model.SortConcerts(SortConcert);
-                foreach (var item in Model.concerts)
-                {
-                    <tr onclick="location.href = '@(Url.Page("ConcertPage", new { id = item.ID }))'">
-                        <td>
-                            @item.Artist
-                        </td>
-
-
-                        <td>
-                            @item.Start.Hour:@if (item.Start.Minute == 0)
-                            {@zero;
-                        }
-                        else
-                        {@item.Start.Minute}
-                        </td>
-
-                        <td>
-                            @*@item.Bookings.Length*@/@item.Venue.Capacity
-                        </td>       @*MANGLER: Mulighed for at se current capacity. Det kræver ændring i Concert klassen, som jeg ikke vil lave her*@
-                    </tr>
-                    i++;
-                }
-            }
-        }
+        @await Html.PartialAsync("Partials/_VenueConcertTable", Model) 
 
     </tbody>
 </table>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+@section scripts{
+    <script>
+        $(function () {
+            $('.btn').on('click', function () {
+                var sortBy = $(this).val()
+                $('#venueTable').load('?handler=VenueConcertsPartial&id=' + @Model.id + '&sortBy=' + sortBy);
+            });
+        });
+    </script>
+}
 
 <div class="modal fade" id="editVenue" tabindex="-1" role="dialog" aria-labelledby="editVenueLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">

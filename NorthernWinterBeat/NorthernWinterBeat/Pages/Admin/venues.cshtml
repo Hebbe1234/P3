@@ -56,54 +56,31 @@
     <thead>
         <tr>
             <th>
-                <form asp-page-handler="SortByVenue" method="post">
-                    <button class="btn btn-default">Venue</button>
-                </form>
-
+                <button class="btn btn-default" value="Venue">Venue</button>
             </th>
             <th>
-                <form asp-page-handler="SortByCapacity" method="post">
-                    <button class="btn btn-default">Capacity</button>
-                </form>
+                <button class="btn btn-default" value="Capacity">Capacity</button>
             </th>
             <th>
-                <form asp-page-handler="SortByAddress" method="post">
-                    <button class="btn btn-default">Address</button>
-                </form>
-
+                <button class="btn btn-default" value="Address">Address</button>
             </th>
         </tr>
     </thead>
-    <tbody>
+    <tbody id="venuesTable">
 
-        @{
-            List<NorthernWinterBeat.Models.Venue> venues = new List<Models.Venue>(Model.venues);
-
-            venues = Model.SortVenues(venues);
-
-
-            int i = 0;
-            foreach (var item in venues)
-            {
-                <tr onclick="location.href = '@(Url.Page("VenuePage", new { id = item.ID }))'">
-                    <td>
-                        @item.Name
-                    </td>
-
-
-                    <td>
-                        @*@item.Bookings.Length*@/@item.Capacity
-                    </td> @*MANGLER: Mulighed for at se current capacity. Det kræver ændring i Concert klassen, som jeg ikke vil lave her*@
-
-                    <td>
-                        @item.Address
-                    </td>
-
-                </tr>
-                i++;
-            }
-        }
+        @await Html.PartialAsync("Partials/_VenuesTable")
 
 
     </tbody>
 </table>
+
+@section scripts{
+    <script>
+        $(function () {
+            $('.btn').on('click', function () {
+                var sortBy = $(this).val()
+                $('#venuesTable').load('?handler=VenuesPartial&sortBy=' + sortBy);
+            });
+        });
+    </script>
+}

@@ -24,6 +24,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Pages\Admin\Pages\" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\NorthernWinterBeatLibrary\NorthernWinterBeatLibrary.csproj" />
   </ItemGroup>
 
