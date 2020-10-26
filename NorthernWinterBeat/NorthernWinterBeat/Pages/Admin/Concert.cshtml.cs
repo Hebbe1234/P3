@@ -10,12 +10,15 @@ using NorthernWinterBeat.Models;
 
 namespace NorthernWinterBeat.Pages.Admin.Pages
 {
+
     public class ConcertModel : PageModel
     {
-        public List<Venue> venues { get; set; } = new List<Venue>(); 
+        public List<Venue> venues { get; set; } = new List<Venue>();
+        private readonly NorthernWinterBeatConcertContext _context;
 
-        public ConcertModel()
+        public ConcertModel(NorthernWinterBeatConcertContext context)
         {
+            _context = context;
             venues = FestivalManager.instance._calendar.GetVenues(); 
         }
         public void OnGet()
@@ -23,7 +26,21 @@ namespace NorthernWinterBeat.Pages.Admin.Pages
             venues = FestivalManager.instance._calendar.GetVenues(); 
         }
 
-        public IActionResult OnPostCreateConcert()
+        //public async Task<IActionResult> OnPostAsync()
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return Page();
+        //    }
+
+        //    //To be moved down to a function in Model.????? 
+        //    //_context.Concert.Add(Concert);
+        //    //await _context.SaveChangesAsync();
+
+        //    return RedirectToPage("./IndexAdmin");
+        //}
+
+        public async Task<IActionResult> OnPostAsyncCreateConcert()
         {
             string Artist = Request.Form["ArtistEntered"];
             string Description = Request.Form["DescriptionEntered"];
@@ -45,7 +62,7 @@ namespace NorthernWinterBeat.Pages.Admin.Pages
             DateTime End = new DateTime(Year, Month, Day, EndHour, EndMinute, 0);
             Concert NewConcert = new Concert(Start, End, Artist, Description);
 
-            FestivalManager.instance._calendar.AddConcert(NewConcert, Venue);
+            await FestivalManager.instance._calendar.AddConcert(NewConcert, Venue);
             return RedirectToPage("./Calendar");
         }
     }

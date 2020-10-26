@@ -18,8 +18,8 @@ namespace NorthernWinterBeat.Pages.Admin
             //venue = FestivalManager.instance._calendar.GetVenue(id);
             //concerts = FestivalManager.instance._calendar.GetConcertsAtVenue(venue.Name);
         }
-        [BindProperty (SupportsGet =true)]
-        public int id { get; set; }
+        [BindProperty(SupportsGet = true)]
+        public int id { get; set; } = 1; 
 
         [BindProperty (SupportsGet =true)]
         public string SortBy { get; set; }

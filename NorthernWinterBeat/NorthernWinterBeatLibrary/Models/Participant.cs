@@ -2,6 +2,7 @@
 using NorthernWinterBeatLibrary.Models;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace NorthernWinterBeat.Models
 {	public class Participant : User
@@ -10,18 +11,19 @@ namespace NorthernWinterBeat.Models
         {
 			ACTIVE, INACTIVE
         }
-		public Participant(Ticket _ticket)
-		{
-			Ticket = _ticket;
-			State = ParticipantState.ACTIVE; 
-		}
-		public int ID { get; set; }
+
         public ParticipantState State { get; set; }
         public string Name { get; set; } = "";
 		public Ticket Ticket { get; protected set; }
-		//public string Username { get; set; }
-		//public string Password { get; set; }
-
+        public Participant()
+        {
+            State = ParticipantState.ACTIVE;
+        }
+        public Participant(Ticket _ticket): 
+            this()
+        {
+            Ticket = _ticket;
+        }
         public bool CanMakeBookingAt(Concert concert)
         {
 			List<Concert> bookedConcerts =  FestivalManager.instance._calendar.GetConcerts().FindAll(c => c.Bookings.Find(b => b.Participant == this) != null);
@@ -32,7 +34,6 @@ namespace NorthernWinterBeat.Models
 					return false;
                 }
             }
-
 			return true;
         }	
     }

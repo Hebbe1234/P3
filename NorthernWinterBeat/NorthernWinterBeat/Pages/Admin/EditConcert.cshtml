@@ -19,7 +19,7 @@
     <input name="ImageEntered" type="file" placeholder="Add image" />
     <br>
     <h3>Venue</h3>
-    <input name="VenueEntered" type="text" placeholder="Enter venue" minlength="1" contenteditable="true" value="@Model.concert.Venue.Name" />
+    <input name="VenueEntered" type="text" placeholder="Enter venue" minlength="1" contenteditable="true" value="@Model.concert.Venue?.Name" />
     <br>
     <h3>Date</h3>
     <input name="DateEntered" type="date" placeholder="Enter date" contenteditable="true" min="2021-01-28" max="2021-01-30"value="@Model.FindDate()"/>

@@ -11,18 +11,24 @@ namespace NorthernWinterBeat.Pages.Admin
 {
     public class AddVenueModel : PageModel
     {
+        private readonly NorthernWinterBeatConcertContext _context;
+        public AddVenueModel(NorthernWinterBeatConcertContext context)
+        {
+            _context = context;
+        }
         public void OnGet()
         {
         }
-
-        public IActionResult OnPostCreateVenue()
+        public async Task<IActionResult> OnPostCreateVenue()
         {
             string Name = Request.Form["VenueEntered"];
             int Capacity = int.Parse(Request.Form["CapacityEntered"]);
             string Address = Request.Form["AddressEntered"];
 
             Venue NewVenue = new Venue(Name, Address, Capacity);
-            FestivalManager.instance._calendar.AddVenue(NewVenue); 
+            
+
+            await FestivalManager.instance._calendar.AddVenue(NewVenue); 
 
             return RedirectToPage("./Venues"); 
         }
