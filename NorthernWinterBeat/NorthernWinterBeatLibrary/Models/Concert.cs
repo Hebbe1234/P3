@@ -15,7 +15,6 @@ public class Concert
 
     public Concert()
     {
-        Bookings = DatabaseManager.context.Booking.ToList().FindAll(b => b.Concert.ID == this.ID); 
         State = ConcertState.CREATION; 
     }
     public Concert(DateTime _start, DateTime _end, string _artist, string _artistDescription): 
@@ -40,7 +39,7 @@ public class Concert
     public DateTime Start { get; set; }
     public DateTime End { get; set; }
     public string PicturePath { get; set; }
-    public List<Booking> Bookings = new List<Booking>();
+    public List<Booking> Bookings { get; set; }
 
 	public void AddBooking(Booking booking)
     {
