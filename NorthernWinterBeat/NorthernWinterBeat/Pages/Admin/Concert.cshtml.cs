@@ -26,19 +26,6 @@ namespace NorthernWinterBeat.Pages.Admin.Pages
             venues = FestivalManager.instance._calendar.GetVenues(); 
         }
 
-        //public async Task<IActionResult> OnPostAsync()
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return Page();
-        //    }
-
-        //    //To be moved down to a function in Model.????? 
-        //    //_context.Concert.Add(Concert);
-        //    //await _context.SaveChangesAsync();
-
-        //    return RedirectToPage("./IndexAdmin");
-        //}
 
         public async Task<IActionResult> OnPostAsyncCreateConcert()
         {

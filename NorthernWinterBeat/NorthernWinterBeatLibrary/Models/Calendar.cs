@@ -114,6 +114,24 @@ public class Calendar
             throw;
         }
     }
+    public async Task DeleteConcert(Concert concert)
+    {
+        if (concert != null)
+        {
+            concerts.Remove(concert);
+            DatabaseManager.context.Concert.Remove(concert);
+            await DatabaseManager.context.SaveChangesAsync();
+        }
+    }
+    public async Task DeleteVenue(Venue venue)
+    {
+        if(venue != null)
+        {
+            venues.Remove(venue);
+            DatabaseManager.context.Venue.Remove(venue); 
+            await DatabaseManager.context.SaveChangesAsync();
+        }
+    }
 }
 
 

@@ -28,23 +28,18 @@
         <br>*@
     <h3>Venue</h3>
     <select id="myList" name="VenueEntered">
-        <option value="@Model.concert.Venue.Name"> @Model.concert.Venue.Name</option>
+        <option value="@Model?.concert?.Venue?.Name"> @Model?.concert?.Venue?.Name</option>
 
         @{
             foreach (var venue in Model.venues)
             {
-                if (venue.Name != Model.concert.Venue.Name)
+                if (venue.Name != Model?.concert?.Venue?.Name)
                 {
                     <option value="@venue.Name"> @venue.Name</option>
                 }
             }
         }
     </select>
-
-
-
-
-
 
 
     <h3>Date</h3>

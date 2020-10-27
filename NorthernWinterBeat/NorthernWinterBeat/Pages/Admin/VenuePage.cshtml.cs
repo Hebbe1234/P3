@@ -55,6 +55,13 @@ namespace NorthernWinterBeat.Pages.Admin
             this.concerts = FestivalManager.instance?._calendar?.GetConcertsAtVenue(venue.Name);
             return Partial("Partials/_VenueConcertTable", this);
         }
+           
+        public async Task<IActionResult> OnPostDeleteVenue(int id)
+        {
+            Venue deleteVenue = FestivalManager.instance._calendar.GetVenue(id);
+            await FestivalManager.instance._calendar.DeleteVenue(deleteVenue);
+            return RedirectToPage("./venues");
+        }
 
 
 

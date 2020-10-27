@@ -14,13 +14,13 @@
     {
     <tr onclick="location.href = '@(Url.Page("VenuePage", new { id = item.ID }))'">
         <td>
-            @item.Name
+            @item?.Name
         </td>
         <td>
-            @item.Capacity
+            @item?.Capacity
         </td>
         <td>
-            @item.Address
+            @item?.Address
         </td>
     </tr>
         i++;

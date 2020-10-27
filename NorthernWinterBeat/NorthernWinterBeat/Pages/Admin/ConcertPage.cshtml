@@ -12,7 +12,7 @@
         </div>
 
         <div class="row">
-            <div class="col-8"> <p>Capacity: @Model.concert.Bookings.Count() / @Model.concert.Venue?.Capacity </p> </div>
+            <div class="col-8"> <p>Capacity: @Model?.concert?.Bookings?.Count() / @Model.concert.Venue?.Capacity </p> </div>
             <div class="col-8"> <p>Venue: @Model.concert.Venue?.Name </p> </div>
             <div class="col-8"> <p>Start: @Model.concert.Start </p> </div>
             <div class="col-8"> <p> Beskrivelse: @Model.concert.ArtistDescription </p> </div>
@@ -21,75 +21,96 @@
                     <i class="fas fa-pencil-alt"></i>
                 </button>
             </div>
+            <div class="col-4">
+                <form asp-page-handler="DeleteConcert" method="post">
+                    @Html.Hidden("id", Model.concert.ID)
+                    <button type="submit" class="btn btn-secondary" @*data-toggle="modal"*@>
+                        Delete concert <i class="fas fa-minus-circle"></i>
+                    </button>
+                </form>
+
+            </div>
 
 
         </div>
     </div>
 </div>
 <br>
-
-<table>
-    <thead>
-        <tr>
-            <th>
-                <button class="btn btn-default">Email Address</button>
-            </th>
-            <th>
-                <button class="btn btn-default">Booking Date</button>
-            </th>
-            <th>
-                <button class="btn btn-default">Remove Booking</button>
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        @{ 
-            foreach(Booking item in Model.concert.Bookings)
-            {
-                <tr>
-                    <td>
-                        @item.Participant.Name
-                    </td>
-                    <td>
-                        @item.Concert.Artist
-                    </td>
-                    <td> 
-                    <button class="btn btn-secondary float-right" style="margin: 20px" data-toggle="modal" data-target="#cancelConcert">
-                        Cancel 
-                        </button> </td>
-                </tr>
-            }
-        }
-    </tbody>
-</table>
-
-
-<br>
-<br>
-
-<div class="list-group">
-    <table class="table table-hover">
-        <thread>
-            <tr>
-                <th scope="col"> Email address </th>
-                <th scope="col"> Booking date </th>
-                <th scope="col"> Remove Booking </th>
-            </tr>
-        </thread>
-        <tbody>
-            <tr>
-                <td> emailiscool </td>
-                <td> 11-12-2020 </td>
-                <td> <button class="btn btn-secondary float-right" style="margin: 20px" data-toggle="modal" data-target="#cancelConcert"> Cancel </button> </td>
-            </tr>
-            <tr>
-                <td> emailiscooler </td>
-                <td> 11-12-2020 </td>
-                <td> <button class="btn btn-secondary float-right" style="margin: 20px" data-toggle="modal" data-target="#cancelConcert"> Cancel  </button> </td>
-            </tr>
-        </tbody>
-    </table>
+<div class="card ">
+    <div class="card-body">
+        <h2>List of all bookings</h2>
+        <div class="list-group">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>
+                            <button class="btn btn-default">Name</button>
+                        </th>
+                        <th>
+                            <button class="btn btn-default">Username</button> @*Hvis udername bliver Email, bliver dette til email *@
+                        </th>
+                        <th>
+                            <button class="btn btn-default">BookingDato  </button>
+                        </th>
+                        <th>
+                            <button class="btn btn-default"> Remove Booking</button>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        foreach (Booking item in Model.concert.Bookings)
+                        {
+                            <tr>
+                                <td>
+                                    @item.Participant.Name
+                                </td>
+                                <td>
+                                    @item.Participant.Username
+                                </td>
+                                <td>
+                                    @item.BookingDate
+                                </td>
+                                <td>
+                                    <button class="btn btn-secondary float-right" style="margin: 20px" data-toggle="modal" data-target="#cancelConcert">
+                                        Cancel
+                                    </button>
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
+
+<br>
+<br>
+
+@*<div class="list-group">
+        <table class="table table-hover">
+            <thread>
+                <tr>
+                    <th scope="col"> Email address </th>
+                    <th scope="col"> Booking date </th>
+                    <th scope="col"> Remove Booking </th>
+                </tr>
+            </thread>
+            <tbody>
+                <tr>
+                    <td> emailiscool </td>
+                    <td> 11-12-2020 </td>
+                    <td> <button class="btn btn-secondary float-right" style="margin: 20px" data-toggle="modal" data-target="#cancelConcert"> Cancel </button> </td>
+                </tr>
+                <tr>
+                    <td> emailiscooler </td>
+                    <td> 11-12-2020 </td>
+                    <td> <button class="btn btn-secondary float-right" style="margin: 20px" data-toggle="modal" data-target="#cancelConcert"> Cancel  </button> </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>*@
 
 
 
