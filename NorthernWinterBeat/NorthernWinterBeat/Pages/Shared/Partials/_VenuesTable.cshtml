@@ -12,21 +12,17 @@
     int i = 0;
     foreach (var item in venues)
     {
-        <tr onclick="location.href = '@(Url.Page("VenuePage", new { id = item.ID }))'">
-            <td>
-                @item.Name
-            </td>
-
-
-            <td>
-                @*@item.Bookings.Length*@/@item.Capacity
-            </td> @*MANGLER: Mulighed for at se current capacity. Det kræver ændring i Concert klassen, som jeg ikke vil lave her*@
-
-            <td>
-                @item.Address
-            </td>
-
-        </tr>
+    <tr onclick="location.href = '@(Url.Page("VenuePage", new { id = item.ID }))'">
+        <td>
+            @item.Name
+        </td>
+        <td>
+            @item.Capacity
+        </td>
+        <td>
+            @item.Address
+        </td>
+    </tr>
         i++;
     }
 }

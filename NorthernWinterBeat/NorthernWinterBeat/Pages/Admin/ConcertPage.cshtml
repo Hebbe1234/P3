@@ -12,7 +12,7 @@
         </div>
 
         <div class="row">
-            <div class="col-8"> <p>Capacity: @Model.concert.Venue?.Capacity </p> </div>
+            <div class="col-8"> <p>Capacity: @Model.concert.Bookings.Count() / @Model.concert.Venue?.Capacity </p> </div>
             <div class="col-8"> <p>Venue: @Model.concert.Venue?.Name </p> </div>
             <div class="col-8"> <p>Start: @Model.concert.Start </p> </div>
             <div class="col-8"> <p> Beskrivelse: @Model.concert.ArtistDescription </p> </div>

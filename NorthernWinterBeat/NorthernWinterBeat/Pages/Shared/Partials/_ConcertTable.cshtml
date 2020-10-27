@@ -22,20 +22,20 @@
 
 
             <td>
-                @item.Venue.Name
+                @item.Venue?.Name
+            </td>
+            <td>
+                @Model.FindDate(item.ID)
             </td>
 
             <td>
-                @item.Start.Hour:@if (item.Start.Minute == 0)
-                {@zero;
-            }
-            else
-            {@item.Start.Minute}
+                @Model.FindStartTime(item.ID) - @Model.FindEndTime(item.ID)    
             </td>
+            
 
             <td>
-                @*@item.Bookings.Length*@/@item.Venue.Capacity
-            </td>       @*MANGLER: Mulighed for at se current capacity. Det kræver ændring i Concert klassen, som jeg ikke vil lave her*@
+                @Model.CurrentBookings(item.ID)/@item.Venue.Capacity
+            </td>       
         </tr>
         i++;
     }

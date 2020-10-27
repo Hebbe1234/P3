@@ -12,15 +12,20 @@
     <h3>Artist</h3>
     <input name="ArtistEntered" type="text" placeholder="Enter artist" minlength="1" required />
     <br>
+
+
     <h3>Description</h3>
-    <input name="DescriptionEntered" type="text" placeholder="Enter description" minlength="1" required />
+
+    <textarea cols="75" rows="10" name="DescriptionEntered" placeholder="Enter description"></textarea>
     <br>
-    <h3>Image</h3>
+
+    @*<h3>Image</h3>
     <input name="ImageEntered" type="file" placeholder="Add image" required />
-    <br>
+    <br>*@
     <br>
     <h3>Venue</h3>
     <select id="myList" name="VenueEntered">
+
         @{ 
             foreach (var venue in Model.venues)
             {
