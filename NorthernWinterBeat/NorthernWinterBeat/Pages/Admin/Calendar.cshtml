@@ -6,17 +6,17 @@
 
 <div class="card">
     <div class="container">
-       
-            <h3><a>Calendar</a></h3>                
-        
+
+        <h3><a>Calendar</a></h3>
+
         <p>
             Here you can see all of the information about the created concerts: <br />
             The artist, the capacity as well as number of bookings made, which venue, the date and time.
-            
 
-            
+
+
         </p>
-        <button class="btn btn-secondary float-right" style="margin: 20px" data-toggle="modal" data-target="#newConcert" 
+        <button class="btn btn-secondary float-right" style="margin: 20px" data-toggle="modal" data-target="#newConcert"
                 title="Click the button to create a new concert. To edit an existing concert, click the specific concert, and then edit.">
             Add concert
             <i class="fas fa-plus-circle"></i>
@@ -46,12 +46,26 @@
     </thead>
     <tbody id="concertTable">
         <!-- Add partial view here -->
-        @await Html.PartialAsync("Partials/_ConcertTable", Model) 
+        @await Html.PartialAsync("Partials/_ConcertTable", Model)
     </tbody>
 </table>
 
 
 <input type="button" value="Publish" class="btn btn-primary" data-toggle="modal" data-target="#Publish">
+
+
+
+@section scripts{
+    <script>
+        $(function () {
+            $('.btn').on('click', function () {
+                var sortBy = $(this).val()
+                $('#concertTable').load('?handler=ConcertPartial&sortBy=' + sortBy);
+            });
+        });
+    </script>
+}
+
 
 
 <div class="modal fade" id="newConcert" tabindex="-1" role="dialog" aria-labelledby="newConcertLabel" aria-hidden="true">
@@ -98,14 +112,3 @@
         </div>
     </div>
 </div>
-
-@section scripts{
-    <script>
-        $(function () {
-            $('.btn').on('click', function () {
-                var sortBy = $(this).val()
-                $('#concertTable').load('?handler=ConcertPartial&sortBy=' + sortBy);
-            });
-        });
-    </script>
-}

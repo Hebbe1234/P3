@@ -26,7 +26,7 @@ namespace NorthernWinterBeat.Pages.Admin
         public void OnGet(int id)
         {
             venue = FestivalManager.instance._calendar.GetVenue(id);
-            concerts = FestivalManager.instance?._calendar?.GetConcertsAtVenue(venue.Name); 
+            concerts = FestivalManager.instance?._calendar?.GetConcertsAtVenue(venue.ID); 
         }
 
         public List<Concert> SortConcerts(List<Concert> sortConcerts)
@@ -52,7 +52,7 @@ namespace NorthernWinterBeat.Pages.Admin
             this.SortBy = sortBy;
             this.id = id;
             this.venue = FestivalManager.instance._calendar.GetVenue(id);
-            this.concerts = FestivalManager.instance?._calendar?.GetConcertsAtVenue(venue.Name);
+            this.concerts = FestivalManager.instance?._calendar?.GetConcertsAtVenue(venue.ID);
             return Partial("Partials/_VenueConcertTable", this);
         }
            

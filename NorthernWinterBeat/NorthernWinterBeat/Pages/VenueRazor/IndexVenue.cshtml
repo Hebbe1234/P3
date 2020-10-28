@@ -2,55 +2,50 @@
 @model NorthernWinterBeat.Pages.VenueRazor.IndexModel
 @{
 }
-Venue
+
+<div class="card">
+    <div class="container">
+
+        <h3><a>Koncerter</a></h3>
+
+        <p>
+            Here you can see all of the information about the created concerts: <br />
+            The artist, the capacity as well as number of bookings made, which venue, the date and time.
+
+        </p>
+    </div>
+</div>
 
 <table class="table table-hover" table-bordered>
     <thead>
         <tr>
             <th>
-                <form asp-page-handler="SortByArtist" method="post" ><button  class="btn btn-default">Artist</button> </form>
-                
-
+                <button class="btn btn-default" value="Artist">Artist</button>
             </th>
             <th>
-                <form asp-page-handler="SortByTime" method="post"><button  class="btn btn-default">Time</button> </form>
-
-                
+                <button class="btn btn-default" value="Time">Date</button>
             </th>
             <th>
-                <form asp-page-handler="SortByCapacity" method="post"><button  class="btn btn-default">Capacity</button> </form>
-                
+                <button class="btn btn-default" value="Time">Time</button>
             </th>
-
+            <th>
+                <button class="btn btn-default" value="Capacity">Capacity</button>
+            </th>
         </tr>
     </thead>
-    <tbody>
-
-        @{
-            List<Concert> SortConcert = new List<Concert>(Model.Concerts);
-
-            SortConcert = Model.SortConcertBy(SortConcert);
-
-            string zero = "00";
-
-            foreach (var item in SortConcert)
-            {
-                <tr>
-                    <td>@item.Artist</td>
-                    <td>
-                        @item.Start.Hour:@if (item.Start.Minute == 0)
-                        {@zero;
-                    }
-                    else
-                    {@item.Start.Minute}
-                    </td>
-                    <td>@*@item.Bookings.Length*@0/@item.Venue.Capacity</td>       @*MANGLER: Mulighed for at se current capacity. Det kræver ændring i Concert klassen, som jeg ikke vil lave her*@
-                </tr>
-            }
-        }
-
-
+    <tbody id="concertTable">
+        <!-- Add partial view here -->
+        @await Html.PartialAsync("Partials/_VenueRazorConcertTable", Model)
     </tbody>
 </table>
 
-
+@section scripts{
+    <script>
+        $(function () {
+            $('.btn').on('click', function () {
+                var sortBy = $(this).val()
+                $('#concertTable').load('?handler=VenueRazorPartial&sortBy=' + sortBy);
+            });
+        });
+    </script>
+}
