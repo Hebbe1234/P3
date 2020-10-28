@@ -19,13 +19,9 @@
                 </button>
             </div>
             <div class="col-4">
-                <form asp-page-handler="DeleteVenue" method="post">
-                    @Html.Hidden("id", Model.venue.ID)
-                    <button type="submit" class="btn btn-secondary" data-toggle="modal" data-target="#DeleteVenue">
-                        Delete Venue
-                        <i class="fas fa-minus-circle"></i>
-                    </button>
-                </form>
+
+                <input type="button" class="btn btn-danger" value="Delete Venue" data-toggle="modal" data-target="#deleteVenue">
+          
             </div>
         </div>
     </div>
@@ -90,49 +86,32 @@
     </div>
 </div>
 
-@*<div class="modal fade" id="DeleteVenue" tabindex="-1" role="dialog" aria-labelledby="DeleteVenueLabel" aria-hidden="true">
+<div class="modal fade" id="deleteVenue" tabindex="-1" role="dialog" aria-labelledby="deleteVenueLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="DeleteVenue"> Edit concert ? </h5>
+                <h5 class="modal-title" id="deleteVenue"> Delete venue? </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                Are you sure you want to finish editing without saving?
+                Are you sure you want to delete this venue?
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal"> No </button>
-                <a class="nav-link text-dark" asp-area="" asp-page="/Admin/Concerts">
-                    <input type="submit" class="btn btn-primary" value="Yes" />
-                </a>
+
+                <form asp-page-handler="DeleteVenue" method="post">
+                    @Html.Hidden("id", Model.venue.ID)
+                    <button type="submit" class="btn btn-secondary" data-toggle="modal" data-target="#DeleteVenue">
+                        Delete Venue
+                        <i class="fas fa-minus-circle"></i>
+                    </button>
+                </form>
             </div>
         </div>
     </div>
-</div>*@
-
-@*<div class="modal fade" id="unbookConcert" tabindex="-1" role="dialog" aria-labelledby="unbookConcertLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="unbookConcert"> Unbook participant? </h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    Are you sure you want to unbook this participant from the concert?
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal"> No </button>
-                    <a class="nav-link text-dark" asp-area="" asp-page="/Admin/Venue">
-                        <input type="button" class="btn btn-primary" value="Yes" />
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>*@
+</div>
 
 
 <div class="modal fade" id="unbookConcert" tabindex="-1" role="dialog" aria-labelledby="unbookConcertLabel" aria-hidden="true">
