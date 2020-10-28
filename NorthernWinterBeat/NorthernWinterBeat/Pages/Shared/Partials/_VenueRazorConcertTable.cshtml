@@ -1,0 +1,31 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    @model NorthernWinterBeat.Pages.VenueRazor.IndexModel
+}
+@{
+    List<Concert> SortConcert = new List<Concert>(Model.concerts);
+
+    SortConcert = Model.SortConcertBy(SortConcert);
+
+    int i = 0;
+    foreach (var item in SortConcert)
+    {
+        <tr onclick="location.href = '@(Url.Page("ConcertPage", new { id = item.ID }))'">
+            <td>
+                @item.Artist
+            </td>
+            <td>
+                @item.FormatDate(item.Start)
+            </td>
+            <td>
+                @item.FormatTime(item.Start) - @item.FormatTime(item.End)
+            </td>
+            <td>
+                @(item.Bookings?.Count() ?? 0)/@(item.Venue?.Capacity ?? 0)
+            </td>
+        </tr>
+        i++;
+    }
+}

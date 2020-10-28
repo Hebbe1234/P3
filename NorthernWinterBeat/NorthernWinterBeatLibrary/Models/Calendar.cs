@@ -67,9 +67,9 @@ public class Calendar
     {
         return venues; 
     }
-    public List<Concert> GetConcertsAtVenue(string name)
+    public List<Concert> GetConcertsAtVenue(int id)
     {
-        return concerts.FindAll(c => c.Venue?.Name == name); 
+        return concerts.FindAll(c => c.Venue?.ID == id); 
     }
     public List<Concert> GetConcerts()
     {

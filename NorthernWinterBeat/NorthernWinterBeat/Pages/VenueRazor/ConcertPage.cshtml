@@ -1,0 +1,63 @@
+﻿@page
+@model NorthernWinterBeat.Pages.VenueRazor.ConcertPageModel
+@{
+}
+
+<div class="card">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-8"> <h3> @Model.concert.Artist </h3> </div>
+        </div>
+
+        <div class="row">
+            <div class="col-8"> <p>Capacity: @Model?.concert?.Bookings?.Count() / @Model.concert.Venue?.Capacity </p> </div>
+            <div class="col-8"> <p>Venue: @Model.concert.Venue?.Name </p> </div>
+            <div class="col-8"> <p>Start: @Model.concert.Start </p> </div>
+            <div class="col-8"> <p>End: @Model.concert.End </p> </div>
+            <div class="col-8"> <p> Beskrivelse: @Model.concert.ArtistDescription </p> </div>
+        </div>
+
+
+    </div>
+</div>
+<br>
+<div class="card ">
+    <div class="card-body">
+        <h2>List of all bookings</h2>
+        <div class="list-group">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>
+                            <button class="btn btn-default">Name</button>
+                        </th>
+                        <th>
+                            <button class="btn btn-default">Username</button> @*Hvis udername bliver Email, bliver dette til email *@
+                        </th>
+                        <th>
+                            <button class="btn btn-default">BookingDato  </button>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        foreach (Booking item in Model.concert.Bookings)
+                        {
+                            <tr>
+                                <td>
+                                    @item.Participant.Name
+                                </td>
+                                <td>
+                                    @item.Participant.Username
+                                </td>
+                                <td>
+                                    @item.BookingDate
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
