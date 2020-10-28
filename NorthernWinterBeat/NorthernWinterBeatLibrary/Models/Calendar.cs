@@ -93,7 +93,7 @@ public class Calendar
         }
     }
 
-    public void EditConcert(int id, Concert NewConcertInfo, string VenueName)
+    public async Task EditConcert(int id, Concert NewConcertInfo, string VenueName)
     {
         if (VenueName != "")
         {
@@ -104,7 +104,33 @@ public class Calendar
         concert.End = NewConcertInfo.End;
         concert.Venue = NewConcertInfo.Venue;
         concert.Artist = NewConcertInfo.Artist;
-        concert.ArtistDescription = NewConcertInfo.ArtistDescription; 
+        concert.ArtistDescription = NewConcertInfo.ArtistDescription;
+        try
+        {
+            await DatabaseManager.context.SaveChangesAsync();
+        }
+        catch (DbUpdateConcurrencyException)
+        {
+            throw;
+        }
+    }
+    public async Task DeleteConcert(Concert concert)
+    {
+        if (concert != null)
+        {
+            concerts.Remove(concert);
+            DatabaseManager.context.Concert.Remove(concert);
+            await DatabaseManager.context.SaveChangesAsync();
+        }
+    }
+    public async Task DeleteVenue(Venue venue)
+    {
+        if(venue != null)
+        {
+            venues.Remove(venue);
+            DatabaseManager.context.Venue.Remove(venue); 
+            await DatabaseManager.context.SaveChangesAsync();
+        }
     }
 }
 

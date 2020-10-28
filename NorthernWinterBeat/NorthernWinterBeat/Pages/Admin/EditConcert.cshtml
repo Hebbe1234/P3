@@ -13,22 +13,44 @@
     <input name="ArtistEntered" type="text" placeholder="Enter artist" minlength="1" contenteditable="true" value="@Model.concert.Artist" />
     <br>
     <h3>Description</h3>
-    <input name="DescriptionEntered" type="text" placeholder="Enter description" minlength="1" value="@Model.concert.ArtistDescription" />
+
+    <textarea cols="75" rows="10" name="DescriptionEntered" placeholder="Enter description">@Model.concert.ArtistDescription</textarea>
+
+
+    @*<input name="DescriptionEntered" type="text" placeholder="Enter description" minlength="1" value="@Model.concert.ArtistDescription" />*@
     <br>
-    <h3>Image</h3>
-    <input name="ImageEntered" type="file" placeholder="Add image" />
-    <br>
+
+    <!--<h3>Image</h3>-->
+    @*<input name="ImageEntered" type="file" placeholder="Add image" />*@
+    <!--<br>-->
+    @*<h3>Venue</h3>
+        <input name="VenueEntered" type="text" placeholder="Enter venue" minlength="1" contenteditable="true" value="@Model.concert.Venue?.Name" />
+        <br>*@
     <h3>Venue</h3>
-    <input name="VenueEntered" type="text" placeholder="Enter venue" minlength="1" contenteditable="true" value="@Model.concert.Venue?.Name" />
-    <br>
+    <select id="myList" name="VenueEntered">
+        <option value="@Model?.concert?.Venue?.Name"> @Model?.concert?.Venue?.Name</option>
+
+        @{
+            foreach (var venue in Model.venues)
+            {
+                if (venue.Name != Model?.concert?.Venue?.Name)
+                {
+                    <option value="@venue.Name"> @venue.Name</option>
+                }
+            }
+        }
+    </select>
+
+
     <h3>Date</h3>
-    <input name="DateEntered" type="date" placeholder="Enter date" contenteditable="true" min="2021-01-28" max="2021-01-30"value="@Model.FindDate()"/>
+    <input name="DateEntered" type="date" placeholder="Enter date" contenteditable="true" min="2021-01-28" max="2021-01-30" 
+           value="@Model.FindDate()" @*value="@Model.concert.Start.Year-@Model.concert.FormatDate(Model.concert.Start)"*@ />
     <br>
     <h3>Start time</h3>
-    <input name="StartTimeEntered" type="time" placeholder="Enter start time" contenteditable="true" value="@Model.FindStartTime()" />
+    <input name="StartTimeEntered" type="time" placeholder="Enter start time" contenteditable="true" value="@Model.concert.FormatTime(Model.concert.Start)" />
     <br>
     <h3>End time</h3>
-    <input name="EndTimeEntered" type="time" placeholder="Enter end time" contenteditable="true" value="@Model.FindEndTime()" @*value="14:20"*@ />
+    <input name="EndTimeEntered" type="time" placeholder="Enter end time" contenteditable="true" value="@Model.concert.FormatTime(Model.concert.End)" @*value="14:20"*@ />
     <br>
     <br>
 

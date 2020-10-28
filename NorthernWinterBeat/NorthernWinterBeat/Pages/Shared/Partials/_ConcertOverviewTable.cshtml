@@ -12,9 +12,9 @@
         { i++; ; }
         <tr onclick="location.href = '@(Url.Page("ParticipantArtist", new { id = concert.ID }))'">
             <th scope="row">@i</th>
-            <td><a class="btn-link text-dark">@concert.Artist</a></td>
-            <td>@concert.Start.Hour - @concert.End.Hour</td>
-            <td>@concert.Venue.Name</td>
+            <td><a class="btn-link text-dark">@concert?.Artist</a></td>
+            <td>@concert.FormatTime(concert.Start) - @concert.FormatTime(concert.End)</td>
+            <td>@(concert.Venue?.Name ?? "")</td>
         </tr>
     }
 }

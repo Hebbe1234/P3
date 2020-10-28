@@ -10,8 +10,6 @@
 
     SortConcert = Model.SortConcertBy(SortConcert);
 
-    string zero = "00";
-
     int i = 0;
     foreach (var item in SortConcert)
     {
@@ -19,23 +17,18 @@
             <td>
                 @item.Artist
             </td>
-
-
             <td>
-                @item.Venue.Name
+                @item.Venue?.Name
             </td>
-
             <td>
-                @item.Start.Hour:@if (item.Start.Minute == 0)
-                {@zero;
-            }
-            else
-            {@item.Start.Minute}
+                @item.FormatDate(item.Start)
             </td>
-
             <td>
-                @*@item.Bookings.Length*@/@item.Venue.Capacity
-            </td>       @*MANGLER: Mulighed for at se current capacity. Det kræver ændring i Concert klassen, som jeg ikke vil lave her*@
+                @item.FormatTime(item.Start) - @item.FormatTime(item.End)    
+            </td>
+            <td>
+                @(item.Bookings?.Count() ?? 0)/@(item.Venue?.Capacity ?? 0)
+            </td>       
         </tr>
         i++;
     }
