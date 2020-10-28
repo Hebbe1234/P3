@@ -1,0 +1,16 @@
+{
+  "dependencies": {
+    "mssql1": {
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/northernwinterbeat/databases/NWB",
+      "type": "mssql.azure",
+      "connectionId": "NorthernWinterBeatAdminContext",
+      "secretStore": "AzureAppSettings"
+    },
+    "mssql2": {
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/northernwinterbeat/databases/NWB",
+      "type": "mssql.azure",
+      "connectionId": "NorthernWinterBeatConcertContext",
+      "secretStore": "AzureAppSettings"
+    }
+  }
+}
