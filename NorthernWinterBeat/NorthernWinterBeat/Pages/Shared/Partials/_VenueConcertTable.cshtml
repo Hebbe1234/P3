@@ -16,16 +16,14 @@
             @item.Artist
         </td>
         <td>
-            @Model.FindDate(item.ID)
+            @item.FormatDate(item.Start)
         </td>
-
         <td>
-            @Model.FindStartTime(item.ID) - @Model.FindEndTime(item.ID)
+            @item.FormatTime(item.Start) - @item.FormatTime(item.End)
         </td>
-
         <td>
-            @item.Bookings?.Count() / @item.Venue.Capacity
-        </td>       
+            @(item.Bookings?.Count() ?? 0)/@(item.Venue?.Capacity ?? 0)
+        </td>
     </tr>
             i++;
         }

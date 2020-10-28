@@ -15,24 +15,19 @@
     {
         <tr onclick="location.href = '@(Url.Page("ConcertPage", new { id = item.ID }))'">
             <td>
-                @item?.Artist
+                @item.Artist
             </td>
-
-
             <td>
                 @item.Venue?.Name
             </td>
             <td>
-                @Model.FindDate(item.ID)
+                @item.FormatDate(item.Start)
             </td>
-
             <td>
-                @Model.FindStartTime(item.ID) - @Model.FindEndTime(item.ID)    
+                @item.FormatTime(item.Start) - @item.FormatTime(item.End)    
             </td>
-            
-
             <td>
-                @Model.CurrentBookings(item.ID)/@item.Venue?.Capacity
+                @(item.Bookings?.Count() ?? 0)/@(item.Venue?.Capacity ?? 0)
             </td>       
         </tr>
         i++;

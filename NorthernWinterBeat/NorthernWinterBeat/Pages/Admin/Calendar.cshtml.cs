@@ -45,39 +45,6 @@ namespace NorthernWinterBeat.Pages.Admin
             }
             return SortConcert;
         }
-
-        public string FindStartTime(int id)
-        {
-            string hour = ("00" + concerts.Find(c => c.ID == id).Start.Hour);
-            string minute = ("00" + concerts.Find(c => c.ID == id).Start.Minute);
-
-            minute = minute.Substring(minute.Length - 2);
-            hour = hour.Substring(hour.Length - 2);
-
-            return hour + ":" + minute;
-        }
-        public string FindEndTime(int id)
-        {
-            string hour = ("00" + concerts.Find(c => c.ID == id).End.Hour);
-            string minute = ("00" + concerts.Find(c => c.ID == id).End.Minute);
-
-            minute = minute.Substring(minute.Length - 2);
-            hour = hour.Substring(hour.Length - 2);
-
-            return hour + ":" + minute;
-        }
-        public string FindDate(int id)
-        {
-            Concert concert = concerts.Find(c => c.ID == id);
-            string days = "00" + concert.Start.Date.Day;
-            string month = "00" + concert.Start.Date.Month;
-            return days.Substring(days.Length - 2) + "-" + month.Substring(month.Length - 2); 
-        }
-        public int CurrentBookings(int id)
-        {
-            return concerts.Find(c => c.ID == id).Bookings?.Count() ?? 0; 
-        }
-
         public PartialViewResult OnGetConcertPartial(string sortBy)
         {
             this.SortBy = sortBy;
