@@ -4,48 +4,55 @@
 }
 
 <div class="card">
-    <div class="container">
+    <div class="card-body">
+        <div class="container">
 
-        <h3><a>Koncerter</a></h3>
+            <h3><a>Concerts</a></h3>
 
-        <p>
-            Here you can see all of the information about the created concerts: <br />
-            The artist, the capacity as well as number of bookings made, which venue, the date and time.
+            <p>
+                Here you can see all of the information about concerts at your venue <br />
+                By clicking on a concert, a list of all the bookins at the concert is shown. 
 
-        </p>
+            </p>
+        </div>
+    </div>
+</div>
+    <br />
+<div class="card">
+    <div class="card-body">
+        <h2>List of all concerts at your venue!</h2>
+        <table class="table table-hover" table-bordered>
+            <thead>
+                <tr>
+                    <th>
+                        <button class="btn btn-default" value="Artist">Artist</button>
+                    </th>
+                    <th>
+                        <button class="btn btn-default" value="Time">Date</button>
+                    </th>
+                    <th>
+                        <button class="btn btn-default" value="Time">Time</button>
+                    </th>
+                    <th>
+                        <button class="btn btn-default" value="Capacity">Capacity</button>
+                    </th>
+                </tr>
+            </thead>
+            <tbody id="concertTable">
+                <!-- Add partial view here -->
+                @await Html.PartialAsync("Partials/_VenueRazorConcertTable", Model)
+            </tbody>
+        </table>
     </div>
 </div>
 
-<table class="table table-hover" table-bordered>
-    <thead>
-        <tr>
-            <th>
-                <button class="btn btn-default" value="Artist">Artist</button>
-            </th>
-            <th>
-                <button class="btn btn-default" value="Time">Date</button>
-            </th>
-            <th>
-                <button class="btn btn-default" value="Time">Time</button>
-            </th>
-            <th>
-                <button class="btn btn-default" value="Capacity">Capacity</button>
-            </th>
-        </tr>
-    </thead>
-    <tbody id="concertTable">
-        <!-- Add partial view here -->
-        @await Html.PartialAsync("Partials/_VenueRazorConcertTable", Model)
-    </tbody>
-</table>
-
-@section scripts{
-    <script>
-        $(function () {
-            $('.btn').on('click', function () {
-                var sortBy = $(this).val()
-                $('#concertTable').load('?handler=VenueRazorPartial&sortBy=' + sortBy);
-            });
-        });
-    </script>
-}
+        @section scripts{
+            <script>
+                $(function () {
+                    $('.btn').on('click', function () {
+                        var sortBy = $(this).val()
+                        $('#concertTable').load('?handler=VenueRazorPartial&sortBy=' + sortBy);
+                    });
+                });
+            </script>
+        }
