@@ -17,19 +17,15 @@ namespace NorthernWinterBeat.Pages
         [BindProperty(SupportsGet = true)]
         public DateTime? Day { get; set; } = null;
         public void OnGet(DateTime? Day)
-        {   
-            if(Day == null)
+        {
+            Concerts = FestivalManager.instance._calendar.GetConcerts();
+
+            if (Day == null)
             {
-                this.Day = new DateTime(2020, 10, 08);
+                this.Day = Concerts.First().Start;
             }
 
-            Concerts = FestivalManager.instance._calendar.GetConcerts();
             
-        }
-        public IActionResult OnPostDate(string date)
-        {
-            return RedirectToPage("./ParticipantConcertOverview", new { Day = DateTime.Parse(date) });
-
         }
 
         public IActionResult OnGetSelectArtist(int? id = 0)
@@ -45,5 +41,13 @@ namespace NorthernWinterBeat.Pages
 
             return Concerts.FindAll(c => c.Start.Date.ToShortDateString() == ConcertDay.ToShortDateString());
         }
+
+        public PartialViewResult OnGetConcertsOverviewPartial(string concertDay)
+        {
+            this.Day = DateTime.Parse(concertDay);
+            this.Concerts = FestivalManager.instance._calendar.GetConcerts();
+            return Partial("Partials/_ConcertOverviewTable", this);
+        }
     }
+
 }

@@ -49,7 +49,7 @@ namespace NorthernWinterBeat.Pages
             }
             else if (PasswordInput == "Venue")
             {
-                return RedirectToPage("./Venue/IndexVenue");
+                return RedirectToPage("./VenueRazor/IndexVenue");
             }
 
             //Her endes der hvis der er indtastet noget forkert eller intet, derfor reloades der. 
