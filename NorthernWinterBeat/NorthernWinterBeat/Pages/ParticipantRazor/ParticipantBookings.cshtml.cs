@@ -14,7 +14,9 @@ namespace NorthernWinterBeat.Pages.ParticipantRazor
 
         public void OnGet()
         {
-            bookings = FestivalManager.instance.GetParticipants().First().GetParticipantBookings();
+
+            var claimTicketID = HttpContext.User.Claims.Where(c => c.Type == "TicketID").Select(t => t.Value).First();
+            bookings = FestivalManager.instance.GetParticipants().Where(p => p.Ticket?.TicketNumber == claimTicketID).First()?.GetParticipantBookings();
         }
     }
 }

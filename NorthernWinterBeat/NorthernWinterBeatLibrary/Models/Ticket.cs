@@ -17,7 +17,7 @@ public class Ticket
     }
     [Key]
     public int ID { get; set; }
-    private string TicketNumber { get; set; }
+    public string TicketNumber { get; set; }
     public TicketState State { get; set; }
 }
 
