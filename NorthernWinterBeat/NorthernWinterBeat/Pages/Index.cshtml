@@ -4,16 +4,20 @@
     ViewData["Title"] = "Home page";
 }
 
-<form method="post">
     <h2>Registrer billet</h2>
     <br>
-    <input type="text" name="TicketEntered" placeholder="TicketID" minlength="0" maxlength="12"/> @*Vælg restrictioner*@
-    <br>
-    <input type="submit" value="Billet indtastet" />
+    <form method="post" asp-page-handler="Register">
+
+        <input type="text" name="TicketEntered" placeholder="TicketID" minlength="0" maxlength="12" /> @*Vælg restrictioner*@
+        <br>
+        <input type="submit" value="Billet indtastet" />
+    </form>
     <h2>Login</h2>
-    <input type="email" name="EmailEntered" placeholder="Email" />
-    <br>
-    <input type="password" name="PasswordEntered" placeholder="Password" minlength="0" />
-    <br>
-    <input type="submit" value="Login" />
-</form>
+    <form method="post" asp-page-handler="Login">
+
+        <input type="text" name="EmailEntered" placeholder="Email" />
+        <br>
+        <input type="password" name="PasswordEntered" placeholder="Password" minlength="0" />
+        <br>
+        <input type="submit" value="Login" />
+    </form>
