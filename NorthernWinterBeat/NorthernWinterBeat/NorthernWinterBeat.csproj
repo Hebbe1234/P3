@@ -25,6 +25,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="wwwroot\Graphics\Pictures\NWB2021_LOGO_Black.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\NorthernWinterBeatLibrary\NorthernWinterBeatLibrary.csproj" />
   </ItemGroup>
 
