@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore.Storage;
+using NorthernWinterBeat.Models;
 using NorthernWinterBeatLibrary.Managers;
 using NorthernWinterBeatLibrary.Models;
 
@@ -45,13 +46,16 @@ namespace NorthernWinterBeat.Pages
                 return RedirectToPage("./MakeUserLogin");
             }
 
-            DatabaseManager.context.ApplicationUser.Add(
-                new ApplicationUser(UsernameEntered, AuthorizationManager.instance.Encrypt(Password1Entered), ApplicationUser.Roles.PARTICIPANT)
-                {
-                    TicketID = ticketNumber
-                }
-                );
+            var newUser = new ApplicationUser(UsernameEntered, AuthorizationManager.instance.Encrypt(Password1Entered), ApplicationUser.Roles.PARTICIPANT)
+            {
+                TicketID = ticketNumber
+            };
+
+            DatabaseManager.context.ApplicationUser.Add(newUser);
             DatabaseManager.context.SaveChanges();
+
+            var newParticipant = new Participant(new Ticket(ticketNumber));
+            FestivalManager.instance.AddParticipant(newParticipant);
 
             return RedirectToPage("./Index");
 
