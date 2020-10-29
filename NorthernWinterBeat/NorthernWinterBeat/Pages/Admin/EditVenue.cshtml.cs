@@ -26,9 +26,13 @@ namespace NorthernWinterBeat.Pages.Admin
         public async Task<IActionResult> OnPostEditVenue(int id)
         {
             string Name = Request.Form["VenueEntered"];
-            int Capacity = int.Parse(Request.Form["CapacityEntered"]);
+            string CapacityString = Request.Form["CapacityEntered"];
             string Address = Request.Form["AddressEntered"];
-
+            int Capacity = 0;
+            if (CapacityString != "")
+            {
+                Capacity = int.Parse(CapacityString);
+            }
 
             Venue NewVenueInfo = new Venue(Name, Address, Capacity);
             if (!ModelState.IsValid)
@@ -39,10 +43,5 @@ namespace NorthernWinterBeat.Pages.Admin
 
             return RedirectToPage("./Venues"); 
         }
-        private bool VenueExists(int id)
-        {
-            return _context.Concert.Any(e => e.ID == id);
-        }
-
     }
 }

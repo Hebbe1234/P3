@@ -28,6 +28,7 @@ namespace NorthernWinterBeat.Pages.ParticipantRazor
 
         public IActionResult OnPostBookSpot(int id)
         {
+
             Concert c = FestivalManager.instance._calendar.GetConcert(id);
             c.MakeBooking(FestivalManager.instance.GetParticipants().First());
             return RedirectToPage("./ParticipantArtist", new { id = id });

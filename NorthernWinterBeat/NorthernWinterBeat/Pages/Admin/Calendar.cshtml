@@ -6,19 +6,19 @@
 
 <div class="card">
     <div class="container">
-        <h3><a>Calendar</a></h3>
+       
+            <h3><a>Calendar</a></h3>                
+        
         <p>
             Here you can see all of the information about the created concerts: <br />
             The artist, the capacity as well as number of bookings made, which venue, the date and time.
-            <br /><br />
-            Click the button "Add concert" to create a new concert. <br />
-            To edit an existing concert, click the specific concert, and then edit.
         </p>
 
-        <button class="btn btn-secondary float-right" style="margin: 20px" data-toggle="modal" data-target="#newConcert">
+        <a class="btn btn-secondary float-right" style="margin: 20px" asp-area="" asp-page="/Admin/Concert"  
+                title="Click the button to create a new concert. To edit an existing concert, click the specific concert, and then edit.">
             Add concert
             <i class="fas fa-plus-circle"></i>
-        </button>
+        </a>
     </div>
 </div>
 
@@ -27,21 +27,18 @@
         <tr>
             <th>
                 <button class="btn btn-default" value="Artist">Artist</button>
-
-
             </th>
             <th>
                 <button class="btn btn-default" value="Venue">Venue</button>
-
             </th>
             <th>
-                <button class="btn btn-default" value="Time">Playtime</button>
-
-
+                <button class="btn btn-default" value="Time">Date</button>
+            </th>
+            <th>
+                <button class="btn btn-default" value="Time">Time</button>
             </th>
             <th>
                 <button class="btn btn-default" value="Capacity">Capacity</button>
-
             </th>
         </tr>
     </thead>
@@ -52,30 +49,9 @@
 </table>
 
 
-<input type="button" value="Publish" data-toggle="modal" data-target="#Publish">
+<input type="button" value="Publish" class="btn btn-primary" data-toggle="modal" data-target="#Publish">
 
 
-<div class="modal fade" id="newConcert" tabindex="-1" role="dialog" aria-labelledby="newConcertLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="newConcert"> Add new concert? </h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                Do you want to add a new concert to the calendar?
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal"> No </button>
-                <a class="nav-link text-dark" asp-area="" asp-page="/Admin/Concert">
-                    <input type="button" class="btn btn-primary" value="Yes" />
-                </a>
-            </div>
-        </div>
-    </div>
-</div>
 <div class="modal fade" id="Publish" tabindex="-1" role="dialog" aria-labelledby="PublishLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">

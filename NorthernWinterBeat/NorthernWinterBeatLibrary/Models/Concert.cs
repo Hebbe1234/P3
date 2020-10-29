@@ -39,7 +39,7 @@ public class Concert
     public DateTime Start { get; set; }
     public DateTime End { get; set; }
     public string PicturePath { get; set; }
-    public List<Booking> Bookings { get; set; }
+    public List<Booking> Bookings { get; set; } = new List<Booking>(); 
 
 	public void AddBooking(Booking booking)
     {
@@ -59,8 +59,29 @@ public class Concert
             booking =  new Booking(p, this);
             Bookings.Add(booking);
         }
-
-        
         return booking;
+    }
+
+    public string FormatDate(DateTime time)
+    {
+        if (time == null)
+        {
+            return "";
+        }
+        string days = "00" + time.Date.Day;
+        string month = "00" + time.Date.Month;
+        return days.Substring(days.Length - 2) + "-" + month.Substring(month.Length - 2);
+    }
+    public string FormatTime(DateTime time)
+    {
+        if(time == null)
+        {
+            return ""; 
+        }
+        string hour = ("00" + time.Hour);
+        string minute = ("00" + time.Minute);
+        minute = minute.Substring(minute.Length - 2);
+        hour = hour.Substring(hour.Length - 2);
+        return hour + ":" + minute;
     }
 }

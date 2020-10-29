@@ -2,9 +2,8 @@
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
-    @model NorthernWinterBeat.Pages.Admin.CalendarModel
+    @model NorthernWinterBeat.Pages.VenueRazor.IndexModel
 }
-
 @{
     List<Concert> SortConcert = new List<Concert>(Model.concerts);
 
@@ -18,17 +17,14 @@
                 @item.Artist
             </td>
             <td>
-                @item.Venue?.Name
-            </td>
-            <td>
                 @item.FormatDate(item.Start)
             </td>
             <td>
-                @item.FormatTime(item.Start) - @item.FormatTime(item.End)    
+                @item.FormatTime(item.Start) - @item.FormatTime(item.End)
             </td>
             <td>
                 @(item.Bookings?.Count() ?? 0)/@(item.Venue?.Capacity ?? 0)
-            </td>       
+            </td>
         </tr>
         i++;
     }
