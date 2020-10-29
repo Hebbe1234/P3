@@ -12,40 +12,17 @@
         <p>
             Here you can see all of the information about the created venues: <br />
             The name of the venue, the capacity, and the number of concerts at the venue.
-            <br /><br />
-            Click the button "Add Venue" to create a new venue. <br />
+            <br />
             To edit an existing venue, click the specific venue, and then edit.
         </p>
 
-        <button class="btn btn-secondary float-right" style="margin: 20px" data-toggle="modal" data-target="#newVenue">
-            Add venue
+        <a class="btn btn-secondary float-right" style="margin: 20px" asp-area="" asp-page="/Admin/AddVenue"
+           title="Click the button to create a new venue.">
+            Add Venue
             <i class="fas fa-plus-circle"></i>
-        </button>
+        </a>
 
 
-    </div>
-</div>
-
-
-<div class="modal fade" id="newVenue" tabindex="-1" role="dialog" aria-labelledby="newVenueLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="newVenue"> add new venue ? </h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                Are you sure you want to add a new venue?
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal"> No </button>
-                <a class="nav-link text-dark" asp-area="" asp-page="/Admin/AddVenue">
-                    <input type="button" class="btn btn-primary" value="Yes" />
-                </a>
-            </div>
-        </div>
     </div>
 </div>
 

@@ -45,7 +45,6 @@ namespace NorthernWinterBeat.Pages.Admin
             }
             return SortConcert;
         }
-
         public PartialViewResult OnGetConcertPartial(string sortBy)
         {
             this.SortBy = sortBy;

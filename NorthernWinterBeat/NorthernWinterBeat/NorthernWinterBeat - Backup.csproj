@@ -2,7 +2,6 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <UserSecretsId>527800e4-3add-4147-9d44-698b65d8f6d2</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -25,11 +24,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Pages\Admin\Pages\" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\NorthernWinterBeatLibrary\NorthernWinterBeatLibrary.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.Cookies" Version="2.2.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.1.9" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.9" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.9">

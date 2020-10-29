@@ -17,10 +17,12 @@ namespace NorthernWinterBeat
         public static void Main(string[] args)
         {
             var host = CreateHostBuilder(args).Build();
+            
             DatabaseManager databaseManager = new DatabaseManager(host.Services.GetService<IConfiguration>());
 
             CreateDbIfNotExists(host);
             FestivalManager festivalManager = new FestivalManager();
+            AuthorizationManager authorizationManager = new AuthorizationManager();
 
             host.Run();
         }

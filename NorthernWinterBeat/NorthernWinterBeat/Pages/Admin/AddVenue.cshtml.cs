@@ -22,12 +22,17 @@ namespace NorthernWinterBeat.Pages.Admin
         public async Task<IActionResult> OnPostCreateVenue()
         {
             string Name = Request.Form["VenueEntered"];
-            int Capacity = int.Parse(Request.Form["CapacityEntered"]);
+            string CapacityString = Request.Form["CapacityEntered"];
             string Address = Request.Form["AddressEntered"];
+            int Capacity = 0; 
+            if(CapacityString != "")
+            {
+                Capacity = int.Parse(CapacityString); 
+            }
+
 
             Venue NewVenue = new Venue(Name, Address, Capacity);
             
-
             await FestivalManager.instance._calendar.AddVenue(NewVenue); 
 
             return RedirectToPage("./Venues"); 
