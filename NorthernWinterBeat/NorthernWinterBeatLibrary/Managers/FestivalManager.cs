@@ -1,4 +1,5 @@
-﻿using NorthernWinterBeat.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using NorthernWinterBeat.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,7 +21,7 @@ namespace NorthernWinterBeatLibrary.Managers
         {
             if(instance == null)
             {
-                participants = DatabaseManager.context.Participant.ToList();
+                participants = DatabaseManager.context.Participant.Include(p => p.Ticket).ToList();
                 _calendar = new Calendar();
                 instance = this;
             }

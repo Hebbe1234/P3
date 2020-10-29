@@ -25,10 +25,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="wwwroot\Graphics\Pictures\NWB2021_LOGO_Black.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\NorthernWinterBeatLibrary\NorthernWinterBeatLibrary.csproj" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.Cookies" Version="2.2.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.1.9" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.9" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.9">

@@ -42,6 +42,8 @@ namespace NorthernWinterBeatLibrary.Managers
         public DbSet<Booking> Booking { get; set; }
         public DbSet<LegalTicket> LegalTickets { get; set; }
 
+        public DbSet<ApplicationUser> ApplicationUser { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -50,7 +52,8 @@ namespace NorthernWinterBeatLibrary.Managers
             modelBuilder.Entity<Ticket>().ToTable("Ticket");
             modelBuilder.Entity<Booking>().ToTable("Booking");
             modelBuilder.Entity<Participant>().ToTable("Participant");
-            modelBuilder.Entity<LegalTicket>().ToTable("LegalTicket"); 
+            modelBuilder.Entity<LegalTicket>().ToTable("LegalTicket");
+            modelBuilder.Entity<ApplicationUser>().ToTable("ApplicationUser");
         }
     }
 }

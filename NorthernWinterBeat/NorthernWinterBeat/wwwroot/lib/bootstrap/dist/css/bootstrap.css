@@ -4060,9 +4060,17 @@ input[type="button"].btn-block {
   list-style: none;
 }
 
+     
+.nav-icon {
+   height: 10%;
+   width: 10%; 
+}
 .nav-link {
-  display: block;
-  padding: 0.5rem 1rem;
+    display: block;
+    padding: 0.5rem 1rem;
+    font-size: 3rem;
+    height: 10%;
+    width: 10%
 }
 
 .nav-link:hover, .nav-link:focus {
@@ -4157,6 +4165,14 @@ input[type="button"].btn-block {
   padding: 0.5rem 1rem;
 }
 
+@media (max-width: 600px) {
+    .navbar-collapse {
+        position: sticky;
+        justify-content: center;
+        bottom: 0; 
+    }
+}
+
 .navbar > .container,
 .navbar > .container-fluid {
   display: -ms-flexbox;
@@ -4168,6 +4184,7 @@ input[type="button"].btn-block {
   -ms-flex-pack: justify;
   justify-content: space-between;
 }
+
 
 .navbar-brand {
   display: inline-block;
@@ -4254,7 +4271,8 @@ input[type="button"].btn-block {
     -ms-flex-flow: row nowrap;
     flex-flow: row nowrap;
     -ms-flex-pack: start;
-    justify-content: flex-start;
+    /*Changed from flex-start -> center */
+    justify-content: center;
   }
   .navbar-expand-sm .navbar-nav {
     -ms-flex-direction: row;
@@ -4266,19 +4284,24 @@ input[type="button"].btn-block {
   .navbar-expand-sm .navbar-nav .nav-link {
     padding-right: 0.5rem;
     padding-left: 0.5rem;
+    text-align: center;
   }
   .navbar-expand-sm > .container,
   .navbar-expand-sm > .container-fluid {
     -ms-flex-wrap: nowrap;
     flex-wrap: nowrap;
   }
+  
   .navbar-expand-sm .navbar-collapse {
     display: -ms-flexbox !important;
     display: flex !important;
     -ms-flex-preferred-size: auto;
     flex-basis: auto;
   }
+  
+  
   .navbar-expand-sm .navbar-toggler {
+     
     display: none;
   }
 }
@@ -4752,19 +4775,43 @@ input[type="button"].btn-block {
 
 .card-columns .card {
   margin-bottom: 0.75rem;
+
 }
 
-@media (min-width: 576px) {
+@media (max-width: 576px) {
   .card-columns {
-    -webkit-column-count: 3;
-    -moz-column-count: 3;
-    column-count: 3;
+      /*
+-webkit-column-count: 1;
+    -moz-column-count: 1;
+    column-count: 1;
     -webkit-column-gap: 1.25rem;
     -moz-column-gap: 1.25rem;
     column-gap: 1.25rem;
     orphans: 1;
     widows: 1;
+      */
+    column-count:1;
   }
+
+    @media (max-width: 768px) {
+        .card-columns {
+            column-count: 3;
+        }
+    }
+
+    @media (max-width: 992px) {
+        .card-columns {
+            column-count: 4;
+        }
+    }
+
+    @media (max-width: 1200px) {
+        .card-columns {
+            column-count: 5;
+        }
+    }
+
+
   .card-columns .card {
     display: inline-block;
     width: 100%;
@@ -7785,8 +7832,32 @@ button.bg-dark:focus {
   z-index: 1030;
 }
 
+/*
+  Not good convention that position in this is changed from fixed -> sticky, 
+  but class-naming-reference wont allow the html to call it in any other way
+*/
 .fixed-bottom {
-  position: fixed;
+    position: fixed;
+    right: 0;
+    top: 0;
+    left: 0;
+    z-index: 1030;
+}
+
+@media (max-width: 600px) {
+    .fixed-bottom {
+        position: sticky;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: 1030;
+    }
+}
+
+
+/*This does not work as it should do*/
+}.sticky-bottom {
+  position: sticky;
   right: 0;
   bottom: 0;
   left: 0;
@@ -10006,7 +10077,10 @@ a.text-dark:hover, a.text-dark:focus {
   }
   .navbar {
     display: none;
+    
   }
+  
+ 
   .badge {
     border: 1px solid #000;
   }

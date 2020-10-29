@@ -7,48 +7,60 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
+
+
+
 <body>
-    <header class="sticky-top">
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-page="/Index">NorthernWinterBeat</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/ParticipantRazor/ParticipantConcertOverview">Concerts</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/ParticipantRazor/ParticipantBookings">My Bookings</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/ParticipantRazor/ParticipantFAQ">FAQ</a>
-                        </li>
-                        
-                    </ul>
-                </div>
-            </div>
-        </nav>
+    <nav class="navbar fixed-bottom navbar-expand bg-light justify-content-center" style="text-align:center;">
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav justify-content-center">
+                <li class="nav-item">
+                    <a class="nav-link text-dark" asp-area="" asp-page="/ParticipantRazor/ParticipantConcertOverview">
+                        <img src="~/Graphics/Icons/calendar.svg" style="width: 25%; height: 25%" />
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-dark" asp-area="" asp-page="/ParticipantRazor/ParticipantBookings">
+                        <img src="~/Graphics/Icons/bookmark.svg" style="width: 25%; height: 25%" />
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-dark" asp-area="" asp-page="/ParticipantRazor/ParticipantFAQ">
+                        <img src="~/Graphics/Icons/faq.svg" style="width: 25%; height: 25%" />
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <header style="        text-align: center;
+        background-color: #f8f9fa
+">
+        <img src="~/Graphics/Pictures/NWB2021_LOGO_BlackTransparent.png"  
+             style="
+                    position:relative;
+                    max-height:5em; max-width:100%"
+             />
     </header>
+
+
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2020 - NorthernWinterBeat - <a asp-area="" asp-page="/Participant/Privacy">Privacy</a> - 
-        </div>
-    </footer>
+
+    
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
 
     @RenderSection("Scripts", required: false)
+
+
+
+
 </body>
 </html>

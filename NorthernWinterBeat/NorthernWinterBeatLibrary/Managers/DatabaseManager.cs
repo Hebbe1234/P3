@@ -1,7 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using NorthernWinterBeatLibrary.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 
@@ -17,7 +19,13 @@ namespace NorthernWinterBeatLibrary.Managers
             {
                 DbContextOptions<NorthernWinterBeatConcertContext> options = new DbContextOptionsBuilder<NorthernWinterBeatConcertContext>().UseSqlServer(configuration.GetConnectionString("NorthernWinterBeatConcertContext")).Options;
                 context = new NorthernWinterBeatConcertContext(options);
+
             }
+        }
+
+        public static ApplicationUser GetUser(string username)
+        {
+            return context.ApplicationUser.Where(u => u.Username == username)?.First();
         }
     }
 }
