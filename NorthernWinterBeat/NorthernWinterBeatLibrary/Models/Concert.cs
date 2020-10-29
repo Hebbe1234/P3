@@ -48,6 +48,7 @@ public class Concert
 	public void RemoveBooking(Booking booking)
     {
 		Bookings.Remove(booking);
+        DatabaseManager.context.SaveChanges();
     }
 
     public Booking MakeBooking(Participant p)
@@ -58,6 +59,8 @@ public class Concert
         {
             booking =  new Booking(p, this);
             Bookings.Add(booking);
+            DatabaseManager.context.SaveChanges();
+
         }
         return booking;
     }

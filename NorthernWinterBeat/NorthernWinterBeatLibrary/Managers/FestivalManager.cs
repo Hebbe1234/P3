@@ -27,6 +27,12 @@ namespace NorthernWinterBeatLibrary.Managers
             }
         }
 
+        public void AddParticipant(Participant p)
+        {
+            participants.Add(p);
+            DatabaseManager.context.Participant.Add(p);
+            DatabaseManager.context.SaveChanges();
+        }
 
         public List<Participant> GetParticipants()
         {

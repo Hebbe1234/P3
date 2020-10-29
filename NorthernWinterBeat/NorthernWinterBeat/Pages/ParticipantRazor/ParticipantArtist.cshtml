@@ -8,9 +8,26 @@
     <h1>@Model.concert.Artist</h1>
 
     <img class="container-fluid" src="https://www.winterbeat.dk/wp-content/uploads/2020/08/joe-.jpg" />
-    <button type="button" class="btn btn-block btn-outline-primary text-center" data-toggle="modal" data-target="#bookSpot">
-        Book spot
-    </button>
+
+    @{
+        var claimTicketID = HttpContext.User.Claims.Where(c => c.Type == "TicketID").Select(t => t.Value).First();
+        var curUser = NorthernWinterBeatLibrary.Managers.FestivalManager.instance.GetParticipants().Where(p => p.Ticket?.TicketNumber == claimTicketID).First();
+        if (curUser?.CanMakeBookingAt(Model.concert) ?? false)
+        {
+            <button type="button" class="btn btn-block btn-outline-primary text-center" data-toggle="modal" data-target="#bookSpot">
+
+                Book spot
+            </button>
+
+        }
+        else if (Model.concert.Bookings.Where(b => b.Participant == curUser).Count() > 0)
+        {
+            <button type="button" class="btn btn-block btn-success text-center" data-toggle="modal" data-target="#bookSpot" disabled>
+                Booked
+            </button>
+
+        }
+    }
     <div>
         <h2>Artist Description</h2>
         <p>

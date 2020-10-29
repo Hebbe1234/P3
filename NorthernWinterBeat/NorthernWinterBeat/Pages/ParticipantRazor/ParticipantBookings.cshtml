@@ -21,10 +21,10 @@
                 </ul>
             </div>
             <div class="text-center">
-                <button type="button" class="btn btn-primary text-center" data-toggle="modal" data-target="#activateBooking">
+                <button type="button" class="btn btn-primary text-center" data-toggle="modal" data-target="#activateBooking" >
                     Activate booking
                 </button>
-                <button type="button" class="btn btn-secondary text-center" data-toggle="modal" data-target="#removeBooking">
+                <button type="button" class="btn btn-secondary text-center open-remove" data-toggle="modal" data-target="#removeBooking" data-id=@booking.ID>
                     Remove booking
                 </button>
 
@@ -43,7 +43,7 @@
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-                                <a class="nav-link text-dark" asp-area="" asp-page="/Participant/ParticipantBookings">
+                                <a class="nav-link text-dark">
                                     <input type="button" class="btn btn-primary" value="Yes" />
                                 </a>
                             </div>
@@ -66,14 +66,17 @@
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-                                <a class="nav-link text-dark" asp-area="" asp-page="/Participant/ParticipantBookings">
-                                    <input type="button" class="btn btn-primary" value="Yes" />
-                                </a>
+                                <form asp-page-handler="RemoveBooking" method="post">
+                                    @Html.Hidden("id", booking.ID)
+                                    <input type="submit" class="btn btn-primary" value="Yes" />
+                                </form>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
     }
 }
+
