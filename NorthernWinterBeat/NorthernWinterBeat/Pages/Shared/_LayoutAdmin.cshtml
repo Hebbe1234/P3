@@ -22,6 +22,7 @@
 
         /* Toggle Styles */
 
+
         #wrapper {
             padding-left: 0;
             -webkit-transition: all 0.5s ease;
@@ -79,10 +80,12 @@
             .sidebar-nav li {
                 text-indent: 20px;
                 line-height: 40px;
+                font-size: 2vw;
+                padding-left: 0.05vw;
+            
             }
 
                 .sidebar-nav li a {
-                    display: block;
                     text-decoration: none;
                     color: #999999;
                 }
@@ -112,6 +115,17 @@
                         color: #fff;
                         background: none;
                     }
+
+        .nav-header {
+            font-size: 2vw;
+            padding-left: 0.05vw;
+            display: initial;
+        }
+
+        .nav-item {
+            font-size: 2rem;
+            padding-left: 0.05vw;
+        }
     </style>
 </head>
 <body>
@@ -122,13 +136,13 @@
         <div id="sidebar-wrapper">
             <ul class="sidebar-nav">
                 <li class="sidebar-brand">
-                    <h3><a class="nav-link text-light" asp-area="" asp-page="/Admin/IndexAdmin"> Admin main page </a></h3>
+                    <h3><a class="nav-link text-light nav-header" asp-area="" asp-page="/Admin/IndexAdmin"> Admin main page </a></h3>
                 </li>
                 <li>
-                    <a class = "nav-link text-light" asp-area="" asp-page="/Admin/Calendar"> Calendar </a>
+                    <a class = "nav-link text-light nav-item" asp-area="" asp-page="/Admin/Calendar"> Calendar </a>
                 </li>
                 <li>
-                    <a class="nav-link text-light" asp-area="" asp-page="/Admin/Venues">Venues</a>
+                    <a class="nav-link text-light nav-item" asp-area="" asp-page="/Admin/Venues">Venues</a>
                 </li>
             </ul>
         </div>
