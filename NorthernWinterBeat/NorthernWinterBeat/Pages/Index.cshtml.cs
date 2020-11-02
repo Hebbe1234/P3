@@ -34,8 +34,6 @@ namespace NorthernWinterBeat.Pages
         public IActionResult OnPostRegister()
         {
             string TicketInput = Request.Form["TicketEntered"];
-            string EmailInput = Request.Form["EmailEntered"];
-            string PasswordInput = Request.Form["PasswordEntered"];
             //Her testes hvorvidt en billet er indtastet, og valideringen skal ske her. 
             if (TicketInput != "")
             {
@@ -55,10 +53,9 @@ namespace NorthernWinterBeat.Pages
             if (PasswordInput == "") { return Page(); }
 
             var user = DatabaseManager.GetUser(EmailInput);
-
-            if (AuthorizationManager.instance.Encrypt(PasswordInput) == user?.Password)
+           
+            if (user != null && AuthorizationManager.instance.Encrypt(PasswordInput) == user?.Password)
             {
-
                 var (claimsIdentity, authProperties) = AuthorizationManager.instance.CreateClaim(user);
 
                 await HttpContext.SignOutAsync();
