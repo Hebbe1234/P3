@@ -22,6 +22,8 @@ namespace NorthernWinterBeat.Pages.ParticipantRazor
 
         public IActionResult OnPostRemoveBooking(string id)
         {
+            Console.WriteLine(id);
+
             var claimTicketID = HttpContext.User.Claims.Where(c => c.Type == "TicketID").Select(t => t.Value).First();
             bookings = FestivalManager.instance.GetParticipants().Where(p => p.Ticket?.TicketNumber == claimTicketID).First()?.GetParticipantBookings();
 
