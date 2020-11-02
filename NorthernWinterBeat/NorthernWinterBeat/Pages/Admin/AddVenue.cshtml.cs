@@ -35,7 +35,7 @@ namespace NorthernWinterBeat.Pages.Admin
             
             await FestivalManager.instance._calendar.AddVenue(NewVenue); 
 
-            return RedirectToPage("./Venues"); 
+            return RedirectToPage("./VenueOverview"); 
         }
     }
 }

@@ -29,7 +29,7 @@ namespace NorthernWinterBeatLibrary.Managers
                 new Claim(ClaimTypes.Name, user.Username),
                 new Claim(ClaimTypes.Role, user.Role.ToString()),
                 new Claim("VenueID", user.VenueID.ToString()),
-                new Claim("TicketID", user.TicketID)
+                new Claim("TicketID", user.TicketID ?? "")
             };
 
 

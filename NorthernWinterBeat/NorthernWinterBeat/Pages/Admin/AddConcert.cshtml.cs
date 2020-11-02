@@ -11,12 +11,12 @@ using NorthernWinterBeat.Models;
 namespace NorthernWinterBeat.Pages.Admin.Pages
 {
 
-    public class ConcertModel : PageModel
+    public class AddConcertModel : PageModel
     {
         public List<Venue> venues { get; set; } = new List<Venue>();
         private readonly NorthernWinterBeatConcertContext _context;
 
-        public ConcertModel(NorthernWinterBeatConcertContext context)
+        public AddConcertModel(NorthernWinterBeatConcertContext context)
         {
             _context = context;
             venues = FestivalManager.instance._calendar.GetVenues(); 

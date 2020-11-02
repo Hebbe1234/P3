@@ -8,7 +8,6 @@
 </div>
 
 <form method="post" asp-page-handler="CreateVenue">
-
     <h3>Venue</h3>
     <input name="VenueEntered" type="text" placeholder="Enter name of venue" minlength="1" required />
     <br>
@@ -19,11 +18,8 @@
     <input name="AddressEntered" type="text" placeholder="Enter venue address" minlength="1" />
     <br>
     <br>
-
     <input type="submit" value="Confirm" @*asp-area="" asp-page="/Admin/Venues"*@>
-
     <input type="button" value="Cancel" data-toggle="modal" data-target="#Cancel">
-
 </form>
 
 
@@ -42,7 +38,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal"> No </button>
-                <a class="nav-link text-dark" asp-area="" asp-page="/Admin/Venues">
+                <a class="nav-link text-dark" asp-area="" asp-page="/Admin/VenueOverview">
                     <input type="button" class="btn btn-primary" value="Yes" />
                 </a>
             </div>
