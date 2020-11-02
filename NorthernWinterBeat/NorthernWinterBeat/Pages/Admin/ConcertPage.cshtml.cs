@@ -12,7 +12,7 @@ namespace NorthernWinterBeat.Pages.Admin
     {
         public Concert concert { get; private set; }
 
-        public void OnGet(int id = 0)
+        public void OnGet(int id)
         {
             concert = FestivalManager.instance?._calendar?.GetConcert(id);
         }
@@ -22,6 +22,15 @@ namespace NorthernWinterBeat.Pages.Admin
             Concert deleteConcert = FestivalManager.instance._calendar.GetConcert(id); 
             await FestivalManager.instance._calendar.DeleteConcert(deleteConcert); 
             return RedirectToPage("./Calendar");
+        }
+        public IActionResult OnPostRemoveBooking(int bookingid)
+        {
+            List<Concert> concerts = new List<Concert>();
+            concerts = FestivalManager.instance._calendar.GetConcerts();
+            Booking booking = concerts.SelectMany(c => c.Bookings)?.Where(b => b.ID == bookingid)?.First();
+            int id = booking.Concert.ID; 
+            booking.Concert.RemoveBooking(booking);
+            return RedirectToPage("./ConcertPage", new { id = id});
         }
     }
 }
