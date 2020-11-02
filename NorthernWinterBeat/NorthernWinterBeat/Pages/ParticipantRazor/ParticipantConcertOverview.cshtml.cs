@@ -22,10 +22,17 @@ namespace NorthernWinterBeat.Pages
 
             if (Day == null)
             {
-                this.Day = Concerts.First().Start;
-            }
+                if(Concerts.Count == 0)
+                {
+                    int Year = 0001, Month = 01, DayDate = 01, StartHour = 0, StartMinute = 0;
+                    DateTime Start = new DateTime(Year, Month, DayDate, StartHour, StartMinute, 0);
 
-            
+                    this.Day = Start;
+                } else
+                {
+                    this.Day = Concerts.First().Start;
+                }
+            }
         }
 
         public IActionResult OnGetSelectArtist(int? id = 0)

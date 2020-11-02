@@ -9,14 +9,14 @@ using NorthernWinterBeatLibrary.Managers;
 
 namespace NorthernWinterBeat.Pages.Admin
 {
-    public class VenuesModel : PageModel
+    public class VenuesOverviewModel : PageModel
     {
 
         public List<Venue> venues { get; set; } = new List<Venue>();
 
         [BindProperty (SupportsGet =true)]
         public string SortBy { get; set; }
-        public VenuesModel()
+        public VenuesOverviewModel()
         {
             venues = FestivalManager.instance._calendar.GetVenues();
         }

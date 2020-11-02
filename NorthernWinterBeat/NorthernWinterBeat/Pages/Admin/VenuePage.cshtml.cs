@@ -60,7 +60,7 @@ namespace NorthernWinterBeat.Pages.Admin
         {
             Venue deleteVenue = FestivalManager.instance._calendar.GetVenue(id);
             await FestivalManager.instance._calendar.DeleteVenue(deleteVenue);
-            return RedirectToPage("./venues");
+            return RedirectToPage("./VenueOverview");
         }
     }
 }
