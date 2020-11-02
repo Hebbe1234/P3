@@ -1,12 +1,12 @@
 {
   "dependencies": {
-    "mssql1": {
-      "type": "mssql",
-      "connectionId": "NorthernWinterBeatAdminContext"
-    },
     "mssql2": {
       "type": "mssql",
       "connectionId": "NorthernWinterBeatConcertContext"
+    },
+    "mssql1": {
+      "type": "mssql",
+      "connectionId": "NorthernWinterBeatAdminContext"
     }
   }
 }
