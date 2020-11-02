@@ -37,11 +37,11 @@ namespace NorthernWinterBeat.Pages.Admin
             }
             else if (SortBy == "Venue")
             {
-                SortConcert = SortConcert.OrderBy(o => o.Venue.Name).ThenBy(o => o.Start).ToList<Concert>();
+                SortConcert = SortConcert.OrderBy(o => o.Venue?.Name).ThenBy(o => o.Start).ToList<Concert>();
             }
             else if (SortBy == "Capacity")
             {
-                SortConcert = SortConcert.OrderBy(o => o.Venue.Capacity).ThenBy(o => o.Start).ToList<Concert>();
+                SortConcert = SortConcert.OrderBy(o => o.Venue?.Capacity).ThenBy(o => o.Start).ToList<Concert>();
             }
             return SortConcert;
         }
