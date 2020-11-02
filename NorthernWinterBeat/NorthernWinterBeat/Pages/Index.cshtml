@@ -4,20 +4,36 @@
     ViewData["Title"] = "Home page";
 }
 
-    <h2>Registrer billet</h2>
-    <br>
-    <form method="post" asp-page-handler="Register">
 
-        <input type="text" name="TicketEntered" placeholder="TicketID" minlength="0" maxlength="12" /> @*Vælg restrictioner*@
+<div class="jumbotron">
+    <div class="container text-center">
+        <h2>Registrer billet</h2>
         <br>
-        <input type="submit" value="Billet indtastet" />
-    </form>
-    <h2>Login</h2>
-    <form method="post" asp-page-handler="Login">
+        <form method="post" asp-page-handler="Register">
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" name="ticketEntered" placeholder="Ticket ID" aria-label="Ticket ID" aria-describedby="basic-addon2">
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" type="submit">Register</button>
+                </div>
+            </div>
 
-        <input type="text" name="EmailEntered" placeholder="Email" />
-        <br>
-        <input type="password" name="PasswordEntered" placeholder="Password" minlength="0" />
-        <br>
-        <input type="submit" value="Login" />
-    </form>
+            <!--<input class="form-control" type="text" name="TicketEntered" placeholder="TicketID" minlength="0" maxlength="12" />--> @*Vælg restrictioner*@
+            <!--<br>
+            <button class="btn-primary"> Register </button>-->
+        </form>
+    </div>
+</div>
+<div class="jumbotron">
+    <div class="container text-center">
+        <h2>Login</h2>
+        <form method="post" asp-page-handler="Login">
+
+            <input class="form-control" type="text" name="EmailEntered" placeholder="Email" />
+            <br>
+            <input class="form-control" type="password" name="PasswordEntered" placeholder="Password" minlength="0" />
+            <br>
+            <button class="btn btn-primary"> Login </button>
+        </form>
+    </div>
+
+</div>
