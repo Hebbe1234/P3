@@ -25,7 +25,16 @@ namespace NorthernWinterBeatLibrary.Managers
 
         public static ApplicationUser GetUser(string username)
         {
-            return context.ApplicationUser.Where(u => u.Username == username)?.First();
+            var t1 = context.ApplicationUser;
+            var t2 = t1.Where(u => u.Username == username).ToList();
+
+            if(t2.Count() == 0)
+            {
+                return null; 
+            }
+
+            return t2.First();
+            //return context.ApplicationUser.Where(u => u.Username == username)?.First();
         }
     }
 }
