@@ -21,11 +21,11 @@ namespace NorthernWinterBeatLibrary.Managers
                 var databaseCreator = (Database.GetService<IDatabaseCreator>() as RelationalDatabaseCreator);
                 databaseCreator.CreateTables();  //Denne her er træls, og vil fucke op hvis der allerede er en tabel
             }
-            catch (SqlException e)
+            catch (SqlException)
             {
                 //This is ignored
             }
-            catch(Microsoft.Data.SqlClient.SqlException e)
+            catch(Microsoft.Data.SqlClient.SqlException)
             {
                 //This is ignored
             }
