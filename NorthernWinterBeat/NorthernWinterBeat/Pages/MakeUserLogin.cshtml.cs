@@ -20,7 +20,7 @@ namespace NorthernWinterBeat.Pages
     public class MakeUserLoginModel : PageModel
     {
 
-        [BindProperty]
+        [BindProperty(SupportsGet = true)]
         public string ticketNumber { get; set; }
 
         public void OnGet()
