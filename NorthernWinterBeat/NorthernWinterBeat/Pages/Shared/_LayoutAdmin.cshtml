@@ -160,10 +160,10 @@
                     <h3><a class="nav-link text-light nav-header" asp-area="" asp-page="/Admin/IndexAdmin"> Admin main page </a></h3>
                 </li>
                 <li class="@((path.Contains("Calendar") || path.Contains("Concert"))? "selected" : "")">
-                    <a class="nav-link text-light nav-item"  asp-area="" asp-page="/Admin/Calendar"> Calendar </a>
+                    <a class="nav-link text-light nav-item"  asp-area="" asp-page="/Admin/Calendar" style="display:table-cell"> Concerts </a>
                 </li>
                 <li class="@(path.Contains("Venue") ? "selected" : "")">
-                    <a class="nav-link text-light nav-item" asp-area="" asp-page="/Admin/VenueOverview">Venues</a>
+                    <a class="nav-link text-light nav-item" asp-area="" asp-page="/Admin/VenueOverview" style="display:table-cell">Venues</a>
                 </li>
             </ul>
         </div>
