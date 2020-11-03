@@ -90,7 +90,7 @@
                     color: #999999;
                 }
 
-                    .sidebar-nav li a:hover {
+                    .sidebar-nav li:hover {
                         text-decoration: none;
                         color: #fff;
                         background: rgba(255,255,255,0.2);
@@ -116,6 +116,12 @@
                         background: none;
                     }
 
+        .selected {
+            text-decoration: none;
+            color: #fff;
+            background: rgba(255,255,255,0.2);
+        }
+
         .nav-header {
             font-size: 2vw;
             padding-left: 0.05vw;
@@ -129,19 +135,19 @@
     </style>
 </head>
 <body>
-   
-    <div id="wrapper"class="toggled">
-        
+    @{var path = Context.Request.Path.ToString(); }
+    <div id="wrapper" class="toggled">
+
         <!-- Sidebar -->
         <div id="sidebar-wrapper">
             <ul class="sidebar-nav">
                 <li class="sidebar-brand">
                     <h3><a class="nav-link text-light nav-header" asp-area="" asp-page="/Admin/IndexAdmin"> Admin main page </a></h3>
                 </li>
-                <li>
-                    <a class = "nav-link text-light nav-item" asp-area="" asp-page="/Admin/Calendar"> Calendar </a>
+                <li class="@((path.Contains("Calendar") || path.Contains("Concert"))? "selected" : "")">
+                    <a class="nav-link text-light nav-item"  asp-area="" asp-page="/Admin/Calendar"> Calendar </a>
                 </li>
-                <li>
+                <li class="@(path.Contains("Venue") ? "selected" : "")">
                     <a class="nav-link text-light nav-item" asp-area="" asp-page="/Admin/VenueOverview">Venues</a>
                 </li>
             </ul>
@@ -152,16 +158,16 @@
             @*<a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>*@
 
             <div class="container-fluid">
-                @RenderBody()
-            </div>
-            <footer></footer>
+                        @RenderBody()
         </div>
-        <!-- /#page-content-wrapper -->
-
+        <footer></footer>
+    </div>
+    <!-- /#page-content-wrapper -->
     </div>
     <script src="~/lib/jquery/dist/jquery.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+
 
     <script>
         $(document).ready(function () {
