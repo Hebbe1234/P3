@@ -7,7 +7,7 @@
     <h1 class="display-3"> Add venue information </h1>
 </div>
 
-<form method="post" asp-page-handler="CreateVenue">
+<form method="post" asp-page-handler="CreateVenue" id="inForm">
     <h3>Venue</h3>
     <input name="VenueEntered" type="text" placeholder="Enter name of venue" minlength="1" required />
     <br>
@@ -18,7 +18,7 @@
     <input name="AddressEntered" type="text" placeholder="Enter venue address" minlength="1" />
     <br>
     <br>
-    <input type="submit" value="Confirm" @*asp-area="" asp-page="/Admin/Venues"*@>
+    <input type="submit" id="btnSubmit" value="Confirm" @*asp-area="" asp-page="/Admin/Venues"*@>
     <input type="button" value="Cancel" data-toggle="modal" data-target="#Cancel">
 </form>
 
@@ -45,3 +45,14 @@
         </div>
     </div>
 </div>
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $("#inForm").submit(function () {
+                $("#btnSubmit").attr("disabled", true);
+                return true;
+            });
+        });
+    </script>
+}
