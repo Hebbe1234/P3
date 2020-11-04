@@ -7,7 +7,7 @@
     <h1 class="display-3"> Add concert information </h1>
 </div>
 
-<form method="post" asp-page-handler="AsyncCreateConcert">
+<form method="post" asp-page-handler="AsyncCreateConcert" id="inForm">
 
     <h3>Artist</h3>
     <input name="ArtistEntered" type="text" placeholder="Enter artist" required />
@@ -46,7 +46,7 @@
     <br>
     <br>
 
-    <input type="submit" value="Confirm" />
+    <input type="submit" id="btnSubmit" value="Confirm" />
 
     <input type="button" value="Cancel" data-toggle="modal" data-target="#Cancel">
 
@@ -79,3 +79,14 @@
         </div>
     </div>
 </div>
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $("#inForm").submit(function () {
+                $("#btnSubmit").attr("disabled", true);
+                return true;
+            });
+        });
+    </script>
+}
