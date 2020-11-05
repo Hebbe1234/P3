@@ -4,6 +4,7 @@ using NorthernWinterBeatLibrary.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
@@ -24,16 +25,9 @@ namespace NorthernWinterBeatLibrary.Managers
 
         public bool VerifyTicket(string TicketInput)
         {
-            bool t1 = DatabaseManager.context.LegalTickets.Find(TicketInput)?.TicketNumber == TicketInput;
-            bool t2 = true;
-            foreach (Ticket ticket in DatabaseManager.context.Ticket)
-            {
-                if (ticket.TicketNumber == TicketInput)
-                {
-                    t2 = false;
-                }
-            }
-            return t1 && t2; 
+            bool IsLegalTicket = DatabaseManager.context.LegalTickets.Find(TicketInput)?.TicketNumber == TicketInput;
+            bool DoesUserNotExist = DatabaseManager.context.Ticket.Where(t => t.TicketNumber == TicketInput).ToList().Count() == 0;
+            return IsLegalTicket && DoesUserNotExist;
         }
 
         public (ClaimsIdentity, AuthenticationProperties) CreateClaim(ApplicationUser user)
