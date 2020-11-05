@@ -7,7 +7,7 @@
     <h1 class="display-3"> Add concert information </h1>
 </div>
 
-<form method="post" asp-page-handler="AsyncCreateConcert" id="inForm">
+<form method="post" asp-page-handler="AsyncCreateConcert" id="inForm1">
 
     <h3>Artist</h3>
     <input name="ArtistEntered" type="text" placeholder="Enter artist" required />
@@ -46,7 +46,7 @@
     <br>
     <br>
 
-    <input type="submit" id="btnSubmit" value="Confirm" />
+    <input type="submit" id="btnSubmit1" value="Confirm" />
 
     <input type="button" value="Cancel" data-toggle="modal" data-target="#Cancel">
 
@@ -71,22 +71,12 @@
                 Are you sure you want to finish adding concert without saving?
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal"> No </button>
-                <a class="nav-link text-dark" asp-area="" asp-page="/Admin/Calendar">
-                    <input type="button" class="btn btn-primary" value="Yes" />
-                </a>
+
+                <input type="button" class="btn btn-secondary" data-dismiss="modal" value="No" />
+                <form method="post" asp-page-handler="Cancel">
+                    <input type="submit" class="btn btn-primary" value="Yes" />
+                </form>
             </div>
         </div>
     </div>
 </div>
-
-@section scripts{
-    <script>
-        $(document).ready(function () {
-            $("#inForm").submit(function () {
-                $("#btnSubmit").attr("disabled", true);
-                return true;
-            });
-        });
-    </script>
-}

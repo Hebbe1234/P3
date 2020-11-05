@@ -76,7 +76,12 @@ namespace NorthernWinterBeat.Pages.Admin
             }
             return concert.Start.Year + "-" + str2;
         }
+        public IActionResult OnPostCancel(int id)
+        {
+            return RedirectToPage("./ConcertPage", new { id = id });
+        }
     }
+   
 
 
     public class ImageConverter : System.ComponentModel.TypeConverter
