@@ -101,9 +101,9 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal"> No </button>
 
-                <form asp-page-handler="DeleteVenue" method="post">
+                <form asp-page-handler="DeleteVenue" method="post" id="inForm1">
                     @Html.Hidden("id", Model.venue.ID)
-                    <button type="submit" class="btn btn-secondary" data-toggle="modal" data-target="#DeleteVenue">
+                    <button type="submit" class="btn btn-secondary" id="btnSubmit1" data-toggle="modal" data-target="#DeleteVenue">
                         Delete Venue
                     </button>
                 </form>

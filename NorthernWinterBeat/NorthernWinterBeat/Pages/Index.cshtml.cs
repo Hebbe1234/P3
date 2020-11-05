@@ -35,11 +35,10 @@ namespace NorthernWinterBeat.Pages
         {
             string TicketInput = Request.Form["TicketEntered"];
             //Her testes hvorvidt en billet er indtastet, og valideringen skal ske her. 
-            if (TicketInput != "")
+            if(AuthorizationManager.instance.VerifyTicket(TicketInput))
             {
                 return RedirectToPage("./MakeUserLogin", new { ticketNumber = TicketInput });
             }
-
             //Her endes der hvis der er indtastet noget forkert eller intet, derfor reloades der. 
             return Page();
 

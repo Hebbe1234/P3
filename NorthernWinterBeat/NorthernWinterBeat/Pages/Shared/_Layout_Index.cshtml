@@ -17,12 +17,12 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 @*<div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Index">Login</a>
-                        </li>
-                    </ul>
-                </div>*@
+                        <ul class="navbar-nav flex-grow-1">
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Index">Login</a>
+                            </li>
+                        </ul>
+                    </div>*@
             </div>
         </nav>
     </header>
@@ -43,6 +43,24 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
 
-    @RenderSection("Scripts", required: false)
+
+
+        <script>
+            $(document).ready(function () {
+                $("#inForm1").submit(function () {
+                    $("#btnSubmit1").attr("disabled", true);
+                    return true;
+                });
+            });
+        </script>
+        <script>
+            $(document).ready(function () {
+                $("#inForm2").submit(function () {
+                    $("#btnSubmit2").attr("disabled", true);
+                    return true;
+                });
+            });
+        </script>
 </body>
 </html>
+

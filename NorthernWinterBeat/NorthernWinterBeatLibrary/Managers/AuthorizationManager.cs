@@ -22,6 +22,20 @@ namespace NorthernWinterBeatLibrary.Managers
             }
         }
 
+        public bool VerifyTicket(string TicketInput)
+        {
+            bool t1 = DatabaseManager.context.LegalTickets.Find(TicketInput)?.TicketNumber == TicketInput;
+            bool t2 = true;
+            foreach (Ticket ticket in DatabaseManager.context.Ticket)
+            {
+                if (ticket.TicketNumber == TicketInput)
+                {
+                    t2 = false;
+                }
+            }
+            return t1 && t2; 
+        }
+
         public (ClaimsIdentity, AuthenticationProperties) CreateClaim(ApplicationUser user)
         {
             var claims = new List<Claim>

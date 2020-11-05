@@ -44,10 +44,12 @@
                 Are you sure you want to finish editing this venue?
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal"> No </button>
-                <a class="nav-link text-dark" asp-area="" asp-page="/Admin/Venue">
-                    <input type="button" class="btn btn-primary" value="Yes" />
-                </a>
+
+                <input type="button" class="btn btn-secondary" data-dismiss="modal" value="No" />
+                <form method="post" asp-page-handler="Cancel" >
+                    @Html.Hidden("id", Model.venue.ID)
+                    <input type="submit" class="btn btn-primary" value="Yes" />
+                </form>
             </div>
         </div>
     </div>

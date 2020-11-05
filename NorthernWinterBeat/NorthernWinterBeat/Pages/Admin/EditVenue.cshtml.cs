@@ -43,5 +43,9 @@ namespace NorthernWinterBeat.Pages.Admin
 
             return RedirectToPage("./VenueOverview"); 
         }
+        public IActionResult OnPostCancel(int id)
+        {
+            return RedirectToPage("./VenuePage", new { id = id });
+        }
     }
 }
