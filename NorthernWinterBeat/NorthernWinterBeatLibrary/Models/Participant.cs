@@ -25,6 +25,12 @@ namespace NorthernWinterBeat.Models
         {
             Ticket = _ticket;
         }
+        public Participant(Ticket _ticket, string _name, string _email):
+            this(_ticket)
+        {
+            Name = _name;
+            Username = _email; 
+        }
         public bool CanMakeBookingAt(Concert concert)
         {
 			List<Concert> bookedConcerts =  FestivalManager.instance._calendar.GetConcerts().FindAll(c => c.Bookings.Find(b => b.Participant == this) != null);

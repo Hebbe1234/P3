@@ -1,0 +1,57 @@
+﻿@page
+@model NorthernWinterBeat.Pages.Admin.ParticipantAdmin.ParticipantOverviewModel
+@{
+}
+    <div class="card">
+        <div class="container">
+
+            <h3><a>Participants</a></h3>
+
+            <p>
+                Here you can see all the participants who have made an user <br />
+                Click on them to acces special abilities!!
+            </p>
+
+            @*<a class="btn btn-secondary float-right" style="margin: 20px" asp-area="" asp-page="/Admin/AddConcert"
+                   title="Click the button to create a new concert. To edit an existing concert, click the specific concert, and then edit.">
+                    Add concert
+                    <i class="fas fa-plus-circle"></i>
+                </a>*@
+        </div>
+    </div>
+
+    <table class="table table-hover" table-bordered>
+        <thead>
+            <tr>
+                <th>
+                    <button class="btn btn-default th-button" value="E-mail">E-mail</button>
+                </th>
+                <th>
+                    <button class="btn btn-default th-button" value="TicketNr">Ticket Nr</button>
+                </th>
+                <th>
+                    <button class="btn btn-default th-button" value="Name">Name</button>
+                </th>
+                <th>
+                    <button class="btn btn-default th-button" value="DateOfCreation">Registration date </button>
+                </th>
+            </tr>
+        </thead>
+        <tbody id="participantOverviewTable">
+            <!-- Add partial view here -->
+            @await Html.PartialAsync("Partials/_ParticipantOverviewTable", Model)
+        </tbody>
+    </table>
+
+
+
+@section scripts{
+    <script>
+        $(function () {
+            $('.btn').on('click', function () {
+                var sortBy = $(this).val()
+                $('#participantOverviewTable').load('?handler=ParticipantPartial&sortBy=' + sortBy);
+            });
+        });
+    </script>
+}

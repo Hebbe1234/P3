@@ -1,0 +1,84 @@
+﻿@page
+@model NorthernWinterBeat.Pages.Admin.ParticipantAdmin.ParticipantPageModel
+@{
+}
+
+<div class="card">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-8"> <h3> @Model.Participant.Name </h3> </div>
+        </div>
+
+        <div class="row">
+            <div class="col-8"> <p>Email: @Model?.Participant?.Username</p> </div>
+            <div class="col-8"> <p>Ticket Nr: @Model.Participant.Ticket.TicketNumber </p> </div>
+            <div class="col-8"> <p>Name: @Model.Participant.Name </p> </div>
+            <div class="col-8"> <p>Date of Creation: @Model.Participant.Password </p> </div>
+            <div class="col-4">
+                <button type="button" class="float-right" data-toggle="modal" onclick="location.href = '@(Url.Page("EditParticipant", new { id = Model.Participant.ID }))'">
+                    <i class="fas fa-pencil-alt"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<br>
+<br>
+
+<div class="card">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-8"> <h3>Booked Concerts</h3> </div>
+        </div>
+
+        <table class="table table-hover" table-bordered>
+            <thead>
+                <tr>
+                    <th>
+                        <button class="btn btn-default th-button" value="E-mail">E-mail</button>
+                    </th>
+                    <th>
+                        <button class="btn btn-default th-button" value="TicketNr">Ticket Nr</button>
+                    </th>
+                    <th>
+                        <button class="btn btn-default th-button" value="Name">Name</button>
+                    </th>
+                    <th>
+                        <button class="btn btn-default th-button" value="DateOfCreation">Registration date </button>
+                    </th>
+                </tr>
+            </thead>
+            <!--<tbody id="participantOverviewTable">-->
+            <!-- Add partial view here -->
+            <!--await Html.PartialAsync("Partials/_ParticipantOverviewTable", Model)
+            </tbody>-->
+        </table>
+
+
+
+
+
+
+
+    </div>
+</div>
+
+<br>
+<br>
+
+<div class="card">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-8"> <h3>Non-booked Concerts</h3> </div>
+        </div>
+
+
+
+
+
+
+
+
+    </div>
+</div>

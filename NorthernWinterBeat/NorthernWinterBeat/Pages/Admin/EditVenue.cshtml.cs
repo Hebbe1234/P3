@@ -13,11 +13,11 @@ namespace NorthernWinterBeat.Pages.Admin
     public class EditVenueModel : PageModel
     {
         public Venue venue { get; set; }
-        private readonly NorthernWinterBeatConcertContext _context;
-        public EditVenueModel(NorthernWinterBeatConcertContext context)
-        {
-            _context = context;
-        }
+        //private readonly NorthernWinterBeatConcertContext _context;
+        //public EditVenueModel(NorthernWinterBeatConcertContext context)
+        //{
+        //    _context = context;
+        //}
         public void OnGet(int id)
         {
             venue = FestivalManager.instance._calendar.GetVenue(id);

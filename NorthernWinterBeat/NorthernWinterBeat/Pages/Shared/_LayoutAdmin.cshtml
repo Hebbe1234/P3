@@ -165,6 +165,9 @@
                 <li class="@(path.Contains("Venue") ? "selected" : "")">
                     <a class="nav-link text-light nav-item" asp-area="" asp-page="/Admin/VenueOverview" style="display:table-cell">Venues</a>
                 </li>
+                <li class="@(path.Contains("Participant") ? "selected" : "")">
+                    <a class="nav-link text-light nav-item" asp-area="" asp-page="/Admin/ParticipantAdmin/ParticipantOverview" style="display:table-cell">Participant</a>
+                </li>
             </ul>
         </div>
         <!-- /#sidebar-wrapper -->
