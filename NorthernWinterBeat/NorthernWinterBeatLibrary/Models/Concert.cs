@@ -40,8 +40,11 @@ public class Concert
     public DateTime End { get; set; }
     public string PicturePath { get; set; }
     public List<Booking> Bookings { get; set; } = new List<Booking>(); 
+    public bool IsAtMaxCapacity { get {
+            return Bookings.Count()>=(Venue?.Capacity ?? 0);
+        } }
 
-	public void AddBooking(Booking booking)
+    public void AddBooking(Booking booking)
     {
 		Bookings.Add(booking);
     }
@@ -55,7 +58,7 @@ public class Concert
     {
         Booking booking = null;
 
-        if (State != ConcertState.MAX_CAPACITY && p.CanMakeBookingAt(this))
+        if (!IsAtMaxCapacity && p.CanMakeBookingAt(this))
         {
             booking = new Booking(p, this, DateTime.Now);
             Bookings.Add(booking);
