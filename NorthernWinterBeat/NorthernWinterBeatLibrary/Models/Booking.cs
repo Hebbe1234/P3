@@ -8,11 +8,12 @@ public class Booking
     {
 		ACTIVE, INACTIVE
 	}
-	public Booking(Participant _participant, Concert _concert)
+	public Booking(Participant _participant, Concert _concert, DateTime _bookingDate)
 	{
 		Participant = _participant;
 		Concert = _concert;
 		State = BookingState.ACTIVE;
+		BookingDate = _bookingDate;
 	}
 	public Booking()
     {
@@ -25,4 +26,5 @@ public class Booking
     public Participant Participant { get; set; }
 	public Concert Concert { get; set; }
     public DateTime BookingDate { get; set; }
+
 }

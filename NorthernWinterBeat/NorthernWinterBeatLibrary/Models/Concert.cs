@@ -57,13 +57,16 @@ public class Concert
 
         if (State != ConcertState.MAX_CAPACITY && p.CanMakeBookingAt(this))
         {
-            booking =  new Booking(p, this);
+            booking = new Booking(p, this, DateTime.Now);
             Bookings.Add(booking);
             DatabaseManager.context.SaveChanges();
 
         }
         return booking;
     }
+
+
+
 
     public string FormatDate(DateTime time)
     {
