@@ -32,7 +32,7 @@
 
 
     <h3>Date</h3>
-    <input name="DateEntered" type="date" placeholder="Enter date" contenteditable="true" min="2021-01-28" max="2021-01-30" 
+    <input name="DateEntered" type="date" placeholder="Enter date" contenteditable="true" min="2021-01-28" max="2021-01-30"
            value="@Model.FindDate()" />
     <br>
     <h3>Start time</h3>
@@ -63,10 +63,14 @@
                 Are you sure you want to finish editing without saving?
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal"> No </button>
-                <a class="nav-link text-dark" asp-area="" asp-page="/Admin/Concerts">
-                    <input type="button" class="btn btn-primary" value="Yes" />
-                </a>
+
+
+                <input type="button" class="btn btn-secondary" data-dismiss="modal" value="No" />
+                <form method="post" asp-page-handler="Cancel">
+                    @Html.Hidden("id", Model.concert.ID)
+                    <input type="submit" class="btn btn-primary" value="Yes" />
+                </form>
+
             </div>
         </div>
     </div>

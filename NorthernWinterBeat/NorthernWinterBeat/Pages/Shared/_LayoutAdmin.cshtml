@@ -160,7 +160,7 @@
                     <h3><a class="nav-link text-light nav-header" asp-area="" asp-page="/Admin/IndexAdmin"> Admin main page </a></h3>
                 </li>
                 <li class="@((path.Contains("Calendar") || path.Contains("Concert"))? "selected" : "")">
-                    <a class="nav-link text-light nav-item"  asp-area="" asp-page="/Admin/Calendar" style="display:table-cell"> Concerts </a>
+                    <a class="nav-link text-light nav-item" asp-area="" asp-page="/Admin/Calendar" style="display:table-cell"> Concerts </a>
                 </li>
                 <li class="@(path.Contains("Venue") ? "selected" : "")">
                     <a class="nav-link text-light nav-item" asp-area="" asp-page="/Admin/VenueOverview" style="display:table-cell">Venues</a>
@@ -173,11 +173,11 @@
             @*<a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>*@
 
             <div class="container-fluid">
-                        @RenderBody()
+                @RenderBody()
+            </div>
+            <footer></footer>
         </div>
-        <footer></footer>
-    </div>
-    <!-- /#page-content-wrapper -->
+        <!-- /#page-content-wrapper -->
     </div>
     <script src="~/lib/jquery/dist/jquery.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
@@ -189,6 +189,14 @@
             $("#menu-toggle").click(function (e) {
                 e.preventDefault();
                 $("#wrapper").toggleClass("toggled");
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            $("#inForm1").submit(function () {
+                $("#btnSubmit1").attr("disabled", true);
+                return true;
             });
         });
     </script>
