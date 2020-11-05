@@ -26,8 +26,8 @@ namespace NorthernWinterBeatLibrary.Managers
         public bool VerifyTicket(string TicketInput)
         {
             bool IsLegalTicket = DatabaseManager.context.LegalTickets.Find(TicketInput)?.TicketNumber == TicketInput;
-            bool DoesUserNotExist = DatabaseManager.context.Ticket.Where(t => t.TicketNumber == TicketInput).ToList().Count() == 0;
-            return IsLegalTicket && DoesUserNotExist;
+            bool DoesTicketNotExist = DatabaseManager.context.Ticket.Where(t => t.TicketNumber == TicketInput).ToList().Count() == 0;
+            return IsLegalTicket && DoesTicketNotExist;
         }
 
         public (ClaimsIdentity, AuthenticationProperties) CreateClaim(ApplicationUser user)
