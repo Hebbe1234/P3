@@ -46,13 +46,13 @@
     </div>
 </div>
 
-        @section scripts{
-            <script>
-                $(function () {
-                    $('.btn').on('click', function () {
-                        var sortBy = $(this).val()
-                        $('#concertTable').load('?handler=VenueRazorPartial&sortBy=' + sortBy);
-                    });
-                });
-            </script>
-        }
+@section scripts{
+    <script>
+        $(function () {
+            $('.btn').on('click', function () {
+                var sortBy = $(this).val()
+                $('#concertTable').load('?handler=VenueRazorPartial&sortBy=' + sortBy);
+            });
+        });
+    </script>
+}

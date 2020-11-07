@@ -60,7 +60,6 @@ public class Concert
             booking =  new Booking(p, this);
             Bookings.Add(booking);
             DatabaseManager.context.SaveChanges();
-
         }
         return booking;
     }

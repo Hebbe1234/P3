@@ -28,11 +28,11 @@ namespace NorthernWinterBeatLibrary.Managers
             }
         }
 
-        public void AddParticipant(Participant p)
+        public async Task AddParticipant(Participant p)
         {
             participants.Add(p);
             DatabaseManager.context.Participant.Add(p);
-            DatabaseManager.context.SaveChanges();
+            await DatabaseManager.context.SaveChangesAsync();
         }
         public Participant GetParticipant(int id)
         {
@@ -46,10 +46,8 @@ namespace NorthernWinterBeatLibrary.Managers
         public async Task EditParticipant(int id, Participant NewParticipant)
         {
             Participant participant = participants.Find(p => p.ID == id);
-
             participant.Name = NewParticipant.Name;
             participant.Username = NewParticipant.Username;
-
             try
             {
                 await DatabaseManager.context.SaveChangesAsync();

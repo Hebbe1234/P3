@@ -12,9 +12,6 @@ namespace NorthernWinterBeat.Pages.Admin.ParticipantAdmin
     public class ParticipantOverviewModel : PageModel
     {
         public List<Participant> Participants = new List<Participant>();
-
-
-
         [BindProperty(SupportsGet = true)]
         public string SortBy { get; set; } = "";
 
@@ -49,8 +46,6 @@ namespace NorthernWinterBeat.Pages.Admin.ParticipantAdmin
         {
             this.SortBy = sortBy;
             return Partial("Partials/_ParticipantOverviewTable", this);
-
-            //return Partial("Partials/_ConcertTable", this);
         }
     }
 }

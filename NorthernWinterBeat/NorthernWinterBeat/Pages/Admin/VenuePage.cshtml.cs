@@ -13,11 +13,6 @@ namespace NorthernWinterBeat.Pages.Admin
     {
         public Venue venue { get; set; } = new Venue("Hej", "Mit Hus", 55);
         public List<Concert> concerts { get; set; }
-        public VenuePageModel()
-        {
-            //venue = FestivalManager.instance._calendar.GetVenue(id);
-            //concerts = FestivalManager.instance._calendar.GetConcertsAtVenue(venue.Name);
-        }
         [BindProperty(SupportsGet = true)]
         public int id { get; set; } = 1; 
 

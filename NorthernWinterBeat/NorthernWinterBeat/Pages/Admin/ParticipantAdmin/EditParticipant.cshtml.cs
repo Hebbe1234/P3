@@ -22,9 +22,10 @@ namespace NorthernWinterBeat.Pages.Admin.ParticipantAdmin
         {
             string Name = Request.Form["Name"];
             string Email = Request.Form["EmailEntered"];
-            //string TicketNr = Request.Form["TicketNr"];
 
-            Participant NewParticipant = new Participant(Participant.Ticket, Name, Email); 
+            Participant = FestivalManager.instance?.GetParticipant(id);
+
+            Participant NewParticipant = new Participant(new Ticket(), Name, Email); 
             if (!ModelState.IsValid)
             {
                 return Page();

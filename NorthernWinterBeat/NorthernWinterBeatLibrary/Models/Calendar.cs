@@ -23,12 +23,10 @@ public class Calendar
 
     public Calendar()
     {
-        //NorthernWinterBeatConcertDatabaseManager.context DatabaseManager.context = new NorthernWinterBeatConcertDatabaseManager.context();
         State = CalendarState.INITIALIZING;
         concerts = DatabaseManager.context.Concert.Include(c => c.Bookings).ToList();
         venues = DatabaseManager.context.Venue.ToList(); 
     }
-
 
 
     public async Task AddConcert(Concert concert, string VenueName = "")
@@ -131,6 +129,10 @@ public class Calendar
             DatabaseManager.context.Venue.Remove(venue); 
             await DatabaseManager.context.SaveChangesAsync();
         }
+    }
+    public List<Concert> GetAllConcerts()
+    {
+        return concerts; 
     }
 }
 

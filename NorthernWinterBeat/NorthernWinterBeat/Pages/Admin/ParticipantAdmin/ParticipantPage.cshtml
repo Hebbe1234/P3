@@ -36,33 +36,74 @@
             <thead>
                 <tr>
                     <th>
-                        <button class="btn btn-default th-button" value="E-mail">E-mail</button>
+                        <button class="btn btn-default th-button" value="Concert">Concert</button>
                     </th>
                     <th>
-                        <button class="btn btn-default th-button" value="TicketNr">Ticket Nr</button>
+                        <button class="btn btn-default th-button" value="Venue">Venue</button>
                     </th>
                     <th>
-                        <button class="btn btn-default th-button" value="Name">Name</button>
+                        <button class="btn btn-default th-button" value="Capacity">Capacity</button>
                     </th>
                     <th>
-                        <button class="btn btn-default th-button" value="DateOfCreation">Registration date </button>
+                        <button class="btn btn-default th-button-right" value="Remove">Remove Booking</button>
                     </th>
                 </tr>
             </thead>
-            <!--<tbody id="participantOverviewTable">-->
-            <!-- Add partial view here -->
-            <!--await Html.PartialAsync("Partials/_ParticipantOverviewTable", Model)
-            </tbody>-->
+            <tbody>
+
+                @{
+                    @foreach (Concert concert in Model.BookedConcerts)
+                    {
+                        <tr>
+                            <td>
+                                @concert.Artist
+                            </td>
+                            <td>
+                                @concert.Venue?.Name
+                            </td>
+                            <td>
+                                @concert?.Bookings?.Count() / @concert.Venue?.Capacity
+                            </td>
+                            <td>
+                                <button class="btn btn-secondary float-right" style="margin: 20px" data-toggle="modal" data-target="#removeBooking@(concert.ID)">
+                                    Cancel
+                                </button>
+                            </td>
+                        </tr>
+
+                        <!-- Remove booking modal -->
+                        <div class="modal fade " id="removeBooking@(concert.ID)" tabindex="-1" role="dialog" aria-labelledby="removeBooking@(concert.ID)Label" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="removeBooking@(concert.ID)">Remove booking</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Are you sure that you want to remove your booking? You cannot undo this.
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                                        <form asp-page-handler="RemoveBooking" method="post">
+                                            @Html.Hidden("concertId", concert.ID)
+                                            @Html.Hidden("participantId", Model.Participant.ID)
+                                            <input type="submit" class="btn btn-primary" value="Yes" />
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+            </tbody>
         </table>
-
-
-
-
-
-
-
     </div>
 </div>
+
+
+
 
 <br>
 <br>
@@ -73,12 +114,103 @@
             <div class="col-8"> <h3>Non-booked Concerts</h3> </div>
         </div>
 
+        <table class="table table-hover" table-bordered>
+            <thead>
+                <tr>
+                    <th>
+                        <button class="btn btn-default th-button" value="Concert">Concert</button>
+                    </th>
+                    <th>
+                        <button class="btn btn-default th-button" value="Venue">Venue</button>
+                    </th>
+                    <th>
+                        <button class="btn btn-default th-button" value="Capacity">Capacity</button>
+                    </th>
+                    <th>
+                        <button class="btn btn-default th-button-right" value="AddConcert"> Add concert</button>
+                    </th>
+                </tr>
+            </thead>
 
+            <tbody>
 
+                @{
+                    @foreach (Concert concert in Model.NonBookedConcerts)
+                    {
+                        <tr>
+                            <td>
+                                @concert.Artist
+                            </td>
+                            <td>
+                                @concert.Venue?.Name
+                            </td>
+                            <td>
+                                @concert?.Bookings?.Count() / @concert.Venue?.Capacity
+                            </td>
+                            <td>
+                                <button class="btn btn-secondary float-right" style="margin: 20px" data-toggle="modal" data-target="#addBooking@(concert.ID)">
+                                    Add 
+                                </button>
+                            </td>
+                        </tr>
 
-
-
-
-
+                        <!-- Remove booking modal -->
+                        <div class="modal fade " id="addBooking@(concert.ID)" tabindex="-1" role="dialog" aria-labelledby="addBooking@(concert.ID)Label" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="addBooking@(concert.ID)">Remove booking</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Are you sure that you want to remove your booking? You cannot undo this.
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                                        <form asp-page-handler="addBooking" method="post">
+                                            @Html.Hidden("concertId", concert.ID)
+                                            @Html.Hidden("participantId", Model.Participant.ID)
+                                            <input type="submit" class="btn btn-primary" value="Yes" />
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+            </tbody>
+        </table>
     </div>
 </div>
+
+<!--<tbody id="participantBookedConcertTable">-->
+<!-- Add partial view here -->
+<!--await Html.PartialAsync("Partials/_ParticipantOverviewTable", Model)
+</tbody>
+    </table>-->
+
+
+
+@*@section scripts{
+    <script>
+        $(function () {
+            $('.btn').on('click', function () {
+                var sortBy = $(this).val()
+                $('#participantBookedConcertTable').load('?handler=ParticipantPartial&sortBy=' + sortBy);
+            });
+        });
+    </script>
+}
+@section scripts{
+    <script>
+        $(function () {
+            $('.btn').on('click', function () {
+                var sortBy = $(this).val()
+                $('#participantBookedConcertTable').load('?handler=ParticipantPartial&sortBy=' + sortBy);
+            });
+        });
+    </script>
+}*@
+
