@@ -14,9 +14,6 @@ namespace NorthernWinterBeat.Pages.Admin.ParticipantAdmin
         public Participant Participant { get; private set; }
         public List<Concert> BookedConcerts { get; set; } = new List<Concert>();
         public List<Concert> NonBookedConcerts { get; set; } = new List<Concert>();
-
-        //[BindProperty(SupportsGet = true)]
-        //public string SortBy { get; set; } = "";
         public void OnGet(int id)
         {
             Participant = FestivalManager.instance?.GetParticipant(id);
