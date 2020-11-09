@@ -16,13 +16,13 @@ namespace NorthernWinterBeat.Models
             ACTIVE, INACTIVE
         }
 
-        public Venue()
+        private Venue()
+        {
+            DataAccess = new EFDataAccess(); 
+        }
+        public Venue(IDataAccess _dataAccess)
         {
             State = VenueState.ACTIVE;
-        }
-        public Venue(IDataAccess _dataAccess) :
-            this()
-        {
             DataAccess = _dataAccess; 
         }
         public Venue(string _name, string _address, int _capacity, IDataAccess _dataAccess) :

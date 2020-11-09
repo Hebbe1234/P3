@@ -27,7 +27,6 @@ namespace NWB_TESTS
         {
             //Arrange
             var dataAccess = new Mock<IDataAccess>();
-            //dataAccess.Setup(p => p.Save()); 
             Concert concert = new Concert(dataAccess.Object);
             Booking booking = new Booking();
             int expected = 0;
