@@ -25,7 +25,7 @@ namespace NorthernWinterBeat.Models
         {
             Ticket = _ticket;
         }
-        public bool CanMakeBookingAt(Concert concert)
+        public virtual bool CanMakeBookingAt(Concert concert)
         {
 			List<Concert> bookedConcerts =  FestivalManager.instance._calendar.GetConcerts().FindAll(c => c.Bookings.Find(b => b.Participant == this) != null);
             foreach (var c in bookedConcerts)
