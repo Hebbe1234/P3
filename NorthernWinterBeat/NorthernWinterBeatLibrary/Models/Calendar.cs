@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using NorthernWinterBeat.Models;
+using NorthernWinterBeatLibrary.DataAccess;
 using NorthernWinterBeatLibrary.Managers;
 using System;
 using System.Collections.Generic;
@@ -17,18 +18,28 @@ public class Calendar
 
     private List<Venue> venues = new List<Venue>();
 
+    private IDataAccess DataAccess { get; set; }
+
     public CalendarState State { get; set; }
     [Key]
     public int ID { get; set; }
+
+    public Calendar(IDataAccess dataAccess)
+    {
+        DataAccess = dataAccess; 
+    }
 
     public Calendar()
     {
         //NorthernWinterBeatConcertDatabaseManager.context DatabaseManager.context = new NorthernWinterBeatConcertDatabaseManager.context();
         State = CalendarState.INITIALIZING;
-        concerts = DatabaseManager.context.Concert.Include(c => c.Bookings).ToList();
-        venues = DatabaseManager.context.Venue.ToList(); 
+        
     }
 
+    private void LoadData()
+    {
+        
+    }
 
 
     public async Task AddConcert(Concert concert, string VenueName = "")

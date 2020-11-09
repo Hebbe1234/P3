@@ -23,7 +23,7 @@ namespace NorthernWinterBeatLibrary.Managers
             {
                 DataAccess = dataAccess;
                 participants = DataAccess.Retrieve<Participant>();
-                _calendar = new Calendar();
+                _calendar = new Calendar(dataAccess);
                 instance = this;
             }
         }
