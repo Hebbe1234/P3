@@ -1,4 +1,5 @@
 ﻿using NorthernWinterBeat.Models;
+using NorthernWinterBeatLibrary.DataAccess;
 using NorthernWinterBeatLibrary.Managers;
 using System;
 using System.Collections.Generic;
@@ -7,26 +8,30 @@ using System.Linq;
 
 public class Concert
 {
-
     public enum ConcertState
     {
         CREATION, MAX_CAPACITY, ACTIVE, CONCERT_HELD, INACTIVE
     }
-
     public Concert()
     {
         State = ConcertState.CREATION; 
     }
-    public Concert(DateTime _start, DateTime _end, string _artist, string _artistDescription): 
+    public Concert(IDataAccess _dataAccess):
         this()
+    {
+        DataAccess = _dataAccess; 
+    }
+    public Concert(DateTime _start, DateTime _end, string _artist, string _artistDescription, IDataAccess _dataAccess): 
+        this(_dataAccess)
     {
         Start = _start;
         End = _end;
         Artist = _artist;
         ArtistDescription = _artistDescription;
+
     }
-    public Concert(DateTime _start, DateTime _end, Venue _venue, string _artist, string _artistDescription):
-        this(_start, _end, _artist, _artistDescription)
+    public Concert(DateTime _start, DateTime _end, Venue _venue, string _artist, string _artistDescription, IDataAccess _dataAccess) :
+        this(_start, _end, _artist, _artistDescription, _dataAccess)
 	{
         Venue = _venue;
 	}
@@ -39,19 +44,16 @@ public class Concert
     public DateTime Start { get; set; }
     public DateTime End { get; set; }
     public string PicturePath { get; set; }
+    private IDataAccess DataAccess { get; set; }
     public List<Booking> Bookings { get; set; } = new List<Booking>(); 
     public bool IsAtMaxCapacity { get {
             return Bookings.Count()>=(Venue?.Capacity ?? 0);
         } }
 
-    public void AddBooking(Booking booking)
-    {
-		Bookings.Add(booking);
-    }
 	public void RemoveBooking(Booking booking)
     {
 		Bookings.Remove(booking);
-        DatabaseManager.context.SaveChanges();
+        DataAccess.Save(); 
     }
 
     public Booking MakeBooking(Participant p)
@@ -62,14 +64,10 @@ public class Concert
         {
             booking = new Booking(p, this, DateTime.Now);
             Bookings.Add(booking);
-            DatabaseManager.context.SaveChanges();
-
+            DataAccess.Save(); 
         }
         return booking;
     }
-
-
-
 
     public string FormatDate(DateTime time)
     {

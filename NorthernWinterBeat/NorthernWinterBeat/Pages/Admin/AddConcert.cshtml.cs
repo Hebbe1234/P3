@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using NorthernWinterBeatLibrary.Managers;
 using NorthernWinterBeatLibrary;
 using NorthernWinterBeat.Models;
+using NorthernWinterBeatLibrary.DataAccess;
 
 namespace NorthernWinterBeat.Pages.Admin.Pages
 {
@@ -14,11 +15,10 @@ namespace NorthernWinterBeat.Pages.Admin.Pages
     public class AddConcertModel : PageModel
     {
         public List<Venue> venues { get; set; } = new List<Venue>();
-        private readonly NorthernWinterBeatConcertContext _context;
-
-        public AddConcertModel(NorthernWinterBeatConcertContext context)
+        public IDataAccess DataAccess { get; set; }
+        public AddConcertModel(IDataAccess dataAccess)
         {
-            _context = context;
+            DataAccess = dataAccess; 
             venues = FestivalManager.instance._calendar.GetVenues(); 
         }
         public void OnGet()
@@ -57,7 +57,7 @@ namespace NorthernWinterBeat.Pages.Admin.Pages
 
             DateTime Start = new DateTime(Year, Month, Day, StartHour, StartMinute, 0);
             DateTime End = new DateTime(Year, Month, Day, EndHour, EndMinute, 0);
-            Concert NewConcert = new Concert(Start, End, Artist, Description);
+            Concert NewConcert = new Concert(Start, End, Artist, Description, DataAccess);
 
             await FestivalManager.instance._calendar.AddConcert(NewConcert, Venue);
             return RedirectToPage("./Calendar");

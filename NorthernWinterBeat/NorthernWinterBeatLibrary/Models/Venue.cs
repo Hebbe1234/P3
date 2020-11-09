@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NorthernWinterBeatLibrary.DataAccess;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -17,14 +18,19 @@ namespace NorthernWinterBeat.Models
 
         public Venue()
         {
+            State = VenueState.ACTIVE;
         }
-
-        public Venue(string _name, string _address, int _capacity)
+        public Venue(IDataAccess _dataAccess) :
+            this()
+        {
+            DataAccess = _dataAccess; 
+        }
+        public Venue(string _name, string _address, int _capacity, IDataAccess _dataAccess) :
+            this(_dataAccess)
         {
             Name = _name;
             Address = _address;
             Capacity = _capacity;
-            State = VenueState.ACTIVE; 
         }
         [Key]
         public int ID { get; set; }
@@ -32,5 +38,6 @@ namespace NorthernWinterBeat.Models
         public VenueState State { get; set; }
         public string Address { get; set; }
         public int Capacity { get; set; }
+        private IDataAccess DataAccess { get; set; }
     }
 }

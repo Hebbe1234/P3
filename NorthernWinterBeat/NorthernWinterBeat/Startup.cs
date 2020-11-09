@@ -13,6 +13,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Http;
+using NorthernWinterBeatLibrary.DataAccess;
 
 namespace NorthernWinterBeat
 {
@@ -21,7 +22,6 @@ namespace NorthernWinterBeat
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
-
         }
 
         public IConfiguration Configuration { get; }
@@ -58,6 +58,8 @@ namespace NorthernWinterBeat
 
             services.AddDbContext<NorthernWinterBeatLibrary.Managers.NorthernWinterBeatConcertContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("NorthernWinterBeatConcertContext")));
+
+            services.AddTransient<IDataAccess, EFDataAccess>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -88,8 +90,6 @@ namespace NorthernWinterBeat
             {
                 endpoints.MapRazorPages();
             });
-
         }
-
     }
 }

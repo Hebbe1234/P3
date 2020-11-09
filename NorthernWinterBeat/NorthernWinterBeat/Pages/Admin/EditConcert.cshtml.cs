@@ -8,13 +8,19 @@ using System.Drawing;
 using System.ComponentModel;
 using NorthernWinterBeatLibrary.Managers;
 using NorthernWinterBeat.Models;
+using NorthernWinterBeatLibrary.DataAccess;
 
 namespace NorthernWinterBeat.Pages.Admin
 {
     public class EditConcertModel : PageModel
     {
+        public EditConcertModel(IDataAccess dataAccess)
+        {
+            DataAccess = dataAccess; 
+        }
         public Concert concert { get; set; }
         public List<Venue> venues { get; set; } = new List<Venue>();
+        public IDataAccess DataAccess { get; set; }
 
         public void OnGet(int id)
         {
@@ -52,7 +58,7 @@ namespace NorthernWinterBeat.Pages.Admin
 
             DateTime Start = new DateTime(Year, Month, Day, StartHour, StartMinute, 0);
             DateTime End = new DateTime(Year, Month, Day, EndHour, EndMinute, 0);
-            Concert NewConcertInfo = new Concert(Start, End, Artist, Description);
+            Concert NewConcertInfo = new Concert(Start, End, Artist, Description, DataAccess);
 
             await FestivalManager.instance._calendar.EditConcert(id, NewConcertInfo, Venue);
             return RedirectToPage("./Calendar");
