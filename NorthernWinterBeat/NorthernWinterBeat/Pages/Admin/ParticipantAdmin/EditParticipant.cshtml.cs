@@ -32,7 +32,12 @@ namespace NorthernWinterBeat.Pages.Admin.ParticipantAdmin
             }
             await FestivalManager.instance.EditParticipant(id, NewParticipant);
 
-            return RedirectToPage("./ParticipantOverview"); 
+            return RedirectToPage("./ParticipantPage", new { id = id}); 
+        }
+        public IActionResult OnPostCancel(int id)
+        {
+            return RedirectToPage("./ParticipantPage", new { id = id });
+
         }
     }
 }
