@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace NorthernWinterBeatLibrary.Managers
 {
@@ -27,16 +28,34 @@ namespace NorthernWinterBeatLibrary.Managers
             }
         }
 
-        public void AddParticipant(Participant p)
+        public async Task AddParticipant(Participant p)
         {
             participants.Add(p);
             DatabaseManager.context.Participant.Add(p);
-            DatabaseManager.context.SaveChanges();
+            await DatabaseManager.context.SaveChangesAsync();
+        }
+        public Participant GetParticipant(int id)
+        {
+            return participants.Find(p => p.ID == id); 
         }
 
         public List<Participant> GetParticipants()
         {
             return participants;
+        }
+        public async Task EditParticipant(int id, Participant NewParticipant)
+        {
+            Participant participant = participants.Find(p => p.ID == id);
+            participant.Name = NewParticipant.Name;
+            participant.Username = NewParticipant.Username;
+            try
+            {
+                await DatabaseManager.context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                throw;
+            }
         }
     }
 }
