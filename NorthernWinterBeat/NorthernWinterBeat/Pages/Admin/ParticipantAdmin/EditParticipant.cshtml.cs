@@ -37,7 +37,6 @@ namespace NorthernWinterBeat.Pages.Admin.ParticipantAdmin
         public IActionResult OnPostCancel(int id)
         {
             return RedirectToPage("./ParticipantPage", new { id = id });
-
         }
     }
 }
