@@ -44,11 +44,44 @@ namespace NorthernWinterBeatLibrary.DataAccess
             Save(); 
         }
 
+        public void Remove<T>(T input)
+        {
+            if (typeof(T) == typeof(Concert))
+            {
+                DatabaseManager.context.Concert.Remove(input as Concert);
+            }
+            else if (typeof(T) == typeof(Booking))
+            {
+                DatabaseManager.context.Booking.Remove(input as Booking);
+            }
+            else if (typeof(T) == typeof(Ticket))
+            {
+                DatabaseManager.context.Ticket.Remove(input as Ticket);
+            }
+            else if (typeof(T) == typeof(ApplicationUser))
+            {
+                DatabaseManager.context.ApplicationUser.Remove(input as ApplicationUser);
+            }
+            else if (typeof(T) == typeof(Participant))
+            {
+                DatabaseManager.context.Participant.Remove(input as Participant);
+            }
+            else if (typeof(T) == typeof(Venue))
+            {
+                DatabaseManager.context.Venue.Remove(input as Venue);
+            }
+            else if (typeof(T) == typeof(LegalTicket))
+            {
+                DatabaseManager.context.LegalTickets.Remove(input as LegalTicket);
+            }
+            Save();
+        }
+
         public List<T> Retrieve<T>()
         {
             if(typeof(T) == typeof(Concert))
             {
-                return DatabaseManager.context.Concert.ToList() as List<T>; 
+                return DatabaseManager.context.Concert.Include(c => c.Bookings).ToList() as List<T>; 
             } 
             else if(typeof(T) == typeof(Booking))
             {

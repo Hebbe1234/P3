@@ -26,39 +26,40 @@ public class Calendar
 
     public Calendar(IDataAccess dataAccess)
     {
-        DataAccess = dataAccess; 
+        DataAccess = dataAccess;
+        LoadData();
+        State = CalendarState.INITIALIZING;
+
     }
 
-    public Calendar()
+    private Calendar()
     {
-        //NorthernWinterBeatConcertDatabaseManager.context DatabaseManager.context = new NorthernWinterBeatConcertDatabaseManager.context();
+        DataAccess = new EFDataAccess();
+        LoadData();
         State = CalendarState.INITIALIZING;
-        
     }
 
     private void LoadData()
     {
-        
+        concerts = DataAccess.Retrieve<Concert>();
+        venues = DataAccess.Retrieve<Venue>();
     }
 
 
-    public async Task AddConcert(Concert concert, string VenueName = "")
+    public void AddConcert(Concert concert, string VenueName = "")
     {
         if(VenueName != "")
         {
             concert.Venue = venues.Find(v => v.Name == VenueName);
         }
 
-        DatabaseManager.context.Concert.Add(concert);
-        await DatabaseManager.context.SaveChangesAsync();
         concerts.Add(concert);
+        DataAccess.Add(concert);
     }
-    public async Task AddVenue(Venue venue)
+    public void AddVenue(Venue venue)
     {
         venues.Add(venue);
-
-        DatabaseManager.context.Venue.Add(venue);
-        await DatabaseManager.context.SaveChangesAsync();
+        DataAccess.Add(venue);
     }
 
     public void RemoveConcert(Concert concert)
@@ -87,60 +88,23 @@ public class Calendar
         return concerts;
     }
 
-    public async Task EditVenue(int id, Venue NewVenueInfo)
-    {
-        Venue venue = venues.Find(v => v.ID == id);
-        venue.Capacity = NewVenueInfo.Capacity;
-        venue.Address = NewVenueInfo.Address;
-        venue.Name = NewVenueInfo.Name;
+    
 
-        try
-        {
-            await DatabaseManager.context.SaveChangesAsync();
-        }
-        catch (DbUpdateConcurrencyException)
-        {
-            throw;
-        }
-    }
-
-    public async Task EditConcert(int id, Concert NewConcertInfo, string VenueName)
-    {
-        if (VenueName != "")
-        {
-            NewConcertInfo.Venue = venues.Find(v => v.Name == VenueName);
-        }
-        Concert concert = concerts.Find(c => c.ID == id);
-        concert.Start = NewConcertInfo.Start;
-        concert.End = NewConcertInfo.End;
-        concert.Venue = NewConcertInfo.Venue;
-        concert.Artist = NewConcertInfo.Artist;
-        concert.ArtistDescription = NewConcertInfo.ArtistDescription;
-        try
-        {
-            await DatabaseManager.context.SaveChangesAsync();
-        }
-        catch (DbUpdateConcurrencyException)
-        {
-            throw;
-        }
-    }
-    public async Task DeleteConcert(Concert concert)
+    
+    public void DeleteConcert(Concert concert)
     {
         if (concert != null)
         {
             concerts.Remove(concert);
-            DatabaseManager.context.Concert.Remove(concert);
-            await DatabaseManager.context.SaveChangesAsync();
+            DataAccess.Remove(concert);
         }
     }
-    public async Task DeleteVenue(Venue venue)
+    public void DeleteVenue(Venue venue)
     {
         if(venue != null)
         {
             venues.Remove(venue);
-            DatabaseManager.context.Venue.Remove(venue); 
-            await DatabaseManager.context.SaveChangesAsync();
+            DataAccess.Remove(venue);
         }
     }
 }

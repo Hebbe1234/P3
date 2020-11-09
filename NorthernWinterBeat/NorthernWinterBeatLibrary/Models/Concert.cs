@@ -91,4 +91,19 @@ public class Concert
         hour = hour.Substring(hour.Length - 2);
         return hour + ":" + minute;
     }
+
+    public void Update(Concert NewConcertInfo, string VenueName)
+    {
+        if (VenueName != "")
+        {
+            NewConcertInfo.Venue = FestivalManager.instance._calendar.GetVenues().Find(v => v.Name == VenueName);
+        }
+        Start = NewConcertInfo.Start;
+        End = NewConcertInfo.End;
+        Venue = NewConcertInfo.Venue;
+        Artist = NewConcertInfo.Artist;
+        ArtistDescription = NewConcertInfo.ArtistDescription;
+
+        DataAccess.Save();
+    }
 }

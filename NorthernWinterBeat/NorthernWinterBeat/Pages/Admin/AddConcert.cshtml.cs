@@ -27,7 +27,7 @@ namespace NorthernWinterBeat.Pages.Admin.Pages
         }
 
 
-        public async Task<IActionResult> OnPostAsyncCreateConcert()
+        public IActionResult OnPostAsyncCreateConcert()
         {
             string Artist = Request.Form["ArtistEntered"];
             string Description = Request.Form["DescriptionEntered"];
@@ -59,7 +59,7 @@ namespace NorthernWinterBeat.Pages.Admin.Pages
             DateTime End = new DateTime(Year, Month, Day, EndHour, EndMinute, 0);
             Concert NewConcert = new Concert(Start, End, Artist, Description, DataAccess);
 
-            await FestivalManager.instance._calendar.AddConcert(NewConcert, Venue);
+            FestivalManager.instance._calendar.AddConcert(NewConcert, Venue);
             return RedirectToPage("./Calendar");
         }
         public IActionResult OnPostCancel()

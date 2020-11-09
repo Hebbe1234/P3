@@ -17,10 +17,10 @@ namespace NorthernWinterBeat.Pages.Admin
             concert = FestivalManager.instance?._calendar?.GetConcert(id);
         }
 
-        public async Task<IActionResult> OnPostDeleteConcert(int id)
+        public IActionResult OnPostDeleteConcert(int id)
         {
             Concert deleteConcert = FestivalManager.instance._calendar.GetConcert(id); 
-            await FestivalManager.instance._calendar.DeleteConcert(deleteConcert); 
+            FestivalManager.instance._calendar.DeleteConcert(deleteConcert); 
             return RedirectToPage("./Calendar");
         }
         public IActionResult OnPostRemoveBooking(int bookingid)

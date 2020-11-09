@@ -27,7 +27,7 @@ namespace NorthernWinterBeat.Pages.Admin
             concert = FestivalManager.instance._calendar.GetConcert(id);
             venues = FestivalManager.instance._calendar.GetVenues(); 
         }
-        public async Task<IActionResult> OnPostEditConcertAsync(int id)
+        public IActionResult OnPostEditConcert(int id)
         {
             string Artist = Request.Form["ArtistEntered"];
             string Description = Request.Form["DescriptionEntered"];
@@ -60,7 +60,7 @@ namespace NorthernWinterBeat.Pages.Admin
             DateTime End = new DateTime(Year, Month, Day, EndHour, EndMinute, 0);
             Concert NewConcertInfo = new Concert(Start, End, Artist, Description, DataAccess);
 
-            await FestivalManager.instance._calendar.EditConcert(id, NewConcertInfo, Venue);
+            FestivalManager.instance._calendar.GetConcert(id).Update(NewConcertInfo, Venue);
             return RedirectToPage("./Calendar");
         }
         public string FindDate()

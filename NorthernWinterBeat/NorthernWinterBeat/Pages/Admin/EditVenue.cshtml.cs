@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using NorthernWinterBeat.Models;
+using NorthernWinterBeatLibrary.DataAccess;
 using NorthernWinterBeatLibrary.Managers;
 
 namespace NorthernWinterBeat.Pages.Admin
@@ -13,10 +14,10 @@ namespace NorthernWinterBeat.Pages.Admin
     public class EditVenueModel : PageModel
     {
         public Venue venue { get; set; }
-        private readonly NorthernWinterBeatConcertContext _context;
-        public EditVenueModel(NorthernWinterBeatConcertContext context)
+        public IDataAccess DataAccess { get; set; }
+        public EditVenueModel(IDataAccess dataAccess)
         {
-            _context = context;
+            DataAccess = dataAccess;
         }
         public void OnGet(int id)
         {
@@ -34,7 +35,7 @@ namespace NorthernWinterBeat.Pages.Admin
                 Capacity = int.Parse(CapacityString);
             }
 
-            Venue NewVenueInfo = new Venue(Name, Address, Capacity);
+            Venue NewVenueInfo = new Venue(Name, Address, Capacity, DataAccess);
             if (!ModelState.IsValid)
             {
                 return Page();

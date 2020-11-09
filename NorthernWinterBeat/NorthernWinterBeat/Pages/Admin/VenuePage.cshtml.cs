@@ -5,18 +5,20 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using NorthernWinterBeat.Models;
+using NorthernWinterBeatLibrary.DataAccess;
 using NorthernWinterBeatLibrary.Managers;
 
 namespace NorthernWinterBeat.Pages.Admin
 {
     public class VenuePageModel : PageModel
     {
-        public Venue venue { get; set; } = new Venue("Hej", "Mit Hus", 55);
+
+        public Venue venue { get; set; }
         public List<Concert> concerts { get; set; }
-        public VenuePageModel()
+        public IDataAccess DataAccess { get; set; }
+        public VenuePageModel(IDataAccess dataAccess)
         {
-            //venue = FestivalManager.instance._calendar.GetVenue(id);
-            //concerts = FestivalManager.instance._calendar.GetConcertsAtVenue(venue.Name);
+            DataAccess = dataAccess;
         }
         [BindProperty(SupportsGet = true)]
         public int id { get; set; } = 1; 
@@ -56,10 +58,10 @@ namespace NorthernWinterBeat.Pages.Admin
             return Partial("Partials/_VenueConcertTable", this);
         }
            
-        public async Task<IActionResult> OnPostDeleteVenue(int id)
+        public IActionResult OnPostDeleteVenue(int id)
         {
             Venue deleteVenue = FestivalManager.instance._calendar.GetVenue(id);
-            await FestivalManager.instance._calendar.DeleteVenue(deleteVenue);
+            FestivalManager.instance._calendar.DeleteVenue(deleteVenue);
             return RedirectToPage("./VenueOverview");
         }
     }

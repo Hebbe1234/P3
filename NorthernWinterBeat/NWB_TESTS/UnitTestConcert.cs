@@ -3,6 +3,7 @@ using System;
 using Xunit;
 using Moq;
 using NorthernWinterBeat.Models;
+using NorthernWinterBeatLibrary.Managers;
 
 namespace NWB_TESTS
 {
@@ -70,7 +71,7 @@ namespace NWB_TESTS
         }
 
         [Fact]
-        public void RemoveBooking_RemovesBookingNotInBookings()
+        public void RemoveBooking_DoesNotRemoveBookingNotInBookings()
         {
             //Arrange
             var dataAccess = new Mock<IDataAccess>();
@@ -95,8 +96,6 @@ namespace NWB_TESTS
             Concert concert = GetConcertAtMaxCapacity();
             bool expected = true;
 
-
-
             //Act
             bool result = concert.IsAtMaxCapacity;
 
@@ -108,14 +107,8 @@ namespace NWB_TESTS
         public void IsAtMaxCapacity_ReturnsFalseWhenNotAtMaxCapacity()
         {
             //Arrange
-            var mock = new Mock<IDataAccess>();
-            Venue venue = new Venue(mock.Object);
-            venue.Capacity = 1;
-            Concert concert = new Concert(mock.Object);
-            concert.Venue = venue;
+            Concert concert = GetConcertWithSpaceForTwo();
             bool expected = false;
-
-
 
             //Act
             bool result = concert.IsAtMaxCapacity;
@@ -149,8 +142,6 @@ namespace NWB_TESTS
             var mock = new Mock<Participant>();
             mock.Setup(p => p.CanMakeBookingAt(concert)).Returns(true); //Defining other argument in if-statement as always true
 
-
-
             //Act
             Booking result = concert.MakeBooking(mock.Object);
 
@@ -166,11 +157,8 @@ namespace NWB_TESTS
             var mock = new Mock<Participant>();
             mock.Setup(p => p.CanMakeBookingAt(concert)).Returns(true); //Defining other argument in if-statement as always true
             var expected = (mock.Object, concert);
-            
-
 
             //Act
-
             Booking resultBooking = concert.MakeBooking(mock.Object);
             var result = (resultBooking.Participant, resultBooking.Concert);
 
@@ -188,10 +176,7 @@ namespace NWB_TESTS
             mock.Setup(p => p.CanMakeBookingAt(concert)).Returns(true); //Defining other argument in if-statement as always true
             var expected = (mock.Object, concert);
 
-
-
             //Act
-
             Booking resultBooking = concert.MakeBooking(mock.Object);
             var result = (resultBooking.Participant, resultBooking.Concert);
 
@@ -207,8 +192,6 @@ namespace NWB_TESTS
             Booking expected = null;
             var mock = new Mock<Participant>();
             mock.Setup(p => p.CanMakeBookingAt(concert)).Returns(false); //Defining other argument in if-statement as always false
-
-
 
             //Act
             Booking result = concert.MakeBooking(mock.Object);
@@ -254,5 +237,33 @@ namespace NWB_TESTS
             Assert.Equal(expected, result);
         }
 
+        [Fact]
+        public void Update_UpdatesInformation()
+        {
+            //Arrange
+            var mock = new Mock<IDataAccess>();
+            var festivalManagerMock = new Mock<FestivalManager>();
+            Concert NewConcertInfo = new Concert(mock.Object)
+            {
+                Artist = "Bobby",
+                ArtistDescription = "Epix",
+                Start = DateTime.Parse("2020-02-02"),
+                End = DateTime.Parse("2020-03-03"),
+                Venue = new Venue(mock.Object) { Name = "Studenterhuset"}
+                 
+            };
+
+            Concert otherConcert = GetConcertWithSpaceForTwo();
+            Venue otherVenue = new Venue(mock.Object) { Name = "1000 Fryd" };
+
+
+
+            //Act
+            //mock.Setup(p => p.CanMakeBookingAt(concert)).Returns(false); 
+            //festivalManagerMock.Setup(f => f._calendar.)
+            otherConcert.Update(NewConcertInfo, NewConcertInfo.Venue.Name);
+
+            //Assert
+        }
     }
 }
