@@ -19,6 +19,8 @@ namespace NorthernWinterBeat.Pages.Admin.ParticipantAdmin
             Participant = FestivalManager.instance?.GetParticipant(id);
             bool flag = true; 
 
+            // Split all concerts into two categories. The ones where the participant has a booking
+            // and the ones, where the participant does not have a booking.
             foreach (Concert item in FestivalManager.instance._calendar.GetAllConcerts())
             {
                 flag = true; 
