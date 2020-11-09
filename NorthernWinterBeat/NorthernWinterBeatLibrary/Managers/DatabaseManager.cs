@@ -13,21 +13,17 @@ namespace NorthernWinterBeatLibrary.Managers
     public class DatabaseManager
     {
         public static DbContextOptions<NorthernWinterBeatConcertContext> options { get; set; }
-        public static NorthernWinterBeatConcertContext context { get
-            {
-                return new NorthernWinterBeatConcertContext();
-            }
-        }
+        public static NorthernWinterBeatConcertContext context { get; set;}
 
 
         public DatabaseManager(IConfiguration configuration)
         {
             options = new DbContextOptionsBuilder<NorthernWinterBeatConcertContext>().UseSqlServer(configuration.GetConnectionString("NorthernWinterBeatConcertContext")).Options;
-            //if (context == null)
-            //{
-            //    context = new NorthernWinterBeatConcertContext(options);
+            if (context == null)
+            {
+                context = new NorthernWinterBeatConcertContext(options);
 
-            //}
+            }
         }
 
         public static ApplicationUser GetUser(string username)

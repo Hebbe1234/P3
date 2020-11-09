@@ -14,7 +14,8 @@ public class Concert
     }
     public Concert()
     {
-        State = ConcertState.CREATION; 
+        State = ConcertState.CREATION;
+        DataAccess = new EFDataAccess();
     }
     public Concert(IDataAccess _dataAccess, IFestivalManager _festivalManager):
         this()

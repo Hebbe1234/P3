@@ -79,33 +79,35 @@ namespace NorthernWinterBeatLibrary.DataAccess
 
         public List<T> Retrieve<T>()
         {
+            NorthernWinterBeatConcertContext context = new NorthernWinterBeatConcertContext(DatabaseManager.options);
+
             if(typeof(T) == typeof(Concert))
             {
-                return DatabaseManager.context.Concert.Include(c => c.Bookings).Include(c => c.Venue).ToList() as List<T>; 
+                return context.Concert.Include(c => c.Bookings).ThenInclude(b => b.Participant).Include(c => c.Venue).ToList() as List<T>; 
             } 
             else if(typeof(T) == typeof(Booking))
             {
-                return DatabaseManager.context.Booking.ToList() as List<T>;
+                return context.Booking.ToList() as List<T>;
             }
             else if (typeof(T) == typeof(Ticket))
             {
-                return DatabaseManager.context.Ticket.ToList() as List<T>;
+                return context.Ticket.ToList() as List<T>;
             }
             else if (typeof(T) == typeof(ApplicationUser))
             {
-                return DatabaseManager.context.ApplicationUser.ToList() as List<T>;
+                return context.ApplicationUser.ToList() as List<T>;
             }
             else if (typeof(T) == typeof(Participant))
             {
-                return DatabaseManager.context.Participant.Include(p => p.Ticket).ToList() as List<T>;
+                return context.Participant.Include(p => p.Ticket).ToList() as List<T>;
             }
             else if (typeof(T) == typeof(Venue))
             {
-                return DatabaseManager.context.Venue.ToList() as List<T>;
+                return context.Venue.ToList() as List<T>;
             }
             else if (typeof(T) == typeof(LegalTicket))
             {
-                return DatabaseManager.context.LegalTickets.ToList() as List<T>;
+                return context.LegalTickets.ToList() as List<T>;
             }
             return new List<T>(); 
         }
