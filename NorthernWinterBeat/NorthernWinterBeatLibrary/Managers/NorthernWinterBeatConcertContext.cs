@@ -35,6 +35,11 @@ namespace NorthernWinterBeatLibrary.Managers
             }
         }
 
+        public NorthernWinterBeatConcertContext()
+            :base(DatabaseManager.options)
+        {
+
+        }
         public DbSet<Concert> Concert { get; set; }
         public DbSet<Venue> Venue { get; set; }
         public DbSet<Ticket> Ticket { get; set; }

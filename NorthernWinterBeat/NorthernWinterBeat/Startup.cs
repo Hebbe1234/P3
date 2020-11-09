@@ -14,6 +14,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Http;
 using NorthernWinterBeatLibrary.DataAccess;
+using NorthernWinterBeatLibrary.Managers;
 
 namespace NorthernWinterBeat
 {
@@ -60,6 +61,7 @@ namespace NorthernWinterBeat
                     options.UseSqlServer(Configuration.GetConnectionString("NorthernWinterBeatConcertContext")));
 
             services.AddTransient<IDataAccess, EFDataAccess>();
+            services.AddTransient<IFestivalManager, FestivalManager>(); 
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

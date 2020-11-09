@@ -81,7 +81,7 @@ namespace NorthernWinterBeatLibrary.DataAccess
         {
             if(typeof(T) == typeof(Concert))
             {
-                return DatabaseManager.context.Concert.Include(c => c.Bookings).ToList() as List<T>; 
+                return DatabaseManager.context.Concert.Include(c => c.Bookings).Include(c => c.Venue).ToList() as List<T>; 
             } 
             else if(typeof(T) == typeof(Booking))
             {

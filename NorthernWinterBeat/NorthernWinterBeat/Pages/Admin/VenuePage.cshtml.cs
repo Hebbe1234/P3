@@ -15,9 +15,12 @@ namespace NorthernWinterBeat.Pages.Admin
 
         public Venue venue { get; set; }
         public List<Concert> concerts { get; set; }
-        public IDataAccess DataAccess { get; set; }
-        public VenuePageModel(IDataAccess dataAccess)
+        private IDataAccess DataAccess { get; set; }
+        private IFestivalManager FestivalManager { get; }
+
+        public VenuePageModel(IDataAccess dataAccess, IFestivalManager festivalManager)
         {
+            FestivalManager = festivalManager;
             DataAccess = dataAccess;
         }
         [BindProperty(SupportsGet = true)]
@@ -27,8 +30,8 @@ namespace NorthernWinterBeat.Pages.Admin
         public string SortBy { get; set; }
         public void OnGet(int id)
         {
-            venue = FestivalManager.instance._calendar.GetVenue(id);
-            concerts = FestivalManager.instance?._calendar?.GetConcertsAtVenue(venue.ID); 
+            venue = FestivalManager.Calendar.GetVenue(id);
+            concerts = FestivalManager.Calendar?.GetConcertsAtVenue(venue.ID); 
         }
 
         public List<Concert> SortConcerts(List<Concert> sortConcerts)
@@ -53,15 +56,15 @@ namespace NorthernWinterBeat.Pages.Admin
         {
             this.SortBy = sortBy;
             this.id = id;
-            this.venue = FestivalManager.instance._calendar.GetVenue(id);
-            this.concerts = FestivalManager.instance?._calendar?.GetConcertsAtVenue(venue.ID);
+            this.venue = FestivalManager.Calendar.GetVenue(id);
+            this.concerts = FestivalManager.Calendar?.GetConcertsAtVenue(venue.ID);
             return Partial("Partials/_VenueConcertTable", this);
         }
            
         public IActionResult OnPostDeleteVenue(int id)
         {
-            Venue deleteVenue = FestivalManager.instance._calendar.GetVenue(id);
-            FestivalManager.instance._calendar.DeleteVenue(deleteVenue);
+            Venue deleteVenue = FestivalManager.Calendar.GetVenue(id);
+            FestivalManager.Calendar.DeleteVenue(deleteVenue);
             return RedirectToPage("./VenueOverview");
         }
     }

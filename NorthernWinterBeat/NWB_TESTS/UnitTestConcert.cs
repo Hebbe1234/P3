@@ -15,7 +15,7 @@ namespace NWB_TESTS
             Venue venue = new Venue(mock.Object);
             venue.Capacity = 1;
 
-            Concert concert = new Concert(mock.Object);
+            Concert concert = new Concert(mock.Object, null);
             concert.Venue = venue;
 
             concert.Bookings.Add(new Booking());
@@ -29,7 +29,7 @@ namespace NWB_TESTS
             Venue venue = new Venue(mock.Object);
             venue.Capacity = 2;
 
-            Concert concert = new Concert(mock.Object);
+            Concert concert = new Concert(mock.Object, null);
             concert.Venue = venue;
 
             return concert;
@@ -57,7 +57,7 @@ namespace NWB_TESTS
         {
             //Arrange
             var dataAccess = new Mock<IDataAccess>();
-            Concert concert = new Concert(dataAccess.Object);
+            Concert concert = new Concert(dataAccess.Object, null);
             Booking booking = new Booking();
             int expected = 0;
             concert.Bookings.Add(booking);
@@ -75,7 +75,7 @@ namespace NWB_TESTS
         {
             //Arrange
             var dataAccess = new Mock<IDataAccess>();
-            Concert concert = new Concert(dataAccess.Object);
+            Concert concert = new Concert(dataAccess.Object, null);
             Booking booking1 = new Booking();
             Booking booking2 = new Booking();
             int expected = 1;
@@ -122,7 +122,7 @@ namespace NWB_TESTS
         {
             //Arrange
             var mock = new Mock<IDataAccess>();
-            Concert concert = new Concert(mock.Object);
+            Concert concert = new Concert(mock.Object, null);
             bool expected = true;
 
             //Act
@@ -243,7 +243,7 @@ namespace NWB_TESTS
             //Arrange
             var mock = new Mock<IDataAccess>();
             var festivalManagerMock = new Mock<FestivalManager>();
-            Concert NewConcertInfo = new Concert(mock.Object)
+            Concert NewConcertInfo = new Concert(mock.Object, null)
             {
                 Artist = "Bobby",
                 ArtistDescription = "Epix",

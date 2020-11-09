@@ -12,9 +12,11 @@ namespace NorthernWinterBeat.Pages.Admin
 {
     public class AddVenueModel : PageModel
     {
-        public IDataAccess DataAccess { get; set; }
-        public AddVenueModel(IDataAccess dataAccess)
+        private IFestivalManager FestivalManager { get; }
+        private IDataAccess DataAccess { get; set; }
+        public AddVenueModel(IDataAccess dataAccess, IFestivalManager festivalManager)
         {
+            FestivalManager = festivalManager;
             DataAccess = dataAccess;
         }
         public void OnGet()
@@ -34,7 +36,7 @@ namespace NorthernWinterBeat.Pages.Admin
 
             Venue NewVenue = new Venue(Name, Address, Capacity, DataAccess);
             
-            FestivalManager.instance._calendar.AddVenue(NewVenue); 
+            FestivalManager.Calendar.AddVenue(NewVenue); 
 
             return RedirectToPage("./VenueOverview"); 
         }

@@ -16,14 +16,17 @@ namespace NorthernWinterBeat.Pages.Admin.Pages
     {
         public List<Venue> venues { get; set; } = new List<Venue>();
         public IDataAccess DataAccess { get; set; }
-        public AddConcertModel(IDataAccess dataAccess)
+        private IFestivalManager FestivalManager { get; }
+
+        public AddConcertModel(IDataAccess dataAccess, IFestivalManager festivalManager)
         {
-            DataAccess = dataAccess; 
-            venues = FestivalManager.instance._calendar.GetVenues(); 
+            DataAccess = dataAccess;
+            FestivalManager = festivalManager;
+            venues = FestivalManager.Calendar.GetVenues(); 
         }
         public void OnGet()
         {
-            venues = FestivalManager.instance._calendar.GetVenues(); 
+            venues = FestivalManager.Calendar.GetVenues(); 
         }
 
 
@@ -57,9 +60,9 @@ namespace NorthernWinterBeat.Pages.Admin.Pages
 
             DateTime Start = new DateTime(Year, Month, Day, StartHour, StartMinute, 0);
             DateTime End = new DateTime(Year, Month, Day, EndHour, EndMinute, 0);
-            Concert NewConcert = new Concert(Start, End, Artist, Description, DataAccess);
+            Concert NewConcert = new Concert(Start, End, Artist, Description, DataAccess, FestivalManager);
 
-            FestivalManager.instance._calendar.AddConcert(NewConcert, Venue);
+            FestivalManager.Calendar.AddConcert(NewConcert, Venue);
             return RedirectToPage("./Calendar");
         }
         public IActionResult OnPostCancel()

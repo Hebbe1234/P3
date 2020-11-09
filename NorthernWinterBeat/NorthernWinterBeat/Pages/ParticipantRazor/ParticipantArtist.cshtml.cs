@@ -15,14 +15,17 @@ namespace NorthernWinterBeat.Pages.ParticipantRazor
         [BindProperty(SupportsGet = true)]
         public int id { get; set; } = 0;
 
-        public ParticipantArtistModel()
+        private IFestivalManager FestivalManager { get; }
+
+        public ParticipantArtistModel(IFestivalManager festivalManager)
         {
-            concert = FestivalManager.instance._calendar.GetConcert(id);
+            FestivalManager = festivalManager; 
+            concert = FestivalManager.Calendar.GetConcert(id);
         }
         public void OnGet(int id = 0)
         {
 
-            concert = FestivalManager.instance._calendar.GetConcert(id);
+            concert = FestivalManager.Calendar.GetConcert(id);
 
         }
 
@@ -30,8 +33,8 @@ namespace NorthernWinterBeat.Pages.ParticipantRazor
         {
             var claimTicketID = HttpContext.User.Claims.Where(c => c.Type == "TicketID").Select(t => t.Value).First();
 
-            Concert c = FestivalManager.instance._calendar.GetConcert(id);
-            c.MakeBooking(FestivalManager.instance.GetParticipants().Where(p => p.Ticket?.TicketNumber == claimTicketID).First());
+            Concert c = FestivalManager.Calendar.GetConcert(id);
+            c.MakeBooking(FestivalManager.GetParticipants().Where(p => p.Ticket?.TicketNumber == claimTicketID).First());
             return RedirectToPage("./ParticipantArtist", new { id = id });
         }
 

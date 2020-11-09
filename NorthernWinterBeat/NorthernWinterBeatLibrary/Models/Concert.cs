@@ -16,13 +16,14 @@ public class Concert
     {
         State = ConcertState.CREATION; 
     }
-    public Concert(IDataAccess _dataAccess):
+    public Concert(IDataAccess _dataAccess, IFestivalManager _festivalManager):
         this()
     {
+        FestivalManager = _festivalManager;
         DataAccess = _dataAccess; 
     }
-    public Concert(DateTime _start, DateTime _end, string _artist, string _artistDescription, IDataAccess _dataAccess): 
-        this(_dataAccess)
+    public Concert(DateTime _start, DateTime _end, string _artist, string _artistDescription, IDataAccess _dataAccess, IFestivalManager _festivalManager): 
+        this(_dataAccess, _festivalManager)
     {
         Start = _start;
         End = _end;
@@ -30,8 +31,8 @@ public class Concert
         ArtistDescription = _artistDescription;
 
     }
-    public Concert(DateTime _start, DateTime _end, Venue _venue, string _artist, string _artistDescription, IDataAccess _dataAccess) :
-        this(_start, _end, _artist, _artistDescription, _dataAccess)
+    public Concert(DateTime _start, DateTime _end, Venue _venue, string _artist, string _artistDescription, IDataAccess _dataAccess, IFestivalManager _festivalManager) :
+        this(_start, _end, _artist, _artistDescription, _dataAccess, _festivalManager)
 	{
         Venue = _venue;
 	}
@@ -44,6 +45,7 @@ public class Concert
     public DateTime Start { get; set; }
     public DateTime End { get; set; }
     public string PicturePath { get; set; }
+    private IFestivalManager FestivalManager { get; }
     private IDataAccess DataAccess { get; set; }
     public List<Booking> Bookings { get; set; } = new List<Booking>(); 
     public bool IsAtMaxCapacity { get {
@@ -96,7 +98,7 @@ public class Concert
     {
         if (VenueName != "")
         {
-            NewConcertInfo.Venue = FestivalManager.instance._calendar.GetVenues().Find(v => v.Name == VenueName);
+            NewConcertInfo.Venue = FestivalManager.Calendar.GetVenues().Find(v => v.Name == VenueName);
         }
         Start = NewConcertInfo.Start;
         End = NewConcertInfo.End;

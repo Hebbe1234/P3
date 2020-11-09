@@ -11,9 +11,14 @@ namespace NorthernWinterBeat.Pages.VenueRazor
     public class ConcertPageModel : PageModel
     {
         public Concert concert { get; private set; }
+        private IFestivalManager FestivalManager { get; }
+        public ConcertPageModel(IFestivalManager festivalManager)
+        {
+            FestivalManager = festivalManager; 
+        }
         public void OnGet(int id = 0)
         {
-            concert = FestivalManager.instance?._calendar?.GetConcert(id);
+            concert = FestivalManager.Calendar?.GetConcert(id);
         }
     }
 }

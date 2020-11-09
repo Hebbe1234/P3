@@ -1,5 +1,6 @@
 ﻿@page
 @model NorthernWinterBeat.Pages.ParticipantRazor.ParticipantArtistModel
+@inject NorthernWinterBeatLibrary.Managers.IFestivalManager FestivalManager
 @{
 }
 
@@ -11,7 +12,7 @@
 
     @{
         var claimTicketID = HttpContext.User.Claims.Where(c => c.Type == "TicketID").Select(t => t.Value).First();
-        var curUser = NorthernWinterBeatLibrary.Managers.FestivalManager.instance.GetParticipants().Where(p => p.Ticket?.TicketNumber == claimTicketID).First();
+        var curUser = FestivalManager.GetParticipants().Where(p => p.Ticket?.TicketNumber == claimTicketID).First();
          if (Model.concert.Bookings.Where(b => b.Participant == curUser).Count() > 0)
         {
             <button type="button" class="btn btn-block btn-success text-center" data-toggle="modal" data-target="#bookSpot" disabled>

@@ -15,13 +15,15 @@ namespace NorthernWinterBeat.Pages.Admin
     {
         public Venue venue { get; set; }
         public IDataAccess DataAccess { get; set; }
-        public EditVenueModel(IDataAccess dataAccess)
+        private IFestivalManager FestivalManager { get; }
+        public EditVenueModel(IDataAccess dataAccess, IFestivalManager festivalManager)
         {
+            FestivalManager = festivalManager;
             DataAccess = dataAccess;
         }
         public void OnGet(int id)
         {
-            venue = FestivalManager.instance._calendar.GetVenue(id);
+            venue = FestivalManager.Calendar.GetVenue(id);
 
         }
         public IActionResult OnPostEditVenue(int id)
@@ -40,7 +42,7 @@ namespace NorthernWinterBeat.Pages.Admin
             {
                 return Page();
             }
-            FestivalManager.instance._calendar.GetVenue(id).Update(NewVenueInfo);
+            FestivalManager.Calendar.GetVenue(id).Update(NewVenueInfo);
 
             return RedirectToPage("./VenueOverview"); 
         }

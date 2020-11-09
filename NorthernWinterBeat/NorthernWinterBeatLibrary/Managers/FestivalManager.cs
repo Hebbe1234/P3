@@ -11,21 +11,17 @@ namespace NorthernWinterBeatLibrary.Managers
     /// <summary>
     /// The responsibility of a FestivalManager is to be the primary access to the top hiearchy of the festival. (Calendar & Participants)
     /// </summary>
-    public class FestivalManager
+    public class FestivalManager :  IFestivalManager
     {
-        public static FestivalManager instance;
         private List<Participant> participants;
-        public Calendar _calendar;
         private IDataAccess DataAccess { get; set; }
+        public Calendar Calendar { get; set; }
+
         public FestivalManager(IDataAccess dataAccess)
         {
-            if(instance == null)
-            {
-                DataAccess = dataAccess;
-                participants = DataAccess.Retrieve<Participant>();
-                _calendar = new Calendar(dataAccess);
-                instance = this;
-            }
+            DataAccess = dataAccess;
+            participants = DataAccess.Retrieve<Participant>();
+            Calendar = new Calendar(dataAccess);
         }
 
         public void AddParticipant(Participant p)

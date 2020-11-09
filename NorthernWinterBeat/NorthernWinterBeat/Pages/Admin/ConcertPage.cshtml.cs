@@ -11,22 +11,28 @@ namespace NorthernWinterBeat.Pages.Admin
     public class ConcertPageModel : PageModel
     {
         public Concert concert { get; private set; }
+        private IFestivalManager FestivalManager { get; }
+
+        public ConcertPageModel(IFestivalManager festivalManager)
+        {
+            FestivalManager = festivalManager;
+        }
 
         public void OnGet(int id)
         {
-            concert = FestivalManager.instance?._calendar?.GetConcert(id);
+            concert = FestivalManager.Calendar?.GetConcert(id);
         }
 
         public IActionResult OnPostDeleteConcert(int id)
         {
-            Concert deleteConcert = FestivalManager.instance._calendar.GetConcert(id); 
-            FestivalManager.instance._calendar.DeleteConcert(deleteConcert); 
+            Concert deleteConcert = FestivalManager.Calendar.GetConcert(id); 
+            FestivalManager.Calendar.DeleteConcert(deleteConcert); 
             return RedirectToPage("./Calendar");
         }
         public IActionResult OnPostRemoveBooking(int bookingid)
         {
             List<Concert> concerts = new List<Concert>();
-            concerts = FestivalManager.instance._calendar.GetConcerts();
+            concerts = FestivalManager.Calendar.GetConcerts();
             Booking booking = concerts.SelectMany(c => c.Bookings)?.Where(b => b.ID == bookingid)?.First();
             int id = booking.Concert.ID; 
             booking.Concert.RemoveBooking(booking);

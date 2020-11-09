@@ -23,6 +23,12 @@ namespace NorthernWinterBeat.Pages
         [BindProperty(SupportsGet = true)]
         public string ticketNumber { get; set; }
 
+        private IFestivalManager FestivalManager { get; }
+
+        public MakeUserLoginModel(IFestivalManager festivalManager)
+        {
+            FestivalManager = festivalManager;
+        }
         public void OnGet()
         {
 
@@ -54,8 +60,8 @@ namespace NorthernWinterBeat.Pages
             DatabaseManager.context.ApplicationUser.Add(newUser);
             DatabaseManager.context.SaveChanges();
 
-            var newParticipant = new Participant(new Ticket(ticketNumber));
-            FestivalManager.instance.AddParticipant(newParticipant);
+            var newParticipant = new Participant(new Ticket(ticketNumber), FestivalManager);
+            FestivalManager.AddParticipant(newParticipant);
 
             return RedirectToPage("./Index");
 
