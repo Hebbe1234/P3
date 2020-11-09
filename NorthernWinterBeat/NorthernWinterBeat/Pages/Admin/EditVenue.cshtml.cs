@@ -23,7 +23,7 @@ namespace NorthernWinterBeat.Pages.Admin
             venue = FestivalManager.instance._calendar.GetVenue(id);
 
         }
-        public async Task<IActionResult> OnPostEditVenue(int id)
+        public IActionResult OnPostEditVenue(int id)
         {
             string Name = Request.Form["VenueEntered"];
             string CapacityString = Request.Form["CapacityEntered"];
@@ -39,7 +39,7 @@ namespace NorthernWinterBeat.Pages.Admin
             {
                 return Page();
             }
-            await FestivalManager.instance._calendar.EditVenue(id, NewVenueInfo);
+            FestivalManager.instance._calendar.GetVenue(id).Update(NewVenueInfo);
 
             return RedirectToPage("./VenueOverview"); 
         }
