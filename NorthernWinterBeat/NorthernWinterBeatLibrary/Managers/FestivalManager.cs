@@ -13,7 +13,7 @@ namespace NorthernWinterBeatLibrary.Managers
     /// </summary>
     public class FestivalManager :  IFestivalManager
     {
-        private List<Participant> participants;
+        private List<Participant> participants { get; set; }
         private IDataAccess DataAccess { get; set; }
         public Calendar Calendar { get; set; }
 

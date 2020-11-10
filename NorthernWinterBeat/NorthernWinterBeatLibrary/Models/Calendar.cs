@@ -29,7 +29,6 @@ public class Calendar
         DataAccess = dataAccess;
         LoadData();
         State = CalendarState.INITIALIZING;
-
     }
 
     private Calendar()
@@ -44,7 +43,6 @@ public class Calendar
         concerts = DataAccess.Retrieve<Concert>();
         venues = DataAccess.Retrieve<Venue>();
     }
-
 
     public void AddConcert(Concert concert, string VenueName = "")
     {
@@ -62,34 +60,36 @@ public class Calendar
         DataAccess.Add(venue);
     }
 
-    public void RemoveConcert(Concert concert)
-    {
-        concerts.Remove(concert);
-    }
-
     public Concert GetConcert(int id)
     {
         return concerts.Find(c => c.ID == id);
     }
-    public Venue GetVenue(int id)
+    /// <summary>
+    /// Returns the venue with corrosponding Id
+    /// </summary>
+    /// <param name="venueId"></param>
+    /// <returns></returns>
+    public Venue GetVenue(int venueId)
     {
-        return venues.Find(v => v.ID == id); 
+        return venues.Find(v => v.ID == venueId); 
     }
     public List<Venue> GetVenues()
     {
         return venues; 
     }
-    public List<Concert> GetConcertsAtVenue(int id)
+    /// <summary>
+    /// Takes a VenueID, and returns all the concert happening at the venue
+    /// </summary>
+    /// <param name="venueId"></param>
+    /// <returns></returns>
+    public List<Concert> GetConcertsAtVenue(int venueId)
     {
-        return concerts.FindAll(c => c.Venue?.ID == id); 
+        return concerts.FindAll(c => c.Venue?.ID == venueId); 
     }
     public List<Concert> GetConcerts()
     {
         return concerts;
     }
-
-    
-
     
     public void DeleteConcert(Concert concert)
     {
