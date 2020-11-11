@@ -52,5 +52,13 @@ namespace NorthernWinterBeat.Models
                 .ToList()
                 .FindAll(b => b.Participant.ID == this.ID);
         }
+
+        public void Update(Participant NewParticipant)
+        {
+            Name = NewParticipant.Name;
+            Username = NewParticipant.Username;
+           
+            DatabaseManager.context.SaveChanges();    
+        }
     }
 }

@@ -18,7 +18,7 @@ namespace NorthernWinterBeat.Pages.Admin.ParticipantAdmin
             Participant = FestivalManager.instance?.GetParticipant(id);
         }
 
-        public async Task <IActionResult> OnPostEditParticipant(int id)
+        public IActionResult OnPostEditParticipant(int id)
         {
             string Name = Request.Form["Name"];
             string Email = Request.Form["EmailEntered"];
@@ -30,7 +30,7 @@ namespace NorthernWinterBeat.Pages.Admin.ParticipantAdmin
             {
                 return Page();
             }
-            await FestivalManager.instance.EditParticipant(id, NewParticipant);
+            FestivalManager.instance.GetParticipant(id).Update(NewParticipant);
 
             return RedirectToPage("./ParticipantPage", new { id = id}); 
         }

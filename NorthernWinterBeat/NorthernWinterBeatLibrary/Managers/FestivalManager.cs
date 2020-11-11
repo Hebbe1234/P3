@@ -28,11 +28,11 @@ namespace NorthernWinterBeatLibrary.Managers
             }
         }
 
-        public async Task AddParticipant(Participant p)
+        public void AddParticipant(Participant p)
         {
             participants.Add(p);
             DatabaseManager.context.Participant.Add(p);
-            await DatabaseManager.context.SaveChangesAsync();
+            DatabaseManager.context.SaveChanges();
         }
         public Participant GetParticipant(int id)
         {
@@ -43,19 +43,6 @@ namespace NorthernWinterBeatLibrary.Managers
         {
             return participants;
         }
-        public async Task EditParticipant(int id, Participant NewParticipant)
-        {
-            Participant participant = participants.Find(p => p.ID == id);
-            participant.Name = NewParticipant.Name;
-            participant.Username = NewParticipant.Username;
-            try
-            {
-                await DatabaseManager.context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                throw;
-            }
-        }
+
     }
 }
