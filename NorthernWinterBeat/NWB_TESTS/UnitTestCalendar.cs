@@ -3,6 +3,7 @@ using NorthernWinterBeat.Models;
 using NorthernWinterBeatLibrary.DataAccess;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Xunit;
 
@@ -142,7 +143,7 @@ namespace NWB_TESTS
         }
 
         [Fact]
-        public void DeleteConcert_DeletesTheGivenConcert()
+        public void DeleteConcert_DeletesAConcert()
         {
             //Arrange
             Calendar calendar = GetCalendarWithTwoConcertsAndTwoVenues();
@@ -156,8 +157,25 @@ namespace NWB_TESTS
             //Assert
             Assert.Equal(expected, result);
         }
+
         [Fact]
-        public void DeleteConcert_DoesNotDeleteANonExisistingConcert()
+        public void DeleteConcert_DeletesTheGivenConcert()
+        {
+            //Arrange
+            Calendar calendar = GetCalendarWithTwoConcertsAndTwoVenues();
+            bool expected = false;
+            Concert concert = calendar.GetConcerts().First();
+
+            //Act
+            calendar.DeleteConcert(concert);
+            bool result = calendar.GetConcerts().Contains(concert);
+
+            //Assert
+            Assert.Equal(expected, result);
+        }
+
+        [Fact]
+        public void DeleteConcert_DoesNotDeleteANonExistingConcert()
         {
             //Arrange
             Calendar calendar = GetCalendarWithTwoConcertsAndTwoVenues();

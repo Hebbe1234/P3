@@ -4,6 +4,7 @@ using Xunit;
 using Moq;
 using NorthernWinterBeat.Models;
 using NorthernWinterBeatLibrary.Managers;
+using System.Collections.Generic;
 
 namespace NWB_TESTS
 {
@@ -242,7 +243,8 @@ namespace NWB_TESTS
         {
             //Arrange
             var mock = new Mock<IDataAccess>();
-            var festivalManagerMock = new Mock<FestivalManager>();
+            mock.Setup(d => d.Retrieve<Venue>()).Returns(new List<Venue>());
+            var festivalManager = new FestivalManager(mock.Object);
             Concert NewConcertInfo = new Concert(mock.Object, null)
             {
                 Artist = "Bobby",
@@ -253,18 +255,19 @@ namespace NWB_TESTS
                  
             };
 
-            Concert otherConcert = GetConcertWithSpaceForTwo();
             Venue otherVenue = new Venue(mock.Object) { Name = "1000 Fryd" };
-
-
+            festivalManager.Calendar.AddVenue(otherVenue);
+            Concert otherConcert = new Concert(mock.Object, festivalManager);
 
             //Act
-            //mock.Setup(p => p.CanMakeBookingAt(concert)).Returns(false);
-            //festivalManagerMock.Setup(f => f._calendar.)
-            //otherConcert.Update(NewConcertInfo, NewConcertInfo.Venue.Name);
+            otherConcert.Update(NewConcertInfo, otherVenue.Name);
 
             //Assert
-            Assert.True(true); 
+            Assert.Equal(otherConcert.Artist, NewConcertInfo.Artist);
+            Assert.Equal(otherConcert.Venue.Name, otherVenue.Name);
+            Assert.Equal(otherConcert.Start, NewConcertInfo.Start);
+            Assert.Equal(otherConcert.End, NewConcertInfo.End);
+            Assert.Equal(otherConcert.ArtistDescription, NewConcertInfo.ArtistDescription);
         }
     }
 }

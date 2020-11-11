@@ -22,18 +22,26 @@ namespace NWB_TESTS
 
             Participant participant = new Participant(festivalManager);
 
-            List<Concert> concertsList = new List<Concert>() {
-                 new Concert() {Start = new DateTime(2020, 10, 10, 20, 30, 00), End = new DateTime(2020, 10, 10, 21, 30, 00),
+            List<Concert> concertsList = new List<Concert>() 
+            {
+                 new Concert() 
+                 {
+                    Start = new DateTime(2020, 10, 10, 20, 30, 00), 
+                    End = new DateTime(2020, 10, 10, 21, 30, 00),
                     Bookings = new List<Booking>()
                     {
                         new Booking() {Participant = participant, ID = 0}
                     }
                  },
-                 new Concert() {Start = new DateTime(2020, 10, 10, 21, 30, 00), End = new DateTime(2020, 10, 10, 22, 30, 00),
+                 new Concert() 
+                 {
+                    Start = new DateTime(2020, 10, 10, 21, 30, 00), 
+                    End = new DateTime(2020, 10, 10, 22, 30, 00),
                     Bookings = new List<Booking>()
                     {
                         new Booking() {Participant = participant, ID = 1}
-                    }}
+                    }
+                 }
             };
             festivalManager.Calendar.AddConcert(concertsList[0]);
             festivalManager.Calendar.AddConcert(concertsList[1]);
@@ -143,7 +151,7 @@ namespace NWB_TESTS
 
         [InlineData("2020-10-11T00:00:00", "2020-10-11T01:30:00", false)]
         [InlineData("2020-10-11T00:30:00", "2020-10-11T01:30:00", true)]
-        public void CanMakeBookingAt_ParticipantCannotMakeBookingWhenOverlap2(string inputStart, string inputEnd, bool expected)
+        public void CanMakeBookingAt_ParticipantCannotMakeBookingWhenOverlap_WhenConcertExpandsOvernight(string inputStart, string inputEnd, bool expected)
         {
             //Arrange
             var mock = new Mock<IDataAccess>();
