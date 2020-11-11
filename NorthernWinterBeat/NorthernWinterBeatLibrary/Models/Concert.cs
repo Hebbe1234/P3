@@ -12,8 +12,9 @@ public class Concert
     {
         CREATION, MAX_CAPACITY, ACTIVE, CONCERT_HELD, INACTIVE
     }
-    public Concert()
+    public Concert(NorthernWinterBeatConcertContext ctx)
     {
+        DataAccess = ctx.DataAccess;
     }
     public Concert(IDataAccess _dataAccess, IFestivalManager _festivalManager)
     {

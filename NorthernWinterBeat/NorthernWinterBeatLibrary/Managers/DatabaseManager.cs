@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using NorthernWinterBeatLibrary.DataAccess;
 using NorthernWinterBeatLibrary.Models;
 using System;
 using System.Collections.Generic;
@@ -15,11 +16,13 @@ namespace NorthernWinterBeatLibrary.Managers
         public DbContextOptions<NorthernWinterBeatConcertContext> options { get; set; }
         public NorthernWinterBeatConcertContext context { get; set;}
 
+        private IDataAccess DataAccess { get; set; }
 
-        public DatabaseManager(IConfiguration configuration)
+        public DatabaseManager(IConfiguration configuration, IDataAccess dataAccess)
         {
             options = new DbContextOptionsBuilder<NorthernWinterBeatConcertContext>().UseSqlServer(configuration.GetConnectionString("NorthernWinterBeatConcertContext")).Options;
-            context = new NorthernWinterBeatConcertContext(options);
+            context = new NorthernWinterBeatConcertContext(options, dataAccess);
+            DataAccess = dataAccess;
 
         }
 

@@ -63,9 +63,9 @@ namespace NorthernWinterBeat
             services.AddDbContext<NorthernWinterBeatLibrary.Managers.NorthernWinterBeatConcertContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("NorthernWinterBeatConcertContext")));
 
-            services.AddTransient<IDataAccess, EFDataAccess>();
-            services.AddTransient<IFestivalManager, FestivalManager>(); 
-            services.AddTransient<IDatabaseManager, DatabaseManager>(); 
+            services.AddSingleton<IDataAccess, EFDataAccess>();
+            services.AddSingleton<IFestivalManager, FestivalManager>(); 
+            services.AddSingleton<IDatabaseManager, DatabaseManager>(); 
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

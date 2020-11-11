@@ -7,19 +7,19 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage;
 using NorthernWinterBeat.Models;
+using NorthernWinterBeatLibrary.DataAccess;
 using NorthernWinterBeatLibrary.Models;
 
 namespace NorthernWinterBeatLibrary.Managers
 {
     public class NorthernWinterBeatConcertContext : DbContext
     {
-        public NorthernWinterBeatConcertContext()
-        {
+        public IDataAccess DataAccess { get; set; }
 
-        }
-        public NorthernWinterBeatConcertContext (DbContextOptions<NorthernWinterBeatConcertContext> options)
+        public NorthernWinterBeatConcertContext (DbContextOptions<NorthernWinterBeatConcertContext> options, IDataAccess dataAccess)
             : base(options)
         {
+            DataAccess = dataAccess;
             try
             {
                 var databaseCreator = (Database.GetService<IDatabaseCreator>() as RelationalDatabaseCreator);
