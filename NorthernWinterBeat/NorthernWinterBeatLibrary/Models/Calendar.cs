@@ -31,12 +31,7 @@ public class Calendar
         State = CalendarState.INITIALIZING;
     }
 
-    private Calendar()
-    {
-        DataAccess = new EFDataAccess();
-        LoadData();
-        State = CalendarState.INITIALIZING;
-    }
+    
 
     private void LoadData()
     {

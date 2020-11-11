@@ -18,11 +18,11 @@ namespace NorthernWinterBeat.Pages
 {
     public class IndexModel : PageModel
     {
-        private readonly ILogger<IndexModel> _logger;
+        private IDatabaseManager DatabaseManager { get; }
 
-        public IndexModel(ILogger<IndexModel> logger)
+        public IndexModel(IDatabaseManager databaseManager)
         {
-            _logger = logger;
+            DatabaseManager = databaseManager;
         }
 
 

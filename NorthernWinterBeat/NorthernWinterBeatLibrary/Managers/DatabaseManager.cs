@@ -10,23 +10,20 @@ using System.Text;
 
 namespace NorthernWinterBeatLibrary.Managers
 {
-    public class DatabaseManager
+    public class DatabaseManager : IDatabaseManager
     {
-        public static DbContextOptions<NorthernWinterBeatConcertContext> options { get; set; }
-        public static NorthernWinterBeatConcertContext context { get; set;}
+        public DbContextOptions<NorthernWinterBeatConcertContext> options { get; set; }
+        public NorthernWinterBeatConcertContext context { get; set;}
 
 
         public DatabaseManager(IConfiguration configuration)
         {
             options = new DbContextOptionsBuilder<NorthernWinterBeatConcertContext>().UseSqlServer(configuration.GetConnectionString("NorthernWinterBeatConcertContext")).Options;
-            if (context == null)
-            {
-                context = new NorthernWinterBeatConcertContext(options);
+            context = new NorthernWinterBeatConcertContext(options);
 
-            }
         }
 
-        public static ApplicationUser GetUser(string username)
+        public ApplicationUser GetUser(string username)
         {
             var t1 = context.ApplicationUser;
             var t2 = t1.Where(u => u.Username == username).ToList();

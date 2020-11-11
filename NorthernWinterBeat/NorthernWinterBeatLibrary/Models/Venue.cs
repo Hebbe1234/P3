@@ -18,7 +18,6 @@ namespace NorthernWinterBeat.Models
 
         private Venue()
         {
-            DataAccess = new EFDataAccess(); 
         }
         public Venue(IDataAccess _dataAccess)
         {

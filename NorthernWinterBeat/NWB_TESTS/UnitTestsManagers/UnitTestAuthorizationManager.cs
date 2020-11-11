@@ -1,9 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.ObjectPool;
+using MockQueryable.Moq;
 using Moq;
 using NorthernWinterBeatLibrary.Managers;
 using NorthernWinterBeatLibrary.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Xunit;
 
@@ -11,19 +14,57 @@ namespace NWB_TESTS.UnitTestsManagers
 {
     public class UnitTestAuthorizationManager
     {
-        [Fact]
-        public void VerifyTicket_Test()
+        [Theory]
+        [InlineData("legalTicket1", false)]
+        [InlineData("legalTicket2", false)]
+        [InlineData("legalTicket3", true)]
+        [InlineData("legalTicket4", false)]
+        [InlineData("legalTicket5", false)]
+        public void VerifyTicket_WorksProperly(string ticket, bool expected)
         {
+            //Arrange
+            List<LegalTicket> empty = new List<LegalTicket>();
+            empty.Add(new LegalTicket("legalTicket1"));
+            empty.Add(new LegalTicket("legalTicket2"));
+            empty.Add(new LegalTicket("legalTicket3"));
+            var mockLegalTicketDbSet = empty.AsQueryable().BuildMockDbSet();
 
-            //cant mock DBset<>
+            mockLegalTicketDbSet.Setup(m => m.Find(It.IsAny<object[]>())).Returns<object[]>(ids => empty.FirstOrDefault(l => l.TicketNumber == (string)ids[0]));
+
+
+            List<Ticket> notEmpty = new List<Ticket>();
+            notEmpty.Add(new Ticket("legalTicket1"));
+            notEmpty.Add(new Ticket("legalTicket2"));
+            notEmpty.Add(new Ticket("legalTicket4"));
+            var mockTicketDbSet = notEmpty.AsQueryable().BuildMockDbSet();
+
+
+
+            var mock = new Mock<IDatabaseManager>();
+            var mockContext = new Mock<NorthernWinterBeatConcertContext>();
+            mockContext.SetupGet(c => c.LegalTickets).Returns(mockLegalTicketDbSet.Object);
+            mockContext.SetupGet(c => c.Ticket).Returns(mockTicketDbSet.Object);
+            mock.SetupGet(d => d.context).Returns(mockContext.Object);
+            AuthorizationManager authorizationManager = new AuthorizationManager(mock.Object);
+
+
+            //Act
+            bool result = authorizationManager.VerifyTicket(ticket);
+
+            //Assert
+            Assert.Equal(expected, result);
+
         }
 
         [Fact]
         public void CreateClaim_CreateAClaim()
         {
             //Arrange
+            var mock = new Mock<IDatabaseManager>();
+            AuthorizationManager authorizationManager = new AuthorizationManager(mock.Object);
+
             ApplicationUser ParticipantUser = new ApplicationUser("martin123", "Hejsa1234", ApplicationUser.Roles.PARTICIPANT);
-            AuthorizationManager authorizationManager = new AuthorizationManager();
+           
             bool expected = true; 
 
             //Act
@@ -39,8 +80,10 @@ namespace NWB_TESTS.UnitTestsManagers
         public void CreateClaim_CreateAClaimAdmin()
         {
             //Arrange
+
+            var mock = new Mock<IDatabaseManager>();
+            AuthorizationManager authorizationManager = new AuthorizationManager(mock.Object);
             ApplicationUser ParticipantUser = new ApplicationUser("martin123", "Hejsa1234", ApplicationUser.Roles.ADMIN);
-            AuthorizationManager authorizationManager = new AuthorizationManager();
             bool expected = true;
 
             //Act

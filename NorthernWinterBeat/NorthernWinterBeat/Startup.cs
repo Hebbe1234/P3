@@ -23,6 +23,9 @@ namespace NorthernWinterBeat
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            DatabaseManager databaseManager = new DatabaseManager(configuration);
+            AuthorizationManager authorizationManager = new AuthorizationManager(databaseManager);
+
         }
 
         public IConfiguration Configuration { get; }
@@ -62,6 +65,7 @@ namespace NorthernWinterBeat
 
             services.AddTransient<IDataAccess, EFDataAccess>();
             services.AddTransient<IFestivalManager, FestivalManager>(); 
+            services.AddTransient<IDatabaseManager, DatabaseManager>(); 
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

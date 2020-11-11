@@ -13,6 +13,10 @@ namespace NorthernWinterBeatLibrary.Managers
 {
     public class NorthernWinterBeatConcertContext : DbContext
     {
+        public NorthernWinterBeatConcertContext()
+        {
+
+        }
         public NorthernWinterBeatConcertContext (DbContextOptions<NorthernWinterBeatConcertContext> options)
             : base(options)
         {
@@ -35,18 +39,14 @@ namespace NorthernWinterBeatLibrary.Managers
             }
         }
 
-        public NorthernWinterBeatConcertContext()
-            :base(DatabaseManager.options)
-        {
-        }
-        public DbSet<Concert> Concert { get; set; }
-        public DbSet<Venue> Venue { get; set; }
-        public DbSet<Ticket> Ticket { get; set; }
-        public DbSet<Participant> Participant { get; set; }
-        public DbSet<Booking> Booking { get; set; }
-        public DbSet<LegalTicket> LegalTickets { get; set; }
+        public virtual DbSet<Concert> Concert { get; set; }
+        public virtual DbSet<Venue> Venue { get; set; }
+        public virtual DbSet<Ticket> Ticket { get; set; }
+        public virtual DbSet<Participant> Participant { get; set; }
+        public virtual DbSet<Booking> Booking { get; set; }
+        public virtual DbSet<LegalTicket> LegalTickets { get; set; }
 
-        public DbSet<ApplicationUser> ApplicationUser { get; set; }
+        public virtual DbSet<ApplicationUser> ApplicationUser { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

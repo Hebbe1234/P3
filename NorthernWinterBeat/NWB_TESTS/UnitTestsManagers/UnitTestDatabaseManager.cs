@@ -21,12 +21,8 @@ namespace NWB_TESTS.UnitTestsManagers
 
 
             //DbSet<ApplicationUser> DbSett = new DbSet<ApplicationUser>();
-
-
-
             var mocked = new Mock<NorthernWinterBeatConcertContext>();
             mocked.Setup(c => c.ApplicationUser).Returns(mock.Object);
-
 
             //Act
 

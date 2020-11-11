@@ -22,11 +22,12 @@ namespace NorthernWinterBeat.Pages
 
         [BindProperty(SupportsGet = true)]
         public string ticketNumber { get; set; }
-
+        private IDatabaseManager DatabaseManager { get; }
         private IFestivalManager FestivalManager { get; }
 
-        public MakeUserLoginModel(IFestivalManager festivalManager)
+        public MakeUserLoginModel(IFestivalManager festivalManager, IDatabaseManager databaseManager)
         {
+            DatabaseManager = databaseManager;
             FestivalManager = festivalManager;
         }
         public void OnGet()

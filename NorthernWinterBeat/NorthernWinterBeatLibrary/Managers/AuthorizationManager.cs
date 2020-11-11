@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using NorthernWinterBeatLibrary.Models;
 using System;
 using System.Collections.Generic;
@@ -15,13 +16,19 @@ namespace NorthernWinterBeatLibrary.Managers
     {
 
         public static AuthorizationManager instance;
-        public AuthorizationManager()
+
+        private IDatabaseManager DatabaseManager { get; }
+
+        public AuthorizationManager(IDatabaseManager databaseManager)
         {
+            DatabaseManager = databaseManager;
             if (instance == null)
             {
                 instance = this;
             }
         }
+
+        
 
         public bool VerifyTicket(string TicketInput)
         {

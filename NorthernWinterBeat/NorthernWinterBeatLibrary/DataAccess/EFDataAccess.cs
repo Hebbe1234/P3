@@ -11,6 +11,13 @@ namespace NorthernWinterBeatLibrary.DataAccess
 {
     public class EFDataAccess : IDataAccess
     {
+        public EFDataAccess(IDatabaseManager databaseManager)
+        {
+            DatabaseManager = databaseManager;
+        }
+
+        private IDatabaseManager DatabaseManager { get; }
+
         public void Add<T>(T input)
         {
             if (typeof(T) == typeof(Concert))

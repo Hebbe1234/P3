@@ -14,14 +14,12 @@ public class Concert
     }
     public Concert()
     {
-        State = ConcertState.CREATION;
-        DataAccess = new EFDataAccess();
     }
-    public Concert(IDataAccess _dataAccess, IFestivalManager _festivalManager):
-        this()
+    public Concert(IDataAccess _dataAccess, IFestivalManager _festivalManager)
     {
         FestivalManager = _festivalManager;
-        DataAccess = _dataAccess; 
+        DataAccess = _dataAccess;
+        State = ConcertState.CREATION;
     }
     public Concert(DateTime _start, DateTime _end, string _artist, string _artistDescription, IDataAccess _dataAccess, IFestivalManager _festivalManager): 
         this(_dataAccess, _festivalManager)

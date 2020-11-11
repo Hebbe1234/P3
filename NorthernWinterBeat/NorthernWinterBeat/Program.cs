@@ -22,9 +22,6 @@ namespace NorthernWinterBeat
             DatabaseManager databaseManager = new DatabaseManager(host.Services.GetService<IConfiguration>());
 
             CreateDbIfNotExists(host);
-            IDataAccess dataAccess = new EFDataAccess(); 
-            FestivalManager festivalManager = new FestivalManager(dataAccess);
-            AuthorizationManager authorizationManager = new AuthorizationManager();
 
             host.Run();
         }
