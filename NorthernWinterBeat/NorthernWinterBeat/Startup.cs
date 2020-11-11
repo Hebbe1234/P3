@@ -66,6 +66,7 @@ namespace NorthernWinterBeat
             services.AddTransient<IDataAccess, EFDataAccess>();
             services.AddTransient<IFestivalManager, FestivalManager>(); 
             services.AddTransient<IDatabaseManager, DatabaseManager>(); 
+            services.AddTransient<IAuthorizationManager, AuthorizationManager>(); 
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

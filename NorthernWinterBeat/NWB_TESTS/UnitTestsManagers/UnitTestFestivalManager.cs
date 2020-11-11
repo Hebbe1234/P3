@@ -17,12 +17,12 @@ namespace NWB_TESTS
         {
             //Arrange
             var mock = new Mock<IDataAccess>();
-            mock.Setup(D => D.Retrieve<Participant>()).Returns(new List<Participant>()
+            mock.Setup(D => D.Retrieve<ParticipantEntity>()).Returns(new List<ParticipantEntity>()
             {
-                new Participant(),
-                new Participant(),
-                new Participant(),
-                new Participant()
+                new ParticipantEntity(),
+                new ParticipantEntity(),
+                new ParticipantEntity(),
+                new ParticipantEntity()
             });
             FestivalManager festivalManager = new FestivalManager(mock.Object);
             int expected = 4;
@@ -40,9 +40,9 @@ namespace NWB_TESTS
         {
             //Arrange
             var mock = new Mock<IDataAccess>();
-            mock.Setup(D => D.Retrieve<Participant>()).Returns(new List<Participant>());
+            mock.Setup(D => D.Retrieve<ParticipantEntity>()).Returns(new List<ParticipantEntity>());
             FestivalManager festivalManager = new FestivalManager(mock.Object);
-            Participant p1 = new Participant();
+            ParticipantEntity p1 = new ParticipantEntity();
             int expected = 1;
 
             //Act

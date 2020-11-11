@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
 using NorthernWinterBeat.Models;
+using NorthernWinterBeatLibrary.Models;
 
 public class Booking
 {

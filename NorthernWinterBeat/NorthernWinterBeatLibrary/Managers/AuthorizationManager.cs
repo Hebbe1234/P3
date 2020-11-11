@@ -12,20 +12,15 @@ using System.Text;
 
 namespace NorthernWinterBeatLibrary.Managers
 {
-    public class AuthorizationManager
+    public class AuthorizationManager : IAuthorizationManager
     {
 
-        public static AuthorizationManager instance;
-
-        private IDatabaseManager DatabaseManager { get; }
+        private IDatabaseManager DatabaseManager { get; set; }
+            
 
         public AuthorizationManager(IDatabaseManager databaseManager)
         {
             DatabaseManager = databaseManager;
-            if (instance == null)
-            {
-                instance = this;
-            }
         }
 
         

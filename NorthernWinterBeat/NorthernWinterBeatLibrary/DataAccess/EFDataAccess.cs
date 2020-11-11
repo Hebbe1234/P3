@@ -36,9 +36,9 @@ namespace NorthernWinterBeatLibrary.DataAccess
             {
                 DatabaseManager.context.ApplicationUser.Add(input as ApplicationUser);
             }
-            else if (typeof(T) == typeof(Participant))
+            else if (typeof(T) == typeof(ParticipantEntity))
             {
-                DatabaseManager.context.Participant.Add(input as Participant);
+                DatabaseManager.context.Participant.Add(input as ParticipantEntity);
             }
             else if (typeof(T) == typeof(Venue))
             {
@@ -69,9 +69,9 @@ namespace NorthernWinterBeatLibrary.DataAccess
             {
                 DatabaseManager.context.ApplicationUser.Remove(input as ApplicationUser);
             }
-            else if (typeof(T) == typeof(Participant))
+            else if (typeof(T) == typeof(ParticipantEntity))
             {
-                DatabaseManager.context.Participant.Remove(input as Participant);
+                DatabaseManager.context.Participant.Remove(input as ParticipantEntity);
             }
             else if (typeof(T) == typeof(Venue))
             {
@@ -104,7 +104,7 @@ namespace NorthernWinterBeatLibrary.DataAccess
             {
                 return context.ApplicationUser.ToList() as List<T>;
             }
-            else if (typeof(T) == typeof(Participant))
+            else if (typeof(T) == typeof(ParticipantEntity))
             {
                 return context.Participant.Include(p => p.Ticket).ToList() as List<T>;
             }

@@ -42,7 +42,7 @@ namespace NorthernWinterBeatLibrary.Managers
         public virtual DbSet<Concert> Concert { get; set; }
         public virtual DbSet<Venue> Venue { get; set; }
         public virtual DbSet<Ticket> Ticket { get; set; }
-        public virtual DbSet<Participant> Participant { get; set; }
+        public virtual DbSet<ParticipantEntity> Participant { get; set; }
         public virtual DbSet<Booking> Booking { get; set; }
         public virtual DbSet<LegalTicket> LegalTickets { get; set; }
 
@@ -55,7 +55,7 @@ namespace NorthernWinterBeatLibrary.Managers
             modelBuilder.Entity<Venue>().ToTable("Venue");
             modelBuilder.Entity<Ticket>().ToTable("Ticket");
             modelBuilder.Entity<Booking>().ToTable("Booking");
-            modelBuilder.Entity<Participant>().ToTable("Participant");
+            modelBuilder.Entity<ParticipantEntity>().ToTable("Participant");
             modelBuilder.Entity<LegalTicket>().ToTable("LegalTicket");
             modelBuilder.Entity<ApplicationUser>().ToTable("ApplicationUser");
         }

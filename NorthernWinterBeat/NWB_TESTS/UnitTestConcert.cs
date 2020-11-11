@@ -140,7 +140,7 @@ namespace NWB_TESTS
             //Arrange 
             Concert concert = GetConcertAtMaxCapacity();
             Booking expected = null;
-            var mock = new Mock<Participant>();
+            var mock = new Mock<ParticipantEntity>();
             mock.Setup(p => p.CanMakeBookingAt(concert)).Returns(true); //Defining other argument in if-statement as always true
 
             //Act
@@ -155,7 +155,7 @@ namespace NWB_TESTS
         {
             //Arrange 
             Concert concert = GetConcertWithSpaceForTwo();
-            var mock = new Mock<Participant>();
+            var mock = new Mock<ParticipantEntity>();
             mock.Setup(p => p.CanMakeBookingAt(concert)).Returns(true); //Defining other argument in if-statement as always true
             var expected = (mock.Object, concert);
 
@@ -173,7 +173,7 @@ namespace NWB_TESTS
             //Arrange 
             Concert concert = GetConcertWithSpaceForTwo();
             concert.Bookings.Add(new Booking());
-            var mock = new Mock<Participant>();
+            var mock = new Mock<ParticipantEntity>();
             mock.Setup(p => p.CanMakeBookingAt(concert)).Returns(true); //Defining other argument in if-statement as always true
             var expected = (mock.Object, concert);
 
@@ -191,7 +191,7 @@ namespace NWB_TESTS
             //Arrange 
             Concert concert = GetConcertAtMaxCapacity();
             Booking expected = null;
-            var mock = new Mock<Participant>();
+            var mock = new Mock<ParticipantEntity>();
             mock.Setup(p => p.CanMakeBookingAt(concert)).Returns(false); //Defining other argument in if-statement as always false
 
             //Act
