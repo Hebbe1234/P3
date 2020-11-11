@@ -27,7 +27,7 @@ namespace NorthernWinterBeat.Pages
         {
 
         }
-        public async Task<IActionResult> OnPostAsync()
+        public IActionResult OnPost()
         {
             string UsernameEntered = Request.Form["UsernameEntered"];
             string Password1Entered = Request.Form["Password1Entered"];
@@ -50,12 +50,11 @@ namespace NorthernWinterBeat.Pages
             {
                 TicketID = ticketNumber
             };
-            //Virker dette? Nej
             DatabaseManager.context.ApplicationUser.Add(newUser);
-            await DatabaseManager.context.SaveChangesAsync();
+            DatabaseManager.context.SaveChanges();
 
             var newParticipant = new Participant(new Ticket(ticketNumber));
-            await FestivalManager.instance.AddParticipant(newParticipant);
+            FestivalManager.instance.AddParticipant(newParticipant);
 
             return RedirectToPage("./Index");
         }
