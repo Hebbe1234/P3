@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.ObjectPool;
 using MockQueryable.Moq;
 using Moq;
@@ -28,8 +29,13 @@ namespace NWB_TESTS.UnitTestsManagers
             empty.Add(new LegalTicket("legalTicket2"));
             empty.Add(new LegalTicket("legalTicket3"));
             var mockLegalTicketDbSet = empty.AsQueryable().BuildMockDbSet();
-
-            mockLegalTicketDbSet.Setup(m => m.Find(It.IsAny<object[]>())).Returns<object[]>(ids => empty.FirstOrDefault(l => l.TicketNumber == (string)ids[0]));
+                // stackoverflow: spicy one-liner with mini-implementation of .Find
+            mockLegalTicketDbSet.Setup(
+                m => m.Find(It.IsAny<object[]>()))
+                .Returns<object[]>(
+                    ids => empty.FirstOrDefault(
+                        l => l.TicketNumber == (string)ids[0])
+                );
 
 
             List<Ticket> notEmpty = new List<Ticket>();
@@ -93,5 +99,23 @@ namespace NWB_TESTS.UnitTestsManagers
             //Assert
             Assert.Equal(expected, result);
         }
+
+
+        [Fact]
+        public void Encrypt_EncryptsProperly()
+        {
+            //Arrange
+            var mock = new Mock<IDatabaseManager>();
+            AuthorizationManager authorizationManager = new AuthorizationManager(mock.Object);
+
+            string expected = "�o#�H�OH�!ќ ���";
+
+            //Act
+            string result = authorizationManager.Encrypt("Hejsa1234");
+
+            //Assert
+            Assert.Equal(expected, result);
+        }
+
     }
 }
