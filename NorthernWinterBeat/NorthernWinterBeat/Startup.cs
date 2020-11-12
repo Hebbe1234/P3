@@ -58,13 +58,13 @@ namespace NorthernWinterBeat
                 .AddCookie();
             
 
-            services.AddScoped<IDataAccess, EFDataAccess>();
-            services.AddScoped<IFestivalManager, FestivalManager>(); 
-            services.AddScoped<IAuthorizationManager, AuthorizationManager>();
+            services.AddSingleton<IDataAccess, EFDataAccess>();
+            services.AddSingleton<IFestivalManager, FestivalManager>(); 
+            services.AddSingleton<IAuthorizationManager, AuthorizationManager>();
 
 
             services.AddDbContext<NorthernWinterBeatConcertContext>(options =>
-                    options.UseSqlServer(Configuration.GetConnectionString("NorthernWinterBeatConcertContext")));
+                    options.UseSqlServer(Configuration.GetConnectionString("NorthernWinterBeatConcertContext")), ServiceLifetime.Singleton);
 
         }
 

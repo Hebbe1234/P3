@@ -21,7 +21,7 @@ namespace NorthernWinterBeatLibrary.Managers
         public NorthernWinterBeatConcertContext (DbContextOptions<NorthernWinterBeatConcertContext> options)
             : base(options)
         {
-           //Please do not bully me for changing my stance on the DB initialization
+            
         }
 
         public virtual DbSet<Concert> Concert { get; set; }
