@@ -2,6 +2,7 @@
 using NorthernWinterBeat.Models;
 using NorthernWinterBeatLibrary.DataAccess;
 using NorthernWinterBeatLibrary.Managers;
+using NorthernWinterBeatLibrary.Models;
 using System;
 using System.Collections.Generic;
 using Xunit;

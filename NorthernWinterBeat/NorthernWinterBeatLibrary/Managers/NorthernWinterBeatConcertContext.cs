@@ -14,12 +14,10 @@ namespace NorthernWinterBeatLibrary.Managers
 {
     public class NorthernWinterBeatConcertContext : DbContext
     {
-        public IDataAccess DataAccess { get; set; }
 
-        public NorthernWinterBeatConcertContext (DbContextOptions<NorthernWinterBeatConcertContext> options, IDataAccess dataAccess)
+        public NorthernWinterBeatConcertContext (DbContextOptions<NorthernWinterBeatConcertContext> options)
             : base(options)
         {
-            DataAccess = dataAccess;
             try
             {
                 var databaseCreator = (Database.GetService<IDatabaseCreator>() as RelationalDatabaseCreator);
@@ -47,7 +45,6 @@ namespace NorthernWinterBeatLibrary.Managers
         public virtual DbSet<LegalTicket> LegalTickets { get; set; }
 
         public virtual DbSet<ApplicationUser> ApplicationUser { get; set; }
-
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

@@ -22,11 +22,13 @@ namespace NorthernWinterBeat.Pages
 
         [BindProperty(SupportsGet = true)]
         public string ticketNumber { get; set; }
+        private IAuthorizationManager AuthorizationManager { get; }
         private IDatabaseManager DatabaseManager { get; }
         private IFestivalManager FestivalManager { get; }
 
-        public MakeUserLoginModel(IFestivalManager festivalManager, IDatabaseManager databaseManager)
+        public MakeUserLoginModel(IFestivalManager festivalManager, IDatabaseManager databaseManager, IAuthorizationManager authorizationManager)
         {
+            AuthorizationManager = authorizationManager;
             DatabaseManager = databaseManager;
             FestivalManager = festivalManager;
         }
@@ -53,7 +55,7 @@ namespace NorthernWinterBeat.Pages
                 return RedirectToPage("./MakeUserLogin");
             }
 
-            var newUser = new ApplicationUser(UsernameEntered, AuthorizationManager.instance.Encrypt(Password1Entered), ApplicationUser.Roles.PARTICIPANT)
+            var newUser = new ApplicationUser(UsernameEntered, AuthorizationManager.Encrypt(Password1Entered), ApplicationUser.Roles.PARTICIPANT)
             {
                 TicketID = ticketNumber
             };

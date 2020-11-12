@@ -11,6 +11,5 @@ namespace NorthernWinterBeatLibrary.Managers
         public DbContextOptions<NorthernWinterBeatConcertContext> options { get; set; }
         public NorthernWinterBeatConcertContext context { get; set; }
 
-        public ApplicationUser GetUser(string username);
     }
 }

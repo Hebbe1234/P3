@@ -1,6 +1,7 @@
 ﻿using NorthernWinterBeat.Models;
 using NorthernWinterBeatLibrary.DataAccess;
 using NorthernWinterBeatLibrary.Managers;
+using NorthernWinterBeatLibrary.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -14,7 +15,6 @@ public class Concert
     }
     public Concert(NorthernWinterBeatConcertContext ctx)
     {
-        DataAccess = ctx.DataAccess;
     }
     public Concert(IDataAccess _dataAccess, IFestivalManager _festivalManager)
     {

@@ -51,7 +51,7 @@ namespace NWB_TESTS.UnitTestsManagers
             mockContext.SetupGet(c => c.LegalTickets).Returns(mockLegalTicketDbSet.Object);
             mockContext.SetupGet(c => c.Ticket).Returns(mockTicketDbSet.Object);
             mock.SetupGet(d => d.context).Returns(mockContext.Object);
-            AuthorizationManager authorizationManager = new AuthorizationManager(mock.Object);
+            AuthorizationManager authorizationManager = new AuthorizationManager(mockContext.Object);
 
 
             //Act
@@ -66,8 +66,8 @@ namespace NWB_TESTS.UnitTestsManagers
         public void CreateClaim_CreateAClaim()
         {
             //Arrange
-            var mock = new Mock<IDatabaseManager>();
-            AuthorizationManager authorizationManager = new AuthorizationManager(mock.Object);
+            var mockContext = new Mock<NorthernWinterBeatConcertContext>();
+            AuthorizationManager authorizationManager = new AuthorizationManager(mockContext.Object);
 
             ApplicationUser ParticipantUser = new ApplicationUser("martin123", "Hejsa1234", ApplicationUser.Roles.PARTICIPANT);
            
@@ -87,8 +87,8 @@ namespace NWB_TESTS.UnitTestsManagers
         {
             //Arrange
 
-            var mock = new Mock<IDatabaseManager>();
-            AuthorizationManager authorizationManager = new AuthorizationManager(mock.Object);
+            var mockContext = new Mock<NorthernWinterBeatConcertContext>();
+            AuthorizationManager authorizationManager = new AuthorizationManager(mockContext.Object);
             ApplicationUser ParticipantUser = new ApplicationUser("martin123", "Hejsa1234", ApplicationUser.Roles.ADMIN);
             bool expected = true;
 
@@ -105,8 +105,8 @@ namespace NWB_TESTS.UnitTestsManagers
         public void Encrypt_EncryptsProperly()
         {
             //Arrange
-            var mock = new Mock<IDatabaseManager>();
-            AuthorizationManager authorizationManager = new AuthorizationManager(mock.Object);
+            var mockContext = new Mock<NorthernWinterBeatConcertContext>();
+            AuthorizationManager authorizationManager = new AuthorizationManager(mockContext.Object);
 
             string expected = "�o#�H�OH�!ќ ���";
 

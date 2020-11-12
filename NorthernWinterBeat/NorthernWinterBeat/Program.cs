@@ -19,7 +19,6 @@ namespace NorthernWinterBeat
         {
             var host = CreateHostBuilder(args).Build();
             
-            DatabaseManager databaseManager = new DatabaseManager(host.Services.GetService<IConfiguration>());
 
             CreateDbIfNotExists(host);
 

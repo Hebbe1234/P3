@@ -18,26 +18,12 @@ namespace NorthernWinterBeatLibrary.Managers
 
         private IDataAccess DataAccess { get; set; }
 
-        public DatabaseManager(IConfiguration configuration, IDataAccess dataAccess)
+        public DatabaseManager(IConfiguration configuration, NorthernWinterBeatConcertContext _context)
         {
-            options = new DbContextOptionsBuilder<NorthernWinterBeatConcertContext>().UseSqlServer(configuration.GetConnectionString("NorthernWinterBeatConcertContext")).Options;
-            context = new NorthernWinterBeatConcertContext(options, dataAccess);
-            DataAccess = dataAccess;
+            context = _context;
 
         }
 
-        public ApplicationUser GetUser(string username)
-        {
-            var t1 = context.ApplicationUser;
-            var t2 = t1.Where(u => u.Username == username).ToList();
-
-            if(t2.Count() == 0)
-            {
-                return null; 
-            }
-
-            return t2.First();
-            //return context.ApplicationUser.Where(u => u.Username == username)?.First();
-        }
+        
     }
 }

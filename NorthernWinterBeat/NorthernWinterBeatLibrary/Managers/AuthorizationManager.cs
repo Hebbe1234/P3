@@ -12,28 +12,34 @@ using System.Text;
 
 namespace NorthernWinterBeatLibrary.Managers
 {
-    public class AuthorizationManager
+    public class AuthorizationManager : IAuthorizationManager
     {
 
-        public static AuthorizationManager instance;
+        private NorthernWinterBeatConcertContext context { get; set; }            
 
-        private IDatabaseManager DatabaseManager { get; }
-
-        public AuthorizationManager(IDatabaseManager databaseManager)
+        public AuthorizationManager(NorthernWinterBeatConcertContext _context)
         {
-            DatabaseManager = databaseManager;
-            if (instance == null)
-            {
-                instance = this;
-            }
+            context = _context;
         }
 
-        
+        public ApplicationUser GetUser(string username)
+        {
+            var t1 = context.ApplicationUser;
+            var t2 = t1.Where(u => u.Username == username).ToList();
+
+            if (t2.Count() == 0)
+            {
+                return null;
+            }
+
+            return t2.First();
+            //return context.ApplicationUser.Where(u => u.Username == username)?.First();
+        }
 
         public bool VerifyTicket(string TicketInput)
         {
-            bool IsLegalTicket = DatabaseManager.context.LegalTickets.Find(TicketInput)?.TicketNumber == TicketInput;
-            bool DoesTicketNotExist = DatabaseManager.context.Ticket.Where(t => t.TicketNumber == TicketInput).ToList().Count() == 0;
+            bool IsLegalTicket = context.LegalTickets.Find(TicketInput)?.TicketNumber == TicketInput;
+            bool DoesTicketNotExist = context.Ticket.Where(t => t.TicketNumber == TicketInput).ToList().Count() == 0;
             return IsLegalTicket && DoesTicketNotExist;
         }
 

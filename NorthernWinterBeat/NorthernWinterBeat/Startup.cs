@@ -23,8 +23,6 @@ namespace NorthernWinterBeat
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
-            DatabaseManager databaseManager = new DatabaseManager(configuration);
-            AuthorizationManager authorizationManager = new AuthorizationManager(databaseManager);
 
         }
 
@@ -60,12 +58,15 @@ namespace NorthernWinterBeat
                 .AddCookie();
             
 
-            services.AddDbContext<NorthernWinterBeatLibrary.Managers.NorthernWinterBeatConcertContext>(options =>
+            services.AddScoped<IDataAccess, EFDataAccess>();
+            services.AddScoped<IFestivalManager, FestivalManager>(); 
+            services.AddScoped<IDatabaseManager, DatabaseManager>(); 
+            services.AddScoped<IAuthorizationManager, AuthorizationManager>();
+
+
+            services.AddDbContext<NorthernWinterBeatConcertContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("NorthernWinterBeatConcertContext")));
 
-            services.AddSingleton<IDataAccess, EFDataAccess>();
-            services.AddSingleton<IFestivalManager, FestivalManager>(); 
-            services.AddSingleton<IDatabaseManager, DatabaseManager>(); 
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
