@@ -1,4 +1,5 @@
 ﻿using NorthernWinterBeatLibrary.DataAccess;
+using NorthernWinterBeatLibrary.Managers;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -16,8 +17,9 @@ namespace NorthernWinterBeat.Models
             ACTIVE, INACTIVE
         }
 
-        private Venue()
+        private Venue(NorthernWinterBeatConcertContext ctx)
         {
+            DataAccess = new EFDataAccess(ctx);
         }
         public Venue(IDataAccess _dataAccess)
         {
