@@ -37,20 +37,15 @@ namespace NWB_TESTS.UnitTestsManagers
                         l => l.TicketNumber == (string)ids[0])
                 );
 
-
             List<Ticket> notEmpty = new List<Ticket>();
             notEmpty.Add(new Ticket("legalTicket1"));
             notEmpty.Add(new Ticket("legalTicket2"));
             notEmpty.Add(new Ticket("legalTicket4"));
             var mockTicketDbSet = notEmpty.AsQueryable().BuildMockDbSet();
 
-
-
-            var mock = new Mock<IDatabaseManager>();
             var mockContext = new Mock<NorthernWinterBeatConcertContext>();
             mockContext.SetupGet(c => c.LegalTickets).Returns(mockLegalTicketDbSet.Object);
             mockContext.SetupGet(c => c.Ticket).Returns(mockTicketDbSet.Object);
-            mock.SetupGet(d => d.context).Returns(mockContext.Object);
             AuthorizationManager authorizationManager = new AuthorizationManager(mockContext.Object);
 
 

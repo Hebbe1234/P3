@@ -60,7 +60,6 @@ namespace NorthernWinterBeat
 
             services.AddScoped<IDataAccess, EFDataAccess>();
             services.AddScoped<IFestivalManager, FestivalManager>(); 
-            services.AddScoped<IDatabaseManager, DatabaseManager>(); 
             services.AddScoped<IAuthorizationManager, AuthorizationManager>();
 
 

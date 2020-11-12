@@ -34,7 +34,7 @@ namespace NorthernWinterBeat.Pages.ParticipantRazor
             var claimTicketID = HttpContext.User.Claims.Where(c => c.Type == "TicketID").Select(t => t.Value).First();
 
             Concert c = FestivalManager.Calendar.GetConcert(id);
-            c.MakeBooking(FestivalManager.GetParticipants().Where(p => p.Ticket?.TicketNumber == claimTicketID).First());
+            c.MakeBooking(FestivalManager.GetParticipants().Where(p => p.Ticket?.TicketNumber == claimTicketID).First(), FestivalManager);
             return RedirectToPage("./ParticipantArtist", new { id = id });
         }
 

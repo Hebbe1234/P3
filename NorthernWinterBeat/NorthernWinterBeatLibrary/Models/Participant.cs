@@ -22,22 +22,15 @@ namespace NorthernWinterBeat.Models
             State = ParticipantState.ACTIVE;
         }
 
-        private IFestivalManager FestivalManager { get; }
-
-        public Participant(IFestivalManager festivalManager)
-        {
-            FestivalManager = festivalManager;
-        }
-        public Participant(Ticket _ticket, IFestivalManager _festivalManager) :
-            this(_festivalManager)
+        public Participant(Ticket _ticket) 
         {
             Ticket = _ticket;
         }
 
 
-        public virtual bool CanMakeBookingAt(Concert concert)
+        public virtual bool CanMakeBookingAt(Concert concert, IFestivalManager festivalManager)
         {
-            List<Concert> bookedConcerts = FestivalManager.Calendar.GetConcerts().FindAll(c => c.Bookings.Find(b => b.Participant == this) != null);
+            List<Concert> bookedConcerts = festivalManager.Calendar.GetConcerts().FindAll(c => c.Bookings.Find(b => b.Participant == this) != null);
             foreach (var c in bookedConcerts)
             {
                 if (concert.Start < c.End && concert.End > c.Start)
@@ -48,9 +41,9 @@ namespace NorthernWinterBeat.Models
             return true;
         }
 
-        public List<Booking> GetParticipantBookings()
+        public List<Booking> GetParticipantBookings(IFestivalManager festivalManager)
         {
-            return (FestivalManager.Calendar
+            return (festivalManager.Calendar
                  .GetConcerts()
                  .SelectMany(c => c.Bookings))
                  .ToList()

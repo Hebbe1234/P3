@@ -60,7 +60,7 @@ namespace NorthernWinterBeat.Pages.Admin.Pages
 
             DateTime Start = new DateTime(Year, Month, Day, StartHour, StartMinute, 0);
             DateTime End = new DateTime(Year, Month, Day, EndHour, EndMinute, 0);
-            Concert NewConcert = new Concert(Start, End, Artist, Description, DataAccess, FestivalManager);
+            Concert NewConcert = new Concert(Start, End, Artist, Description, DataAccess);
 
             FestivalManager.Calendar.AddConcert(NewConcert, Venue);
             return RedirectToPage("./Calendar");

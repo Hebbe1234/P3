@@ -1,6 +1,7 @@
 ﻿using Moq;
 using NorthernWinterBeat.Models;
 using NorthernWinterBeatLibrary.DataAccess;
+using NorthernWinterBeatLibrary.Managers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,13 +13,22 @@ namespace NWB_TESTS
     public class UnitTestCalendar
     {
 
+        private Concert GetEmptyConcert()
+        {
+
+            var mockDataAccess = new Mock<IDataAccess>();
+            return new Concert(mockDataAccess.Object);
+        }
+
         private Calendar GetCalendarWithTwoConcertsAndTwoVenues()
         {
             var mock = new Mock<IDataAccess>();
+            var mockDataAccess = new Mock<IDataAccess>();
+
             mock.Setup(D => D.Retrieve<Concert>()).Returns(new List<Concert>()
             {
-                new Concert() {ID = 0, Artist = "Bøge", Venue = new Venue(mock.Object) {ID = 2, Name = "MartinsHus"}},
-                new Concert() {ID = 1, Artist = "Nielsen"}
+                new Concert(mockDataAccess.Object) {ID = 0, Artist = "Bøge", Venue = new Venue(mock.Object) {ID = 2, Name = "MartinsHus"}},
+                new Concert(mockDataAccess.Object) {ID = 1, Artist = "Nielsen"}
             });
             mock.Setup(D => D.Retrieve<Venue>()).Returns(new List<Venue>()
             {
@@ -42,7 +52,8 @@ namespace NWB_TESTS
             mock.Setup(D => D.Retrieve<Venue>()).Returns( new List<Venue>());
 
             Calendar calendar = new Calendar(mock.Object);
-            Concert concert = new Concert();
+
+            Concert concert = GetEmptyConcert();
             int expected = 1;
 
             //Act
@@ -66,7 +77,7 @@ namespace NWB_TESTS
                     new Venue(mock.Object) {Name = "test2" }
                 });
 
-            Concert concert = new Concert(); 
+            Concert concert = GetEmptyConcert();
             Calendar calendar = new Calendar(mock.Object);
             string expected = "test1";
 
@@ -180,7 +191,8 @@ namespace NWB_TESTS
             //Arrange
             Calendar calendar = GetCalendarWithTwoConcertsAndTwoVenues();
             int expected = 2;
-            Concert concert = new Concert();
+            var mockContext = new Mock<NorthernWinterBeatConcertContext>();
+            Concert concert = new Concert(mockContext.Object);
 
             //Act
             calendar.DeleteConcert(concert);

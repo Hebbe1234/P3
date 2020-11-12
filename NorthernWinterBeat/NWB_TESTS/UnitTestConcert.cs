@@ -10,13 +10,19 @@ namespace NWB_TESTS
 {
     public class UnitTestConcert
     {
+        private Concert GetEmptyConcert()
+        {
+
+            var mockDataAccess = new Mock<IDataAccess>();
+            return new Concert(mockDataAccess.Object);
+        }
         private Concert GetConcertAtMaxCapacity()
         {
             var mock = new Mock<IDataAccess>();
             Venue venue = new Venue(mock.Object);
             venue.Capacity = 1;
 
-            Concert concert = new Concert(mock.Object, null);
+            Concert concert = new Concert(mock.Object);
             concert.Venue = venue;
 
             concert.Bookings.Add(new Booking());
@@ -30,7 +36,7 @@ namespace NWB_TESTS
             Venue venue = new Venue(mock.Object);
             venue.Capacity = 2;
 
-            Concert concert = new Concert(mock.Object, null);
+            Concert concert = new Concert(mock.Object);
             concert.Venue = venue;
 
             return concert;
@@ -43,7 +49,7 @@ namespace NWB_TESTS
         public void Concert_BookingsStartEmpty()
         {
             //Arrange
-            Concert concert = new Concert();
+            Concert concert = GetEmptyConcert();
             int expected = 0;
 
             //Act 
@@ -58,7 +64,7 @@ namespace NWB_TESTS
         {
             //Arrange
             var dataAccess = new Mock<IDataAccess>();
-            Concert concert = new Concert(dataAccess.Object, null);
+            Concert concert = new Concert(dataAccess.Object);
             Booking booking = new Booking();
             int expected = 0;
             concert.Bookings.Add(booking);
@@ -76,7 +82,7 @@ namespace NWB_TESTS
         {
             //Arrange
             var dataAccess = new Mock<IDataAccess>();
-            Concert concert = new Concert(dataAccess.Object, null);
+            Concert concert = new Concert(dataAccess.Object);
             Booking booking1 = new Booking();
             Booking booking2 = new Booking();
             int expected = 1;
@@ -123,7 +129,7 @@ namespace NWB_TESTS
         {
             //Arrange
             var mock = new Mock<IDataAccess>();
-            Concert concert = new Concert(mock.Object, null);
+            Concert concert = new Concert(mock.Object);
             bool expected = true;
 
             //Act
@@ -209,7 +215,7 @@ namespace NWB_TESTS
         public void FormatDate_ReturnsCorrectFormat(string input, string expected)
         {
             //Arrange
-            Concert concert = new Concert();
+            Concert concert = GetEmptyConcert();
             DateTime dateTime = DateTime.Parse(input);
 
             //Act
@@ -228,7 +234,7 @@ namespace NWB_TESTS
         public void FormatTime_ReturnsCorrectFormat(string input, string expected)
         {
             //Arrange
-            Concert concert = new Concert();
+            Concert concert = GetEmptyConcert();
             DateTime dateTime = DateTime.Parse(input);
 
             //Act
@@ -245,7 +251,7 @@ namespace NWB_TESTS
             var mock = new Mock<IDataAccess>();
             mock.Setup(d => d.Retrieve<Venue>()).Returns(new List<Venue>());
             var festivalManager = new FestivalManager(mock.Object);
-            Concert NewConcertInfo = new Concert(mock.Object, null)
+            Concert NewConcertInfo = new Concert(mock.Object)
             {
                 Artist = "Bobby",
                 ArtistDescription = "Epix",
@@ -257,10 +263,10 @@ namespace NWB_TESTS
 
             Venue otherVenue = new Venue(mock.Object) { Name = "1000 Fryd" };
             festivalManager.Calendar.AddVenue(otherVenue);
-            Concert otherConcert = new Concert(mock.Object, festivalManager);
+            Concert otherConcert = new Concert(mock.Object);
 
             //Act
-            otherConcert.Update(NewConcertInfo, otherVenue.Name);
+            otherConcert.Update(NewConcertInfo, otherVenue.Name, festivalManager);
 
             //Assert
             Assert.Equal(otherConcert.Artist, NewConcertInfo.Artist);

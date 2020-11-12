@@ -23,13 +23,13 @@ namespace NorthernWinterBeat.Pages.ParticipantRazor
         {
 
             var claimTicketID = HttpContext.User.Claims.Where(c => c.Type == "TicketID").Select(t => t.Value).First();
-            bookings = FestivalManager.GetParticipants().Where(p => p.Ticket?.TicketNumber == claimTicketID).First()?.GetParticipantBookings();
+            bookings = FestivalManager.GetParticipants().Where(p => p.Ticket?.TicketNumber == claimTicketID).First()?.GetParticipantBookings(FestivalManager);
         }
 
         public IActionResult OnPostRemoveBooking(string id)
         {
             var claimTicketID = HttpContext.User.Claims.Where(c => c.Type == "TicketID").Select(t => t.Value).First();
-            bookings = FestivalManager.GetParticipants().Where(p => p.Ticket?.TicketNumber == claimTicketID).First()?.GetParticipantBookings();
+            bookings = FestivalManager.GetParticipants().Where(p => p.Ticket?.TicketNumber == claimTicketID).First()?.GetParticipantBookings(FestivalManager);
 
             var booking = bookings.Find(b => b.ID.ToString() == id);
             booking.Concert.RemoveBooking(booking);

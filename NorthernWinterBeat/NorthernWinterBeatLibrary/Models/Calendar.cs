@@ -24,14 +24,17 @@ public class Calendar
     [Key]
     public int ID { get; set; }
 
+    public Calendar(NorthernWinterBeatConcertContext ctx)
+    {
+        DataAccess = new EFDataAccess(ctx);
+    }
+
     public Calendar(IDataAccess dataAccess)
     {
         DataAccess = dataAccess;
         LoadData();
         State = CalendarState.INITIALIZING;
     }
-
-    
 
     private void LoadData()
     {

@@ -15,15 +15,15 @@ public class Concert
     }
     public Concert(NorthernWinterBeatConcertContext ctx)
     {
+        DataAccess = new EFDataAccess(ctx);
     }
-    public Concert(IDataAccess _dataAccess, IFestivalManager _festivalManager)
+    public Concert(IDataAccess _dataAccess)
     {
-        FestivalManager = _festivalManager;
         DataAccess = _dataAccess;
         State = ConcertState.CREATION;
     }
-    public Concert(DateTime _start, DateTime _end, string _artist, string _artistDescription, IDataAccess _dataAccess, IFestivalManager _festivalManager): 
-        this(_dataAccess, _festivalManager)
+    public Concert(DateTime _start, DateTime _end, string _artist, string _artistDescription, IDataAccess _dataAccess ): 
+        this(_dataAccess)
     {
         Start = _start;
         End = _end;
@@ -31,8 +31,8 @@ public class Concert
         ArtistDescription = _artistDescription;
 
     }
-    public Concert(DateTime _start, DateTime _end, Venue _venue, string _artist, string _artistDescription, IDataAccess _dataAccess, IFestivalManager _festivalManager) :
-        this(_start, _end, _artist, _artistDescription, _dataAccess, _festivalManager)
+    public Concert(DateTime _start, DateTime _end, Venue _venue, string _artist, string _artistDescription, IDataAccess _dataAccess) :
+        this(_start, _end, _artist, _artistDescription, _dataAccess)
 	{
         Venue = _venue;
 	}
@@ -45,7 +45,6 @@ public class Concert
     public DateTime Start { get; set; }
     public DateTime End { get; set; }
     public string PicturePath { get; set; }
-    private IFestivalManager FestivalManager { get; }
     private IDataAccess DataAccess { get; set; }
     public List<Booking> Bookings { get; set; } = new List<Booking>(); 
     public bool IsAtMaxCapacity { get {
@@ -58,11 +57,11 @@ public class Concert
         DataAccess.Save(); 
     }
 
-    public Booking MakeBooking(Participant p)
+    public Booking MakeBooking(Participant p, IFestivalManager festivalManager)
     {
         Booking booking = null;
 
-        if (!IsAtMaxCapacity && p.CanMakeBookingAt(this))
+        if (!IsAtMaxCapacity && p.CanMakeBookingAt(this, festivalManager))
         {
             booking = new Booking(p, this, DateTime.Now);
             Bookings.Add(booking);
@@ -94,11 +93,11 @@ public class Concert
         return hour + ":" + minute;
     }
 
-    public void Update(Concert NewConcertInfo, string VenueName)
+    public void Update(Concert NewConcertInfo, string VenueName, IFestivalManager festivalManager)
     {
         if (VenueName != "")
         {
-            NewConcertInfo.Venue = FestivalManager.Calendar.GetVenues().Find(v => v.Name == VenueName);
+            NewConcertInfo.Venue = festivalManager.Calendar.GetVenues().Find(v => v.Name == VenueName);
         }
         Start = NewConcertInfo.Start;
         End = NewConcertInfo.End;

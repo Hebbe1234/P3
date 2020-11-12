@@ -62,9 +62,9 @@ namespace NorthernWinterBeat.Pages.Admin
 
             DateTime Start = new DateTime(Year, Month, Day, StartHour, StartMinute, 0);
             DateTime End = new DateTime(Year, Month, Day, EndHour, EndMinute, 0);
-            Concert NewConcertInfo = new Concert(Start, End, Artist, Description, DataAccess, FestivalManager);
+            Concert NewConcertInfo = new Concert(Start, End, Artist, Description, DataAccess);
 
-            FestivalManager.Calendar.GetConcert(id).Update(NewConcertInfo, Venue);
+            FestivalManager.Calendar.GetConcert(id).Update(NewConcertInfo, Venue, FestivalManager);
             return RedirectToPage("./Calendar");
         }
         public string FindDate()

@@ -18,23 +18,7 @@ namespace NorthernWinterBeatLibrary.Managers
         public NorthernWinterBeatConcertContext (DbContextOptions<NorthernWinterBeatConcertContext> options)
             : base(options)
         {
-            try
-            {
-                var databaseCreator = (Database.GetService<IDatabaseCreator>() as RelationalDatabaseCreator);
-                databaseCreator.CreateTables();  //Denne her er træls, og vil fucke op hvis der allerede er en tabel
-            }
-            catch (SqlException)
-            {
-                //This is ignored
-            }
-            catch(Microsoft.Data.SqlClient.SqlException)
-            {
-                //This is ignored
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+           //Please do not bully me for changing my stance on the DB initialization
         }
 
         public virtual DbSet<Concert> Concert { get; set; }

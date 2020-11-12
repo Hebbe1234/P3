@@ -11,7 +11,6 @@ namespace NorthernWinterBeatLibrary.DataAccess
 {
     public class EFDataAccess : IDataAccess
     {
-
         public NorthernWinterBeatConcertContext context { get; set; }
 
         public EFDataAccess(NorthernWinterBeatConcertContext _ctx)
