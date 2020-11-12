@@ -216,10 +216,10 @@ namespace NWB_TESTS
         }
 
         [Theory]
-        [InlineData("01-02-2020", "01-02")]
-        [InlineData("09-12-2020", "09-12")]
-        [InlineData("02-06-2020", "02-06")]
-        [InlineData("24-12-2020", "24-12")]
+        [InlineData("2020-02-01T10:14:22", "01-02")]
+        [InlineData("2020-12-09T10:14:22", "09-12")]
+        [InlineData("2020-06-02T10:14:22", "02-06")]
+        [InlineData("2020-12-24T10:14:22", "24-12")]
         public void FormatDate_ReturnsCorrectFormat(string input, string expected)
         {
             //Arrange
