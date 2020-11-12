@@ -5,6 +5,7 @@ using Moq;
 using NorthernWinterBeat.Models;
 using NorthernWinterBeatLibrary.Managers;
 using System.Collections.Generic;
+using System.Globalization;
 
 namespace NWB_TESTS
 {
@@ -223,7 +224,7 @@ namespace NWB_TESTS
         {
             //Arrange
             Concert concert = GetEmptyConcert();
-            DateTime dateTime = DateTime.Parse(input);
+            DateTime dateTime = DateTime.ParseExact(input, "yyyy-MM-ddTHH:mm:ss", CultureInfo.InvariantCulture);
 
             //Act
             string result = concert.FormatDate(dateTime);
@@ -242,7 +243,7 @@ namespace NWB_TESTS
         {
             //Arrange
             Concert concert = GetEmptyConcert();
-            DateTime dateTime = DateTime.Parse(input);
+            DateTime dateTime = DateTime.ParseExact(input, "yyyy-MM-ddTHH:mm:ss", CultureInfo.InvariantCulture);
 
             //Act
             string result = concert.FormatTime(dateTime);
