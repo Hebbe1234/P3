@@ -147,10 +147,11 @@ namespace NWB_TESTS
             Concert concert = GetConcertAtMaxCapacity();
             Booking expected = null;
             var mock = new Mock<Participant>();
-            mock.Setup(p => p.CanMakeBookingAt(concert)).Returns(true); //Defining other argument in if-statement as always true
+            var mockFestivalManager = new Mock<IFestivalManager>();
+            mock.Setup(p => p.CanMakeBookingAt(concert, mockFestivalManager.Object)).Returns(true); //Defining other argument in if-statement as always true
 
             //Act
-            Booking result = concert.MakeBooking(mock.Object);
+            Booking result = concert.MakeBooking(mock.Object, mockFestivalManager.Object);
 
             //Assert
             Assert.Equal(expected, result);
@@ -162,11 +163,13 @@ namespace NWB_TESTS
             //Arrange 
             Concert concert = GetConcertWithSpaceForTwo();
             var mock = new Mock<Participant>();
-            mock.Setup(p => p.CanMakeBookingAt(concert)).Returns(true); //Defining other argument in if-statement as always true
+            var mockFestivalManager = new Mock<IFestivalManager>();
+
+            mock.Setup(p => p.CanMakeBookingAt(concert, mockFestivalManager.Object)).Returns(true); //Defining other argument in if-statement as always true
             var expected = (mock.Object, concert);
 
             //Act
-            Booking resultBooking = concert.MakeBooking(mock.Object);
+            Booking resultBooking = concert.MakeBooking(mock.Object, mockFestivalManager.Object);
             var result = (resultBooking.Participant, resultBooking.Concert);
 
             //Assert
@@ -180,11 +183,13 @@ namespace NWB_TESTS
             Concert concert = GetConcertWithSpaceForTwo();
             concert.Bookings.Add(new Booking());
             var mock = new Mock<Participant>();
-            mock.Setup(p => p.CanMakeBookingAt(concert)).Returns(true); //Defining other argument in if-statement as always true
+            var mockFestivalManager = new Mock<IFestivalManager>();
+
+            mock.Setup(p => p.CanMakeBookingAt(concert, mockFestivalManager.Object)).Returns(true); //Defining other argument in if-statement as always true
             var expected = (mock.Object, concert);
 
             //Act
-            Booking resultBooking = concert.MakeBooking(mock.Object);
+            Booking resultBooking = concert.MakeBooking(mock.Object, mockFestivalManager.Object);
             var result = (resultBooking.Participant, resultBooking.Concert);
 
             //Assert
@@ -198,10 +203,12 @@ namespace NWB_TESTS
             Concert concert = GetConcertAtMaxCapacity();
             Booking expected = null;
             var mock = new Mock<Participant>();
-            mock.Setup(p => p.CanMakeBookingAt(concert)).Returns(false); //Defining other argument in if-statement as always false
+            var mockFestivalManager = new Mock<IFestivalManager>();
+
+            mock.Setup(p => p.CanMakeBookingAt(concert,mockFestivalManager.Object)).Returns(false); //Defining other argument in if-statement as always false
 
             //Act
-            Booking result = concert.MakeBooking(mock.Object);
+            Booking result = concert.MakeBooking(mock.Object, mockFestivalManager.Object);
 
             //Assert
             Assert.Equal(expected, result);

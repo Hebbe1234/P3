@@ -12,6 +12,7 @@ namespace NorthernWinterBeatLibrary.Managers
 
         public void AddParticipant(Participant p);
         public List<Participant> GetParticipants();
+        public Participant GetParticipant(int id);
 
     }
 }

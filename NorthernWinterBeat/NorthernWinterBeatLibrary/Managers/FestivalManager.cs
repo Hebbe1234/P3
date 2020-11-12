@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace NorthernWinterBeatLibrary.Managers
 {
@@ -29,10 +30,15 @@ namespace NorthernWinterBeatLibrary.Managers
             participants.Add(p);
             DataAccess.Add(p); 
         }
+        public Participant GetParticipant(int id)
+        {
+            return participants.Find(p => p.ID == id); 
+        }
 
         public List<Participant> GetParticipants()
         {
             return participants;
         }
+
     }
 }

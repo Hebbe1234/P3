@@ -19,13 +19,14 @@ namespace NWB_TESTS
             mock.Setup(D => D.Retrieve<Concert>()).Returns(new List<Concert>());
             mock.Setup(D => D.Retrieve<Venue>()).Returns(new List<Venue>());
 
-            IFestivalManager festivalManager = new FestivalManager(mock.Object);
+            var mockFestivalManager = new Mock<IFestivalManager>();
+           
 
-            Participant participant = new Participant(festivalManager);
+            Participant participant = new Participant(new Ticket("test"), mock.Object);
 
             List<Concert> concertsList = new List<Concert>() 
             {
-                 new Concert() 
+                 new Concert(mock.Object) 
                  {
                     Start = new DateTime(2020, 10, 10, 20, 30, 00), 
                     End = new DateTime(2020, 10, 10, 21, 30, 00),
@@ -34,7 +35,7 @@ namespace NWB_TESTS
                         new Booking() {Participant = participant, ID = 0}
                     }
                  },
-                 new Concert() 
+                 new Concert(mock.Object) 
                  {
                     Start = new DateTime(2020, 10, 10, 21, 30, 00), 
                     End = new DateTime(2020, 10, 10, 22, 30, 00),
@@ -44,14 +45,16 @@ namespace NWB_TESTS
                     }
                  }
             };
-            festivalManager.Calendar.AddConcert(concertsList[0]);
-            festivalManager.Calendar.AddConcert(concertsList[1]);
+            Calendar calendar = new Calendar(mock.Object);
+            calendar.AddConcert(concertsList[0]);
+            calendar.AddConcert(concertsList[1]);
+            mockFestivalManager.SetupGet(m => m.Calendar).Returns(calendar);
 
-            Concert concert = new Concert() { Start = new DateTime(2020, 10, 10, 19, 30, 00), End = new DateTime(2020, 10, 10, 20, 25, 00) };
+            Concert concert = new Concert(mock.Object) { Start = new DateTime(2020, 10, 10, 19, 30, 00), End = new DateTime(2020, 10, 10, 20, 25, 00) };
             bool expected = true;
 
             //Act
-            bool result = participant.CanMakeBookingAt(concert);
+            bool result = participant.CanMakeBookingAt(concert, mockFestivalManager.Object);
 
             //Assert
             Assert.Equal(expected, result);
@@ -65,31 +68,34 @@ namespace NWB_TESTS
             mock.Setup(D => D.Retrieve<Concert>()).Returns(new List<Concert>());
             mock.Setup(D => D.Retrieve<Venue>()).Returns(new List<Venue>());
 
-            IFestivalManager festivalManager = new FestivalManager(mock.Object);
+            var mockFestivalManager = new Mock<IFestivalManager>();
 
-            Participant participant = new Participant(festivalManager);
+
+            Participant participant = new Participant(new Ticket("test"), mock.Object);
 
             List<Concert> concertsList = new List<Concert>() {
-                 new Concert() {Start = new DateTime(2020, 10, 10, 20, 30, 00), End = new DateTime(2020, 10, 10, 21, 30, 00),
+                 new Concert(mock.Object) {Start = new DateTime(2020, 10, 10, 20, 30, 00), End = new DateTime(2020, 10, 10, 21, 30, 00),
                     Bookings = new List<Booking>()
                     {
                         new Booking() {Participant = participant, ID = 0}
                     }
                  },
-                 new Concert() {Start = new DateTime(2020, 10, 10, 21, 30, 00), End = new DateTime(2020, 10, 10, 22, 30, 00),
+                 new Concert(mock.Object) {Start = new DateTime(2020, 10, 10, 21, 30, 00), End = new DateTime(2020, 10, 10, 22, 30, 00),
                     Bookings = new List<Booking>()
                     {
                         new Booking() {Participant = participant, ID = 1}
                     }}
             };
-            festivalManager.Calendar.AddConcert(concertsList[0]);
-            festivalManager.Calendar.AddConcert(concertsList[1]);
+            Calendar calendar = new Calendar(mock.Object);
+            calendar.AddConcert(concertsList[0]);
+            calendar.AddConcert(concertsList[1]);
+            mockFestivalManager.SetupGet(m => m.Calendar).Returns(calendar);
 
-            Concert concert = new Concert() { Start = new DateTime(2020, 10, 10, 19, 30, 00), End = new DateTime(2020, 10, 10, 20, 31, 00) };
+            Concert concert = new Concert(mock.Object) { Start = new DateTime(2020, 10, 10, 19, 30, 00), End = new DateTime(2020, 10, 10, 20, 31, 00) };
             bool expected = false;
 
             //Act
-            bool result = participant.CanMakeBookingAt(concert);
+            bool result = participant.CanMakeBookingAt(concert, mockFestivalManager.Object);
 
             //Assert
             Assert.Equal(expected, result);
@@ -116,30 +122,33 @@ namespace NWB_TESTS
             mock.Setup(D => D.Retrieve<Concert>()).Returns(new List<Concert>());
             mock.Setup(D => D.Retrieve<Venue>()).Returns(new List<Venue>());
 
-            IFestivalManager festivalManager = new FestivalManager(mock.Object);
+            var mockFestivalManager = new Mock<IFestivalManager>();
 
-            Participant participant = new Participant(festivalManager);
+            Participant participant = new Participant(new Ticket("test"), mock.Object);
 
             List<Concert> concertsList = new List<Concert>() {
-                 new Concert() {Start = new DateTime(2020, 10, 10, 20, 30, 00), End = new DateTime(2020, 10, 10, 21, 30, 00),
+                 new Concert(mock.Object) {Start = new DateTime(2020, 10, 10, 20, 30, 00), End = new DateTime(2020, 10, 10, 21, 30, 00),
                     Bookings = new List<Booking>()
                     {
                         new Booking() {Participant = participant, ID = 0}
                     }
                  },
-                 new Concert() {Start = new DateTime(2020, 10, 10, 21, 30, 00), End = new DateTime(2020, 10, 10, 22, 30, 00),
+                 new Concert(mock.Object) {Start = new DateTime(2020, 10, 10, 21, 30, 00), End = new DateTime(2020, 10, 10, 22, 30, 00),
                     Bookings = new List<Booking>()
                     {
                         new Booking() {Participant = participant, ID = 1}
                     }}
             };
-            festivalManager.Calendar.AddConcert(concertsList[0]);
-            festivalManager.Calendar.AddConcert(concertsList[1]);
 
-            Concert concert = new Concert() { Start = DateTime.Parse(inputStart), End = DateTime.Parse(inputEnd) };
+            Calendar calendar = new Calendar(mock.Object);
+            calendar.AddConcert(concertsList[0]);
+            calendar.AddConcert(concertsList[1]);
+            mockFestivalManager.SetupGet(m => m.Calendar).Returns(calendar);
+
+            Concert concert = new Concert(mock.Object) { Start = DateTime.Parse(inputStart), End = DateTime.Parse(inputEnd) };
 
             //Act
-            bool result = participant.CanMakeBookingAt(concert);
+            bool result = participant.CanMakeBookingAt(concert, mockFestivalManager.Object);
 
             //Assert
             Assert.Equal(expected, result);
@@ -159,30 +168,33 @@ namespace NWB_TESTS
             mock.Setup(D => D.Retrieve<Concert>()).Returns(new List<Concert>());
             mock.Setup(D => D.Retrieve<Venue>()).Returns(new List<Venue>());
 
-            IFestivalManager festivalManager = new FestivalManager(mock.Object);
+            var mockFestivalManager = new Mock<IFestivalManager>();
 
-            Participant participant = new Participant(festivalManager);
+            Participant participant = new Participant(new Ticket("test"), mock.Object);
 
             List<Concert> concertsList = new List<Concert>() {
-                 new Concert() {Start = new DateTime(2020, 10, 10, 20, 30, 00), End = new DateTime(2020, 10, 10, 21, 30, 00),
+                 new Concert(mock.Object) {Start = new DateTime(2020, 10, 10, 20, 30, 00), End = new DateTime(2020, 10, 10, 21, 30, 00),
                     Bookings = new List<Booking>()
                     {
                         new Booking() {Participant = participant, ID = 0}
                     }
                  },
-                 new Concert() {Start = new DateTime(2020, 10, 10, 23, 30, 00), End = new DateTime(2020, 10, 11, 00, 30, 00),
+                 new Concert(mock.Object) {Start = new DateTime(2020, 10, 10, 23, 30, 00), End = new DateTime(2020, 10, 11, 00, 30, 00),
                     Bookings = new List<Booking>()
                     {
                         new Booking() {Participant = participant, ID = 1}
                     }}
             };
-            festivalManager.Calendar.AddConcert(concertsList[0]);
-            festivalManager.Calendar.AddConcert(concertsList[1]);
 
-            Concert concert = new Concert() { Start = DateTime.Parse(inputStart), End = DateTime.Parse(inputEnd) };
+            Calendar calendar = new Calendar(mock.Object);
+            calendar.AddConcert(concertsList[0]);
+            calendar.AddConcert(concertsList[1]);
+            mockFestivalManager.SetupGet(m => m.Calendar).Returns(calendar);
+
+            Concert concert = new Concert(mock.Object) { Start = DateTime.Parse(inputStart), End = DateTime.Parse(inputEnd) };
 
             //Act
-            bool result = participant.CanMakeBookingAt(concert);
+            bool result = participant.CanMakeBookingAt(concert, mockFestivalManager.Object);
 
             //Assert
             Assert.Equal(expected, result);
@@ -196,30 +208,33 @@ namespace NWB_TESTS
             mock.Setup(D => D.Retrieve<Concert>()).Returns(new List<Concert>());
             mock.Setup(D => D.Retrieve<Venue>()).Returns(new List<Venue>());
 
-            IFestivalManager festivalManager = new FestivalManager(mock.Object);
-            Participant participant = new Participant(festivalManager);
+            var mockFestivalManager = new Mock<IFestivalManager>();
+            Participant participant = new Participant(new Ticket("test"), mock.Object);
 
             List<Concert> concertsList = new List<Concert>() {
-                 new Concert() {
+                 new Concert(mock.Object) {
                     Bookings = new List<Booking>()
                     {
                         new Booking() {Participant = participant, ID = 0}
                     }
                  },
-                 new Concert() {
+                 new Concert(mock.Object) {
                     Bookings = new List<Booking>()
                     {
                         new Booking() {Participant = participant, ID = 1}
                     }},
-                new Concert() {
+                new Concert(mock.Object) {
                     Bookings = new List<Booking>()}
             };
-            festivalManager.Calendar.AddConcert(concertsList[0]);
-            festivalManager.Calendar.AddConcert(concertsList[1]);
+
+            Calendar calendar = new Calendar(mock.Object);
+            calendar.AddConcert(concertsList[0]);
+            calendar.AddConcert(concertsList[1]);
+            mockFestivalManager.SetupGet(m => m.Calendar).Returns(calendar);
             int expected = 2; 
 
             //Act
-            int result = participant.GetParticipantBookings().Count;
+            int result = participant.GetParticipantBookings(mockFestivalManager.Object).Count;
 
             //Assert
             Assert.Equal(expected, result); 
@@ -234,28 +249,31 @@ namespace NWB_TESTS
             mock.Setup(D => D.Retrieve<Concert>()).Returns(new List<Concert>());
             mock.Setup(D => D.Retrieve<Venue>()).Returns(new List<Venue>());
 
-            IFestivalManager festivalManager = new FestivalManager(mock.Object);
-            Participant participant = new Participant(festivalManager);
+            var mockFestivalManager = new Mock<IFestivalManager>();
+            Participant participant = new Participant(new Ticket("test"), mock.Object);
 
             List<Concert> concertsList = new List<Concert>() {
-                 new Concert() {
+                 new Concert(mock.Object) {
                     Bookings = new List<Booking>()
                     {
                     }
                  },
-                 new Concert() {
+                 new Concert(mock.Object) {
                     Bookings = new List<Booking>()
                     {
                     }},
-                new Concert() {
+                new Concert(mock.Object) {
                     Bookings = new List<Booking>()}
             };
-            festivalManager.Calendar.AddConcert(concertsList[0]);
-            festivalManager.Calendar.AddConcert(concertsList[1]);
+
+            Calendar calendar = new Calendar(mock.Object);
+            calendar.AddConcert(concertsList[0]);
+            calendar.AddConcert(concertsList[1]);
+            mockFestivalManager.SetupGet(m => m.Calendar).Returns(calendar);
             int expected = 0;
 
             //Act
-            int result = participant.GetParticipantBookings().Count;
+            int result = participant.GetParticipantBookings(mockFestivalManager.Object).Count;
 
             //Assert
             Assert.Equal(expected, result);

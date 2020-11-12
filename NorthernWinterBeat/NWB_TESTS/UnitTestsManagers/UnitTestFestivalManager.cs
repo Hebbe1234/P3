@@ -19,13 +19,14 @@ namespace NWB_TESTS
             var mock = new Mock<IDataAccess>();
             mock.Setup(D => D.Retrieve<Participant>()).Returns(new List<Participant>()
             {
-                new Participant(),
-                new Participant(),
-                new Participant(),
-                new Participant()
+                new Participant(new Ticket("1"), mock.Object),
+                new Participant(new Ticket("1"), mock.Object),
+                new Participant(new Ticket("1"), mock.Object),
+                new Participant(new Ticket("1"), mock.Object)
             });
-            FestivalManager festivalManager = new FestivalManager(mock.Object);
             int expected = 4;
+
+            FestivalManager festivalManager = new FestivalManager(mock.Object);
 
             //Act
             int result = festivalManager.GetParticipants().Count;
@@ -42,7 +43,7 @@ namespace NWB_TESTS
             var mock = new Mock<IDataAccess>();
             mock.Setup(D => D.Retrieve<Participant>()).Returns(new List<Participant>());
             FestivalManager festivalManager = new FestivalManager(mock.Object);
-            Participant p1 = new Participant();
+            Participant p1 = new Participant(new Ticket("1"), mock.Object);
             int expected = 1;
 
             //Act

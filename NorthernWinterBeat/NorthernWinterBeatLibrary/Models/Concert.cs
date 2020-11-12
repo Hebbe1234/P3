@@ -54,7 +54,7 @@ public class Concert
 	public void RemoveBooking(Booking booking)
     {
 		Bookings.Remove(booking);
-        DataAccess.Save(); 
+        DataAccess.Remove(booking); 
     }
 
     public Booking MakeBooking(Participant p, IFestivalManager festivalManager)
@@ -65,7 +65,7 @@ public class Concert
         {
             booking = new Booking(p, this, DateTime.Now);
             Bookings.Add(booking);
-            DataAccess.Save(); 
+            DataAccess.Add(booking); 
         }
         return booking;
     }

@@ -37,7 +37,7 @@ namespace NorthernWinterBeat.Pages
         {
 
         }
-        public IActionResult OnPostAsync()
+        public IActionResult OnPost()
         {
             string UsernameEntered = Request.Form["UsernameEntered"];
             string Password1Entered = Request.Form["Password1Entered"];
@@ -61,15 +61,12 @@ namespace NorthernWinterBeat.Pages
                 TicketID = ticketNumber
             };
 
-
             DataAccess.Add(newUser);
 
-            var newParticipant = new Participant(new Ticket(ticketNumber));
+            var newParticipant = new Participant(new Ticket(ticketNumber), DataAccess);
             FestivalManager.AddParticipant(newParticipant);
 
             return RedirectToPage("./Index");
-
         }
-
     }
 }

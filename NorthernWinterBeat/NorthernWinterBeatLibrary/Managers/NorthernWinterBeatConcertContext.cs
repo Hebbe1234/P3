@@ -14,7 +14,10 @@ namespace NorthernWinterBeatLibrary.Managers
 {
     public class NorthernWinterBeatConcertContext : DbContext
     {
+        public NorthernWinterBeatConcertContext()
+        {
 
+        }
         public NorthernWinterBeatConcertContext (DbContextOptions<NorthernWinterBeatConcertContext> options)
             : base(options)
         {

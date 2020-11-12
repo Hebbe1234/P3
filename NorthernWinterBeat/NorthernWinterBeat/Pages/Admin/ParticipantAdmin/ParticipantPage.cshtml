@@ -1,0 +1,186 @@
+﻿@page
+@model NorthernWinterBeat.Pages.Admin.ParticipantAdmin.ParticipantPageModel
+@{
+}
+
+<div class="card">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-8"> <h3> @Model.Participant.Name </h3> </div>
+        </div>
+
+        <div class="row">
+            <div class="col-8"> <p>Email: @Model?.Participant?.Username</p> </div>
+            <div class="col-8"> <p>Ticket Nr: @Model.Participant.Ticket.TicketNumber </p> </div>
+            <div class="col-8"> <p>Name: @Model.Participant.Name </p> </div>
+            <div class="col-8"> <p>Date of Creation: @Model.Participant.Password </p> </div>
+            <div class="col-4">
+                <button type="button" class="float-right" data-toggle="modal" onclick="location.href = '@(Url.Page("EditParticipant", new { id = Model.Participant.ID }))'">
+                    <i class="fas fa-pencil-alt"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<br>
+<br>
+
+<div class="card">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-8"> <h3>Booked Concerts</h3> </div>
+        </div>
+
+        <table class="table table-hover" table-bordered>
+            <thead>
+                <tr>
+                    <th>
+                        <button class="btn btn-default th-button" value="Concert">Concert</button>
+                    </th>
+                    <th>
+                        <button class="btn btn-default th-button" value="Venue">Venue</button>
+                    </th>
+                    <th>
+                        <button class="btn btn-default th-button" value="Capacity">Capacity</button>
+                    </th>
+                    <th>
+                        <button class="btn btn-default th-button-right" value="Remove">Remove Booking</button>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @{
+                    @foreach (Concert concert in Model.BookedConcerts)
+                    {
+                        <tr>
+                            <td>
+                                @concert.Artist
+                            </td>
+                            <td>
+                                @concert.Venue?.Name
+                            </td>
+                            <td>
+                                @concert?.Bookings?.Count() / @concert.Venue?.Capacity
+                            </td>
+                            <td>
+                                <button class="btn btn-secondary float-right" style="margin: 20px" data-toggle="modal" data-target="#removeBooking@(concert.ID)">
+                                    Cancel
+                                </button>
+                            </td>
+                        </tr>
+
+                        <!-- Remove booking modal -->
+                        <div class="modal fade " id="removeBooking@(concert.ID)" tabindex="-1" role="dialog" aria-labelledby="removeBooking@(concert.ID)Label" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="removeBooking@(concert.ID)">Remove booking</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Are you sure that you want to remove your booking? You cannot undo this.
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                                        <form asp-page-handler="RemoveBooking" method="post">
+                                            @Html.Hidden("concertId", concert.ID)
+                                            @Html.Hidden("participantId", Model.Participant.ID)
+                                            <input type="submit" class="btn btn-primary" value="Yes" />
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+
+
+<br>
+<br>
+
+<div class="card">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-8"> <h3>Non-booked Concerts</h3> </div>
+        </div>
+
+        <table class="table table-hover" table-bordered>
+            <thead>
+                <tr>
+                    <th>
+                        <button class="btn btn-default th-button" value="Concert">Concert</button>
+                    </th>
+                    <th>
+                        <button class="btn btn-default th-button" value="Venue">Venue</button>
+                    </th>
+                    <th>
+                        <button class="btn btn-default th-button" value="Capacity">Capacity</button>
+                    </th>
+                    <th>
+                        <button class="btn btn-default th-button-right" value="AddConcert"> Add concert</button>
+                    </th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                @{
+                    @foreach (Concert concert in Model.NonBookedConcerts)
+                    {
+                        <tr>
+                            <td>
+                                @concert.Artist
+                            </td>
+                            <td>
+                                @concert.Venue?.Name
+                            </td>
+                            <td>
+                                @concert?.Bookings?.Count() / @concert.Venue?.Capacity
+                            </td>
+                            <td>
+                                <button class="btn btn-secondary float-right" style="margin: 20px" data-toggle="modal" data-target="#addBooking@(concert.ID)">
+                                    Add 
+                                </button>
+                            </td>
+                        </tr>
+
+                        <!-- Remove booking modal -->
+                        <div class="modal fade " id="addBooking@(concert.ID)" tabindex="-1" role="dialog" aria-labelledby="addBooking@(concert.ID)Label" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="addBooking@(concert.ID)">Remove booking</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Are you sure that you want to remove your booking? You cannot undo this.
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                                        <form asp-page-handler="addBooking" method="post">
+                                            @Html.Hidden("concertId", concert.ID)
+                                            @Html.Hidden("participantId", Model.Participant.ID)
+                                            <input type="submit" class="btn btn-primary" value="Yes" />
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
