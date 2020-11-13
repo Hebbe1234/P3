@@ -19,29 +19,24 @@ namespace NorthernWinterBeat.Pages
     public class IndexModel : PageModel
     {
         private IAuthorizationManager AuthorizationManager { get; }
-
         public IndexModel(IAuthorizationManager authorizationManager)
         {
             AuthorizationManager = authorizationManager;
         }
 
-
-
         public void OnGet()
         {
-
         }
         public IActionResult OnPostRegister()
         {
             string TicketInput = Request.Form["TicketEntered"];
-            //Her testes hvorvidt en billet er indtastet, og valideringen skal ske her. 
+
             if(AuthorizationManager.VerifyTicket(TicketInput))
             {
                 return RedirectToPage("./MakeUserLogin", new { ticketNumber = TicketInput });
             }
-            //Her endes der hvis der er indtastet noget forkert eller intet, derfor reloades der. 
-            return Page();
 
+            return Page();
         }
 
         public async Task<IActionResult> OnPostLoginAsync()
@@ -49,7 +44,10 @@ namespace NorthernWinterBeat.Pages
             string EmailInput = Request.Form["EmailEntered"];
             string PasswordInput = Request.Form["PasswordEntered"];
 
-            if (PasswordInput == "") { return Page(); }
+            if (PasswordInput == "") 
+            { 
+                return Page(); 
+            }
 
             var user = AuthorizationManager.GetUser(EmailInput);
            
@@ -87,7 +85,6 @@ namespace NorthernWinterBeat.Pages
 
             //Her endes der hvis der er indtastet noget forkert eller intet, derfor reloades der. 
             return RedirectToPage("./Index");
-
         }
     }
 }

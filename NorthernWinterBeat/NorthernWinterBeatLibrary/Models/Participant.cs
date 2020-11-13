@@ -7,7 +7,8 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
 namespace NorthernWinterBeat.Models
-{	public class Participant : User
+{
+    public class Participant : User
 	{
 		public enum ParticipantState
         {
@@ -17,7 +18,6 @@ namespace NorthernWinterBeat.Models
         public ParticipantState State { get; set; }
         public string Name { get; set; } = "";
 		public Ticket Ticket { get; protected set; }
-
         public string Email { get; set; }
 
         private IDataAccess DataAccess;
@@ -36,12 +36,14 @@ namespace NorthernWinterBeat.Models
         {
             DataAccess = dataAccess;
             Ticket = _ticket;
+            
         }
 
         public Participant(Ticket _ticket, string name, string email, IDataAccess dataAccess) : this(_ticket, dataAccess)
         {
             Name = name;
             Email = email;
+            Username = Email; 
         }
 
 
