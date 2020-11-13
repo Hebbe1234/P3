@@ -1,6 +1,8 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
 using NorthernWinterBeat.Models;
+using NorthernWinterBeatLibrary.Models;
 
 public class Booking
 {
@@ -27,4 +29,5 @@ public class Booking
 	public Concert Concert { get; set; }
     public DateTime BookingDate { get; set; }
 
+    
 }

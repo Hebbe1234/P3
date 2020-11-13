@@ -11,17 +11,20 @@ namespace NorthernWinterBeat.Pages.Admin.ParticipantAdmin
 {
     public class ParticipantOverviewModel : PageModel
     {
+        private IFestivalManager FestivalManager { get; }
+
         public List<Participant> Participants = new List<Participant>();
         [BindProperty(SupportsGet = true)]
         public string SortBy { get; set; } = "";
 
-        public ParticipantOverviewModel()
+        public ParticipantOverviewModel(IFestivalManager festivalManager)
         {
-            Participants = FestivalManager.instance.GetParticipants();
+            FestivalManager = festivalManager;
+            Participants = FestivalManager.GetParticipants();
         }
         public void OnGet()
         {
-            Participants = FestivalManager.instance.GetParticipants();
+            Participants = FestivalManager.GetParticipants();
         }
 
         public List<Participant> SortParticipants(List<Participant> SortParticipants)

@@ -5,21 +5,24 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using NorthernWinterBeat.Models;
+using NorthernWinterBeatLibrary.DataAccess;
 using NorthernWinterBeatLibrary.Managers;
 
 namespace NorthernWinterBeat.Pages.Admin
 {
     public class AddVenueModel : PageModel
     {
-        private readonly NorthernWinterBeatConcertContext _context;
-        public AddVenueModel(NorthernWinterBeatConcertContext context)
+        private IFestivalManager FestivalManager { get; }
+        private IDataAccess DataAccess { get; set; }
+        public AddVenueModel(IDataAccess dataAccess, IFestivalManager festivalManager)
         {
-            _context = context;
+            FestivalManager = festivalManager;
+            DataAccess = dataAccess;
         }
         public void OnGet()
         {
         }
-        public async Task<IActionResult> OnPostCreateVenue()
+        public IActionResult OnPostCreateVenue()
         {
             string Name = Request.Form["VenueEntered"];
             string CapacityString = Request.Form["CapacityEntered"];
@@ -31,9 +34,9 @@ namespace NorthernWinterBeat.Pages.Admin
             }
 
 
-            Venue NewVenue = new Venue(Name, Address, Capacity);
+            Venue NewVenue = new Venue(Name, Address, Capacity, DataAccess);
             
-            await FestivalManager.instance._calendar.AddVenue(NewVenue); 
+            FestivalManager.Calendar.AddVenue(NewVenue); 
 
             return RedirectToPage("./VenueOverview"); 
         }

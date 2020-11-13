@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore.Storage;
 using NorthernWinterBeat.Models;
+using NorthernWinterBeatLibrary.DataAccess;
 using NorthernWinterBeatLibrary.Managers;
 using NorthernWinterBeatLibrary.Models;
 
@@ -22,7 +23,17 @@ namespace NorthernWinterBeat.Pages
 
         [BindProperty(SupportsGet = true)]
         public string ticketNumber { get; set; }
+        private IAuthorizationManager AuthorizationManager { get; }
+        private IFestivalManager FestivalManager { get; }
 
+        private IDataAccess DataAccess { get; }
+
+        public MakeUserLoginModel(IFestivalManager festivalManager, IAuthorizationManager authorizationManager, IDataAccess dataAccess)
+        {
+            AuthorizationManager = authorizationManager;
+            FestivalManager = festivalManager;
+            DataAccess = dataAccess; 
+        }
         public void OnGet()
         {
 
@@ -46,15 +57,15 @@ namespace NorthernWinterBeat.Pages
                 return RedirectToPage("./MakeUserLogin");
             }
 
-            var newUser = new ApplicationUser(UsernameEntered, AuthorizationManager.instance.Encrypt(Password1Entered), ApplicationUser.Roles.PARTICIPANT)
+            var newUser = new ApplicationUser(UsernameEntered, AuthorizationManager.Encrypt(Password1Entered), ApplicationUser.Roles.PARTICIPANT)
             {
                 TicketID = ticketNumber
             };
-            DatabaseManager.context.ApplicationUser.Add(newUser);
-            DatabaseManager.context.SaveChanges();
 
-            var newParticipant = new Participant(new Ticket(ticketNumber));
-            FestivalManager.instance.AddParticipant(newParticipant);
+            DataAccess.Add(newUser);
+
+            var newParticipant = new Participant(new Ticket(ticketNumber), DataAccess);
+            FestivalManager.AddParticipant(newParticipant);
 
             return RedirectToPage("./Index");
         }

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using NorthernWinterBeat.Models;
+using NorthernWinterBeatLibrary.DataAccess;
 using NorthernWinterBeatLibrary.Managers;
 
 namespace NorthernWinterBeat.Pages.Admin
@@ -13,11 +14,19 @@ namespace NorthernWinterBeat.Pages.Admin
     public class EditVenueModel : PageModel
     {
         public Venue venue { get; set; }
+        public IDataAccess DataAccess { get; set; }
+        private IFestivalManager FestivalManager { get; }
+        public EditVenueModel(IDataAccess dataAccess, IFestivalManager festivalManager)
+        {
+            FestivalManager = festivalManager;
+            DataAccess = dataAccess;
+        }
         public void OnGet(int id)
         {
-            venue = FestivalManager.instance._calendar.GetVenue(id);
+            venue = FestivalManager.Calendar.GetVenue(id);
+
         }
-        public async Task<IActionResult> OnPostEditVenue(int id)
+        public IActionResult OnPostEditVenue(int id)
         {
             string Name = Request.Form["VenueEntered"];
             string CapacityString = Request.Form["CapacityEntered"];
@@ -28,12 +37,12 @@ namespace NorthernWinterBeat.Pages.Admin
                 Capacity = int.Parse(CapacityString);
             }
 
-            Venue NewVenueInfo = new Venue(Name, Address, Capacity);
+            Venue NewVenueInfo = new Venue(Name, Address, Capacity, DataAccess);
             if (!ModelState.IsValid)
             {
                 return Page();
             }
-            await FestivalManager.instance._calendar.EditVenue(id, NewVenueInfo);
+            FestivalManager.Calendar.GetVenue(id).Update(NewVenueInfo);
 
             return RedirectToPage("./VenueOverview"); 
         }

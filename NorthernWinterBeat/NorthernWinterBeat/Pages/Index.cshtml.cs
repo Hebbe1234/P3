@@ -18,11 +18,11 @@ namespace NorthernWinterBeat.Pages
 {
     public class IndexModel : PageModel
     {
-        private readonly ILogger<IndexModel> _logger;
+        private IAuthorizationManager AuthorizationManager { get; }
 
-        public IndexModel(ILogger<IndexModel> logger)
+        public IndexModel(IAuthorizationManager authorizationManager)
         {
-            _logger = logger;
+            AuthorizationManager = authorizationManager;
         }
 
 
@@ -35,7 +35,7 @@ namespace NorthernWinterBeat.Pages
         {
             string TicketInput = Request.Form["TicketEntered"];
             //Her testes hvorvidt en billet er indtastet, og valideringen skal ske her. 
-            if(AuthorizationManager.instance.VerifyTicket(TicketInput))
+            if(AuthorizationManager.VerifyTicket(TicketInput))
             {
                 return RedirectToPage("./MakeUserLogin", new { ticketNumber = TicketInput });
             }
@@ -51,11 +51,11 @@ namespace NorthernWinterBeat.Pages
 
             if (PasswordInput == "") { return Page(); }
 
-            var user = DatabaseManager.GetUser(EmailInput);
+            var user = AuthorizationManager.GetUser(EmailInput);
            
-            if (user != null && AuthorizationManager.instance.Encrypt(PasswordInput) == user?.Password)
+            if (user != null && AuthorizationManager.Encrypt(PasswordInput) == user?.Password)
             {
-                var (claimsIdentity, authProperties) = AuthorizationManager.instance.CreateClaim(user);
+                var (claimsIdentity, authProperties) = AuthorizationManager.CreateClaim(user);
 
                 await HttpContext.SignOutAsync();
 

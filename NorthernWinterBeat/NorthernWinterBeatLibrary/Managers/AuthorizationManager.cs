@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using NorthernWinterBeatLibrary.Models;
 using System;
 using System.Collections.Generic;
@@ -11,22 +12,34 @@ using System.Text;
 
 namespace NorthernWinterBeatLibrary.Managers
 {
-    public class AuthorizationManager
+    public class AuthorizationManager : IAuthorizationManager
     {
 
-        public static AuthorizationManager instance;
-        public AuthorizationManager()
+        private NorthernWinterBeatConcertContext context { get; set; }            
+
+        public AuthorizationManager(NorthernWinterBeatConcertContext _context)
         {
-            if (instance == null)
+            context = _context;
+        }
+
+        public ApplicationUser GetUser(string username)
+        {
+            var t1 = context.ApplicationUser;
+            var t2 = t1.Where(u => u.Username == username).ToList();
+
+            if (t2.Count() == 0)
             {
-                instance = this;
+                return null;
             }
+
+            return t2.First();
+            //return context.ApplicationUser.Where(u => u.Username == username)?.First();
         }
 
         public bool VerifyTicket(string TicketInput)
         {
-            bool IsLegalTicket = DatabaseManager.context.LegalTickets.Find(TicketInput)?.TicketNumber == TicketInput;
-            bool DoesTicketNotExist = DatabaseManager.context.Ticket.Where(t => t.TicketNumber == TicketInput).ToList().Count() == 0;
+            bool IsLegalTicket = context.LegalTickets.Find(TicketInput)?.TicketNumber == TicketInput;
+            bool DoesTicketNotExist = context.Ticket.Where(t => t.TicketNumber == TicketInput).ToList().Count() == 0;
             return IsLegalTicket && DoesTicketNotExist;
         }
 
@@ -99,7 +112,7 @@ namespace NorthernWinterBeatLibrary.Managers
 
             }
         }
-        static byte[] EncryptStringToBytes_Aes(string plainText, byte[] Key, byte[] IV)
+        private byte[] EncryptStringToBytes_Aes(string plainText, byte[] Key, byte[] IV)
         {
             // Check arguments.
             if (plainText == null || plainText.Length <= 0)

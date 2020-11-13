@@ -14,14 +14,21 @@ namespace NorthernWinterBeat.Pages.Admin.ParticipantAdmin
         public Participant Participant { get; private set; }
         public List<Concert> BookedConcerts { get; set; } = new List<Concert>();
         public List<Concert> NonBookedConcerts { get; set; } = new List<Concert>();
+        private IFestivalManager FestivalManager { get; set; }
+
+        public ParticipantPageModel(IFestivalManager festivalManager)
+        {
+            FestivalManager = festivalManager;
+        }
+
         public void OnGet(int id)
         {
-            Participant = FestivalManager.instance?.GetParticipant(id);
+            Participant = FestivalManager.GetParticipant(id);
             bool flag = true; 
 
             // Split all concerts into two categories. The ones where the participant has a booking
             // and the ones, where the participant does not have a booking.
-            foreach (Concert item in FestivalManager.instance._calendar.GetAllConcerts())
+            foreach (Concert item in FestivalManager.Calendar.GetAllConcerts())
             {
                 flag = true; 
                 foreach (Booking booking in item.Bookings)
@@ -42,16 +49,16 @@ namespace NorthernWinterBeat.Pages.Admin.ParticipantAdmin
 
         public IActionResult OnPostRemoveBooking(int concertId, int participantId)
         {
-            Concert concert = FestivalManager.instance._calendar.GetConcert(concertId);
+            Concert concert = FestivalManager.Calendar.GetConcert(concertId);
             Booking booking = concert.Bookings.Find(b => b.Participant.ID == participantId);
             concert.RemoveBooking(booking);
             return RedirectToPage("./ParticipantPage", new { id = participantId });
         }
         public IActionResult OnPostAddBooking(int concertId, int participantId)
         {
-            Concert concert = FestivalManager.instance._calendar.GetConcert(concertId);
-            Participant participant = FestivalManager.instance.GetParticipant(participantId);
-            concert.MakeBooking(participant);
+            Concert concert = FestivalManager.Calendar.GetConcert(concertId);
+            Participant participant = FestivalManager.GetParticipant(participantId);
+            concert.MakeBooking(participant, FestivalManager);
             return RedirectToPage("./ParticipantPage", new { id = participantId });
         }
     }

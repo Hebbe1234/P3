@@ -1,4 +1,5 @@
-﻿using NorthernWinterBeatLibrary.Managers;
+﻿using NorthernWinterBeatLibrary.DataAccess;
+using NorthernWinterBeatLibrary.Managers;
 using NorthernWinterBeatLibrary.Models;
 using System;
 using System.Collections.Generic;
@@ -16,41 +17,54 @@ namespace NorthernWinterBeat.Models
         public ParticipantState State { get; set; }
         public string Name { get; set; } = "";
 		public Ticket Ticket { get; protected set; }
+
+        public string Email { get; set; }
+
+        private IDataAccess DataAccess;
         public Participant()
         {
+
+        }
+
+        public Participant(NorthernWinterBeatConcertContext ctx)
+        {
+            DataAccess = new EFDataAccess(ctx);
             State = ParticipantState.ACTIVE;
         }
-        public Participant(Ticket _ticket): 
-            this()
+
+        public Participant(Ticket _ticket, IDataAccess dataAccess) 
         {
+            DataAccess = dataAccess;
             Ticket = _ticket;
         }
-        public Participant(Ticket _ticket, string _name, string _email):
-            this(_ticket)
+
+        public Participant(Ticket _ticket, string name, string email, IDataAccess dataAccess) : this(_ticket, dataAccess)
         {
-            Name = _name;
-            Username = _email; 
+            Name = name;
+            Email = email;
         }
-        public bool CanMakeBookingAt(Concert concert)
+
+
+        public virtual bool CanMakeBookingAt(Concert concert, IFestivalManager festivalManager)
         {
-			List<Concert> bookedConcerts =  FestivalManager.instance._calendar.GetConcerts().FindAll(c => c.Bookings.Find(b => b.Participant == this) != null);
+            List<Concert> bookedConcerts = festivalManager.Calendar.GetConcerts().FindAll(c => c.Bookings.Find(b => b.Participant == this) != null);
             foreach (var c in bookedConcerts)
             {
-				if(concert.Start < c.End && concert.End > c.Start)
+                if (concert.Start < c.End && concert.End > c.Start)
                 {
-					return false;
+                    return false;
                 }
             }
-			return true;
-        }	
+            return true;
+        }
 
-        public List<Booking> GetParticipantBookings()
+        public List<Booking> GetParticipantBookings(IFestivalManager festivalManager)
         {
-           return (FestivalManager.instance._calendar
-                .GetConcerts()
-                .SelectMany(c => c.Bookings))
-                .ToList()
-                .FindAll(b => b.Participant.ID == this.ID);
+            return (festivalManager.Calendar
+                 .GetConcerts()
+                 .SelectMany(c => c.Bookings))
+                 .ToList()
+                 .FindAll(b => b.Participant.ID == this.ID);
         }
 
         public void Update(Participant NewParticipant)
@@ -58,7 +72,7 @@ namespace NorthernWinterBeat.Models
             Name = NewParticipant.Name;
             Username = NewParticipant.Username;
            
-            DatabaseManager.context.SaveChanges();    
+            DataAccess.Save();    
         }
     }
 }

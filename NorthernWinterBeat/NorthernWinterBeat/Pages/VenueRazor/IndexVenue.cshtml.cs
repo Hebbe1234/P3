@@ -16,15 +16,17 @@ namespace NorthernWinterBeat.Pages.VenueRazor
         public string SortBy { get; set; }
         [BindProperty(SupportsGet = true)]
         public int id { get; set; }
-        //FIND THE RIGHT ID
-        public IndexModel(int id = 3)
+        private IFestivalManager FestivalManager { get; }
+
+        public IndexModel(IFestivalManager festivalManager, int id = 3)
         {
-            concerts = FestivalManager.instance._calendar.GetConcertsAtVenue(id); 
+            FestivalManager = festivalManager;
+            concerts = FestivalManager.Calendar.GetConcertsAtVenue(id); 
         }
-        //FIND THE RIGHT ID
+
         public void OnGet(int id = 3)
         {
-            concerts = FestivalManager.instance._calendar.GetConcertsAtVenue(id);
+            concerts = FestivalManager.Calendar.GetConcertsAtVenue(id);
         }
 
         public List<Concert> SortConcertBy(List<Concert> SortConcert)

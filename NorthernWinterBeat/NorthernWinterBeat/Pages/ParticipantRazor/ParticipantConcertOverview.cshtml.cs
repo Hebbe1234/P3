@@ -16,9 +16,15 @@ namespace NorthernWinterBeat.Pages
 
         [BindProperty(SupportsGet = true)]
         public DateTime? Day { get; set; } = null;
+        private IFestivalManager FestivalManager { get; }
+
+        public ParticipantConcertOverviewModel(IFestivalManager festivalManager)
+        {
+            FestivalManager = festivalManager;
+        }
         public void OnGet(DateTime? Day)
         {
-            Concerts = FestivalManager.instance._calendar.GetConcerts();
+            Concerts = FestivalManager.Calendar.GetConcerts();
 
             if (Day == null)
             {
@@ -52,7 +58,7 @@ namespace NorthernWinterBeat.Pages
         public PartialViewResult OnGetConcertsOverviewPartial(string concertDay)
         {
             this.Day = DateTime.Parse(concertDay);
-            this.Concerts = FestivalManager.instance._calendar.GetConcerts();
+            this.Concerts = FestivalManager.Calendar.GetConcerts();
             return Partial("Partials/_ConcertOverviewTable", this);
         }
     }

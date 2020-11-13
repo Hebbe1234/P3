@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using NorthernWinterBeatLibrary.Managers;
 using NorthernWinterBeatLibrary;
 using NorthernWinterBeat.Models;
+using NorthernWinterBeatLibrary.DataAccess;
 
 namespace NorthernWinterBeat.Pages.Admin.Pages
 {
@@ -14,20 +15,22 @@ namespace NorthernWinterBeat.Pages.Admin.Pages
     public class AddConcertModel : PageModel
     {
         public List<Venue> venues { get; set; } = new List<Venue>();
-        private readonly NorthernWinterBeatConcertContext _context;
+        public IDataAccess DataAccess { get; set; }
+        private IFestivalManager FestivalManager { get; }
 
-        public AddConcertModel(NorthernWinterBeatConcertContext context)
+        public AddConcertModel(IDataAccess dataAccess, IFestivalManager festivalManager)
         {
-            _context = context;
-            venues = FestivalManager.instance._calendar.GetVenues(); 
+            DataAccess = dataAccess;
+            FestivalManager = festivalManager;
+            venues = FestivalManager.Calendar.GetVenues(); 
         }
         public void OnGet()
         {
-            venues = FestivalManager.instance._calendar.GetVenues(); 
+            venues = FestivalManager.Calendar.GetVenues(); 
         }
 
 
-        public async Task<IActionResult> OnPostAsyncCreateConcert()
+        public IActionResult OnPostAsyncCreateConcert()
         {
             string Artist = Request.Form["ArtistEntered"];
             string Description = Request.Form["DescriptionEntered"];
@@ -57,9 +60,9 @@ namespace NorthernWinterBeat.Pages.Admin.Pages
 
             DateTime Start = new DateTime(Year, Month, Day, StartHour, StartMinute, 0);
             DateTime End = new DateTime(Year, Month, Day, EndHour, EndMinute, 0);
-            Concert NewConcert = new Concert(Start, End, Artist, Description);
+            Concert NewConcert = new Concert(Start, End, Artist, Description, DataAccess);
 
-            await FestivalManager.instance._calendar.AddConcert(NewConcert, Venue);
+            FestivalManager.Calendar.AddConcert(NewConcert, Venue);
             return RedirectToPage("./Calendar");
         }
         public IActionResult OnPostCancel()
