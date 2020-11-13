@@ -9,6 +9,8 @@ namespace NorthernWinterBeat.Pages.ParticipantRazor
 {
     public class ParticipantShowBookingModel : PageModel
     {
+        [BindProperty(SupportsGet = true)]
+        public int Id { get; set; }
         public string ticketNumber { get; private set; }
         public void OnGet()
         {

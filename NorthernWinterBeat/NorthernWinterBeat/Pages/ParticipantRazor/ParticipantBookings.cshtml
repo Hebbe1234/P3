@@ -27,6 +27,30 @@
             <button type="button" class="btn btn-secondary text-center open-remove" data-toggle="modal" data-target="#removeBooking@(booking.ID)" data-id=@booking.ID>
                 Remove booking
             </button>
+            <!-- Activate booking modal -->
+            <div class="modal fade " id="activateBooking@(booking.ID)" tabindex="-1" role="dialog" aria-labelledby="activateBookingLabel@(booking.ID)" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="activateBookingLabel@(booking.ID)">Activate booking</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            The booking needs to be activated when you are entering the concert, are you sure that you want to activate your booking? @(booking.ID)
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                            <form asp-page-handler="ActivateBooking" method="post">
+                                @Html.Hidden("id", booking.ID)
+                                <input type="submit" class="btn btn-primary" value="Yes" />
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <!-- Remove booking modal -->
             <div class="modal fade " id="removeBooking@(booking.ID)" tabindex="-1" role="dialog" aria-labelledby="removeBooking@(booking.ID)Label" aria-hidden="true">
                 <div class="modal-dialog" role="document">
@@ -55,25 +79,3 @@
     }
 }
 @*DENNE SKAL OGSÅ FLYTTES IND I FOREACH OVENFOR, og idet skal fungere som modalen ovenfor, ellers spiller det ikke max*@
-<!-- Activate booking modal -->
-<div class="modal fade " id="activateBooking" tabindex="-1" role="dialog" aria-labelledby="activateBookingLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="activateBookingLabel">Activate booking</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                The booking needs to be activated when you are entering the concert, are you sure that you want to activate your booking?
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-                <a class="nav-link text-dark">
-                    <input type="button" class="btn btn-primary" value="Yes" />
-                </a>
-            </div>
-        </div>
-    </div>
-</div>
