@@ -28,10 +28,11 @@ namespace NorthernWinterBeat.Pages
 
         private IDataAccess DataAccess { get; }
 
-        public MakeUserLoginModel(IFestivalManager festivalManager, IAuthorizationManager authorizationManager)
+        public MakeUserLoginModel(IFestivalManager festivalManager, IAuthorizationManager authorizationManager, IDataAccess dataAccess)
         {
             AuthorizationManager = authorizationManager;
             FestivalManager = festivalManager;
+            DataAccess = dataAccess; 
         }
         public void OnGet()
         {
