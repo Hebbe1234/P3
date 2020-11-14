@@ -2,80 +2,129 @@
 @model NorthernWinterBeat.Pages.ParticipantRazor.ParticipantBookingsModel
 @{
 }
+
 <h1>My Bookings</h1>
 @{
     foreach (var booking in Model.bookings)
     {
-    <div class="card mb-2 p-2">
-        <div>
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item text-center">
-                    @booking.Concert.Artist
-                </li>
-                <li class="list-group-item text-center">
-                    @booking.Concert.Start
-                </li>
-                <li class="list-group-item text-center">
-                    @booking.Concert.Venue.Address
-                </li>
-            </ul>
-        </div>
-        <div class="text-center">
-            <button type="button" class="btn btn-primary text-center" data-toggle="modal" data-target="#activateBooking">
-                Activate booking
-            </button>
-            <button type="button" class="btn btn-secondary text-center open-remove" data-toggle="modal" data-target="#removeBooking@(booking.ID)" data-id=@booking.ID>
-                Remove booking
-            </button>
-            <!-- Activate booking modal -->
-            <div class="modal fade " id="activateBooking@(booking.ID)" tabindex="-1" role="dialog" aria-labelledby="activateBookingLabel@(booking.ID)" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="activateBookingLabel@(booking.ID)">Activate booking</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            The booking needs to be activated when you are entering the concert, are you sure that you want to activate your booking? @(booking.ID)
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-                            <form asp-page-handler="ActivateBooking" method="post">
-                                @Html.Hidden("id", booking.ID)
-                                <input type="submit" class="btn btn-primary" value="Yes" />
-                            </form>
-                        </div>
-                    </div>
-                </div>
+        if (booking.State == Booking.BookingState.INACTIVE)
+        {
+            continue;
+        }
+        <div class="card mb-2 p-2">
+            <div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item text-center">
+                        <b>@booking.Concert.Artist</b>
+                    </li>
+                    <li class="list-group-item text-center">
+                        @booking.Concert.Start
+                        @*@booking.Concert.Start.Date.ToString("dd-MM-yyyy HH:mm") dd @booking.Concert.Start.Date.ToString("HH:mm") ll @booking.Concert.Start.Minute.ToString("mm");*@
+                    </li>
+                    <li class="list-group-item text-center">
+                        @booking.Concert.Venue.Address
+                    </li>
+                </ul>
             </div>
+            <div class="text-center">
+                @if (booking.State == Booking.BookingState.ACTIVE)
+                {
+                    <button type="button" class="btn btn-primary text-center" data-toggle="modal" data-target="#activateBooking@(booking.ID)" data-id=@booking.ID>
+                        Activate booking
+                    </button>
+                }
 
-            <!-- Remove booking modal -->
-            <div class="modal fade " id="removeBooking@(booking.ID)" tabindex="-1" role="dialog" aria-labelledby="removeBooking@(booking.ID)Label" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="removeBooking@(booking.ID)">Remove booking</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
+                <button type="button" class="btn btn-secondary text-center open-remove" data-toggle="modal" data-target="#removeBooking@(booking.ID)" data-id=@booking.ID>
+                    Remove booking
+                </button>
+                <!-- Activate booking modal -->
+                <div class="modal fade " id="activateBooking@(booking.ID)" tabindex="-1" role="dialog" aria-labelledby="activateBookingLabel@(booking.ID)" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="activateBookingLabel@(booking.ID)">Activate booking</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                The booking needs to be activated when you are entering the concert, are you sure that you want to activate your booking?
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                                <form asp-page-handler="ActivateBooking" method="post">
+                                    @Html.Hidden("id", booking.ID)
+                                    <input type="submit" class="btn btn-primary" value="Yes" />
+                                </form>
+                            </div>
                         </div>
-                        <div class="modal-body">
-                            Are you sure that you want to remove your booking? You cannot undo this.
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-                            <form asp-page-handler="RemoveBooking" method="post">
-                                @Html.Hidden("id", booking.ID)
-                                <input type="submit" class="btn btn-primary" value="Yes" />
-                            </form>
+                    </div>
+                </div>
+
+                <!-- Remove booking modal -->
+                <div class="modal fade " id="removeBooking@(booking.ID)" tabindex="-1" role="dialog" aria-labelledby="removeBooking@(booking.ID)Label" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="removeBooking@(booking.ID)">Remove booking</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                Are you sure that you want to remove your booking? You cannot undo this.
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                                <form asp-page-handler="RemoveBooking" method="post">
+                                    @Html.Hidden("id", booking.ID)
+                                    <input type="submit" class="btn btn-primary" value="Yes" />
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
     }
 }
-@*DENNE SKAL OGSÅ FLYTTES IND I FOREACH OVENFOR, og idet skal fungere som modalen ovenfor, ellers spiller det ikke max*@
+
+
+
+<br>
+<br>
+<br>
+
+
+@{
+    bool flag = true;
+
+    foreach (var booking in Model.bookings)
+    {
+
+        if (booking.State == Booking.BookingState.ACTIVE)
+        {
+            continue;
+        }
+        if (flag == true)
+        {
+            <h2>Used Bookings</h2>
+            flag = false;
+        }
+        <div class="card mb-2 p-2">
+            <div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item text-center">
+                        <b> @booking.Concert.Artist</b>
+                    </li>
+                    <li class="list-group-item text-center">
+                        @booking.Concert.Start
+                    </li>
+                    <li class="list-group-item text-center">
+                        @booking.Concert.Venue.Address
+                    </li>
+                </ul>
+            </div>
+        </div>
+    }
+}

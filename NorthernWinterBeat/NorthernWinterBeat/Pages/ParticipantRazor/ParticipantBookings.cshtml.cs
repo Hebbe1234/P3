@@ -21,7 +21,6 @@ namespace NorthernWinterBeat.Pages.ParticipantRazor
 
         public void OnGet()
         {
-
             var claimTicketID = HttpContext.User.Claims.Where(c => c.Type == "TicketID").Select(t => t.Value).First();
             bookings = FestivalManager.GetParticipants().Where(p => p.Ticket?.TicketNumber == claimTicketID).First()?.GetParticipantBookings(FestivalManager);
         }
@@ -43,16 +42,16 @@ namespace NorthernWinterBeat.Pages.ParticipantRazor
 
             DateTime concertStartTime = booking.Concert.Start;
             DateTime now = DateTime.Now;
-            TimeSpan diffrence = now.Subtract(concertStartTime);
+            TimeSpan diffrence = concertStartTime.Subtract(now);
+
             if(diffrence.TotalMinutes < 30)
             {
-                RedirectToPage("ParticipantBookings"); 
+                booking.Disable();
+                return RedirectToPage("ParticipantShowBooking", new { bookingID = id });
             } else
             {
-                RedirectToPage("ParticipantShowBooking", new { id = id });
+                return RedirectToPage("ParticipantBookings");
             }
-
-            return RedirectToPage("ParticipantBookings");
         }
     }
 }

@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using NorthernWinterBeat.Models;
+using NorthernWinterBeatLibrary.Managers;
 
 namespace NorthernWinterBeat.Pages.ParticipantRazor
 {
@@ -12,9 +14,22 @@ namespace NorthernWinterBeat.Pages.ParticipantRazor
         [BindProperty(SupportsGet = true)]
         public int Id { get; set; }
         public string ticketNumber { get; private set; }
-        public void OnGet()
+        private IFestivalManager FestivalManager { get; }
+        public Participant Participant { get; set; }
+        public Concert Concert { get; set; }
+        public ParticipantShowBookingModel(IFestivalManager festivalManager)
         {
-            ticketNumber = "ASDSD8AS9D98934";
+            FestivalManager = festivalManager;
+        }
+        public void OnGet(int bookingID)
+        {
+            Id = bookingID;
+            var claimTicketID = HttpContext.User.Claims.Where(c => c.Type == "TicketID").Select(t => t.Value).First();
+            var bookings = FestivalManager.GetParticipants().Where(p => p.Ticket?.TicketNumber == claimTicketID).First()?.GetParticipantBookings(FestivalManager);
+            var booking = bookings.Find(b => b.ID == bookingID);
+            Participant = FestivalManager.GetParticipant(booking.Participant.ID);
+            Concert = FestivalManager.Calendar.GetConcert(booking.Concert.ID);
+            //Concert = booking.Concert;
         }
     }
 }
