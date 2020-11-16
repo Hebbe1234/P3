@@ -63,7 +63,7 @@ public class Concert
 
         if (!IsAtMaxCapacity && p.CanMakeBookingAt(this, festivalManager))
         {
-            booking = new Booking(p, this, DateTime.Now);
+            booking = new Booking(p, this, DateTime.Now, DataAccess);
             Bookings.Add(booking);
             DataAccess.Add(booking); 
         }

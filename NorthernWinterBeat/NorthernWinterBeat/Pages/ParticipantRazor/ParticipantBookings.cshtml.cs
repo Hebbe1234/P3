@@ -21,20 +21,37 @@ namespace NorthernWinterBeat.Pages.ParticipantRazor
 
         public void OnGet()
         {
-
             var claimTicketID = HttpContext.User.Claims.Where(c => c.Type == "TicketID").Select(t => t.Value).First();
             bookings = FestivalManager.GetParticipants().Where(p => p.Ticket?.TicketNumber == claimTicketID).First()?.GetParticipantBookings(FestivalManager);
         }
-
-        public IActionResult OnPostRemoveBooking(string id)
+        //String?
+        public IActionResult OnPostRemoveBooking(int id)
         {
             var claimTicketID = HttpContext.User.Claims.Where(c => c.Type == "TicketID").Select(t => t.Value).First();
             bookings = FestivalManager.GetParticipants().Where(p => p.Ticket?.TicketNumber == claimTicketID).First()?.GetParticipantBookings(FestivalManager);
 
-            var booking = bookings.Find(b => b.ID.ToString() == id);
+            var booking = bookings.Find(b => b.ID == id);
             booking.Concert.RemoveBooking(booking);
             return RedirectToPage("ParticipantBookings");
         }
-    }
+        public IActionResult OnPostActivateBooking(int id)
+        {
+            var claimTicketID = HttpContext.User.Claims.Where(c => c.Type == "TicketID").Select(t => t.Value).First();
+            bookings = FestivalManager.GetParticipants().Where(p => p.Ticket?.TicketNumber == claimTicketID).First()?.GetParticipantBookings(FestivalManager);
+            var booking = bookings.Find(b => b.ID == id);
 
+            DateTime concertStartTime = booking.Concert.Start;
+            DateTime now = DateTime.Now;
+            TimeSpan diffrence = concertStartTime.Subtract(now);
+
+            if(diffrence.TotalMinutes < 30)
+            {
+                booking.Disable();
+                return RedirectToPage("ParticipantShowBooking", new { bookingID = id });
+            } else
+            {
+                return RedirectToPage("ParticipantBookings");
+            }
+        }
+    }
 }
