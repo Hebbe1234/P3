@@ -51,6 +51,11 @@ public class Concert
             return Bookings.Count() >= (Venue?.Capacity ?? 0);
         } }
 
+    public void RemoveBooking(Participant participant)
+    {
+        Booking b = Bookings.Where(b => b.Participant == participant).FirstOrDefault();
+        RemoveBooking(b);
+    }
 	public void RemoveBooking(Booking booking)
     {
 		Bookings.Remove(booking);

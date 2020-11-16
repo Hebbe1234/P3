@@ -14,7 +14,7 @@ namespace NorthernWinterBeat.Pages.ParticipantRazor
         public Concert concert { get; set; }
 
         [BindProperty(SupportsGet = true)]
-        public int id { get; set; } = 0;
+        public int id { get; set; }
 
         private IFestivalManager FestivalManager { get; }
 
@@ -46,8 +46,24 @@ namespace NorthernWinterBeat.Pages.ParticipantRazor
 
             Concert c = FestivalManager.Calendar.GetConcert(id);
             Participant p = FestivalManager.GetParticipants().Where(p => p.Ticket?.TicketNumber == claimTicketID).First();
-            Booking b = c.Bookings.Where(b => b.Participant == p).FirstOrDefault();
-            c.RemoveBooking(b);
+            c.RemoveBooking(p); 
+            return RedirectToPage("./ParticipantArtist", new { id = id });
+        }
+
+        public IActionResult OnPostNewBooking(int id)
+        {
+            var claimTicketID = HttpContext.User.Claims.Where(c => c.Type == "TicketID").Select(t => t.Value).First();
+
+            Concert concert = FestivalManager.Calendar.GetConcert(id);
+            Participant p = FestivalManager.GetParticipants().Where(p => p.Ticket?.TicketNumber == claimTicketID).First();
+
+            List<Concert> overlappedConcerts = p.GetParticipantBookings(FestivalManager).Select(b => b.Concert).Where(c => concert.Start < c.End && concert.End > c.Start).ToList();
+            foreach (Concert overlap in overlappedConcerts)
+            {
+                overlap.RemoveBooking(p);
+            }
+
+            concert.MakeBooking(p, FestivalManager);
             return RedirectToPage("./ParticipantArtist", new { id = id });
         }
     }

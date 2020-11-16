@@ -23,8 +23,8 @@
 
     @{
         var claimTicketID = HttpContext.User.Claims.Where(c => c.Type == "TicketID").Select(t => t.Value).First();
-        var curUser = FestivalManager.GetParticipants().Where(p => p.Ticket?.TicketNumber == claimTicketID).First();
-        if (Model.concert.Bookings.Where(b => b.Participant == curUser).Count() > 0)
+        var curPart = FestivalManager.GetParticipants().Where(p => p.Ticket?.TicketNumber == claimTicketID).First();
+        if (Model.concert.Bookings.Where(b => b.Participant == curPart).Count() > 0)
         {
             <button type="button" class="btn btn-block btn-success text-center" data-toggle="modal" data-target="#removeBooking">
                 Booked
@@ -36,9 +36,9 @@
                 This concert is at max capacity
             </button>
         }
-        else if (!(curUser?.CanMakeBookingAt(Model.concert, FestivalManager) ?? false))
+        else if (!(curPart?.CanMakeBookingAt(Model.concert, FestivalManager) ?? false))
         {
-            <button type="button" class="btn btn-block btn-danger text-center" data-toggle="modal" data-target="#bookSpot" disabled>
+            <button type="button" class="btn btn-block btn-danger text-center" data-toggle="modal" data-target="#newBooking">
                 You already have a booking overlapping this concert
             </button>
         }
@@ -56,6 +56,42 @@
         </p>
     </div>
 </div>
+
+
+<!-- Remove diffrent booking and create new booking  modal -->
+<div class="modal fade " id="newBooking" tabindex="-1" role="dialog" aria-labelledby="newBookingLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="newBookingLabel">Book Spot</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Do you want to book this concert? It will remove your booking for the concert(s)
+                @{ 
+                    Concert concert = Model.concert; 
+                    List<Concert> overlappedConcerts = curPart.GetParticipantBookings(FestivalManager).Select(b => b.Concert).Where(c => concert.Start < c.End && concert.End > c.Start).ToList();
+                    foreach (Concert overlap in overlappedConcerts)
+                    {
+                        <p>@overlap.Artist</p>
+                    }
+                }
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                <form asp-page-handler="NewBooking" method="post">
+                    @Html.Hidden("id", Model.concert.ID)
+                    <button class="btn btn-primary">
+                        Yes
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 
 <!-- Remove bookings  modal -->
