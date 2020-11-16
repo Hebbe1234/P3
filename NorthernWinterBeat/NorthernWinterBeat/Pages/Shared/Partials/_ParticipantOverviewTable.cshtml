@@ -11,7 +11,7 @@
     {
     <tr onclick="location.href = '@(Url.Page("ParticipantPage", new { id = item.ID }))'">
         <td>
-            @item.Username
+            @item.Email
         </td>
         <td>
             @item.Ticket?.TicketNumber
@@ -19,9 +19,9 @@
         <td>
             @item.Name
         </td>
-        <td>
+        @*<td>
             @item.State
-        </td>
+        </td>*@
     </tr>
         i++;
     }

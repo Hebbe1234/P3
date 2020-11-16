@@ -40,7 +40,8 @@ namespace NorthernWinterBeat.Pages
         }
         public IActionResult OnPost()
         {
-            string UsernameEntered = Request.Form["UsernameEntered"];
+            string NameEntered = Request.Form["NameEntered"];
+            string EmailEntered = Request.Form["EmailEntered"];
             string Password1Entered = Request.Form["Password1Entered"];
             string Password2Entered = Request.Form["Password2Entered"];
 
@@ -52,19 +53,18 @@ namespace NorthernWinterBeat.Pages
             }
 
             //Her kan det valideres hvorvidt usernamet er korrekt. 
-            if (UsernameEntered == "")
+            if (EmailEntered == "")
             {
                 return RedirectToPage("./MakeUserLogin");
             }
 
-            var newUser = new ApplicationUser(UsernameEntered, AuthorizationManager.Encrypt(Password1Entered), ApplicationUser.Roles.PARTICIPANT)
+            var newUser = new ApplicationUser(EmailEntered, AuthorizationManager.Encrypt(Password1Entered), ApplicationUser.Roles.PARTICIPANT)
             {
                 TicketID = ticketNumber
             };
 
             DataAccess.Add(newUser);
-
-            var newParticipant = new Participant(new Ticket(ticketNumber), DataAccess);
+            Participant newParticipant = new Participant(new Ticket(ticketNumber), NameEntered, EmailEntered, DataAccess);
             FestivalManager.AddParticipant(newParticipant);
 
             return RedirectToPage("./Index");

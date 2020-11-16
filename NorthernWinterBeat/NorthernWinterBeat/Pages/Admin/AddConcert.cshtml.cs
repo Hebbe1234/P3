@@ -11,7 +11,6 @@ using NorthernWinterBeatLibrary.DataAccess;
 
 namespace NorthernWinterBeat.Pages.Admin.Pages
 {
-
     public class AddConcertModel : PageModel
     {
         public List<Venue> venues { get; set; } = new List<Venue>();
@@ -28,7 +27,6 @@ namespace NorthernWinterBeat.Pages.Admin.Pages
         {
             venues = FestivalManager.Calendar.GetVenues(); 
         }
-
 
         public IActionResult OnPostAsyncCreateConcert()
         {

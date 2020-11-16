@@ -28,6 +28,4 @@ public class Booking
     public Participant Participant { get; set; }
 	public Concert Concert { get; set; }
     public DateTime BookingDate { get; set; }
-
-    
 }

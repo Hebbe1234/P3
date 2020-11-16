@@ -33,7 +33,6 @@ namespace NorthernWinterBeat.Pages.Admin
                 Capacity = int.Parse(CapacityString); 
             }
 
-
             Venue NewVenue = new Venue(Name, Address, Capacity, DataAccess);
             
             FestivalManager.Calendar.AddVenue(NewVenue); 
