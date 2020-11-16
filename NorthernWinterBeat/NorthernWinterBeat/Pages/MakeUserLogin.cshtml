@@ -6,10 +6,15 @@
 <div class="jumbotron">
     <div class="container">
         <form method="post" id="inForm1">
-            @*Bestem hvor dataen skal hensendes *@
-            <h3>Register user for @Model.ticketNumber</h3>
-            <input class="form-control" name="UsernameEntered" type="text" placeholder="Username" />
+            <h2>Registre a new user for the ticketnumber: @Model.ticketNumber</h2>
             <br>
+            <h3>Enter Name</h3>
+            <input class="form-control" name="NameEntered" type="text" placeholder="Name" />
+            <br>
+            <h3>Enter Email</h3>
+            <input class="form-control" name="EmailEntered" type="email" placeholder="Email" />
+            <br>
+            <h3>Enter Password</h3>
             <input class="form-control" name="Password1Entered" type="password" id="pwd1" minlength="8" placeholder="Password">
             <input class="form-control" name="Password2Entered" type="password" id="pwd2" minlength="8" placeholder="Password"><br><br>
             <input class="btn btn-primary" type="submit" value="Register" id="btnSubmit1">

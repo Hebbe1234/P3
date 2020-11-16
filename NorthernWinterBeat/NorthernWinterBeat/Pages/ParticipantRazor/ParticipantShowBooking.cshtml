@@ -6,22 +6,22 @@
 <div class="text-center">
     <h1>Your booking</h1>
     <div>
-        <h2>Ticket number: </h2>
-        <p>@Model.Participant.Ticket.TicketNumber</p>
-        <h2>Name</h2>
-        <h1>@Model.Participant.Name</h1>
-        <h2>Email</h2>
-        <h1>@Model.Participant.Email</h1>
+        <p>Ticket number: </p>
+        <h3>@Model.Participant.Ticket.TicketNumber</h3>
+        <p>Name</p>
+        <h3>@Model.Participant.Name</h3>
+        <p>Email</p>
+        <h3>@Model.Participant.Email</h3>
         <br>
-        <h2>Concert</h2>
-        <h1>@Model.Concert.Artist</h1>
-        <h2>Venue</h2>
-        <h1>@Model.Concert.Venue.Name</h1>
-        <h2>Start time</h2>
-        <h1>
+        <p>Concert</p>
+        <h3>@Model.Concert.Artist</h3>
+        <p>Venue</p>
+        <h3>@Model.Concert.Venue.Name</h3>
+        <p>Start time</p>
+        <h3>
             @Model.Concert.Start
             @*@Model.Concert.Start.Date.ToString("dd-MM-yyyy") @Model.Concert.Start.Date.ToString("HH:mm")*@
-        </h1>
+        </h3>
     </div>
     <div class="text-center">
         <button type="button" class="btn btn-primary text-center" data-toggle="modal" data-target="#goBackBooking">

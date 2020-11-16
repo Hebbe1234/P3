@@ -29,7 +29,6 @@ namespace NorthernWinterBeat.Pages.ParticipantRazor
             var booking = bookings.Find(b => b.ID == bookingID);
             Participant = FestivalManager.GetParticipant(booking.Participant.ID);
             Concert = FestivalManager.Calendar.GetConcert(booking.Concert.ID);
-            //Concert = booking.Concert;
         }
     }
 }
