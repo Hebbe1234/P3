@@ -37,6 +37,9 @@ namespace NorthernWinterBeat.Pages.ParticipantRazor
             c.MakeBooking(FestivalManager.GetParticipants().Where(p => p.Ticket?.TicketNumber == claimTicketID).First(), FestivalManager);
             return RedirectToPage("./ParticipantArtist", new { id = id });
         }
-
+        public IActionResult OnPostGoBack(DateTime Day)
+        {
+            return RedirectToPage("./ParticipantConcertOverview", new { Day = Day });
+        }
     }
 }

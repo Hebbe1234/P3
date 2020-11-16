@@ -3,9 +3,19 @@
 @{
     ViewData["Title"] = "Concert Overview";
 }
-
-
+<style>
+    .selected {
+        text-decoration: none;
+        color: #fff;
+        background: rgb(10,10,10);
+    }
+</style>
 <div class="btn-group btn-group-justified" role="group" aria-label="Basic example" style="text-align:center">
+
+    @*<li class="@((path.Contains("Calendar") || path.Contains("Concert"))? "selected" : "")">
+        <a class="nav-link text-light nav-item" asp-area="" asp-page="/Admin/Calendar" style="display:table-cell"> Concerts </a>
+    </li>*@
+
 
     @{
 
@@ -15,11 +25,10 @@
         {
             Dates.Add(c.Start.Date);
         }
-
         foreach (var d in Dates)
         {
-            <div class="btn-group">
-                <button class="btn btn-secondary" value=@d.ToString()>@d.DayOfWeek</button>
+            <div class="btn-group" >
+                <button class="btn btn-secondary day-selection @((d.Date == Model.Day.Value.Date)? "selected" : "")" value=@d.ToString()>@d.DayOfWeek</button>
             </div>
         }
     }
@@ -29,42 +38,41 @@
     <table class="table table-hover">
         <thead>
             <tr>
-
                 <th scope="col">Artist</th>
                 <th scope="col">Time</th>
                 <th scope="col">Location</th>
             </tr>
         </thead>
         <tbody id="concertsOverviewTable">
-
             @await Html.PartialAsync("Partials/_ConcertOverviewTable", Model)
         </tbody>
     </table>
 
 
-        @*<div class="row">
-    @for (int i = 0; i < 10; i++)
-    {
-            <div class="card-columns">
-                <div class="card" style="width: 18rem;">
-                    <img class="card-img-top" src="~/Graphics/Pictures/NWB2021_ArtistPhotos_SNS_Blank.jpg" alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title">Artist name</h5>
-                        <p class="card-text">Description maybe</p>
-                    </div>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">Time</li>
-                        <li class="list-group-item">Venue</li>
-                    </ul>
+    @*<div class="row">
+        @for (int i = 0; i < 10; i++)
+        {
+                <div class="card-columns">
+                    <div class="card" style="width: 18rem;">
+                        <img class="card-img-top" src="~/Graphics/Pictures/NWB2021_ArtistPhotos_SNS_Blank.jpg" alt="Card image cap">
+                        <div class="card-body">
+                            <h5 class="card-title">Artist name</h5>
+                            <p class="card-text">Description maybe</p>
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">Time</li>
+                            <li class="list-group-item">Venue</li>
+                        </ul>
 
+                    </div>
                 </div>
-            </div>
-        
-    }
-        </div>*@
+
+        }
+            </div>*@
 
 
 </div>
+
 
 @section scripts{
     <script>
@@ -72,6 +80,14 @@
             $('.btn').on('click', function () {
                 var day = $(this).val()
                 $('#concertsOverviewTable').load('?handler=ConcertsOverviewPartial&concertDay=' + day);
+            });
+        });
+    </script>
+    <script>
+        $(function () {
+            $('.day-selection').on('click', function () {
+                $('.selected').removeClass('selected')
+                $(this).addClass('selected')
             });
         });
     </script>
