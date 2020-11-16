@@ -62,5 +62,4 @@ namespace NorthernWinterBeat.Pages
             return Partial("Partials/_ConcertOverviewTable", this);
         }
     }
-
 }
