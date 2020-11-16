@@ -26,6 +26,11 @@ public class Booking
 		DataAccess = new EFDataAccess(ctx);
 		State = BookingState.ACTIVE;
 	}
+	public Booking(IDataAccess dataAccess)
+	{
+		DataAccess = dataAccess;
+		State = BookingState.ACTIVE;
+	}
 
 	[Key]
     public int ID { get; set; }

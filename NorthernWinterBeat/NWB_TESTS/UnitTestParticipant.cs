@@ -32,7 +32,7 @@ namespace NWB_TESTS
                     End = new DateTime(2020, 10, 10, 21, 30, 00),
                     Bookings = new List<Booking>()
                     {
-                        new Booking() {Participant = participant, ID = 0}
+                        new Booking(mock.Object) {Participant = participant, ID = 0}
                     }
                  },
                  new Concert(mock.Object) 
@@ -41,7 +41,7 @@ namespace NWB_TESTS
                     End = new DateTime(2020, 10, 10, 22, 30, 00),
                     Bookings = new List<Booking>()
                     {
-                        new Booking() {Participant = participant, ID = 1}
+                        new Booking(mock.Object) {Participant = participant, ID = 1}
                     }
                  }
             };
@@ -77,13 +77,13 @@ namespace NWB_TESTS
                  new Concert(mock.Object) {Start = new DateTime(2020, 10, 10, 20, 30, 00), End = new DateTime(2020, 10, 10, 21, 30, 00),
                     Bookings = new List<Booking>()
                     {
-                        new Booking() {Participant = participant, ID = 0}
+                        new Booking(mock.Object) {Participant = participant, ID = 0}
                     }
                  },
                  new Concert(mock.Object) {Start = new DateTime(2020, 10, 10, 21, 30, 00), End = new DateTime(2020, 10, 10, 22, 30, 00),
                     Bookings = new List<Booking>()
                     {
-                        new Booking() {Participant = participant, ID = 1}
+                        new Booking(mock.Object) {Participant = participant, ID = 1}
                     }}
             };
             Calendar calendar = new Calendar(mock.Object);
@@ -130,13 +130,13 @@ namespace NWB_TESTS
                  new Concert(mock.Object) {Start = new DateTime(2020, 10, 10, 20, 30, 00), End = new DateTime(2020, 10, 10, 21, 30, 00),
                     Bookings = new List<Booking>()
                     {
-                        new Booking() {Participant = participant, ID = 0}
+                        new Booking(mock.Object) {Participant = participant, ID = 0}
                     }
                  },
                  new Concert(mock.Object) {Start = new DateTime(2020, 10, 10, 21, 30, 00), End = new DateTime(2020, 10, 10, 22, 30, 00),
                     Bookings = new List<Booking>()
                     {
-                        new Booking() {Participant = participant, ID = 1}
+                        new Booking(mock.Object) {Participant = participant, ID = 1}
                     }}
             };
 
@@ -176,13 +176,13 @@ namespace NWB_TESTS
                  new Concert(mock.Object) {Start = new DateTime(2020, 10, 10, 20, 30, 00), End = new DateTime(2020, 10, 10, 21, 30, 00),
                     Bookings = new List<Booking>()
                     {
-                        new Booking() {Participant = participant, ID = 0}
+                        new Booking(mock.Object) {Participant = participant, ID = 0}
                     }
                  },
                  new Concert(mock.Object) {Start = new DateTime(2020, 10, 10, 23, 30, 00), End = new DateTime(2020, 10, 11, 00, 30, 00),
                     Bookings = new List<Booking>()
                     {
-                        new Booking() {Participant = participant, ID = 1}
+                        new Booking(mock.Object) {Participant = participant, ID = 1}
                     }}
             };
 
@@ -215,13 +215,13 @@ namespace NWB_TESTS
                  new Concert(mock.Object) {
                     Bookings = new List<Booking>()
                     {
-                        new Booking() {Participant = participant, ID = 0}
+                        new Booking(mock.Object) {Participant = participant, ID = 0}
                     }
                  },
                  new Concert(mock.Object) {
                     Bookings = new List<Booking>()
                     {
-                        new Booking() {Participant = participant, ID = 1}
+                        new Booking(mock.Object) {Participant = participant, ID = 1}
                     }},
                 new Concert(mock.Object) {
                     Bookings = new List<Booking>()}

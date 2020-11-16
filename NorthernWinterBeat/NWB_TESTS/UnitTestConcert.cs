@@ -26,7 +26,7 @@ namespace NWB_TESTS
             Concert concert = new Concert(mock.Object);
             concert.Venue = venue;
 
-            concert.Bookings.Add(new Booking());
+            concert.Bookings.Add(new Booking(mock.Object));
 
             return concert;
 
@@ -64,9 +64,10 @@ namespace NWB_TESTS
         public void RemoveBooking_RemovesKnownBooking()
         {
             //Arrange
+            var mock = new Mock<IDataAccess>();
             var dataAccess = new Mock<IDataAccess>();
             Concert concert = new Concert(dataAccess.Object);
-            Booking booking = new Booking();
+            Booking booking = new Booking(mock.Object);
             int expected = 0;
             concert.Bookings.Add(booking);
 
@@ -82,10 +83,11 @@ namespace NWB_TESTS
         public void RemoveBooking_DoesNotRemoveBookingNotInBookings()
         {
             //Arrange
+            var mock = new Mock<IDataAccess>();
             var dataAccess = new Mock<IDataAccess>();
             Concert concert = new Concert(dataAccess.Object);
-            Booking booking1 = new Booking();
-            Booking booking2 = new Booking();
+            Booking booking1 = new Booking(mock.Object);
+            Booking booking2 = new Booking(mock.Object);
             int expected = 1;
             concert.Bookings.Add(booking1);
 
@@ -181,8 +183,9 @@ namespace NWB_TESTS
         public void MakeBooking_CanMakeBookingWhenConcertHasAnotherBooking()
         {
             //Arrange 
+            var mock0 = new Mock<IDataAccess>();
             Concert concert = GetConcertWithSpaceForTwo();
-            concert.Bookings.Add(new Booking());
+            concert.Bookings.Add(new Booking(mock0.Object));
             var mock = new Mock<Participant>();
             var mockFestivalManager = new Mock<IFestivalManager>();
 
