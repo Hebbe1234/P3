@@ -16,14 +16,18 @@ namespace NorthernWinterBeat.Pages.Admin
 
         [BindProperty (SupportsGet =true)]
         public string SortBy { get; set; }
-        public VenuesOverviewModel()
+        private IFestivalManager FestivalManager { get; }
+
+        public VenuesOverviewModel(IFestivalManager festivalManager)
         {
-            venues = FestivalManager.instance._calendar.GetVenues();
+            FestivalManager = festivalManager;
+            venues = FestivalManager.Calendar.GetVenues();
         }
+
 
         public void OnGet()
         {
-            venues = FestivalManager.instance._calendar.GetVenues(); 
+            venues = FestivalManager.Calendar.GetVenues(); 
         }
 
         public List<Venue> SortVenues(List<Venue> SortVenues)

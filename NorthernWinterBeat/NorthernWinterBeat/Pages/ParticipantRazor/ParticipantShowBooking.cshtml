@@ -6,38 +6,53 @@
 <div class="text-center">
     <h1>Your booking</h1>
     <div>
-        <h2>Your ticket number is:</h2>
-        <p>@Model.ticketNumber</p>
-        <p>or</p>
-        <h2>QR Code</h2>
-        <img class="container-fluid" src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/QR_code_for_mobile_English_Wikipedia.svg/1200px-QR_code_for_mobile_English_Wikipedia.svg.png" /> <!-- Fra wikipedia -->
-        <h2>Time left: </h2>
+        <p>Ticket number: </p>
+        <h3>@Model.Participant.Ticket.TicketNumber</h3>
+        <p>Name</p>
+        <h3>@Model.Participant.Name</h3>
+        <p>Email</p>
+        <h3>@Model.Participant.Email</h3>
+        <br>
+        <p>Concert</p>
+        <h3>@Model.Concert.Artist</h3>
+        <p>Venue</p>
+        <h3>@Model.Concert.Venue.Name</h3>
+        <p>Start time</p>
+        <h3>
+            @Model.Concert.Start
+            @*@Model.Concert.Start.Date.ToString("dd-MM-yyyy") @Model.Concert.Start.Date.ToString("HH:mm")*@
+        </h3>
     </div>
     <div class="text-center">
         <button type="button" class="btn btn-primary text-center" data-toggle="modal" data-target="#goBackBooking">
-            Gå tilbage
+            Return to bookings
         </button>
+    </div>
+</div>
 
-        <!-- Show booking modal -->
-        <div class="modal fade " id="goBackBooking" tabindex="-1" role="dialog" aria-labelledby="goBackBookingLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="goBackBookingLabel">Gå tilbage</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        Er du sikker på at du vil gå tilbage? Hvis du går tilbage er din booking ikke gyldig mere.
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Nej</button>
-                        <a class="nav-link text-dark" asp-area="" asp-page="/Participant/ParticipantBookings">
-                            <input type="button" class="btn btn-primary" value="Ja" />
-                        </a>
-                    </div>
-                </div>
+
+
+
+
+
+<!-- Show booking modal -->
+<div class="modal fade " id="goBackBooking" tabindex="-1" role="dialog" aria-labelledby="goBackBookingLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="goBackBookingLabel">Go back</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Going back will make this booking invalid. 
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                <a class="nav-link text-dark" asp-area="" asp-page="/Participant/ParticipantBookings">
+                    <input type="button" class="btn btn-primary" value="Yes" />
+                </a>
             </div>
         </div>
     </div>

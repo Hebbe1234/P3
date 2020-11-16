@@ -18,7 +18,7 @@
     <input name="AddressEntered" type="text" placeholder="Enter venue address" minlength="1" />
     <br>
     <br>
-    <input type="submit" id="btnSubmit1" value="Confirm" @*asp-area="" asp-page="/Admin/Venues"*@>
+    <input type="submit" id="btnSubmit1" value="Confirm">
     <input type="button" value="Cancel" data-toggle="modal" data-target="#Cancel">
 </form>
 
@@ -37,13 +37,10 @@
                 Are you sure you want to end adding to this venue?
             </div>
             <div class="modal-footer">
-
-
                 <input type="button" class="btn btn-secondary" data-dismiss="modal" value="No" />
                 <form method="post" asp-page-handler="Cancel">
                     <input type="submit" class="btn btn-primary" value="Yes" />
                 </form>
-
             </div>
         </div>
     </div>

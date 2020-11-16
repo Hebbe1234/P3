@@ -18,30 +18,25 @@ namespace NorthernWinterBeat.Pages
 {
     public class IndexModel : PageModel
     {
-        private readonly ILogger<IndexModel> _logger;
-
-        public IndexModel(ILogger<IndexModel> logger)
+        private IAuthorizationManager AuthorizationManager { get; }
+        public IndexModel(IAuthorizationManager authorizationManager)
         {
-            _logger = logger;
+            AuthorizationManager = authorizationManager;
         }
-
-
 
         public void OnGet()
         {
-
         }
         public IActionResult OnPostRegister()
         {
             string TicketInput = Request.Form["TicketEntered"];
-            //Her testes hvorvidt en billet er indtastet, og valideringen skal ske her. 
-            if(AuthorizationManager.instance.VerifyTicket(TicketInput))
+
+            if(AuthorizationManager.VerifyTicket(TicketInput))
             {
                 return RedirectToPage("./MakeUserLogin", new { ticketNumber = TicketInput });
             }
-            //Her endes der hvis der er indtastet noget forkert eller intet, derfor reloades der. 
-            return Page();
 
+            return Page();
         }
 
         public async Task<IActionResult> OnPostLoginAsync()
@@ -49,13 +44,16 @@ namespace NorthernWinterBeat.Pages
             string EmailInput = Request.Form["EmailEntered"];
             string PasswordInput = Request.Form["PasswordEntered"];
 
-            if (PasswordInput == "") { return Page(); }
+            if (PasswordInput == "") 
+            { 
+                return Page(); 
+            }
 
-            var user = DatabaseManager.GetUser(EmailInput);
+            var user = AuthorizationManager.GetUser(EmailInput);
            
-            if (user != null && AuthorizationManager.instance.Encrypt(PasswordInput) == user?.Password)
+            if (user != null && AuthorizationManager.Encrypt(PasswordInput) == user?.Password)
             {
-                var (claimsIdentity, authProperties) = AuthorizationManager.instance.CreateClaim(user);
+                var (claimsIdentity, authProperties) = AuthorizationManager.CreateClaim(user);
 
                 await HttpContext.SignOutAsync();
 
@@ -87,7 +85,6 @@ namespace NorthernWinterBeat.Pages
 
             //Her endes der hvis der er indtastet noget forkert eller intet, derfor reloades der. 
             return RedirectToPage("./Index");
-
         }
     }
 }

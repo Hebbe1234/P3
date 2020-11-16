@@ -8,20 +8,30 @@ using System.Drawing;
 using System.ComponentModel;
 using NorthernWinterBeatLibrary.Managers;
 using NorthernWinterBeat.Models;
+using NorthernWinterBeatLibrary.DataAccess;
 
 namespace NorthernWinterBeat.Pages.Admin
 {
     public class EditConcertModel : PageModel
     {
+        public EditConcertModel(IDataAccess dataAccess, IFestivalManager festivalManager)
+        {
+            FestivalManager = festivalManager; 
+            DataAccess = dataAccess; 
+        }
+        private IFestivalManager FestivalManager { get; }
+
+
         public Concert concert { get; set; }
         public List<Venue> venues { get; set; } = new List<Venue>();
+        public IDataAccess DataAccess { get; set; }
 
         public void OnGet(int id)
         {
-            concert = FestivalManager.instance._calendar.GetConcert(id);
-            venues = FestivalManager.instance._calendar.GetVenues(); 
+            concert = FestivalManager.Calendar.GetConcert(id);
+            venues = FestivalManager.Calendar.GetVenues(); 
         }
-        public async Task<IActionResult> OnPostEditConcertAsync(int id)
+        public IActionResult OnPostEditConcert(int id)
         {
             string Artist = Request.Form["ArtistEntered"];
             string Description = Request.Form["DescriptionEntered"];
@@ -31,13 +41,13 @@ namespace NorthernWinterBeat.Pages.Admin
             string StartTime = Request.Form["StartTimeEntered"];
             string EndTime = Request.Form["EndTimeEntered"];
 
-            int Year = 0001, Month = 01, Day = 01;
+            int Year = 0001, Month = 01, StartDay = 01, EndDay = 01;
             int StartHour = 0, StartMinute = 0, EndHour = 0, EndMinute = 0;
             if (Date != "")
             {
                 Year = int.Parse(Date.Substring(0, 4));
                 Month = int.Parse(Date.Substring(5, 2));
-                Day = int.Parse(Date.Substring(8, 2));
+                StartDay = EndDay = int.Parse(Date.Substring(8, 2));
             }
             if (StartTime != "")
             {
@@ -49,12 +59,16 @@ namespace NorthernWinterBeat.Pages.Admin
                 EndHour = int.Parse(EndTime.Substring(0, 2));
                 EndMinute = int.Parse(EndTime.Substring(3, 2));
             }
+            if (StartHour > EndHour || ((StartHour == EndHour) && (StartMinute > EndMinute)))
+            {
+                EndDay++;
+            }
 
-            DateTime Start = new DateTime(Year, Month, Day, StartHour, StartMinute, 0);
-            DateTime End = new DateTime(Year, Month, Day, EndHour, EndMinute, 0);
-            Concert NewConcertInfo = new Concert(Start, End, Artist, Description);
+            DateTime Start = new DateTime(Year, Month, StartDay, StartHour, StartMinute, 0);
+            DateTime End = new DateTime(Year, Month, EndDay, EndHour, EndMinute, 0);
+            Concert NewConcertInfo = new Concert(Start, End, Artist, Description, DataAccess);
 
-            await FestivalManager.instance._calendar.EditConcert(id, NewConcertInfo, Venue);
+            FestivalManager.Calendar.GetConcert(id).Update(NewConcertInfo, Venue, FestivalManager);
             return RedirectToPage("./Calendar");
         }
         public string FindDate()

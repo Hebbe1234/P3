@@ -1,4 +1,5 @@
-﻿using NorthernWinterBeatLibrary.Managers;
+﻿using NorthernWinterBeatLibrary.DataAccess;
+using NorthernWinterBeatLibrary.Managers;
 using NorthernWinterBeatLibrary.Models;
 using System;
 using System.Collections.Generic;
@@ -6,7 +7,8 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
 namespace NorthernWinterBeat.Models
-{	public class Participant : User
+{
+    public class Participant : User
 	{
 		public enum ParticipantState
         {
@@ -16,35 +18,63 @@ namespace NorthernWinterBeat.Models
         public ParticipantState State { get; set; }
         public string Name { get; set; } = "";
 		public Ticket Ticket { get; protected set; }
+        public string Email { get; set; }
+
+        private IDataAccess DataAccess;
         public Participant()
         {
+
+        }
+
+        public Participant(NorthernWinterBeatConcertContext ctx)
+        {
+            DataAccess = new EFDataAccess(ctx);
             State = ParticipantState.ACTIVE;
         }
-        public Participant(Ticket _ticket): 
-            this()
+
+        public Participant(Ticket _ticket, IDataAccess dataAccess) 
         {
+            DataAccess = dataAccess;
             Ticket = _ticket;
+            
         }
-        public bool CanMakeBookingAt(Concert concert)
+
+        public Participant(Ticket _ticket, string name, string email, IDataAccess dataAccess) : this(_ticket, dataAccess)
         {
-			List<Concert> bookedConcerts =  FestivalManager.instance._calendar.GetConcerts().FindAll(c => c.Bookings.Find(b => b.Participant == this) != null);
+            Name = name;
+            Email = email;
+            Username = Email; 
+        }
+
+
+        public virtual bool CanMakeBookingAt(Concert concert, IFestivalManager festivalManager)
+        {
+            List<Concert> bookedConcerts = festivalManager.Calendar.GetConcerts().FindAll(c => c.Bookings.Find(b => b.Participant == this) != null);
             foreach (var c in bookedConcerts)
             {
-				if(concert.Start < c.End && concert.End > c.Start)
+                if (concert.Start < c.End && concert.End > c.Start)
                 {
-					return false;
+                    return false;
                 }
             }
-			return true;
-        }	
+            return true;
+        }
 
-        public List<Booking> GetParticipantBookings()
+        public List<Booking> GetParticipantBookings(IFestivalManager festivalManager)
         {
-           return (FestivalManager.instance._calendar
-                .GetConcerts()
-                .SelectMany(c => c.Bookings))
-                .ToList()
-                .FindAll(b => b.Participant.ID == this.ID);
+            return (festivalManager.Calendar
+                 .GetConcerts()
+                 .SelectMany(c => c.Bookings))
+                 .ToList()
+                 .FindAll(b => b.Participant.ID == this.ID);
+        }
+
+        public void Update(Participant NewParticipant)
+        {
+            Name = NewParticipant.Name;
+            Username = NewParticipant.Username;
+           
+            DataAccess.Save();    
         }
     }
 }

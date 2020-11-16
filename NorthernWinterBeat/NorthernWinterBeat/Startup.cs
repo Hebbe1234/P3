@@ -13,6 +13,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Http;
+using NorthernWinterBeatLibrary.DataAccess;
+using NorthernWinterBeatLibrary.Managers;
 
 namespace NorthernWinterBeat
 {
@@ -56,8 +58,14 @@ namespace NorthernWinterBeat
                 .AddCookie();
             
 
-            services.AddDbContext<NorthernWinterBeatLibrary.Managers.NorthernWinterBeatConcertContext>(options =>
-                    options.UseSqlServer(Configuration.GetConnectionString("NorthernWinterBeatConcertContext")));
+            services.AddSingleton<IDataAccess, EFDataAccess>();
+            services.AddSingleton<IFestivalManager, FestivalManager>(); 
+            services.AddSingleton<IAuthorizationManager, AuthorizationManager>();
+
+
+            services.AddDbContext<NorthernWinterBeatConcertContext>(options =>
+                    options.UseSqlServer(Configuration.GetConnectionString("NorthernWinterBeatConcertContext")), ServiceLifetime.Singleton);
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -88,8 +96,6 @@ namespace NorthernWinterBeat
             {
                 endpoints.MapRazorPages();
             });
-
         }
-
     }
 }

@@ -9,6 +9,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using NorthernWinterBeatLibrary.Managers;
 using Microsoft.Extensions.DependencyInjection;
+using NorthernWinterBeatLibrary.DataAccess;
 
 namespace NorthernWinterBeat
 {
@@ -18,11 +19,8 @@ namespace NorthernWinterBeat
         {
             var host = CreateHostBuilder(args).Build();
             
-            DatabaseManager databaseManager = new DatabaseManager(host.Services.GetService<IConfiguration>());
 
             CreateDbIfNotExists(host);
-            FestivalManager festivalManager = new FestivalManager();
-            AuthorizationManager authorizationManager = new AuthorizationManager();
 
             host.Run();
         }

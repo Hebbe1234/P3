@@ -9,5 +9,15 @@ namespace NorthernWinterBeatLibrary.Models
     {
         [Key]
         public string TicketNumber { get; set; }
+
+        public LegalTicket()
+        {
+
+        }
+
+        public LegalTicket(string ticketNumber)
+        {
+            TicketNumber = ticketNumber;
+        }
     }
 }
