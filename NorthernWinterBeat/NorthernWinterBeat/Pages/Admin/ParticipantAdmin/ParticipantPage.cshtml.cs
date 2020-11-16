@@ -28,7 +28,7 @@ namespace NorthernWinterBeat.Pages.Admin.ParticipantAdmin
 
             // Split all concerts into two categories. The ones where the participant has a booking
             // and the ones, where the participant does not have a booking.
-            foreach (Concert item in FestivalManager.Calendar.GetAllConcerts())
+            foreach (Concert item in FestivalManager.Calendar.GetConcerts())
             {
                 flag = true; 
                 foreach (Booking booking in item.Bookings)

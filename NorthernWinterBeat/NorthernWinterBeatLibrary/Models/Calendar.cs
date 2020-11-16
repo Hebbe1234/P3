@@ -105,10 +105,7 @@ public class Calendar
             DataAccess.Remove(venue);
         }
     }
-    public List<Concert> GetAllConcerts()
-    {
-        return concerts; 
-    }
+   
 }
 
 
