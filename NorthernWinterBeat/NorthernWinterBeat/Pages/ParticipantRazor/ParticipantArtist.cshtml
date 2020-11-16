@@ -24,22 +24,22 @@
     @{
         var claimTicketID = HttpContext.User.Claims.Where(c => c.Type == "TicketID").Select(t => t.Value).First();
         var curUser = FestivalManager.GetParticipants().Where(p => p.Ticket?.TicketNumber == claimTicketID).First();
-         if (Model.concert.Bookings.Where(b => b.Participant == curUser).Count() > 0)
+        if (Model.concert.Bookings.Where(b => b.Participant == curUser).Count() > 0)
         {
             <button type="button" class="btn btn-block btn-success text-center" data-toggle="modal" data-target="#bookSpot" disabled>
                 Booked
-            </button>
-        }
-        else if (!(curUser?.CanMakeBookingAt(Model.concert,FestivalManager) ?? false))
-        {
-            <button type="button" class="btn btn-block btn-danger text-center" data-toggle="modal" data-target="#bookSpot" disabled>
-                You already have a booking overlapping this concert
             </button>
         }
         else if (Model.concert.IsAtMaxCapacity)
         {
             <button type="button" class="btn btn-block btn-danger text-center" data-toggle="modal" data-target="#bookSpot" disabled>
                 This concert is at max capacity
+            </button>
+        }
+        else if (!(curUser?.CanMakeBookingAt(Model.concert, FestivalManager) ?? false))
+        {
+            <button type="button" class="btn btn-block btn-danger text-center" data-toggle="modal" data-target="#bookSpot" disabled>
+                You already have a booking overlapping this concert
             </button>
         }
         else
