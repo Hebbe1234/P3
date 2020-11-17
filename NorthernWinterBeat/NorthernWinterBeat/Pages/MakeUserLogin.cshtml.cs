@@ -53,8 +53,15 @@ namespace NorthernWinterBeat.Pages
             }
 
             //Her kan det valideres hvorvidt usernamet er korrekt. 
-            if (EmailEntered == "")
+
+            var user = AuthorizationManager.GetUser(EmailEntered);
+            if(user != null )
             {
+                Console.WriteLine("A user with that email already exist");
+                return RedirectToPage("./MakeUserLogin");
+            } else if(EmailEntered == "")
+            {
+                Console.WriteLine("No email entered");
                 return RedirectToPage("./MakeUserLogin");
             }
 
