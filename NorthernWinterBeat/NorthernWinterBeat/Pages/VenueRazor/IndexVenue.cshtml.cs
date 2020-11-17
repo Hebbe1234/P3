@@ -14,6 +14,7 @@ namespace NorthernWinterBeat.Pages.VenueRazor
 
         [BindProperty(SupportsGet = true)]
         public string SortBy { get; set; }
+
         [BindProperty(SupportsGet = true)]
         public int id { get; set; }
         private IFestivalManager FestivalManager { get; }

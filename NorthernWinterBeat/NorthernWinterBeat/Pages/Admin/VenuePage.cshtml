@@ -7,12 +7,12 @@
 <div class="card">
     <div class="card-body">
         <div class="row">
-            <div class="col-8"> <h3> Venue Name: @Model.venue.Name </h3> </div>
-            <div class="col-4"> <p class="float-right"> Capacity: @Model.venue.Capacity </p> </div>
+            <div class="col-8"> <h3> @Model.venue.Name </h3> </div>
+            <div class="col-8"> <p> <b>Capacity:</b> @Model.venue.Capacity </p> </div>
         </div>
 
         <div class="row">
-            <div class="col-8"> <p> Address: @Model.venue.Address</p> </div>
+            <div class="col-8"> <p> <b>Address:</b> @Model.venue.Address</p> </div>
             <div class="col-4">
                 <button type="button" class="float-right" data-toggle="modal" onclick="location.href = '@(Url.Page("EditVenue", new { id = Model.id }))'">
                     <i class="fas fa-pencil-alt"></i>
@@ -21,7 +21,13 @@
             <div class="col-4">
 
                 <input type="button" class="btn btn-danger" value="Delete Venue" data-toggle="modal" data-target="#deleteVenue">
-          
+
+            </div>
+            <br >
+            <div class="col-4">
+
+                <input type="button" class="btn btn-secondary" value="Create Venue Login"  onclick="location.href = '@(Url.Page("CreateVenueLogin", new { id = Model.id }))'" @*data-toggle="modal" data-target="#deleteVenue"*@>
+
             </div>
         </div>
     </div>
