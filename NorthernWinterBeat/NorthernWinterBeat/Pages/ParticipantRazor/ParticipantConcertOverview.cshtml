@@ -11,14 +11,7 @@
     }
 </style>
 <div class="btn-group btn-group-justified" role="group" aria-label="Basic example" style="text-align:center">
-
-    @*<li class="@((path.Contains("Calendar") || path.Contains("Concert"))? "selected" : "")">
-        <a class="nav-link text-light nav-item" asp-area="" asp-page="/Admin/Calendar" style="display:table-cell"> Concerts </a>
-    </li>*@
-
-
     @{
-
         var Dates = new HashSet<DateTime>();
 
         @foreach (var c in Model.Concerts)
@@ -38,9 +31,15 @@
     <table class="table table-hover">
         <thead>
             <tr>
-                <th scope="col">Artist</th>
-                <th scope="col">Time</th>
-                <th scope="col">Location</th>
+                <th>
+                    <button class="btn btn-default th-button" value="Artist">Artist</button>
+                </th>
+                <th>
+                    <button class="btn btn-default th-button" value="Time">Time</button>
+                </th>
+                <th>
+                    <button class="btn btn-default th-button" value="Venue">Location</button>
+                </th>
             </tr>
         </thead>
         <tbody id="concertsOverviewTable">
@@ -79,7 +78,7 @@
         $(function () {
             $('.btn').on('click', function () {
                 var day = $(this).val()
-                $('#concertsOverviewTable').load('?handler=ConcertsOverviewPartial&concertDay=' + day);
+                $('#concertsOverviewTable').load('?handler=ConcertsOverviewPartial&concertDay=' + day)
             });
         });
     </script>

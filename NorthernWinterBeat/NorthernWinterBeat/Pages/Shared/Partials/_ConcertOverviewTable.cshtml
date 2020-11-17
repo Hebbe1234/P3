@@ -5,7 +5,9 @@
 @{
 
     // Adding rows of concerts based on which day is chosen in the buttons above.
-    foreach (Concert concert in Model.ConcertDayChooser(Model.Day ?? default(DateTime)))
+    List<Concert> t1 = Model.ConcertDayChooser(Model.Day ?? default(DateTime));
+    t1 = Model.SortConcertBy(t1); 
+    foreach (Concert concert in t1)
     {
         <tr onclick="location.href = '@(Url.Page("ParticipantArtist", new { id = concert.ID }))'">
             <td><a class="btn-link text-dark">@concert?.Artist</a></td>
