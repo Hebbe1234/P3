@@ -37,7 +37,7 @@ namespace NorthernWinterBeat.Pages.Admin
             //Her kan koden valideres
             if (Password1Entered != Password2Entered)
             {
-                return RedirectToPage("./CreteVenueLogin", new { id = id });
+                return RedirectToPage("./CreateVenueLogin", new { id = id });
             }
 
             var user = AuthorizationManager.GetUser(Username);
