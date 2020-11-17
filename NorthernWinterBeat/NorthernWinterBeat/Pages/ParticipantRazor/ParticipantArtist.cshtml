@@ -39,7 +39,7 @@
         else if (!(curPart?.CanMakeBookingAt(Model.concert, FestivalManager) ?? false))
         {
             <button type="button" class="btn btn-block btn-danger text-center" data-toggle="modal" data-target="#newBooking">
-                You already have a booking overlapping this concert
+                You already have a booking overlapping this concert. Click here to book anyway
             </button>
         }
         else
@@ -50,11 +50,14 @@
         }
     }
     <div>
-        <h2>Artist Description</h2>
+        <h4>@Model.concert.Artist</h4>
         <p>
             @Model.concert.ArtistDescription
         </p>
     </div>
+    <h2>Concert Information</h2>
+    <p>@Model.concert.Venue.Name - @Model.concert.Venue.Address</p>
+    <p><b> @Model.concert.Start.DayOfWeek </b>@Model.concert.Start.ToString("dd-MM") <br> @Model.concert.Start.ToShortTimeString() - @Model.concert.End.ToShortTimeString()</p>
 </div>
 
 
