@@ -32,7 +32,7 @@
         <thead>
             <tr>
                 <th>
-                    <button class="btn btn-default th-button" value="Artist">Artist</button>
+                    <button class="btn btn-default th-button th-selected" value="Artist">Artist</button>
                 </th>
                 <th>
                     <button class="btn btn-default th-button" value="Time">Time</button>
@@ -76,17 +76,38 @@
 @section scripts{
     <script>
         $(function () {
-            $('.btn').on('click', function () {
-                var day = $(this).val()
-                $('#concertsOverviewTable').load('?handler=ConcertsOverviewPartial&concertDay=' + day)
+            $('.th-button').on('click', function () {
+                var SortBy = $(this).val()
+                var day = $(".selected").val()
+                $('#concertsOverviewTable').load('?handler=ConcertsOverviewPartial&concertDay=' + day + "&SortBy=" + SortBy)
             });
         });
+    </script>
+    <script>
+        $(function () {
+            $('.th-button').on('click', function () {
+                $('.th-selected').removeClass('th-selected')
+                $(this).addClass('th-selected')
+
+            });
+        });
+
     </script>
     <script>
         $(function () {
             $('.day-selection').on('click', function () {
                 $('.selected').removeClass('selected')
                 $(this).addClass('selected')
+            });
+        });
+
+    </script>
+    <script>
+        $(function () {
+            $('.day-selection').on('click', function () {
+                var day = $(this).val()
+                var SortBy = $(".th-selected").val()
+                $('#concertsOverviewTable').load('?handler=ConcertsOverviewPartial&concertDay=' + day + "&SortBy=" + SortBy)
             });
         });
     </script>

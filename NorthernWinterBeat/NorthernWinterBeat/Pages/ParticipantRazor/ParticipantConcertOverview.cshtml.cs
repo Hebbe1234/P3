@@ -18,7 +18,7 @@ namespace NorthernWinterBeat.Pages
         public DateTime? Day { get; set; } = null;
         private IFestivalManager FestivalManager { get; }
         [BindProperty(SupportsGet = true)]
-        public string SortBy { get; set; }
+        public string SortBy { get; set; } = "Artist";
         public ParticipantConcertOverviewModel(IFestivalManager festivalManager)
         {
             FestivalManager = festivalManager;
@@ -56,9 +56,9 @@ namespace NorthernWinterBeat.Pages
             return Concerts.FindAll(c => c.Start.Date.ToShortDateString() == ConcertDay.ToShortDateString());
         }
 
-        public PartialViewResult OnGetConcertsOverviewPartial(string concertDay, string sortBy)
+        public PartialViewResult OnGetConcertsOverviewPartial(string concertDay, string SortBy)
         {
-            //this.SortBy = sortBy;
+            this.SortBy = SortBy;
             this.Day = DateTime.Parse(concertDay);
             this.Concerts = FestivalManager.Calendar.GetConcerts();
             return Partial("Partials/_ConcertOverviewTable", this);
@@ -77,7 +77,10 @@ namespace NorthernWinterBeat.Pages
             {
                 SortConcert = SortConcert.OrderBy(o => o.Venue?.Name).ThenBy(o => o.Start).ToList<Concert>();
             }
-            SortConcert = SortConcert.OrderBy(o => o.Start).ThenBy(o => o.End).ThenBy(o => o.Artist).ToList<Concert>();
+            else
+            {
+                SortConcert = SortConcert.OrderBy(o => o.Start).ThenBy(o => o.End).ThenBy(o => o.Artist).ToList<Concert>();
+            }
             return SortConcert;
         }
     }
