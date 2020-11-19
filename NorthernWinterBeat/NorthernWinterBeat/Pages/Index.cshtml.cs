@@ -23,6 +23,8 @@ namespace NorthernWinterBeat.Pages
         {
             AuthorizationManager = authorizationManager;
         }
+        [BindProperty (SupportsGet = true)]
+        public string Alert { get; set; }
 
         public void OnGet()
         {
@@ -36,7 +38,7 @@ namespace NorthernWinterBeat.Pages
                 return RedirectToPage("./MakeUserLogin", new { ticketNumber = TicketInput });
             }
 
-            return Page();
+            return RedirectToPage("./Index", new { Alert = "Wrong Ticket" });
         }
 
         public async Task<IActionResult> OnPostLoginAsync()
@@ -44,13 +46,13 @@ namespace NorthernWinterBeat.Pages
             string EmailInput = Request.Form["EmailEntered"];
             string PasswordInput = Request.Form["PasswordEntered"];
 
-            if (PasswordInput == "") 
-            { 
-                return Page(); 
+            if (PasswordInput == "")
+            {
+                return RedirectToPage("./Index", new { Alert = "Wrong Password" });
             }
 
             var user = AuthorizationManager.GetUser(EmailInput);
-           
+
             if (user != null && AuthorizationManager.Encrypt(PasswordInput) == user?.Password)
             {
                 var (claimsIdentity, authProperties) = AuthorizationManager.CreateClaim(user);
@@ -84,7 +86,7 @@ namespace NorthernWinterBeat.Pages
             }
 
             //Her endes der hvis der er indtastet noget forkert eller intet, derfor reloades der. 
-            return RedirectToPage("./Index");
+            return RedirectToPage("./Index", new { Alert = "Wrong Password" });
         }
     }
 }
