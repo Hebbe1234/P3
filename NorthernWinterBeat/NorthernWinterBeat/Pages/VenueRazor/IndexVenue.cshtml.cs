@@ -15,19 +15,23 @@ namespace NorthernWinterBeat.Pages.VenueRazor
         [BindProperty(SupportsGet = true)]
         public string SortBy { get; set; }
 
-        [BindProperty(SupportsGet = true)]
-        public int id { get; set; }
         private IFestivalManager FestivalManager { get; }
 
         public IndexModel(IFestivalManager festivalManager, int id = 3)
         {
             FestivalManager = festivalManager;
+
+
+
             concerts = FestivalManager.Calendar.GetConcertsAtVenue(id); 
         }
 
-        public void OnGet(int id = 3)
+        public void OnGet()
         {
-            concerts = FestivalManager.Calendar.GetConcertsAtVenue(id);
+            var currentVenueIDstring = HttpContext.User.Claims.Where(c => c.Type == "VenueID").Select(c => c.Value).FirstOrDefault();
+            var currentVenueID = int.Parse(currentVenueIDstring);
+
+            concerts = FestivalManager.Calendar.GetConcertsAtVenue(currentVenueID);
         }
 
         public List<Concert> SortConcertBy(List<Concert> SortConcert)

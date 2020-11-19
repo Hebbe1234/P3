@@ -75,7 +75,7 @@ namespace NorthernWinterBeat.Pages
                     case "ADMIN":
                         return RedirectToPage("./Admin/IndexAdmin");
                     case "VENUE":
-                        return RedirectToPage("./VenueRazor/IndexVenue", new { id = user.VenueID });
+                        return RedirectToPage("./VenueRazor/IndexVenue");
                     default:
                         break;
                 }
