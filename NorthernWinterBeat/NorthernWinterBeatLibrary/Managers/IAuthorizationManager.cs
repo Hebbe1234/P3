@@ -9,11 +9,8 @@ namespace NorthernWinterBeatLibrary.Managers
 {
     public interface IAuthorizationManager
     {
-
         public bool VerifyTicket(string TicketInput);
-
         public ApplicationUser GetUser(string username);
-
         public (ClaimsIdentity, AuthenticationProperties) CreateClaim(ApplicationUser user);
         public string Encrypt(string password);
 
