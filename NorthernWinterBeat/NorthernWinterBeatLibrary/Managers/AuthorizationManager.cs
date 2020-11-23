@@ -24,16 +24,7 @@ namespace NorthernWinterBeatLibrary.Managers
 
         public ApplicationUser GetUser(string username)
         {
-            var t1 = context.ApplicationUser;
-            var t2 = t1.Where(u => u.Username == username).ToList();
-
-            if (t2.Count() == 0)
-            {
-                return null;
-            }
-
-            return t2.First();
-            //return context.ApplicationUser.Where(u => u.Username == username)?.First();
+            return context.ApplicationUser.Where(u => u.Username == username)?.FirstOrDefault();
         }
 
         public bool VerifyTicket(string TicketInput)
@@ -59,32 +50,14 @@ namespace NorthernWinterBeatLibrary.Managers
 
             var authProperties = new AuthenticationProperties
             {
-                //AllowRefresh = <bool>,
-                // Refreshing the authentication session should be allowed.
-
-                //ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(10),
-                // The time at which the authentication ticket expires. A 
-                // value set here overrides the ExpireTimeSpan option of 
-                // CookieAuthenticationOptions set with AddCookie.
-
-                //IsPersistent = true,
-                // Whether the authentication session is persisted across 
-                // multiple requests. When used with cookies, controls
-                // whether the cookie's lifetime is absolute (matching the
-                // lifetime of the authentication ticket) or session-based.
-
-                //IssuedUtc = <DateTimeOffset>,
-                // The time at which the authentication ticket was issued.
-
-                //RedirectUri = <string>
-                // The full path or absolute URI to be used as an http 
-                // redirect response value.
+                
             };
 
             return (claimsIdentity, authProperties);
 
         }
 
+        //FROM https://docs.microsoft.com/en-us/dotnet/api/system.security.cryptography.aes?view=net-5.0
         public string Encrypt(string password)
         {
 
@@ -112,6 +85,8 @@ namespace NorthernWinterBeatLibrary.Managers
 
             }
         }
+
+        //FROM https://docs.microsoft.com/en-us/dotnet/api/system.security.cryptography.aes?view=net-5.0
         private byte[] EncryptStringToBytes_Aes(string plainText, byte[] Key, byte[] IV)
         {
             // Check arguments.
