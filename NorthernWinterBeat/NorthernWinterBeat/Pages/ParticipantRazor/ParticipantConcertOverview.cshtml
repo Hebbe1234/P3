@@ -10,7 +10,7 @@
         background: rgb(10,10,10);
     }
 </style>
-<div class="btn-group btn-group-justified" role="group" aria-label="Basic example" style="text-align:center">
+<div class="btn-group btn-group-justified" role="group" aria-label="Basic example" style="text-align:center; display:inherit">
     @{
         var Dates = new HashSet<DateTime>();
 
@@ -20,17 +20,21 @@
         }
         foreach (var d in Dates)
         {
-            <div class="btn-group" >
+            <div class="btn-group" style="width:32%" >
                 <button class="btn btn-secondary day-selection @((d.Date == Model.Day.Value.Date)? "selected" : "")" value=@d.ToString()>@d.DayOfWeek</button>
             </div>
         }
     }
 </div>
 
-<div class="list-group">
+<div class="list-group" style="text-align:center">
     <table class="table table-hover">
-        <thead>
+       
+        <thead style="font-weight:bold">
             <tr>
+                <th>
+                    <button class="btn btn-default th-button th-selected" value="Picture"></button>
+                </th>
                 <th>
                     <button class="btn btn-default th-button th-selected" value="Artist">Artist</button>
                 </th>
@@ -42,34 +46,10 @@
                 </th>
             </tr>
         </thead>
-        <tbody id="concertsOverviewTable">
+        <tbody id="concertsOverviewTable" style="overflow-wrap:anywhere">
             @await Html.PartialAsync("Partials/_ConcertOverviewTable", Model)
         </tbody>
     </table>
-
-
-    @*<div class="row">
-        @for (int i = 0; i < 10; i++)
-        {
-                <div class="card-columns">
-                    <div class="card" style="width: 18rem;">
-                        <img class="card-img-top" src="~/Graphics/Pictures/NWB2021_ArtistPhotos_SNS_Blank.jpg" alt="Card image cap">
-                        <div class="card-body">
-                            <h5 class="card-title">Artist name</h5>
-                            <p class="card-text">Description maybe</p>
-                        </div>
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item">Time</li>
-                            <li class="list-group-item">Venue</li>
-                        </ul>
-
-                    </div>
-                </div>
-
-        }
-            </div>*@
-
-
 </div>
 
 
