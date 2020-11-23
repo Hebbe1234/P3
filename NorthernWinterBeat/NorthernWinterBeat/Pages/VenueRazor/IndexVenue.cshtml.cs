@@ -22,12 +22,6 @@ namespace NorthernWinterBeat.Pages.VenueRazor
         public IndexModel(IFestivalManager festivalManager, int id = 3)
         {
             FestivalManager = festivalManager;
-
-            //var currentVenueIDstring = HttpContext.User.Claims.Where(c => c.Type == "VenueID").Select(c => c.Value).FirstOrDefault();
-            //var currentVenueID = int.Parse(currentVenueIDstring);
-
-            //concerts = FestivalManager.Calendar.GetConcertsAtVenue(id);
-            //venue = FestivalManager.Calendar.GetVenue(id);
         }
 
         public void OnGet()
