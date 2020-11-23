@@ -52,13 +52,10 @@ namespace NorthernWinterBeat.Pages.Admin
                 return RedirectToPage("./CreateVenueLogin", new { id = id });
             }
 
-            var newUser = new ApplicationUser(Username, AuthorizationManager.Encrypt(Password1Entered), ApplicationUser.Roles.VENUE)
-            {
-                VenueID = id
-            };
-
-            DataAccess.Add(newUser);
+            AuthorizationManager.CreateVenueUser(id, Username, Password1Entered); 
             return RedirectToPage("./Calendar");
         }
+
+        
     }
 }

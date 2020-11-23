@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
+using NorthernWinterBeat.Models;
+using NorthernWinterBeatLibrary.DataAccess;
 using NorthernWinterBeatLibrary.Models;
 using System;
 using System.Collections.Generic;
@@ -15,22 +17,46 @@ namespace NorthernWinterBeatLibrary.Managers
     public class AuthorizationManager : IAuthorizationManager
     {
 
-        private NorthernWinterBeatConcertContext context { get; set; }            
+        private IDataAccess DataAccess { get; set; }
+        private IFestivalManager FestivalManager { get; set; }
 
-        public AuthorizationManager(NorthernWinterBeatConcertContext _context)
+        public AuthorizationManager(IDataAccess dataAccess, IFestivalManager festivalManager)
         {
-            context = _context;
+            DataAccess = dataAccess;
+            FestivalManager = festivalManager;
         }
 
         public ApplicationUser GetUser(string username)
         {
-            return context.ApplicationUser.Where(u => u.Username == username)?.FirstOrDefault();
+            return DataAccess.Retrieve<ApplicationUser>().Where(u => u.Username == username)?.FirstOrDefault();
+        }
+
+        public void CreateParticipantUser(string NameEntered, string EmailEntered, string Password1Entered, string ticketNumber)
+        {
+            var newUser = new ApplicationUser(EmailEntered, Encrypt(Password1Entered), ApplicationUser.Roles.PARTICIPANT)
+            {
+                TicketID = ticketNumber
+            };
+
+            DataAccess.Add(newUser);
+            Participant newParticipant = new Participant(new Ticket(ticketNumber), NameEntered, EmailEntered, DataAccess);
+            FestivalManager.AddParticipant(newParticipant);
+        }
+
+        public void CreateVenueUser(int id, string Username, string Password1Entered)
+        {
+            var newUser = new ApplicationUser(Username, Encrypt(Password1Entered), ApplicationUser.Roles.VENUE)
+            {
+                VenueID = id
+            };
+
+            DataAccess.Add(newUser);
         }
 
         public bool VerifyTicket(string TicketInput)
         {
-            bool IsLegalTicket = context.LegalTickets.Find(TicketInput)?.TicketNumber == TicketInput;
-            bool DoesTicketNotExist = context.Ticket.Where(t => t.TicketNumber == TicketInput).ToList().Count() == 0;
+            bool IsLegalTicket = DataAccess.Retrieve<LegalTicket>().Where(t => t.TicketNumber == TicketInput).ToList().Count() > 0;
+            bool DoesTicketNotExist = DataAccess.Retrieve<Ticket>().Where(t => t.TicketNumber == TicketInput).ToList().Count() == 0;
             return IsLegalTicket && DoesTicketNotExist;
         }
 

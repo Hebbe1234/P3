@@ -13,6 +13,6 @@ namespace NorthernWinterBeatLibrary.Managers
         public ApplicationUser GetUser(string username);
         public (ClaimsIdentity, AuthenticationProperties) CreateClaim(ApplicationUser user);
         public string Encrypt(string password);
-
+        public void CreateParticipantUser(string NameEntered, string EmailEntered, string Password1Entered, string ticketNumber);
     }
 }
