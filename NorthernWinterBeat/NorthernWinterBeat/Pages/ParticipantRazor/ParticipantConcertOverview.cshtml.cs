@@ -17,7 +17,8 @@ namespace NorthernWinterBeat.Pages
         [BindProperty(SupportsGet = true)]
         public DateTime? Day { get; set; } = null;
         private IFestivalManager FestivalManager { get; }
-
+        [BindProperty(SupportsGet = true)]
+        public string SortBy { get; set; } = "Artist";
         public ParticipantConcertOverviewModel(IFestivalManager festivalManager)
         {
             FestivalManager = festivalManager;
@@ -55,11 +56,32 @@ namespace NorthernWinterBeat.Pages
             return Concerts.FindAll(c => c.Start.Date.ToShortDateString() == ConcertDay.ToShortDateString());
         }
 
-        public PartialViewResult OnGetConcertsOverviewPartial(string concertDay)
+        public PartialViewResult OnGetConcertsOverviewPartial(string concertDay, string SortBy)
         {
+            this.SortBy = SortBy;
             this.Day = DateTime.Parse(concertDay);
             this.Concerts = FestivalManager.Calendar.GetConcerts();
             return Partial("Partials/_ConcertOverviewTable", this);
+        }
+        public List<Concert> SortConcertBy(List<Concert> SortConcert)
+        {
+            if (SortBy == "Artist" || SortBy == null)
+            {
+                SortConcert = SortConcert.OrderBy(o => o.Artist).ToList<Concert>();
+            }
+            else if (SortBy == "Time")
+            {
+                SortConcert = SortConcert.OrderBy(o => o.Start).ThenBy(o => o.End).ThenBy(o => o.Artist).ToList<Concert>();
+            }
+            else if (SortBy == "Venue")
+            {
+                SortConcert = SortConcert.OrderBy(o => o.Venue?.Name).ThenBy(o => o.Start).ToList<Concert>();
+            }
+            else
+            {
+                SortConcert = SortConcert.OrderBy(o => o.Start).ThenBy(o => o.End).ThenBy(o => o.Artist).ToList<Concert>();
+            }
+            return SortConcert;
         }
     }
 }
