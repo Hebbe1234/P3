@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace NorthernWinterBeat.Models
 {
-    public class Participant : User
+    public class Participant 
 	{
 		public enum ParticipantState
         {
@@ -19,6 +19,9 @@ namespace NorthernWinterBeat.Models
         public string Name { get; set; } = "";
 		public Ticket Ticket { get; protected set; }
         public string Email { get; set; }
+
+        public string Username { get; set; }
+        public int ID { get; set; }
 
         private IDataAccess DataAccess;
         public Participant()
