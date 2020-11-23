@@ -14,5 +14,6 @@ namespace NorthernWinterBeatLibrary.Managers
         public (ClaimsIdentity, AuthenticationProperties) CreateClaim(ApplicationUser user);
         public string Encrypt(string password);
         public void CreateParticipantUser(string NameEntered, string EmailEntered, string Password1Entered, string ticketNumber);
+        void CreateVenueUser(int id, string Username, string Password1Entered);
     }
 }
