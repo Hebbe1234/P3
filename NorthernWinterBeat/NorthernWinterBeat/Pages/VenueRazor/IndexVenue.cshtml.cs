@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using NorthernWinterBeat.Models;
 using NorthernWinterBeatLibrary.Managers;
 
 namespace NorthernWinterBeat.Pages.VenueRazor
@@ -11,6 +12,7 @@ namespace NorthernWinterBeat.Pages.VenueRazor
     public class IndexModel : PageModel
     {
         public List<Concert> concerts { get; set; } = new List<Concert>();
+        public Venue venue { get; set; }
 
         [BindProperty(SupportsGet = true)]
         public string SortBy { get; set; }
@@ -20,10 +22,6 @@ namespace NorthernWinterBeat.Pages.VenueRazor
         public IndexModel(IFestivalManager festivalManager, int id = 3)
         {
             FestivalManager = festivalManager;
-
-
-
-            concerts = FestivalManager.Calendar.GetConcertsAtVenue(id); 
         }
 
         public void OnGet()
@@ -32,6 +30,7 @@ namespace NorthernWinterBeat.Pages.VenueRazor
             var currentVenueID = int.Parse(currentVenueIDstring);
 
             concerts = FestivalManager.Calendar.GetConcertsAtVenue(currentVenueID);
+            venue = FestivalManager.Calendar.GetVenue(currentVenueID);
         }
 
         public List<Concert> SortConcertBy(List<Concert> SortConcert)

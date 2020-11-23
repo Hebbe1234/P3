@@ -73,7 +73,7 @@ namespace NorthernWinterBeat.Pages
                     case "PARTICIPANT":
                         return RedirectToPage("./ParticipantRazor/ParticipantConcertOverview");
                     case "ADMIN":
-                        return RedirectToPage("./Admin/IndexAdmin");
+                        return RedirectToPage("./Admin/Calendar");
                     case "VENUE":
                         return RedirectToPage("./VenueRazor/IndexVenue");
                     default:
