@@ -156,9 +156,6 @@
         <!-- Sidebar -->
         <div id="sidebar-wrapper">
             <ul class="sidebar-nav">
-                <li class="sidebar-brand">
-                    <h3><a class="nav-link text-light nav-header" asp-area="" asp-page="/Admin/IndexAdmin"> Admin main page </a></h3>
-                </li>
                 <li class="@((path.Contains("Calendar") || path.Contains("Concert"))? "selected" : "")">
                     <a class="nav-link text-light nav-item" asp-area="" asp-page="/Admin/Calendar" style="display:table-cell"> Concerts </a>
                 </li>
