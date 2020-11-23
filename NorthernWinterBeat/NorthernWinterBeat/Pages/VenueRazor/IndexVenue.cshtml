@@ -6,35 +6,51 @@
 <div class="card">
     <div class="card-body">
         <div class="container">
-
-            <h3><a>Concerts</a></h3>
-
+            <h3><a>Concerts at @Model.venue.Name</a></h3>
             <p>
-                Here you can see all of the information about concerts at your venue <br />
-                By clicking on a concert, a list of all the bookings at the concert is shown. 
-
+                Here you can find all information about the concert held at your venue.  <br />
+                By clicking on a concert, a list of all the participants who have a booking to the concert is shown. 
             </p>
+            <p>
+                Click 
+                <a data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                    here
+                </a>
+                to see what information the participant have about your venue 
+            </p>
+            <div class="collapse" id="collapseExample">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-8"> <h3> @Model.venue.Name </h3> </div>
+                            <div class="col-8"> <p> <b>Capacity:</b> @Model.venue.Capacity </p> </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-8"> <p> <b>Address:</b> @Model.venue.Address</p> </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
     <br />
 <div class="card">
     <div class="card-body">
-        <h2>List of all concerts at your venue!</h2>
+        <h2>List of all concerts at your venue</h2>
         <table class="table table-hover" table-bordered>
             <thead>
                 <tr>
                     <th>
-                        <button class="btn btn-default" value="Artist">Artist</button>
+                        <button class="btn btn-default" value="Artist" disabled>Artist</button>
                     </th>
                     <th>
-                        <button class="btn btn-default" value="Time">Date</button>
+                        <button class="btn btn-default" value="Time" disabled>Date</button>
                     </th>
                     <th>
-                        <button class="btn btn-default" value="Time">Time</button>
+                        <button class="btn btn-default" value="Time" disabled>Time</button>
                     </th>
                     <th>
-                        <button class="btn btn-default" value="Capacity">Capacity</button>
+                        <button class="btn btn-default" value="Capacity" disabled>Capacity</button>
                     </th>
                 </tr>
             </thead>
