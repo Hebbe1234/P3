@@ -3,16 +3,56 @@
 @{
     ViewData["Title"] = "Home page";
 }
+@if (Model.Alert == "Wrong Password")
+{
+    <div class="alert alert-danger" role="alert">
+        Your login failed
+    </div>
+}
+else if (Model.Alert == "Wrong Ticket")
+{
+    <div class="alert alert-danger" role="alert">
+        Wrong Ticket input
+    </div>
+}
+else if (Model.Alert == "User Created")
+{
+    <div class="alert alert-success" role="alert">
+        User created! <br>Sign in with your new account and book some concerts!
+    </div>
+}
+<br>
+<br>
+
 
 <div class="jumbotron">
     <div class="container text-center">
-        <h2>Register Ticket number</h2>
+        <h2>Create user!</h2>
+        <p>
+            If its your first time visiting, create an account, by typing in your ticket number. <br>
+            For
+            <a data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                more information
+            </a>
+            click
+            <a data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                here!
+            </a>
+        </p>
+        <div class="collapse" id="collapseExample">
+            <div class="card">
+                    When you bought a ticket, a confirmation email with name and ticketnumber was send to your email.<br>
+                        Find the email with ticketnumber<br>
+                        Enter your ticket number, and press "registre"<br>
+                        Fill our the form with name, email and a password.<br>
+            </div>
+        </div>
         <br>
         <form method="post" asp-page-handler="Register" id="inForm1">
             <div class="input-group mb-3">
                 <input type="text" class="form-control" name="ticketEntered" placeholder="Ticket number" aria-label="Ticket ID" aria-describedby="basic-addon2">
                 <div class="input-group-append">
-                    <button class="btn btn-outline-secondary" type="submit" id="btnSubmit1">Register</button>
+                    <button class="btn btn-secondary" type="submit" id="btnSubmit1">Register</button>
                 </div>
             </div>
         </form>
@@ -20,7 +60,8 @@
 </div>
 <div class="jumbotron">
     <div class="container text-center">
-        <h2>Login</h2>
+        <p> Are you an Administrator, venue or participant?</p>
+        <h2>Sign in here!</h2>
         <form method="post" asp-page-handler="Login" id="inForm2">
 
             <input class="form-control" type="text" name="EmailEntered" placeholder="Email" />

@@ -151,8 +151,6 @@ namespace NorthernWinterBeatLibrary.Managers
             // Return the encrypted bytes from the memory stream.
             return encrypted;
         }
-
     }
-
 }
 

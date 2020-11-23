@@ -18,10 +18,10 @@
                         <b>@booking.Concert.Artist</b>
                     </li>
                     <li class="list-group-item text-center">
-                        @booking.Concert.Start
-                        @*@booking.Concert.Start.Date.ToString("dd-MM-yyyy HH:mm") dd @booking.Concert.Start.Date.ToString("HH:mm") ll @booking.Concert.Start.Minute.ToString("mm");*@
+                        <b>@booking.Concert.Start.DayOfWeek </b> @booking.Concert.Start.ToString("dd-MM")  <br> @booking.Concert.Start.ToShortTimeString() - @booking.Concert.End.ToShortTimeString()
                     </li>
                     <li class="list-group-item text-center">
+                        <b> @booking.Concert.Venue.Name </b> <br />
                         @booking.Concert.Venue.Address
                     </li>
                 </ul>

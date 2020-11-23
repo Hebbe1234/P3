@@ -25,8 +25,9 @@ namespace NorthernWinterBeat.Pages
         public string ticketNumber { get; set; }
         private IAuthorizationManager AuthorizationManager { get; }
         private IFestivalManager FestivalManager { get; }
-
         private IDataAccess DataAccess { get; }
+        [BindProperty(SupportsGet = true)]
+        public string Alert { get; set; }
 
         public MakeUserLoginModel(IFestivalManager festivalManager, IAuthorizationManager authorizationManager, IDataAccess dataAccess)
         {
@@ -46,18 +47,33 @@ namespace NorthernWinterBeat.Pages
             string Password2Entered = Request.Form["Password2Entered"];
 
             //Her kan koden valideres
+            if(NameEntered == "")
+            {
+                return RedirectToPage("./MakeUserLogin", new { Alert = "No Name", ticketNumber = ticketNumber });
+            } 
+            else if (EmailEntered == "")
+            {
+                return RedirectToPage("./MakeUserLogin", new { Alert = "No Email", ticketNumber = ticketNumber });
+            }
+            else if (Password1Entered == "" || Password2Entered == "")
+            {
+                return RedirectToPage("./MakeUserLogin", new { Alert = "No Password", ticketNumber = ticketNumber });
+            }
+
 
             if (Password1Entered != Password2Entered)
             {
-                return RedirectToPage("./MakeUserLogin");
-            }
+                return RedirectToPage("./MakeUserLogin", new { Alert = "Different Passwords", ticketNumber = ticketNumber });
+            } 
 
             //Her kan det valideres hvorvidt usernamet er korrekt. 
-            if (EmailEntered == "")
-            {
-                return RedirectToPage("./MakeUserLogin");
-            }
 
+            var user = AuthorizationManager.GetUser(EmailEntered);
+            if(user != null )
+            {
+                Console.WriteLine("A user with that email already exist");
+                return RedirectToPage("./MakeUserLogin", new { Alert = "Email Exist", ticketNumber = ticketNumber  });
+            }
             var newUser = new ApplicationUser(EmailEntered, AuthorizationManager.Encrypt(Password1Entered), ApplicationUser.Roles.PARTICIPANT)
             {
                 TicketID = ticketNumber
@@ -67,7 +83,7 @@ namespace NorthernWinterBeat.Pages
             Participant newParticipant = new Participant(new Ticket(ticketNumber), NameEntered, EmailEntered, DataAccess);
             FestivalManager.AddParticipant(newParticipant);
 
-            return RedirectToPage("./Index");
+            return RedirectToPage("./Index", new { Alert = "User Created", ticketNumber = ticketNumber });
         }
     }
 }

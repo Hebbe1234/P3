@@ -16,9 +16,19 @@ namespace NorthernWinterBeat.Pages.VenueRazor
         {
             FestivalManager = festivalManager; 
         }
-        public void OnGet(int id = 0)
+        public IActionResult OnGet(int id)
         {
-            concert = FestivalManager.Calendar?.GetConcert(id);
+            var currentVenueIDstring = HttpContext.User.Claims.Where(c => c.Type == "VenueID").Select(c => c.Value).FirstOrDefault();
+            var currentVenueID = int.Parse(currentVenueIDstring);
+            if(FestivalManager.Calendar.GetConcertsAtVenue(currentVenueID).Select(c => c.ID).Contains(id)) {
+                concert = FestivalManager.Calendar?.GetConcert(id);
+            } else
+            {
+                return RedirectToPage("./IndexVenue");
+            }
+
+            return Page();
+            
         }
     }
 }

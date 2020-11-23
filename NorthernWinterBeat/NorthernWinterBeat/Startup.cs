@@ -45,13 +45,14 @@ namespace NorthernWinterBeat
             {
                 options.Conventions.AuthorizeFolder("/Admin", "AdministratorOnly");
                 options.Conventions.AuthorizeFolder("/ParticipantRazor", "ParticipantOnly");
+                options.Conventions.AuthorizeFolder("/VenueRazor", "VenueOnly");
             });
 
             services.AddAuthorization(options =>
             {
                 options.AddPolicy("AdministratorOnly", policy => policy.RequireRole("ADMIN"));
                 options.AddPolicy("ParticipantOnly", policy => policy.RequireRole("PARTICIPANT"));
-
+                options.AddPolicy("VenueOnly", policy => policy.RequireRole("VENUE"));
             });
 
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
