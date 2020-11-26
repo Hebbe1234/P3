@@ -31,6 +31,12 @@ public class Concert
         ArtistDescription = _artistDescription;
 
     }
+    public Concert(DateTime _start, DateTime _end, string _artist, string _artistDescription, string _picturePath, IDataAccess _dataAccess) :
+        this(_start, _end, _artist, _artistDescription, _dataAccess)
+    {
+        PicturePath = _picturePath;
+    }
+
     public Concert(DateTime _start, DateTime _end, Venue _venue, string _artist, string _artistDescription, IDataAccess _dataAccess) :
         this(_start, _end, _artist, _artistDescription, _dataAccess)
 	{
@@ -109,6 +115,7 @@ public class Concert
         Venue = NewConcertInfo.Venue;
         Artist = NewConcertInfo.Artist;
         ArtistDescription = NewConcertInfo.ArtistDescription;
+        PicturePath = NewConcertInfo.PicturePath != "" ? NewConcertInfo.PicturePath : PicturePath;
 
         DataAccess.Save();
     }

@@ -62,7 +62,7 @@ namespace NorthernWinterBeat
             services.AddSingleton<IDataAccess, EFDataAccess>();
             services.AddSingleton<IFestivalManager, FestivalManager>(); 
             services.AddSingleton<IAuthorizationManager, AuthorizationManager>();
-
+            services.AddSingleton<IBlobStorageManager>(new BlobStorageManager("artists", Configuration.GetConnectionString("nwbBlobStorage")));
 
             services.AddDbContext<NorthernWinterBeatConcertContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("NorthernWinterBeatConcertContext")), ServiceLifetime.Singleton);
