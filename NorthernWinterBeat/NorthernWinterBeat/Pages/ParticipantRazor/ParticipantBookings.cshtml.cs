@@ -48,7 +48,6 @@ namespace NorthernWinterBeat.Pages.ParticipantRazor
 
             if(diffrence.TotalMinutes < 30)
             {
-                booking.Disable();
                 return RedirectToPage("ParticipantShowBooking", new { bookingID = id });
             } else
             {
