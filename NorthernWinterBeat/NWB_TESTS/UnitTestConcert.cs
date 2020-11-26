@@ -173,7 +173,7 @@ namespace NWB_TESTS
 
             //Act
             Booking resultBooking = concert.MakeBooking(mock.Object, mockFestivalManager.Object);
-            var result = (resultBooking.Participant, resultBooking.Concert);
+            var result = (resultBooking?.Participant, resultBooking?.Concert);
 
             //Assert
             Assert.Equal(expected, result);
@@ -194,7 +194,7 @@ namespace NWB_TESTS
 
             //Act
             Booking resultBooking = concert.MakeBooking(mock.Object, mockFestivalManager.Object);
-            var result = (resultBooking.Participant, resultBooking.Concert);
+            var result = (resultBooking?.Participant, resultBooking?.Concert);
 
             //Assert
             Assert.Equal(expected, result);
@@ -277,14 +277,14 @@ namespace NWB_TESTS
             Concert otherConcert = new Concert(mock.Object);
 
             //Act
-            otherConcert.Update(NewConcertInfo, otherVenue.Name, festivalManager);
+            otherConcert?.Update(NewConcertInfo, otherVenue?.Name, festivalManager);
 
             //Assert
-            Assert.Equal(otherConcert.Artist, NewConcertInfo.Artist);
-            Assert.Equal(otherConcert.Venue.Name, otherVenue.Name);
-            Assert.Equal(otherConcert.Start, NewConcertInfo.Start);
-            Assert.Equal(otherConcert.End, NewConcertInfo.End);
-            Assert.Equal(otherConcert.ArtistDescription, NewConcertInfo.ArtistDescription);
+            Assert.Equal(otherConcert?.Artist, NewConcertInfo.Artist);
+            Assert.Equal(otherConcert?.Venue?.Name, otherVenue?.Name);
+            Assert.Equal(otherConcert?.Start, NewConcertInfo.Start);
+            Assert.Equal(otherConcert?.End, NewConcertInfo.End);
+            Assert.Equal(otherConcert?.ArtistDescription, NewConcertInfo.ArtistDescription);
         }
     }
 }

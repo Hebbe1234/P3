@@ -14,10 +14,11 @@ namespace NorthernWinterBeat.Pages.Admin
 {
     public class EditConcertModel : PageModel
     {
-        public EditConcertModel(IDataAccess dataAccess, IFestivalManager festivalManager)
+        public EditConcertModel(IDataAccess dataAccess, IFestivalManager festivalManager, IBlobStorageManager blobStorageManager)
         {
             FestivalManager = festivalManager; 
-            DataAccess = dataAccess; 
+            DataAccess = dataAccess;
+            BlobStorageManager = blobStorageManager;
         }
         private IFestivalManager FestivalManager { get; }
 
@@ -25,6 +26,7 @@ namespace NorthernWinterBeat.Pages.Admin
         public Concert concert { get; set; }
         public List<Venue> venues { get; set; } = new List<Venue>();
         public IDataAccess DataAccess { get; set; }
+        public IBlobStorageManager BlobStorageManager { get; }
 
         public void OnGet(int id)
         {
@@ -35,7 +37,13 @@ namespace NorthernWinterBeat.Pages.Admin
         {
             string Artist = Request.Form["ArtistEntered"];
             string Description = Request.Form["DescriptionEntered"];
-            //string Image = Request.Form["ImageEntered"];   // Dette virker lidt fjollet umiddelbart. 
+            string Image = "";
+            if (Request.Form.Files.Count > 0)
+            {
+                var file = Request.Form.Files[0];
+                Image = file.FileName;
+                BlobStorageManager.Upload(Image, file.OpenReadStream());
+            }
             string Venue = Request.Form["VenueEntered"];
             string Date = Request.Form["DateEntered"];
             string StartTime = Request.Form["StartTimeEntered"];
@@ -66,7 +74,7 @@ namespace NorthernWinterBeat.Pages.Admin
 
             DateTime Start = new DateTime(Year, Month, StartDay, StartHour, StartMinute, 0);
             DateTime End = new DateTime(Year, Month, EndDay, EndHour, EndMinute, 0);
-            Concert NewConcertInfo = new Concert(Start, End, Artist, Description, DataAccess);
+            Concert NewConcertInfo = new Concert(Start, End, Artist, Description,Image, DataAccess);
 
             FestivalManager.Calendar.GetConcert(id).Update(NewConcertInfo, Venue, FestivalManager);
             return RedirectToPage("./Calendar");
@@ -96,10 +104,4 @@ namespace NorthernWinterBeat.Pages.Admin
         }
     }
    
-
-
-    public class ImageConverter : System.ComponentModel.TypeConverter
-    {
-
-    }
 }

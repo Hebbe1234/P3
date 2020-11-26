@@ -1,6 +1,7 @@
 ﻿@page
 @model NorthernWinterBeat.Pages.ParticipantRazor.ParticipantArtistModel
 @inject NorthernWinterBeatLibrary.Managers.IFestivalManager FestivalManager
+@inject NorthernWinterBeatLibrary.Managers.IBlobStorageManager BlobStorageManager 
 @{
 }
 
@@ -19,7 +20,7 @@
             </button> @Model.concert.Artist
         </h1>
     </form>
-    <img class="container-fluid" src="https://www.winterbeat.dk/wp-content/uploads/2020/08/joe-.jpg" />
+    <img class="container-fluid" src="@(BlobStorageManager.ContainerURL + "/" + Model.concert.PicturePath)"/>
 
     @{
         var claimTicketID = HttpContext.User.Claims.Where(c => c.Type == "TicketID").Select(t => t.Value).First();
@@ -58,7 +59,7 @@
         </p>
     </div>
     <h2>Concert Information</h2>
-    <p>@Model.concert.Venue.Name - @Model.concert.Venue.Address</p>
+    <p>@Model.concert.Venue?.Name - @Model.concert.Venue?.Address</p>
     <p><b> @Model.concert.Start.DayOfWeek </b>@Model.concert.Start.ToString("dd-MM") <br> @Model.concert.Start.ToShortTimeString() - @Model.concert.End.ToShortTimeString()</p>
 </div>
 
