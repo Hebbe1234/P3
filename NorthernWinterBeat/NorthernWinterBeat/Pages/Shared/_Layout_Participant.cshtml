@@ -32,15 +32,35 @@
             </ul>
         </div>
     </nav>
+    <style>
+        #LogOutLink {
+            color: black;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            right: 5px;
+            top: 5px
+        }
+    </style>
 
-    <header style="        text-align: center;
-        background-color: #f8f9fa
-">
-        <img src="~/Graphics/Pictures/NWB2021_LOGO_BlackTransparent.png"
-             style="
-                    position:relative;
-                    max-height:5em; max-width:100%" />
-    </header>
+    <header class="blog-header py-3">
+        <div class="row flex-nowrap justify-content-between align-items-center">
+            <div class="col-4 pt-1">
+                <a class="text-muted" href="#"></a>
+            </div>
+                <div class="col-4 text-center">
+                    <a asp-page="/ParticipantRazor/ParticipantConcertOverview" class="blog-header-logo text-dark">
+                        <img src="~/Graphics/Pictures/NWB2021_LOGO_BlackTransparent.png"
+                            style="
+                            max-height:5em; max-width:100%;"/>
+                    </a>
+                </div>
+                <div class="col-4 d-flex justify-content-end align-items-center"
+                     style=" top: -1.6em; right: 0.8em;">
+                    <a asp-page="/ParticipantRazor/LogOut" id="LogOutLink" class="btn btn-sm btn-outline-secondary"> Log out </a>
+                </div>
+            </div>
+</header>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
@@ -63,3 +83,4 @@
 
 </body>
 </html>
+
