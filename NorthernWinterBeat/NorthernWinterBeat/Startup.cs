@@ -15,6 +15,10 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Http;
 using NorthernWinterBeatLibrary.DataAccess;
 using NorthernWinterBeatLibrary.Managers;
+using Microsoft.Extensions.Azure;
+using Azure.Storage.Queues;
+using Azure.Storage.Blobs;
+using Azure.Core.Extensions;
 
 namespace NorthernWinterBeat
 {
@@ -59,13 +63,19 @@ namespace NorthernWinterBeat
                 .AddCookie();
             
 
-            services.AddSingleton<IDataAccess, EFDataAccess>();
-            services.AddSingleton<IFestivalManager, FestivalManager>(); 
-            services.AddSingleton<IAuthorizationManager, AuthorizationManager>();
+            services.AddScoped<IDataAccess, EFDataAccess>();
+            services.AddScoped<IFestivalManager, FestivalManager>(); 
+            services.AddScoped<IAuthorizationManager, AuthorizationManager>();
             services.AddSingleton<IBlobStorageManager>(new BlobStorageManager("artists", Configuration.GetConnectionString("nwbBlobStorage")));
 
             services.AddDbContext<NorthernWinterBeatConcertContext>(options =>
-                    options.UseSqlServer(Configuration.GetConnectionString("NorthernWinterBeatConcertContext")), ServiceLifetime.Singleton);
+                    options.UseSqlServer(Configuration.GetConnectionString("NorthernWinterBeatConcertContext")));
+
+            services.AddAzureClients(builder =>
+            {
+                builder.AddBlobServiceClient(Configuration["ConnectionStrings:nwbBlobStorage:blob"], preferMsi: true);
+                builder.AddQueueServiceClient(Configuration["ConnectionStrings:nwbBlobStorage:queue"], preferMsi: true);
+            });
 
         }
 
@@ -97,6 +107,31 @@ namespace NorthernWinterBeat
             {
                 endpoints.MapRazorPages();
             });
+        }
+    }
+    internal static class StartupExtensions
+    {
+        public static IAzureClientBuilder<BlobServiceClient, BlobClientOptions> AddBlobServiceClient(this AzureClientFactoryBuilder builder, string serviceUriOrConnectionString, bool preferMsi)
+        {
+            if (preferMsi && Uri.TryCreate(serviceUriOrConnectionString, UriKind.Absolute, out Uri serviceUri))
+            {
+                return builder.AddBlobServiceClient(serviceUri);
+            }
+            else
+            {
+                return builder.AddBlobServiceClient(serviceUriOrConnectionString);
+            }
+        }
+        public static IAzureClientBuilder<QueueServiceClient, QueueClientOptions> AddQueueServiceClient(this AzureClientFactoryBuilder builder, string serviceUriOrConnectionString, bool preferMsi)
+        {
+            if (preferMsi && Uri.TryCreate(serviceUriOrConnectionString, UriKind.Absolute, out Uri serviceUri))
+            {
+                return builder.AddQueueServiceClient(serviceUri);
+            }
+            else
+            {
+                return builder.AddQueueServiceClient(serviceUriOrConnectionString);
+            }
         }
     }
 }
