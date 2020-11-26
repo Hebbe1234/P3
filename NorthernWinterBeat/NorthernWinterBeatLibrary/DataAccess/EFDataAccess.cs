@@ -143,6 +143,10 @@ namespace NorthernWinterBeatLibrary.DataAccess
             {
                 Console.WriteLine(e.Message);
             }
+            catch(DbUpdateConcurrencyException e)
+            {
+                Console.WriteLine(e.Message);
+            }
         }
     }
 }
