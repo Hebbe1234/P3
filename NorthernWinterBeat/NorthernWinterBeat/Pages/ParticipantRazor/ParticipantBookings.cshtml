@@ -58,10 +58,10 @@
 
                                     DateTime concertStartTime = booking2.Concert.Start;
                                     DateTime now = DateTime.Now;
-                                    TimeSpan diffrence = concertStartTime.Subtract(now);
-                                    if (diffrence.TotalMinutes > 30)
+                                    TimeSpan difference = concertStartTime.Subtract(now);
+                                    if (difference.TotalMinutes > 30)
                                     {
-                                        <p>This booking can be activated in:<br> @diffrence.Days days @diffrence.Hours hours @diffrence.Minutes minutes and @diffrence.Seconds seconds.</p>
+                                        <p>This booking can be activated in:<br> @difference.Days days @difference.Hours hours @difference.Minutes minutes and @difference.Seconds seconds.</p>
                                     }
                                 }
                             </div>
