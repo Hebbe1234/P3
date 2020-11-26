@@ -8,6 +8,12 @@ a.navbar-brand {
 }
 
 /* Provide sufficient contrast against white background */
+body{
+    background-image: url(../Graphics/Pictures/NWB2021_Web_BG_Grit_1.jpg)
+}
+
+
+
 a {
   color: #0366d6;
 }
