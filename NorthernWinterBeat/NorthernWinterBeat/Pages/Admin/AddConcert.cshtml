@@ -7,7 +7,7 @@
     <h1 class="display-3"> Add concert information </h1>
 </div>
 
-<form method="post" asp-page-handler="AsyncCreateConcert" id="inForm1">
+<form method="post" asp-page-handler="AsyncCreateConcert" id="inForm1" data-ajax="false" runat="Server" enctype="multipart/form-data">
 
     <h3>Artist</h3>
     <input name="ArtistEntered" type="text" placeholder="Enter artist" required />
@@ -15,9 +15,9 @@
     <h3>Description</h3>
     <textarea cols="75" rows="10" name="DescriptionEntered" placeholder="Enter description"></textarea>
     <br>
-    @*<h3>Image</h3>
-        <input name="ImageEntered" type="file" placeholder="Add image" required />
-        <br>*@
+    <h3>Image</h3>
+    <input name="ImageEntered" type="file" placeholder="Add image"/>
+    <br>
     <br>
     <h3>Venue</h3>
     <select id="myList" name="VenueEntered">
