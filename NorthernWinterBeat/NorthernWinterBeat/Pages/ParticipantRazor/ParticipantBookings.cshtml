@@ -50,7 +50,7 @@
                                 </button>
                             </div>
                             <div class="modal-body">
-                                The booking needs to be activated when you are entering the concert, are you sure that you want to activate your booking?<br>
+                                The booking needs to be activated when you are entering the concert. Are you sure that you want to activate your booking?<br>
                                 @{
                                     var claimTicketID = HttpContext.User.Claims.Where(c => c.Type == "TicketID").Select(t => t.Value).First();
                                     var bookingsList = Model.FestivalManager.GetParticipants().Where(p => p.Ticket?.TicketNumber == claimTicketID).First()?.GetParticipantBookings(Model.FestivalManager);
