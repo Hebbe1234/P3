@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using NorthernWinterBeat.Models;
@@ -46,12 +48,18 @@ namespace NorthernWinterBeat.Pages.ParticipantRazor
 
             if(diffrence.TotalMinutes < 30)
             {
-                booking.Disable();
                 return RedirectToPage("ParticipantShowBooking", new { bookingID = id });
             } else
             {
                 return RedirectToPage("ParticipantBookings");
             }
+        }
+        public async Task<IActionResult> OnSignOutAsync()
+        {
+            var claimTicketID = HttpContext.User.Claims.Where(c => c.Type == "TicketID").Select(t => t.Value).First();
+            Participant p = FestivalManager.GetParticipants().Where(p => p.Ticket?.TicketNumber == claimTicketID).First();
+            await HttpContext.SignOutAsync();
+            return RedirectToPage("../Pages/Index");
         }
     }
 }
