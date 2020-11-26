@@ -95,37 +95,43 @@ namespace NorthernWinterBeatLibrary.DataAccess
 
         public List<T> Retrieve<T>()
         {
-            
-
-            if(typeof(T) == typeof(Concert))
+            try
             {
-                return context.Concert?.Include(c => c.Bookings).ThenInclude(b => b.Participant).Include(c => c.Venue).ToList() as List<T>; 
-            } 
-            else if(typeof(T) == typeof(Booking))
-            {
-                return context.Booking?.ToList() as List<T>;
+                if (typeof(T) == typeof(Concert))
+                {
+                    return context.Concert?.Include(c => c.Bookings).ThenInclude(b => b.Participant).Include(c => c.Venue).ToList() as List<T>;
+                }
+                else if (typeof(T) == typeof(Booking))
+                {
+                    return context.Booking?.ToList() as List<T>;
+                }
+                else if (typeof(T) == typeof(Ticket))
+                {
+                    return context.Ticket.ToList() as List<T>;
+                }
+                else if (typeof(T) == typeof(ApplicationUser))
+                {
+                    return context.ApplicationUser.ToList() as List<T>;
+                }
+                else if (typeof(T) == typeof(Participant))
+                {
+                    return context.Participant?.Include(p => p.Ticket).ToList() as List<T>;
+                }
+                else if (typeof(T) == typeof(Venue))
+                {
+                    return context.Venue?.ToList() as List<T>;
+                }
+                else if (typeof(T) == typeof(LegalTicket))
+                {
+                    return context.LegalTickets.ToList() as List<T>;
+                }
+                return new List<T>();
             }
-            else if (typeof(T) == typeof(Ticket))
+            catch (InvalidOperationException e)
             {
-                return context.Ticket.ToList() as List<T>;
+                Console.WriteLine(e.Message);
+                return new List<T>(); 
             }
-            else if (typeof(T) == typeof(ApplicationUser))
-            {
-                return context.ApplicationUser.ToList() as List<T>;
-            }
-            else if (typeof(T) == typeof(Participant))
-            {
-                return context.Participant?.Include(p => p.Ticket).ToList() as List<T>;
-            }
-            else if (typeof(T) == typeof(Venue))
-            {
-                return context.Venue?.ToList() as List<T>;
-            }
-            else if (typeof(T) == typeof(LegalTicket))
-            {
-                return context.LegalTickets.ToList() as List<T>;
-            }
-            return new List<T>(); 
         }
         public void Save()
         {
@@ -133,7 +139,7 @@ namespace NorthernWinterBeatLibrary.DataAccess
             {
                 context.SaveChanges();
             }
-            catch (System.InvalidOperationException e)
+            catch (InvalidOperationException e)
             {
                 Console.WriteLine(e.Message);
             }
