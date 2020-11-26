@@ -9,14 +9,14 @@
 
 <form method="post" asp-page-handler="EditParticipant">
 
-    @Html.Hidden("id", Model.Participant.ID)
+    @Html.Hidden("id", Model.Participant?.ID)
     <h3>Email</h3>
-    <input name="EmailEntered" type="text" placeholder="@Model.Participant.Email" required value="@Model.Participant.Email" />
+    <input name="EmailEntered" type="text" placeholder="@Model.Participant?.Email" required value="@Model.Participant?.Email" />
     <br>
         @*<h3>Ticket Nr</h3>
-        <p> @Model.Participant.Ticket.TicketNumber</p>*@
+        <p> @Model.Participant?.Ticket.TicketNumber</p>*@
     <h3>Name</h3>
-    <input name="Name" type="text" placeholder="@Model.Participant.Name" value="@Model.Participant.Name" />
+    <input name="Name" type="text" placeholder="@Model.Participant?.Name" value="@Model.Participant?.Name" />
 
     <br>
     <br>
@@ -42,7 +42,7 @@
 
                 <input type="button" class="btn btn-secondary" data-dismiss="modal" value="No" />
                 <form method="post" asp-page-handler="Cancel">
-                    @Html.Hidden("id", Model.Participant.ID)
+                    @Html.Hidden("id", Model.Participant?.ID)
                     <input type="submit" class="btn btn-primary" value="Yes" />
                 </form>
             </div>

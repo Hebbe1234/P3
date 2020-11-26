@@ -37,19 +37,19 @@ namespace NorthernWinterBeat.Pages.VenueRazor
         {
             if (SortBy == "Artist" || SortBy == null)
             {
-                SortConcert = SortConcert.OrderBy(o => o.Artist).ToList<Concert>();
+                SortConcert = SortConcert?.OrderBy(o => o.Artist).ToList<Concert>();
             }
             else if (SortBy == "Time")
             {
-                SortConcert = SortConcert.OrderBy(o => o.Start).ThenBy(o => o.End).ThenBy(o => o.Artist).ToList<Concert>();
+                SortConcert = SortConcert?.OrderBy(o => o.Start).ThenBy(o => o.End).ThenBy(o => o.Artist).ToList<Concert>();
             }
             else if (SortBy == "Venue")
             {
-                SortConcert = SortConcert.OrderBy(o => o.Venue.Name).ThenBy(o => o.Start).ToList<Concert>();
+                SortConcert = SortConcert?.OrderBy(o => o.Venue?.Name).ThenBy(o => o.Start).ToList<Concert>();
             }
             else if (SortBy == "Capacity")
             {
-                SortConcert = SortConcert.OrderBy(c => c.Bookings.Count()).ToList<Concert>(); 
+                SortConcert = SortConcert?.OrderBy(c => c.Bookings.Count()).ToList<Concert>(); 
             }
             return SortConcert;
         }

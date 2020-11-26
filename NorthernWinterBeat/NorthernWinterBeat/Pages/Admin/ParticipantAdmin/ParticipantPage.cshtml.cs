@@ -33,7 +33,7 @@ namespace NorthernWinterBeat.Pages.Admin.ParticipantAdmin
                 flag = true; 
                 foreach (Booking booking in item.Bookings)
                 {
-                    if(booking.Participant.ID == id)
+                    if(booking.Participant?.ID == id)
                     {
                         BookedConcerts.Add(item);
                         flag = false;
@@ -50,7 +50,7 @@ namespace NorthernWinterBeat.Pages.Admin.ParticipantAdmin
         public IActionResult OnPostRemoveBooking(int concertId, int participantId)
         {
             Concert concert = FestivalManager.Calendar.GetConcert(concertId);
-            Booking booking = concert.Bookings.Find(b => b.Participant.ID == participantId);
+            Booking booking = concert.Bookings.Find(b => b.Participant?.ID == participantId);
             concert.RemoveBooking(booking);
             return RedirectToPage("./ParticipantPage", new { id = participantId });
         }
