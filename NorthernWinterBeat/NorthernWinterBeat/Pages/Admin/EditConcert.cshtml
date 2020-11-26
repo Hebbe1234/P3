@@ -7,7 +7,7 @@
     <h1 class="display-3"> Edit concert information </h1>
 </div>
 
-<form method="post" asp-page-handler="EditConcert">
+<form method="post" asp-page-handler="EditConcert" data-ajax="false" runat="Server" enctype="multipart/form-data">
     @Html.Hidden("id", Model.concert.ID)
     <h3>Artist</h3>
     <input name="ArtistEntered" type="text" placeholder="Enter artist" minlength="1" contenteditable="true" value="@Model.concert.Artist" />
@@ -30,6 +30,11 @@
         }
     </select>
 
+    <h3>Image</h3>
+    @(Model.concert.PicturePath != "" ? "Current:" + Model.concert.PicturePath : "")
+    <br />
+    <input name="ImageEntered" type="file" placeholder="Add image" />
+    <br>
 
     <h3>Date</h3>
     <input name="DateEntered" type="date" placeholder="Enter date" contenteditable="true" min="2021-01-28" max="2021-01-30"

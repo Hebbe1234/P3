@@ -7,6 +7,10 @@
     "mssql1": {
       "type": "mssql",
       "connectionId": "NorthernWinterBeatAdminContext"
+    },
+    "storage1": {
+      "type": "storage",
+      "connectionId": "nwbBlobStorage"
     }
   }
 }

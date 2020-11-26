@@ -16,11 +16,13 @@ namespace NorthernWinterBeat.Pages.Admin.Pages
         public List<Venue> venues { get; set; } = new List<Venue>();
         public IDataAccess DataAccess { get; set; }
         private IFestivalManager FestivalManager { get; }
+        private IBlobStorageManager BlobStorageManager { get; }
 
-        public AddConcertModel(IDataAccess dataAccess, IFestivalManager festivalManager)
+        public AddConcertModel(IDataAccess dataAccess, IFestivalManager festivalManager, IBlobStorageManager blobStorageManager)
         {
             DataAccess = dataAccess;
             FestivalManager = festivalManager;
+            BlobStorageManager = blobStorageManager;
             venues = FestivalManager.Calendar.GetVenues(); 
         }
         public void OnGet()
@@ -32,7 +34,15 @@ namespace NorthernWinterBeat.Pages.Admin.Pages
         {
             string Artist = Request.Form["ArtistEntered"];
             string Description = Request.Form["DescriptionEntered"];
-            string Image = Request.Form["ImageEntered"];   // Dette virker lidt fjollet umiddelbart. 
+            string Image = "";
+            if (Request.Form.Files.Count > 0)
+            {
+                var file = Request.Form.Files[0];
+                Image = file.FileName;
+                BlobStorageManager.Upload(Image, file.OpenReadStream());
+            }
+            
+            // Dette virker lidt fjollet umiddelbart. 
             string Venue = Request.Form["VenueEntered"];
             string Date = Request.Form["DateEntered"];
             string StartTime = Request.Form["StartTimeEntered"];
@@ -62,7 +72,8 @@ namespace NorthernWinterBeat.Pages.Admin.Pages
 
             DateTime Start = new DateTime(Year, Month, StartDay, StartHour, StartMinute, 0);
             DateTime End = new DateTime(Year, Month, EndDay, EndHour, EndMinute, 0);
-            Concert NewConcert = new Concert(Start, End, Artist, Description, DataAccess);
+            Concert NewConcert = new Concert(Start, End, Artist, Description, Image, DataAccess);
+
 
             FestivalManager.Calendar.AddConcert(NewConcert, Venue);
             return RedirectToPage("./Calendar");
