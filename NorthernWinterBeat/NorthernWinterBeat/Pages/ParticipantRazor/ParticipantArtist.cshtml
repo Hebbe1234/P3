@@ -39,9 +39,11 @@
         }
         else if (!(curPart?.CanMakeBookingAt(Model.concert, FestivalManager) ?? false))
         {
-            <button type="button" class="btn btn-block btn-danger text-center" data-toggle="modal" data-target="#newBooking">
-                You already have a booking overlapping this concert. Click here to book anyway
-            </button>
+            {
+                <button type="button" class="btn btn-block btn-danger text-center" data-toggle="modal" data-target="#newBooking">
+                    You already have a booking overlapping this concert. <b>Click here to book anyway.</b>
+                </button>
+            }
         }
         else
         {
