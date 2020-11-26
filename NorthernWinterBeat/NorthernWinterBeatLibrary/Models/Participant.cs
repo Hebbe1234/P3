@@ -19,7 +19,6 @@ namespace NorthernWinterBeat.Models
         public string Name { get; set; } = "";
 		public Ticket Ticket { get; protected set; }
         public string Email { get; set; }
-
         public string Username { get; set; }
         public int ID { get; set; }
 

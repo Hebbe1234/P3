@@ -47,10 +47,10 @@ namespace NorthernWinterBeat.Pages
             string Password2Entered = Request.Form["Password2Entered"];
 
             //Her kan koden valideres
-            if(NameEntered == "")
+            if (NameEntered == "")
             {
                 return RedirectToPage("./MakeUserLogin", new { Alert = "No Name", ticketNumber = ticketNumber });
-            } 
+            }
             else if (EmailEntered == "")
             {
                 return RedirectToPage("./MakeUserLogin", new { Alert = "No Email", ticketNumber = ticketNumber });
@@ -64,26 +64,22 @@ namespace NorthernWinterBeat.Pages
             if (Password1Entered != Password2Entered)
             {
                 return RedirectToPage("./MakeUserLogin", new { Alert = "Different Passwords", ticketNumber = ticketNumber });
-            } 
+            }
 
             //Her kan det valideres hvorvidt usernamet er korrekt. 
 
             var user = AuthorizationManager.GetUser(EmailEntered);
-            if(user != null )
+            if (user != null)
             {
                 Console.WriteLine("A user with that email already exist");
-                return RedirectToPage("./MakeUserLogin", new { Alert = "Email Exist", ticketNumber = ticketNumber  });
+                return RedirectToPage("./MakeUserLogin", new { Alert = "Email Exist", ticketNumber = ticketNumber });
             }
-            var newUser = new ApplicationUser(EmailEntered, AuthorizationManager.Encrypt(Password1Entered), ApplicationUser.Roles.PARTICIPANT)
-            {
-                TicketID = ticketNumber
-            };
 
-            DataAccess.Add(newUser);
-            Participant newParticipant = new Participant(new Ticket(ticketNumber), NameEntered, EmailEntered, DataAccess);
-            FestivalManager.AddParticipant(newParticipant);
+            AuthorizationManager.CreateParticipantUser(NameEntered, EmailEntered, Password1Entered, ticketNumber);
 
             return RedirectToPage("./Index", new { Alert = "User Created", ticketNumber = ticketNumber });
         }
+
+        
     }
 }

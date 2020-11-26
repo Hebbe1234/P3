@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.ObjectPool;
 using MockQueryable.Moq;
 using Moq;
+using NorthernWinterBeatLibrary.DataAccess;
 using NorthernWinterBeatLibrary.Managers;
 using NorthernWinterBeatLibrary.Models;
 using System;
@@ -24,29 +25,33 @@ namespace NWB_TESTS.UnitTestsManagers
         public void VerifyTicket_WorksProperly(string ticket, bool expected)
         {
             //Arrange
-            List<LegalTicket> empty = new List<LegalTicket>();
-            empty.Add(new LegalTicket("legalTicket1"));
-            empty.Add(new LegalTicket("legalTicket2"));
-            empty.Add(new LegalTicket("legalTicket3"));
-            var mockLegalTicketDbSet = empty.AsQueryable().BuildMockDbSet();
-                // stackoverflow: spicy one-liner with mini-implementation of .Find
-            mockLegalTicketDbSet.Setup(
-                m => m.Find(It.IsAny<object[]>()))
-                .Returns<object[]>(
-                    ids => empty.FirstOrDefault(
-                        l => l.TicketNumber == (string)ids[0])
-                );
+            var mock = new Mock<IDataAccess>();
+            mock.Setup(D => D.Retrieve<LegalTicket>()).Returns(new List<LegalTicket>()
+            {
+                new LegalTicket("legalTicket1"),
+                new LegalTicket("legalTicket2"),
+                new LegalTicket("legalTicket3")
+            }); ;
 
-            List<Ticket> notEmpty = new List<Ticket>();
-            notEmpty.Add(new Ticket("legalTicket1"));
-            notEmpty.Add(new Ticket("legalTicket2"));
-            notEmpty.Add(new Ticket("legalTicket4"));
-            var mockTicketDbSet = notEmpty.AsQueryable().BuildMockDbSet();
+            mock.Setup(D => D.Retrieve<LegalTicket>()).Returns(new List<LegalTicket>()
+            {
+                new LegalTicket("legalTicket1"),
+                new LegalTicket("legalTicket2"),
+                new LegalTicket("legalTicket3")
+            }); ;
 
-            var mockContext = new Mock<NorthernWinterBeatConcertContext>();
-            mockContext.SetupGet(c => c.LegalTickets).Returns(mockLegalTicketDbSet.Object);
-            mockContext.SetupGet(c => c.Ticket).Returns(mockTicketDbSet.Object);
-            AuthorizationManager authorizationManager = new AuthorizationManager(mockContext.Object);
+            mock.Setup(D => D.Retrieve<Ticket>()).Returns(new List<Ticket>()
+            {
+                new Ticket("legalTicket1"),
+                new Ticket("legalTicket2"),
+                new Ticket("legalTicket4")
+            }); ;
+
+
+            
+
+            var mockFestivalManager = new Mock<IFestivalManager>();
+            AuthorizationManager authorizationManager = new AuthorizationManager(mock.Object, mockFestivalManager.Object);
 
 
             //Act
@@ -61,8 +66,10 @@ namespace NWB_TESTS.UnitTestsManagers
         public void CreateClaim_CreateAClaim()
         {
             //Arrange
-            var mockContext = new Mock<NorthernWinterBeatConcertContext>();
-            AuthorizationManager authorizationManager = new AuthorizationManager(mockContext.Object);
+            var mock = new Mock<IDataAccess>();
+            var mockFestivalManager = new Mock<IFestivalManager>();
+
+            AuthorizationManager authorizationManager = new AuthorizationManager(mock.Object, mockFestivalManager.Object);
 
             ApplicationUser ParticipantUser = new ApplicationUser("martin123", "Hejsa1234", ApplicationUser.Roles.PARTICIPANT);
            
@@ -81,9 +88,11 @@ namespace NWB_TESTS.UnitTestsManagers
         public void CreateClaim_CreateAClaimAdmin()
         {
             //Arrange
+            var mock = new Mock<IDataAccess>();
+            var mockFestivalManager = new Mock<IFestivalManager>();
 
-            var mockContext = new Mock<NorthernWinterBeatConcertContext>();
-            AuthorizationManager authorizationManager = new AuthorizationManager(mockContext.Object);
+            AuthorizationManager authorizationManager = new AuthorizationManager(mock.Object, mockFestivalManager.Object);
+
             ApplicationUser ParticipantUser = new ApplicationUser("martin123", "Hejsa1234", ApplicationUser.Roles.ADMIN);
             bool expected = true;
 
@@ -100,8 +109,11 @@ namespace NWB_TESTS.UnitTestsManagers
         public void Encrypt_EncryptsProperly()
         {
             //Arrange
-            var mockContext = new Mock<NorthernWinterBeatConcertContext>();
-            AuthorizationManager authorizationManager = new AuthorizationManager(mockContext.Object);
+            var mock = new Mock<IDataAccess>();
+            var mockFestivalManager = new Mock<IFestivalManager>();
+
+            AuthorizationManager authorizationManager = new AuthorizationManager(mock.Object, mockFestivalManager.Object);
+
 
             string expected = "�o#�H�OH�!ќ ���";
 
