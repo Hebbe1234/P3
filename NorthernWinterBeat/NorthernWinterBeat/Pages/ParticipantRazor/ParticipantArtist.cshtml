@@ -24,7 +24,14 @@
     @{
         var claimTicketID = HttpContext.User.Claims.Where(c => c.Type == "TicketID").Select(t => t.Value).First();
         var curPart = FestivalManager.GetParticipants().Where(p => p.Ticket?.TicketNumber == claimTicketID).First();
-        if (Model.concert.Bookings.Where(b => b.Participant == curPart).Count() > 0)
+
+        if (Model.concert.End < DateTime.Now)
+        {
+            <button type="button" class="btn btn-block btn btn-secondary text-center" data-toggle="modal" data-target="#removeBooking" disabled>
+                This concert has already been held!
+            </button>
+        }
+        else if (Model.concert.Bookings.Where(b => b.Participant == curPart).Count() > 0)
         {
             <button type="button" class="btn btn-block btn-success text-center" data-toggle="modal" data-target="#removeBooking">
                 Booked

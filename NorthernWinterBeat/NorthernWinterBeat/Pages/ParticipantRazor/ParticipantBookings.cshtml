@@ -4,6 +4,8 @@
 }
 
 <h1>My Bookings</h1>
+<p>Here bookings can be removed or activated. </p>
+<p>Activating can only occur 30 minutes before a concerts begin, and is used to verify to the doormen, that you are the correct ticketholder. Activating a bookings should ONLY happend when asked at the concert entrance. <br> Activating a booking can only happen once, and will disable the booking.</p>
 @{
     foreach (var booking in Model.bookings)
     {
@@ -48,7 +50,20 @@
                                 </button>
                             </div>
                             <div class="modal-body">
-                                The booking needs to be activated when you are entering the concert, are you sure that you want to activate your booking?
+                                The booking needs to be activated when you are entering the concert, are you sure that you want to activate your booking?<br>
+                                @{
+                                    var claimTicketID = HttpContext.User.Claims.Where(c => c.Type == "TicketID").Select(t => t.Value).First();
+                                    var bookingsList = Model.FestivalManager.GetParticipants().Where(p => p.Ticket?.TicketNumber == claimTicketID).First()?.GetParticipantBookings(Model.FestivalManager);
+                                    var booking2 = bookingsList.Find(b => b.ID == booking.ID);
+
+                                    DateTime concertStartTime = booking2.Concert.Start;
+                                    DateTime now = DateTime.Now;
+                                    TimeSpan diffrence = concertStartTime.Subtract(now);
+                                    if (diffrence.TotalMinutes > 30)
+                                    {
+                                        <p>This booking can be activated in:<br> @diffrence.Days days @diffrence.Hours hours @diffrence.Minutes minutes and @diffrence.Seconds seconds.</p>
+                                    }
+                                }
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
