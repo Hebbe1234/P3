@@ -11,6 +11,12 @@
       "type": "mssql.azure",
       "connectionId": "NorthernWinterBeatAdminContext",
       "secretStore": "AzureAppSettings"
+    },
+    "storage1": {
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Storage/storageAccounts/nwbimages",
+      "type": "storage.azure",
+      "connectionId": "nwbBlobStorage",
+      "secretStore": "AzureAppSettings"
     }
   }
 }

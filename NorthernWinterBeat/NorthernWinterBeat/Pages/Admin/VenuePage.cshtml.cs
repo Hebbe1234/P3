@@ -42,7 +42,7 @@ namespace NorthernWinterBeat.Pages.Admin
                 return list;
             } else if(SortBy == "Capacity")
             {
-                return sortConcerts.OrderBy(c => c.Venue.Capacity).ToList<Concert>();
+                return sortConcerts.OrderBy(c => c.Venue?.Capacity).ToList<Concert>();
             } else if(SortBy == "Time")
             {
                 return sortConcerts.OrderBy(c => c.Start).ToList<Concert>();

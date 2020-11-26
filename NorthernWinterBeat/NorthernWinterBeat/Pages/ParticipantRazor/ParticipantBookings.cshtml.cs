@@ -32,7 +32,7 @@ namespace NorthernWinterBeat.Pages.ParticipantRazor
             bookings = FestivalManager.GetParticipants().Where(p => p.Ticket?.TicketNumber == claimTicketID).First()?.GetParticipantBookings(FestivalManager);
 
             var booking = bookings.Find(b => b.ID == id);
-            booking.Concert.RemoveBooking(booking);
+            booking?.Concert?.RemoveBooking(booking);
             return RedirectToPage("ParticipantBookings");
         }
         public IActionResult OnPostActivateBooking(int id)
