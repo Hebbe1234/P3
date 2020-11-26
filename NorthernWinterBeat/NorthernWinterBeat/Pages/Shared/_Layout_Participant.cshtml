@@ -6,25 +6,31 @@
     <title>@ViewData["Title"] - NorthernWinterBeat</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <style>
+        .active {
+            background-color: rgba(211,211,211,0.5);
+            color: white;
+        }
+    </style>
 </head>
 
-
-
 <body>
+    @{var path = Context.Request.Path.ToString(); }
+
     <nav class="navbar fixed-bottom navbar-expand bg-light justify-content-center" style="text-align:center;">
         <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav justify-content-center">
-                <li class="nav-item">
+            <ul class="navbar-nav justify-content-center" style="width: 100%;">
+                <li class="nav-item @(path.Contains("ParticipantConcertOverview") ? "active" : "")">
                     <a class="nav-link text-dark" asp-area="" asp-page="/ParticipantRazor/ParticipantConcertOverview">
                         <img src="~/Graphics/Icons/calendar.svg" style="width: 25%; height: 25%" />
                     </a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item @(path.Contains("ParticipantBookings") ? "active" : "")">
                     <a class="nav-link text-dark" asp-area="" asp-page="/ParticipantRazor/ParticipantBookings">
                         <img src="~/Graphics/Icons/bookmark.svg" style="width: 25%; height: 25%" />
                     </a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item @(path.Contains("ParticipantFAQ") ? "active" : "")">
                     <a class="nav-link text-dark" asp-area="" asp-page="/ParticipantRazor/ParticipantFAQ">
                         <img src="~/Graphics/Icons/faq.svg" style="width: 25%; height: 25%" />
                     </a>
@@ -53,13 +59,13 @@
         </main>
     </div>
 
+    <script>
+        var selector = '.navbar-nav li';
 
-
-
-
-
-
-
-
+        $(selector).on('click', function () {
+            $(selector).removeClass('active');
+            $(this).addClass('active');
+        });
+    </script>
 </body>
 </html>
