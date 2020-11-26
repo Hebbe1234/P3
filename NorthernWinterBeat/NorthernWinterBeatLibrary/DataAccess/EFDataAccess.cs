@@ -21,13 +21,17 @@ namespace NorthernWinterBeatLibrary.DataAccess
 
         public void Add<T>(T input)
         {
+            if (input == null)
+            {
+                return;
+            }
             if (typeof(T) == typeof(Concert))
             {
-                context.Concert.Add(input as Concert);
+                context.Concert?.Add(input as Concert);
             }
             else if (typeof(T) == typeof(Booking))
             {
-                context.Booking.Add(input as Booking);
+                context.Booking?.Add(input as Booking);
             }
             else if (typeof(T) == typeof(Ticket))
             {
@@ -39,11 +43,11 @@ namespace NorthernWinterBeatLibrary.DataAccess
             }
             else if (typeof(T) == typeof(Participant))
             {
-                context.Participant.Add(input as Participant);
+                context.Participant?.Add(input as Participant);
             }
             else if (typeof(T) == typeof(Venue))
             {
-                context.Venue.Add(input as Venue);
+                context.Venue?.Add(input as Venue);
             }
             else if (typeof(T) == typeof(LegalTicket))
             {
@@ -54,13 +58,17 @@ namespace NorthernWinterBeatLibrary.DataAccess
 
         public void Remove<T>(T input)
         {
+            if(input == null)
+            {
+                return;
+            }
             if (typeof(T) == typeof(Concert))
             {
-                context.Concert.Remove(input as Concert);
+                context.Concert?.Remove(input as Concert);
             }
             else if (typeof(T) == typeof(Booking))
             {
-                context.Booking.Remove(input as Booking);
+                context.Booking?.Remove(input as Booking);
             }
             else if (typeof(T) == typeof(Ticket))
             {
@@ -72,11 +80,11 @@ namespace NorthernWinterBeatLibrary.DataAccess
             }
             else if (typeof(T) == typeof(Participant))
             {
-                context.Participant.Remove(input as Participant);
+                context.Participant?.Remove(input as Participant);
             }
             else if (typeof(T) == typeof(Venue))
             {
-                context.Venue.Remove(input as Venue);
+                context.Venue?.Remove(input as Venue);
             }
             else if (typeof(T) == typeof(LegalTicket))
             {
@@ -91,11 +99,11 @@ namespace NorthernWinterBeatLibrary.DataAccess
 
             if(typeof(T) == typeof(Concert))
             {
-                return context.Concert.Include(c => c.Bookings).ThenInclude(b => b.Participant).Include(c => c.Venue).ToList() as List<T>; 
+                return context.Concert?.Include(c => c.Bookings).ThenInclude(b => b.Participant).Include(c => c.Venue).ToList() as List<T>; 
             } 
             else if(typeof(T) == typeof(Booking))
             {
-                return context.Booking.ToList() as List<T>;
+                return context.Booking?.ToList() as List<T>;
             }
             else if (typeof(T) == typeof(Ticket))
             {
@@ -107,11 +115,11 @@ namespace NorthernWinterBeatLibrary.DataAccess
             }
             else if (typeof(T) == typeof(Participant))
             {
-                return context.Participant.Include(p => p.Ticket).ToList() as List<T>;
+                return context.Participant?.Include(p => p.Ticket).ToList() as List<T>;
             }
             else if (typeof(T) == typeof(Venue))
             {
-                return context.Venue.ToList() as List<T>;
+                return context.Venue?.ToList() as List<T>;
             }
             else if (typeof(T) == typeof(LegalTicket))
             {
@@ -121,7 +129,14 @@ namespace NorthernWinterBeatLibrary.DataAccess
         }
         public void Save()
         {
-            context.SaveChanges();
+            try
+            {
+                context.SaveChanges();
+            }
+            catch (System.InvalidOperationException e)
+            {
+                Console.WriteLine(e.Message);
+            }
         }
     }
 }

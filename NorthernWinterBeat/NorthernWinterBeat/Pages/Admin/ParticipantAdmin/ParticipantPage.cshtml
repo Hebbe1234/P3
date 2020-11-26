@@ -6,15 +6,15 @@
 <div class="card">
     <div class="card-body">
         <div class="row">
-            <div class="col-8"> <h3> @Model.Participant.Name </h3> </div>
+            <div class="col-8"> <h3> @Model.Participant?.Name </h3> </div>
         </div>
 
         <div class="row">
             <div class="col-8"> <p>Email: @Model?.Participant?.Email</p> </div>
-            <div class="col-8"> <p>Ticket Nr: @Model.Participant.Ticket.TicketNumber </p> </div>
-            @*<div class="col-8"> <p>Date of Creation: @Model.Participant.missing </p> </div>*@
+            <div class="col-8"> <p>Ticket Nr: @Model.Participant?.Ticket.TicketNumber </p> </div>
+            @*<div class="col-8"> <p>Date of Creation: @Model.Participant?.missing </p> </div>*@
             <div class="col-4">
-                <button type="button" class="float-right" data-toggle="modal" onclick="location.href = '@(Url.Page("EditParticipant", new { id = Model.Participant.ID }))'">
+                <button type="button" class="float-right" data-toggle="modal" onclick="location.href = '@(Url.Page("EditParticipant", new { id = Model.Participant?.ID }))'">
                     <i class="fas fa-pencil-alt"></i>
                 </button>
             </div>
@@ -86,7 +86,7 @@
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
                                         <form asp-page-handler="RemoveBooking" method="post">
                                             @Html.Hidden("concertId", concert.ID)
-                                            @Html.Hidden("participantId", Model.Participant.ID)
+                                            @Html.Hidden("participantId", Model.Participant?.ID)
                                             <input type="submit" class="btn btn-primary" value="Yes" />
                                         </form>
                                     </div>
@@ -163,7 +163,7 @@
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
                                         <form asp-page-handler="addBooking" method="post">
                                             @Html.Hidden("concertId", concert.ID)
-                                            @Html.Hidden("participantId", Model.Participant.ID)
+                                            @Html.Hidden("participantId", Model.Participant?.ID)
                                             <input type="submit" class="btn btn-primary" value="Yes" />
                                         </form>
                                     </div>

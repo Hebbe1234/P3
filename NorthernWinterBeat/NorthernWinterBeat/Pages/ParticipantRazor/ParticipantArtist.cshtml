@@ -58,7 +58,7 @@
         </p>
     </div>
     <h2>Concert Information</h2>
-    <p>@Model.concert.Venue.Name - @Model.concert.Venue.Address</p>
+    <p>@Model.concert.Venue?.Name - @Model.concert.Venue?.Address</p>
     <p><b> @Model.concert.Start.DayOfWeek </b>@Model.concert.Start.ToString("dd-MM") <br> @Model.concert.Start.ToShortTimeString() - @Model.concert.End.ToShortTimeString()</p>
 </div>
 

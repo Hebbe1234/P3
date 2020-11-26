@@ -68,13 +68,13 @@ namespace NorthernWinterBeat.Models
                  .GetConcerts()
                  .SelectMany(c => c.Bookings))
                  .ToList()
-                 .FindAll(b => b.Participant.ID == this.ID);
+                 .FindAll(b => b.Participant?.ID == this.ID);
         }
 
         public void Update(Participant NewParticipant)
         {
-            Name = NewParticipant.Name;
-            Username = NewParticipant.Username;
+            Name = NewParticipant?.Name;
+            Username = NewParticipant?.Username;
            
             DataAccess.Save();    
         }

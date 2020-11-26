@@ -7,20 +7,20 @@
     <h1>Your booking</h1>
     <div>
         <p>Ticket number: </p>
-        <h3>@Model.Participant.Ticket.TicketNumber</h3>
+        <h3>@Model.Participant?.Ticket.TicketNumber</h3>
         <p>Name</p>
-        <h3>@Model.Participant.Name</h3>
+        <h3>@Model.Participant?.Name</h3>
         <p>Email</p>
-        <h3>@Model.Participant.Email</h3>
+        <h3>@Model.Participant?.Email</h3>
         <br>
         <p>Concert</p>
-        <h3>@Model.Concert.Artist</h3>
+        <h3>@Model.Concert?.Artist</h3>
         <p>Venue</p>
-        <h3>@Model.Concert.Venue.Name</h3>
+        <h3>@Model.Concert?.Venue?.Name</h3>
         <p>Start time</p>
         <h3>
-            @Model.Concert.Start
-            @*@Model.Concert.Start.Date.ToString("dd-MM-yyyy") @Model.Concert.Start.Date.ToString("HH:mm")*@
+            @Model.Concert?.Start
+            @*@Model.Concert?.Start.Date.ToString("dd-MM-yyyy") @Model.Concert?.Start.Date.ToString("HH:mm")*@
         </h3>
     </div>
     <div class="text-center">
