@@ -14,7 +14,7 @@
     </style>
 </head>
 
-<body>
+<body style="background-color:white;">
     @{var path = Context.Request.Path.ToString(); }
 
     <nav class="navbar fixed-bottom navbar-expand bg-light justify-content-center" style="text-align:center;">
@@ -65,7 +65,8 @@
                 </div>
                 <div class="col-4 d-flex justify-content-end align-items-center"
                      style=" top: -1.6em; right: 0.8em;">
-                    <a asp-page="/ParticipantRazor/LogOut" id="LogOutLink" class="btn btn-sm btn-outline-secondary"> Log out </a>
+                    <a asp-page="/ParticipantRazor/LogOut" id="LogOutLink" 
+                       class="btn btn-sm btn-outline-secondary" style="background-color:whitesmoke;"> Log out </a>
                 </div>
             </div>
 </header>

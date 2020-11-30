@@ -3,7 +3,7 @@
 @{
 }
 
-<h1>My Bookings</h1>
+<h1 style="text-align:center">My Bookings</h1>
 @{
     foreach (var booking in Model.bookings)
     {
@@ -108,7 +108,7 @@
         }
         if (flag == true)
         {
-            <h2>Used Bookings</h2>
+            <h2 style="text-align:center">Used Bookings</h2>
             flag = false;
         }
         <div class="card mb-2 p-2">
