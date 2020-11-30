@@ -20,7 +20,7 @@
             </button> @Model.concert.Artist
         </h1>
     </form>
-    <img class="container-fluid" src="@(BlobStorageManager.ContainerURL + "/" + Model.concert.PicturePath)"/>
+    <img class="container-fluid" src="@(BlobStorageManager.ContainerURL + "/" + Model.concert.PicturePath)" />
 
     @{
         var claimTicketID = HttpContext.User.Claims.Where(c => c.Type == "TicketID").Select(t => t.Value).First();
@@ -29,19 +29,19 @@
         if (Model.concert.End < DateTime.Now)
         {
             <button type="button" class="btn btn-block btn btn-secondary text-center" data-toggle="modal" data-target="#removeBooking" disabled>
-                This concert has already been held!
+                This concert has already been held.
             </button>
         }
         else if (Model.concert.Bookings.Where(b => b.Participant == curPart).Count() > 0)
         {
             <button type="button" class="btn btn-block btn-success text-center" data-toggle="modal" data-target="#removeBooking">
-                Booked
+                Booked, remove booking?
             </button>
         }
         else if (Model.concert.IsAtMaxCapacity)
         {
             <button type="button" class="btn btn-block btn-danger text-center" data-toggle="modal" data-target="#bookSpot" disabled>
-                This concert is at max capacity
+                This concert is at max capacity.
             </button>
         }
         else if (!(curPart?.CanMakeBookingAt(Model.concert, FestivalManager) ?? false))
@@ -66,8 +66,9 @@
         </p>
     </div>
     <h2>Concert Information</h2>
-    <p>@Model.concert.Venue?.Name - @Model.concert.Venue?.Address</p>
-    <p><b> @Model.concert.Start.DayOfWeek </b>@Model.concert.Start.ToString("dd-MM") <br> @Model.concert.Start.ToShortTimeString() - @Model.concert.End.ToShortTimeString()</p>
+    <p>@Model.concert.Start.DayOfWeek @Model.concert.Start.ToString("dd-MM"), @Model.concert.Start.ToShortTimeString() - @Model.concert.End.ToShortTimeString()</p>
+    <p>@Model.concert.Venue?.Name</p>
+    <p>@Model.concert.Venue?.Address</p>
 </div>
 
 
@@ -82,7 +83,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                Do you want to book this concert? It will remove your booking for the concert(s)
+                Are you sure want to book a spot for this concert? It will remove your booking for the concert(s)
                 @{ 
                     Concert concert = Model.concert; 
                     List<Concert> overlappedConcerts = curPart.GetParticipantBookings(FestivalManager).Select(b => b.Concert).Where(c => concert.Start < c.End && concert.End > c.Start).ToList();
@@ -112,13 +113,13 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="removeBookingLabel">Book Spot</h5>
+                <h5 class="modal-title" id="removeBookingLabel">Remove booking</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                Do you want to remove your booking for this concert?
+                Are you sure you want to remove your booking for this concert?
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
@@ -147,7 +148,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                Are you sure that you want to book a spot for this concert?
+                Are you sure you want to book a spot for this concert?
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
