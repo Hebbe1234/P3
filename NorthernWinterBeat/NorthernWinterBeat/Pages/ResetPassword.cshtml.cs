@@ -46,6 +46,7 @@ namespace NorthernWinterBeat.Pages
             {
                 AuthorizationManager.ChangePassword(SecretCode, UserEmail, Password1Entered);
             }
+
         }
     }
 }
