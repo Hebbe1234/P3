@@ -48,7 +48,7 @@ public class Concert
     private IDataAccess DataAccess { get; set; }
     public List<Booking> Bookings { get; set; } = new List<Booking>(); 
     public bool IsAtMaxCapacity { get {
-            return Bookings.Count() >= (Venue?.Capacity ?? 0);
+            return Bookings.Count >= (Venue?.Capacity ?? 0);
         } }
 
     public void RemoveBooking(Participant participant)
