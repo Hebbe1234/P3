@@ -20,7 +20,7 @@
             </button> @Model.concert.Artist
         </h1>
     </form>
-    <img class="container-fluid" src="@(BlobStorageManager.ContainerURL + "/" + Model.concert.PicturePath)" />
+    <img class="container-fluid" src="@(ImageManager.ContainerURL + "/" + Model.concert.PicturePath)" />
 
     @{
         var claimTicketID = HttpContext.User.Claims.Where(c => c.Type == "TicketID").Select(t => t.Value).First();
