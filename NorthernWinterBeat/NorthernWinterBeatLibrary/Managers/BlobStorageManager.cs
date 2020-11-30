@@ -33,7 +33,7 @@ namespace NorthernWinterBeatLibrary.Managers
         public void Upload(string name, Stream file)
         {
             var curBlob = container.GetBlobClient(name);
-            if (curBlob == null)
+            if (!curBlob.Exists())
             {
                 container.UploadBlob(name, file);
             }
