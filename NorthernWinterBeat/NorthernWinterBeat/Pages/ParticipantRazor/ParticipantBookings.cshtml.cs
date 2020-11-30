@@ -14,7 +14,7 @@ namespace NorthernWinterBeat.Pages.ParticipantRazor
     {
 
         public List<Booking> bookings { get; private set; }
-        private IFestivalManager FestivalManager { get; }
+        public IFestivalManager FestivalManager { get; }
 
         public ParticipantBookingsModel(IFestivalManager festivalManager)
         {
@@ -26,14 +26,13 @@ namespace NorthernWinterBeat.Pages.ParticipantRazor
             var claimTicketID = HttpContext.User.Claims.Where(c => c.Type == "TicketID").Select(t => t.Value).First();
             bookings = FestivalManager.GetParticipants().Where(p => p.Ticket?.TicketNumber == claimTicketID).First()?.GetParticipantBookings(FestivalManager);
         }
-        //String?
         public IActionResult OnPostRemoveBooking(int id)
         {
             var claimTicketID = HttpContext.User.Claims.Where(c => c.Type == "TicketID").Select(t => t.Value).First();
             bookings = FestivalManager.GetParticipants().Where(p => p.Ticket?.TicketNumber == claimTicketID).First()?.GetParticipantBookings(FestivalManager);
 
             var booking = bookings.Find(b => b.ID == id);
-            booking.Concert.RemoveBooking(booking);
+            booking?.Concert?.RemoveBooking(booking);
             return RedirectToPage("ParticipantBookings");
         }
         public IActionResult OnPostActivateBooking(int id)
@@ -48,7 +47,6 @@ namespace NorthernWinterBeat.Pages.ParticipantRazor
 
             if(diffrence.TotalMinutes < 30)
             {
-                booking.Disable();
                 return RedirectToPage("ParticipantShowBooking", new { bookingID = id });
             } else
             {

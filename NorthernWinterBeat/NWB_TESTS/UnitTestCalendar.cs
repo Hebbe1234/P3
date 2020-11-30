@@ -83,7 +83,7 @@ namespace NWB_TESTS
 
             //Act
             calendar.AddConcert(concert, "test1");
-            string result = calendar.GetConcerts()[0].Venue.Name;
+            string result = calendar.GetConcerts()[0].Venue?.Name;
 
             //Assert
             Assert.Equal(expected, result);

@@ -1,23 +1,42 @@
 ﻿@page
 @model NorthernWinterBeat.Pages.Admin.ConcertPageModel
+@inject NorthernWinterBeatLibrary.Managers.IImageManager ImageManager
 @{
     ViewData["Title"] = "Concerts";
 }
-
-
+<style>
+    img {
+        max-height: 8em;
+        max-width: 12em;
+    }
+</style>
 <div class="card">
     <div class="card-body">
         <div class="row">
             <div class="col-8"> <h3> @Model.concert.Artist </h3> </div>
         </div>
 
-        <div class="row">
-            <div class="col-8"> <p><b>Capacity:</b> @Model?.concert?.Bookings?.Count() / @Model.concert.Venue?.Capacity </p> </div>
-            <div class="col-8"> <p><b>Venue: </b>@Model.concert.Venue?.Name </p> </div>
 
-            <div class="col-8"> <p><b>Start:</b> <br />
-                
-                <b> @Model.concert.Start.DayOfWeek </b>@Model.concert.Start.ToString("dd-MM") <br> @Model.concert.Start.ToShortTimeString() - @Model.concert.End.ToShortTimeString()</p> </div>
+
+        <div class="row">
+
+            <div class="col-8">
+                <p><b>Capacity:</b> @Model?.concert?.Bookings?.Count() / @Model.concert.Venue?.Capacity </p>
+                <p><b>Venue: </b>@Model.concert.Venue?.Name </p>
+
+                <p>
+                    <b>Start:</b> <br />
+
+                    <b> @Model.concert.Start.DayOfWeek </b>@Model.concert.Start.ToString("dd-MM") <br> @Model.concert.Start.ToShortTimeString() - @Model.concert.End.ToShortTimeString()
+                </p>
+            </div>
+
+            <div class="col-4 float-right">
+                @{
+                    var path = ImageManager.ContainerURL + '/' + (Model.concert.PicturePath == "" ? "150.png" : Model.concert.PicturePath);
+                }
+                <img class="container-fluid float-right" src="@path" />
+            </div>
 
 
             <div class="col-8"> <p> <b>Description:</b> <br> @Model.concert.ArtistDescription </p> </div>
@@ -27,8 +46,9 @@
                 </button>
             </div>
             <div class="col-4">
-                <input type="button"  class="btn btn-danger" value="Delete Concert" data-toggle="modal" data-target="#deleteConcert">
+                <input type="button" class="btn btn-danger" value="Delete Concert" data-toggle="modal" data-target="#deleteConcert">
             </div>
+
         </div>
     </div>
 </div>
@@ -60,10 +80,10 @@
                         {
                             <tr>
                                 <td>
-                                    @booking.Participant.Name
+                                    @booking.Participant?.Name
                                 </td>
                                 <td>
-                                    @booking.Participant.Username
+                                    @booking.Participant?.Username
                                 </td>
                                 <td>
                                     @booking.BookingDate
@@ -101,7 +121,7 @@
                         }
                     }
                 </tbody>
-             </table>
+            </table>
         </div>
     </div>
 </div>
@@ -116,7 +136,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                Are you sure you want to delete this concert? 
+                Are you sure you want to delete this concert?
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal"> No </button>

@@ -9,10 +9,6 @@ using System.Linq;
 
 public class Concert
 {
-    public enum ConcertState
-    {
-        CREATION, MAX_CAPACITY, ACTIVE, CONCERT_HELD, INACTIVE
-    }
     public Concert(NorthernWinterBeatConcertContext ctx)
     {
         DataAccess = new EFDataAccess(ctx);
@@ -20,7 +16,6 @@ public class Concert
     public Concert(IDataAccess _dataAccess)
     {
         DataAccess = _dataAccess;
-        State = ConcertState.CREATION;
     }
     public Concert(DateTime _start, DateTime _end, string _artist, string _artistDescription, IDataAccess _dataAccess ): 
         this(_dataAccess)
@@ -31,6 +26,12 @@ public class Concert
         ArtistDescription = _artistDescription;
 
     }
+    public Concert(DateTime _start, DateTime _end, string _artist, string _artistDescription, string _picturePath, IDataAccess _dataAccess) :
+        this(_start, _end, _artist, _artistDescription, _dataAccess)
+    {
+        PicturePath = _picturePath;
+    }
+
     public Concert(DateTime _start, DateTime _end, Venue _venue, string _artist, string _artistDescription, IDataAccess _dataAccess) :
         this(_start, _end, _artist, _artistDescription, _dataAccess)
 	{
@@ -38,7 +39,6 @@ public class Concert
 	}
     [Key]
     public int ID { get; set; }
-    public ConcertState State { get; set; }
     public Venue Venue { get; set; }
     public string Artist { get; set; }
     public string ArtistDescription { get; set; }
@@ -109,6 +109,7 @@ public class Concert
         Venue = NewConcertInfo.Venue;
         Artist = NewConcertInfo.Artist;
         ArtistDescription = NewConcertInfo.ArtistDescription;
+        PicturePath = NewConcertInfo.PicturePath != "" ? NewConcertInfo.PicturePath : PicturePath;
 
         DataAccess.Save();
     }

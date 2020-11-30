@@ -3,7 +3,10 @@
 @{
 }
 
-<h1 style="text-align:center">My Bookings</h1>
+<h1>My Bookings</h1>
+<p>You can activate a booking 30 minutes prior to a concert beginning.
+    This activation is used to provide entrance at the door, and should only be done when asked.
+    Activating a booking can only happen once.</p>
 @{
     foreach (var booking in Model.bookings)
     {
@@ -15,14 +18,14 @@
             <div>
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item text-center">
-                        <b>@booking.Concert.Artist</b>
+                        <b>@booking.Concert?.Artist</b>
                     </li>
                     <li class="list-group-item text-center">
-                        <b>@booking.Concert.Start.DayOfWeek </b> @booking.Concert.Start.ToString("dd-MM")  <br> @booking.Concert.Start.ToShortTimeString() - @booking.Concert.End.ToShortTimeString()
+                        <b>@booking.Concert?.Start.DayOfWeek </b> @booking.Concert?.Start.ToString("dd-MM")  <br> @booking.Concert?.Start.ToShortTimeString() - @booking.Concert?.End.ToShortTimeString()
                     </li>
                     <li class="list-group-item text-center">
-                        <b> @booking.Concert.Venue.Name </b> <br />
-                        @booking.Concert.Venue.Address
+                        <b> @booking.Concert?.Venue?.Name </b> <br />
+                        @booking.Concert?.Venue?.Address
                     </li>
                 </ul>
             </div>
@@ -48,7 +51,20 @@
                                 </button>
                             </div>
                             <div class="modal-body">
-                                The booking needs to be activated when you are entering the concert, are you sure that you want to activate your booking?
+                                The booking needs to be activated when you are entering the concert. Are you sure that you want to activate your booking?<br>
+                                @{
+                                    var claimTicketID = HttpContext.User.Claims.Where(c => c.Type == "TicketID").Select(t => t.Value).First();
+                                    var bookingsList = Model.FestivalManager.GetParticipants().Where(p => p.Ticket?.TicketNumber == claimTicketID).First()?.GetParticipantBookings(Model.FestivalManager);
+                                    var booking2 = bookingsList.Find(b => b.ID == booking.ID);
+
+                                    DateTime concertStartTime = booking2.Concert.Start;
+                                    DateTime now = DateTime.Now;
+                                    TimeSpan difference = concertStartTime.Subtract(now);
+                                    if (difference.TotalMinutes > 30)
+                                    {
+                                        <p>This booking can be activated in:<br> @difference.Days days @difference.Hours hours @difference.Minutes minutes and @difference.Seconds seconds.</p>
+                                    }
+                                }
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
@@ -115,13 +131,13 @@
             <div>
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item text-center">
-                        <b> @booking.Concert.Artist</b>
+                        <b> @booking.Concert?.Artist</b>
                     </li>
                     <li class="list-group-item text-center">
-                        @booking.Concert.Start
+                        @booking.Concert?.Start
                     </li>
                     <li class="list-group-item text-center">
-                        @booking.Concert.Venue.Address
+                        @booking.Concert?.Venue?.Address
                     </li>
                 </ul>
             </div>

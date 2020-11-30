@@ -35,7 +35,7 @@ namespace NorthernWinterBeat.Pages.Admin
             concerts = FestivalManager.Calendar.GetConcerts();
             Booking booking = concerts.SelectMany(c => c.Bookings)?.Where(b => b.ID == bookingid)?.First();
             int id = booking.Concert.ID; 
-            booking.Concert.RemoveBooking(booking);
+            booking.Concert?.RemoveBooking(booking);
             return RedirectToPage("./ConcertPage", new { id = id});
         }
     }

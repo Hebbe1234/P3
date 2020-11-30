@@ -49,13 +49,13 @@
                         {
                             <tr>
                                 <td>
-                                    @item.Participant.Name
+                                    @item.Participant?.Name
                                 </td>
                                 <td>
-                                    @item.Participant.Username
+                                    @item.Participant?.Username
                                 </td>
                                 <td>
-                                    @item.Participant.Ticket.TicketNumber
+                                    @item.Participant?.Ticket.TicketNumber
                                 </td>
                                 <td>
                                     @item.BookingDate.ToShortTimeString()  @item.BookingDate.ToShortDateString()
