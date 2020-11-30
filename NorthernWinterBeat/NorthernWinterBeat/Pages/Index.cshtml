@@ -27,20 +27,20 @@ else if (Model.Alert == "User Created")
 
 <div class="jumbotron">
     <div class="container text-center">
-        <h2>Create user!</h2>
+        <h2>Create user</h2>
         <p>
-            If its your first time visiting, create an account, by typing in your ticket number. <br>
+            First time visiting? Create an account with your ticket number. <br>
 
             <a data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-                For more information Click Here! 
+                For more information click here. 
             </a>
         </p>
+    </div>
         <div class="collapse" id="collapseExample">
             <div class="card">
-                    When you bought a ticket, a confirmation email with name and ticketnumber was send to your email.<br>
-                        Find the email with ticketnumber<br>
-                        Enter your ticket number, and press "registre"<br>
-                        Fill our the form with name, email and a password.<br>
+                If you have bought a ticket for Northern Winter Beat, you have recieved an email with your ticket number.<br>
+                        You use this ticket number by typing it in below, and hitting "register".<br>
+                        Hereafter fill out the form with your name, email and password, and you're ready to go.<br>
             </div>
         </div>
         <br>
@@ -53,11 +53,11 @@ else if (Model.Alert == "User Created")
             </div>
         </form>
     </div>
-</div>
+
 <div class="jumbotron">
     <div class="container text-center">
-        <p> Are you an Administrator, venue or participant?</p>
-        <h2>Sign in here!</h2>
+        <p> Already have an account?</p>
+        <h2>Sign in here</h2>
         <form method="post" asp-page-handler="Login" id="inForm2">
 
             <input class="form-control" type="text" name="EmailEntered" placeholder="Email" />

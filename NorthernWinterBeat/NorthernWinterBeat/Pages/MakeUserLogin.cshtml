@@ -6,44 +6,44 @@
 @if (Model.Alert == "Email Exist")
 {
     <div class="alert alert-danger" role="alert">
-        The inputed email already have an existing account!<br>Try again
+        The given email has already been used.<br>Try again
     </div>
 }
 else if (Model.Alert == "Different Passwords")
 {
     <div class="alert alert-danger" role="alert">
-        The passwords entered are not the same!<br>Try again
+        The passwords do not match.<br>Try again
     </div>
 }
 else if (Model.Alert == "Wrong Passwords")
 {
     <div class="alert alert-danger" role="alert">
-        Password is too short<br>Try again
+        Password is too short.<br>Try again
     </div>
 }
 else if (Model.Alert == "No Email")
 {
     <div class="alert alert-danger" role="alert">
-        No Email Entered<br>Try again
+        No email entered.<br>Try again
     </div>
 }
 else if (Model.Alert == "No Password")
 {
     <div class="alert alert-danger" role="alert">
-        No Password entered<br>Try again
+        No password entered.<br>Try again
     </div>
 }
 else if (Model.Alert == "No Name")
 {
     <div class="alert alert-danger" role="alert">
-        No name entered<br>Try again
+        No name entered.<br>Try again
     </div>
 }
 
 <div class="jumbotron">
     <div class="container">
         <form method="post" id="inForm1">
-            <h2>Registre a new user for the ticketnumber: @Model.ticketNumber</h2>
+            <h2>Registration for ticket number: @Model.ticketNumber</h2>
             <br>
             <h3>Name</h3>
             <input class="form-control" name="NameEntered" type="text" placeholder="Name" />
@@ -52,7 +52,7 @@ else if (Model.Alert == "No Name")
             <input class="form-control" name="EmailEntered" type="email" placeholder="Email" />
             <br>
             <h3>Password</h3>
-            <p> The password have to be atleast 8 charachters</p>
+            <p> The password has to be atleast 8 characters.</p>
             <input class="form-control" name="Password1Entered" type="password" id="pwd1" minlength="8" placeholder="Password">
             <br>
             <input class="form-control" name="Password2Entered" type="password" id="pwd2" minlength="8" placeholder="Password"><br><br>

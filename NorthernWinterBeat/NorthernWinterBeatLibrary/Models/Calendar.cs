@@ -17,23 +17,21 @@ public class Calendar
     private List<Concert> concerts = new List<Concert>();
 
     private List<Venue> venues = new List<Venue>();
-
     private IDataAccess DataAccess { get; set; }
 
-    public CalendarState State { get; set; }
     [Key]
     public int ID { get; set; }
 
     public Calendar(NorthernWinterBeatConcertContext ctx)
     {
         DataAccess = new EFDataAccess(ctx);
+        LoadData();
     }
 
     public Calendar(IDataAccess dataAccess)
     {
         DataAccess = dataAccess;
         LoadData();
-        State = CalendarState.INITIALIZING;
     }
 
     private void LoadData()
