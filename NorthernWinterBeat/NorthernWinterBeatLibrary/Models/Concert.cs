@@ -9,10 +9,6 @@ using System.Linq;
 
 public class Concert
 {
-    public enum ConcertState
-    {
-        CREATION, MAX_CAPACITY, ACTIVE, CONCERT_HELD, INACTIVE
-    }
     public Concert(NorthernWinterBeatConcertContext ctx)
     {
         DataAccess = new EFDataAccess(ctx);
@@ -20,7 +16,6 @@ public class Concert
     public Concert(IDataAccess _dataAccess)
     {
         DataAccess = _dataAccess;
-        State = ConcertState.CREATION;
     }
     public Concert(DateTime _start, DateTime _end, string _artist, string _artistDescription, IDataAccess _dataAccess ): 
         this(_dataAccess)
@@ -44,7 +39,6 @@ public class Concert
 	}
     [Key]
     public int ID { get; set; }
-    public ConcertState State { get; set; }
     public Venue Venue { get; set; }
     public string Artist { get; set; }
     public string ArtistDescription { get; set; }

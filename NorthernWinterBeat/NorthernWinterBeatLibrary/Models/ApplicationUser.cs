@@ -7,7 +7,6 @@ namespace NorthernWinterBeatLibrary.Models
 {
     public class ApplicationUser
     {
-
         public ApplicationUser() { }
         public ApplicationUser(string username, string password, Roles role)
         {

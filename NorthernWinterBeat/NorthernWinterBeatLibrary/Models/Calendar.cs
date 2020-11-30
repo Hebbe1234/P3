@@ -10,10 +10,6 @@ using System.Threading.Tasks;
 
 public class Calendar
 {
-    public enum CalendarState
-    {
-        INITIALIZING, ACTIVE, INACTIVE
-    }
     private List<Concert> concerts = new List<Concert>();
 
     private List<Venue> venues = new List<Venue>();
