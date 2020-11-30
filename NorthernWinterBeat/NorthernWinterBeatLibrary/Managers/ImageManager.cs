@@ -8,7 +8,9 @@ using System.Text;
 
 namespace NorthernWinterBeatLibrary.Managers
 {
-    public class BlobStorageManager : IBlobStorageManager
+    public class ImageManager : IImageManager
+
+
     {
         BlobContainerClient container;
 
@@ -20,7 +22,7 @@ namespace NorthernWinterBeatLibrary.Managers
             }
         }
 
-        public BlobStorageManager(string containerName, string connectionString)
+        public ImageManager(string containerName, string connectionString)
         {
             cName = containerName;
             container = new BlobContainerClient(connectionString, cName);
@@ -33,7 +35,7 @@ namespace NorthernWinterBeatLibrary.Managers
         public void Upload(string name, Stream file)
         {
             var curBlob = container.GetBlobClient(name);
-            if (curBlob == null)
+            if (!curBlob.Exists())
             {
                 container.UploadBlob(name, file);
             }

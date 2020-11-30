@@ -2,7 +2,7 @@
 
 namespace NorthernWinterBeatLibrary.Managers
 {
-    public interface IBlobStorageManager
+    public interface IImageManager
     {
         string ContainerURL { get; }
 

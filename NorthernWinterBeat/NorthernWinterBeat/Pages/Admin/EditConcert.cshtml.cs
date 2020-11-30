@@ -14,7 +14,7 @@ namespace NorthernWinterBeat.Pages.Admin
 {
     public class EditConcertModel : PageModel
     {
-        public EditConcertModel(IDataAccess dataAccess, IFestivalManager festivalManager, IBlobStorageManager blobStorageManager)
+        public EditConcertModel(IDataAccess dataAccess, IFestivalManager festivalManager, IImageManager blobStorageManager)
         {
             FestivalManager = festivalManager; 
             DataAccess = dataAccess;
@@ -26,7 +26,7 @@ namespace NorthernWinterBeat.Pages.Admin
         public Concert concert { get; set; }
         public List<Venue> venues { get; set; } = new List<Venue>();
         public IDataAccess DataAccess { get; set; }
-        public IBlobStorageManager BlobStorageManager { get; }
+        public IImageManager BlobStorageManager { get; }
 
         public void OnGet(int id)
         {
