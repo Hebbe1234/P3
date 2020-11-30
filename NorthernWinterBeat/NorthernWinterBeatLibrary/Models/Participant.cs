@@ -10,12 +10,7 @@ namespace NorthernWinterBeat.Models
 {
     public class Participant 
 	{
-		public enum ParticipantState
-        {
-			ACTIVE, INACTIVE
-        }
 
-        public ParticipantState State { get; set; }
         public string Name { get; set; } = "";
 		public Ticket Ticket { get; protected set; }
         public string Email { get; set; }
@@ -31,7 +26,6 @@ namespace NorthernWinterBeat.Models
         public Participant(NorthernWinterBeatConcertContext ctx)
         {
             DataAccess = new EFDataAccess(ctx);
-            State = ParticipantState.ACTIVE;
         }
 
         public Participant(Ticket _ticket, IDataAccess dataAccess) 
