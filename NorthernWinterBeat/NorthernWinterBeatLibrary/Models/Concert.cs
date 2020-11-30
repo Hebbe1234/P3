@@ -58,6 +58,11 @@ public class Concert
     }
 	public void RemoveBooking(Booking booking)
     {
+        if(booking == null)
+        {
+            return;
+        } 
+
 		Bookings.Remove(booking);
         DataAccess.Remove(booking); 
     }
