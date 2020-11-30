@@ -38,7 +38,5 @@ namespace NorthernWinterBeatLibrary.Managers
                 container.UploadBlob(name, file);
             }
         }
-
-
     }
 }
