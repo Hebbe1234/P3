@@ -16,9 +16,9 @@ namespace NorthernWinterBeat.Pages.Admin.Pages
         public List<Venue> venues { get; set; } = new List<Venue>();
         public IDataAccess DataAccess { get; set; }
         private IFestivalManager FestivalManager { get; }
-        private IBlobStorageManager BlobStorageManager { get; }
+        private IImageManager BlobStorageManager { get; }
 
-        public AddConcertModel(IDataAccess dataAccess, IFestivalManager festivalManager, IBlobStorageManager blobStorageManager)
+        public AddConcertModel(IDataAccess dataAccess, IFestivalManager festivalManager, IImageManager blobStorageManager)
         {
             DataAccess = dataAccess;
             FestivalManager = festivalManager;

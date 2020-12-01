@@ -2,7 +2,7 @@
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @model NorthernWinterBeat.Pages.ParticipantConcertOverviewModel
-@inject NorthernWinterBeatLibrary.Managers.IBlobStorageManager BlobStorageManager
+@inject NorthernWinterBeatLibrary.Managers.IImageManager ImageManager
 @{
 
     // Adding rows of concerts based on which day is chosen in the buttons above.
@@ -12,7 +12,7 @@
     {
         <tr onclick="location.href = '@(Url.Page("ParticipantArtist", new { id = concert.ID }))'">
             @{
-                var path = BlobStorageManager.ContainerURL + '/' + (concert.PicturePath == "" ? "150.png" : concert.PicturePath);
+                var path = ImageManager.ContainerURL + '/' + (concert.PicturePath == "" ? "150.png" : concert.PicturePath);
             }
             <td><img src="@path"style="height:7em" /></td>
             <td><a class="btn-link text-dark">@concert?.Artist</a></td>

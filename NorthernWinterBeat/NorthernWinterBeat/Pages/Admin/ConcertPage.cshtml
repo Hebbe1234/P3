@@ -1,6 +1,6 @@
 ﻿@page
 @model NorthernWinterBeat.Pages.Admin.ConcertPageModel
-@inject NorthernWinterBeatLibrary.Managers.IBlobStorageManager BlobStorageManager
+@inject NorthernWinterBeatLibrary.Managers.IImageManager ImageManager
 @{
     ViewData["Title"] = "Concerts";
 }
@@ -33,7 +33,7 @@
 
             <div class="col-4 float-right">
                 @{
-                    var path = BlobStorageManager.ContainerURL + '/' + (Model.concert.PicturePath == "" ? "150.png" : Model.concert.PicturePath);
+                    var path = ImageManager.ContainerURL + '/' + (Model.concert.PicturePath == "" ? "150.png" : Model.concert.PicturePath);
                 }
                 <img class="container-fluid float-right" src="@path" />
             </div>
