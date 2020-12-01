@@ -13,7 +13,7 @@ namespace NorthernWinterBeat.Pages.ParticipantRazor
     public class ParticipantBookingsModel : PageModel
     {
 
-        public List<Booking> bookings { get; private set; }
+        public List<Booking> bookings { get; private set; } = new List<Booking>(); 
         public IFestivalManager FestivalManager { get; }
 
         public ParticipantBookingsModel(IFestivalManager festivalManager)
@@ -24,7 +24,14 @@ namespace NorthernWinterBeat.Pages.ParticipantRazor
         public void OnGet()
         {
             var claimTicketID = HttpContext.User.Claims.Where(c => c.Type == "TicketID").Select(t => t.Value).First();
-            bookings = FestivalManager.GetParticipants().Where(p => p.Ticket?.TicketNumber == claimTicketID).First()?.GetParticipantBookings(FestivalManager);
+            try
+            {
+                bookings = FestivalManager.GetParticipants().Where(p => p.Ticket?.TicketNumber == claimTicketID).First()?.GetParticipantBookings(FestivalManager);
+            }
+            catch(Exception)
+            {
+
+            }
         }
         public IActionResult OnPostRemoveBooking(int id)
         {

@@ -154,10 +154,16 @@ namespace NorthernWinterBeatLibrary.Managers
 
         public void SendEmail(string UserEmail, Participant p)
         {
-            string SecretCode = SecretCodeGenerator();  
+            List<ResetPasswordRequest> RPR = DataAccess.Retrieve<ResetPasswordRequest>().FindAll(x => x.Email == UserEmail);
+            foreach (ResetPasswordRequest item in RPR)
+            {
+                DataAccess.Remove<ResetPasswordRequest>(item); 
+            }
 
+            string SecretCode = SecretCodeGenerator();  
             ResetPasswordRequest NewResetPasswordRequest = new ResetPasswordRequest(SecretCode, UserEmail);
             DataAccess.Add(NewResetPasswordRequest); 
+    
 
             MailMessage mail = new MailMessage();
             SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com");
@@ -167,15 +173,21 @@ namespace NorthernWinterBeatLibrary.Managers
             mail.Subject = "Reset your password for NWB";
 
 
-            mail.Body = "Reset Email. Here is the code " + SecretCode;
+            mail.Body = "Reset Email. Here is the reset code: \n" + SecretCode + "\n\nThe code can only be used for the next 20 minutes." + "\n\nOnly oncecode is active at a time, so if you have multiple reset emails, only the newest email works.";
 
             SmtpServer.UseDefaultCredentials = true;
 
             SmtpServer.Port = 587;
             SmtpServer.Credentials = new System.Net.NetworkCredential("nwb.reset@gmail.com", "Hejsa12345678");
             SmtpServer.EnableSsl = true;
-
-            SmtpServer.Send(mail);
+            try
+            {
+                SmtpServer.Send(mail);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("The mail didnt send \n" + e.Message);
+            }
         } 
         public string SecretCodeGenerator()
         {
@@ -191,16 +203,25 @@ namespace NorthernWinterBeatLibrary.Managers
             return new String(stringChars);
         }
 
-        public void ChangePassword(string SecretCode, string email, string Password)
+        public bool ChangePassword(string SecretCode, string email, string Password)
         {
-            var resetPasswordRequest = DataAccess.Retrieve<ResetPasswordRequest>().Find(p => p.Email == email);
-            if(resetPasswordRequest.SecretCode == SecretCode && resetPasswordRequest.ExpirationDate > DateTime.Now)
+            var resetPasswordRequest = DataAccess.Retrieve<ResetPasswordRequest>().OrderByDescending(p => p.ExpirationDate).ToList().Find(p => p.Email == email);
+            if(resetPasswordRequest == null)
+            {
+                return false; 
+            } else if(resetPasswordRequest.SecretCode == SecretCode && resetPasswordRequest.ExpirationDate > DateTime.Now)
             {
                 ApplicationUser p = DataAccess.Retrieve<ApplicationUser>().Find(p => p.Username == email);
-                p.Password = Password;
-                DataAccess.Save(); 
+                ApplicationUser newApplicationUser = new ApplicationUser();
+                newApplicationUser.Password = Encrypt(Password);
+                p.Update(newApplicationUser); 
+                DataAccess.Save();
+                DataAccess.Remove<ResetPasswordRequest>(resetPasswordRequest); 
+                return true; 
+            } else
+            {
+                return false;
             }
         }
     }
 }
-

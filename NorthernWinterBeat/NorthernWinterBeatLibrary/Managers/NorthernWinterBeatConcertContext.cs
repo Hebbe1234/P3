@@ -30,7 +30,6 @@ namespace NorthernWinterBeatLibrary.Managers
         public virtual DbSet<Participant> Participant { get; set; }
         public virtual DbSet<Booking> Booking { get; set; }
         public virtual DbSet<LegalTicket> LegalTickets { get; set; }
-
         public virtual DbSet<ApplicationUser> ApplicationUser { get; set; }
         public virtual DbSet<ResetPasswordRequest> ResetPasswordRequest { get; set; }
 

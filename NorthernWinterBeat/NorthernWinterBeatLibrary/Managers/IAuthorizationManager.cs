@@ -17,6 +17,6 @@ namespace NorthernWinterBeatLibrary.Managers
         public void CreateParticipantUser(string NameEntered, string EmailEntered, string Password1Entered, string ticketNumber);
         void CreateVenueUser(int id, string Username, string Password1Entered);
         public void SendEmail(string UserEmail, Participant p);
-        public void ChangePassword(string SecretCode, string UserEmail, string Password);
+        public bool ChangePassword(string SecretCode, string UserEmail, string Password);
     }
 }
