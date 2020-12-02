@@ -31,7 +31,7 @@ namespace NorthernWinterBeatLibrary.Managers
         public virtual DbSet<Booking> Booking { get; set; }
         public virtual DbSet<LegalTicket> LegalTickets { get; set; }
         public virtual DbSet<ApplicationUser> ApplicationUser { get; set; }
-        public virtual DbSet<ResetPasswordRequest> ResetPasswordRequest { get; set; }
+        public virtual DbSet<PasswordRequest> ResetPasswordRequest { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -42,7 +42,7 @@ namespace NorthernWinterBeatLibrary.Managers
             modelBuilder.Entity<Participant>().ToTable("Participant");
             modelBuilder.Entity<LegalTicket>().ToTable("LegalTicket");
             modelBuilder.Entity<ApplicationUser>().ToTable("ApplicationUser");
-            modelBuilder.Entity<ResetPasswordRequest>().ToTable("ResetPasswordRequest");
+            modelBuilder.Entity<PasswordRequest>().ToTable("ResetPasswordRequest");
         }
     }
 }

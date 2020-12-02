@@ -158,14 +158,14 @@ namespace NorthernWinterBeatLibrary.Managers
 
         public void SendEmail(string UserEmail, Participant p)
         {
-            List<ResetPasswordRequest> RPR = DataAccess.Retrieve<ResetPasswordRequest>().FindAll(x => x.Email == UserEmail);
-            foreach (ResetPasswordRequest item in RPR)
+            List<PasswordRequest> RPR = DataAccess.Retrieve<PasswordRequest>().FindAll(x => x.Email == UserEmail);
+            foreach (PasswordRequest item in RPR)
             {
-                DataAccess.Remove<ResetPasswordRequest>(item); 
+                DataAccess.Remove<PasswordRequest>(item); 
             }
 
             string SecretCode = SecretCodeGenerator();  
-            ResetPasswordRequest NewResetPasswordRequest = new ResetPasswordRequest(SecretCode, UserEmail);
+            PasswordRequest NewResetPasswordRequest = new PasswordRequest(SecretCode, UserEmail);
             DataAccess.Add(NewResetPasswordRequest); 
     
 
@@ -209,7 +209,7 @@ namespace NorthernWinterBeatLibrary.Managers
 
         public bool ChangePassword(string SecretCode, string email, string Password)
         {
-            var resetPasswordRequest = DataAccess.Retrieve<ResetPasswordRequest>().OrderByDescending(p => p.ExpirationDate).ToList().Find(p => p.Email == email);
+            var resetPasswordRequest = DataAccess.Retrieve<PasswordRequest>().OrderByDescending(p => p.ExpirationDate).ToList().Find(p => p.Email == email);
             if(resetPasswordRequest == null)
             {
                 return false; 
@@ -220,7 +220,7 @@ namespace NorthernWinterBeatLibrary.Managers
 
                 p.Update(newApplicationUser); 
                 DataAccess.Save();
-                DataAccess.Remove<ResetPasswordRequest>(resetPasswordRequest); 
+                DataAccess.Remove<PasswordRequest>(resetPasswordRequest); 
                 return true; 
             } else
             {
