@@ -14,9 +14,9 @@ namespace NorthernWinterBeat.Pages
     {
         private IAuthorizationManager AuthorizationManager { get; }
         private IFestivalManager FestivalManager { get; }
-        public ResetPasswordModel(IAuthorizationManager authorvizationManager, IFestivalManager festivalManager)
+        public ResetPasswordModel(IAuthorizationManager authorizationManager, IFestivalManager festivalManager)
         {
-            AuthorizationManager = authorvizationManager;
+            AuthorizationManager = authorizationManager;
             FestivalManager = festivalManager; 
         }
         [BindProperty(SupportsGet = true)]
