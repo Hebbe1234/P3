@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.ObjectPool;
 using MockQueryable.Moq;
 using Moq;
@@ -14,8 +15,17 @@ using Xunit;
 
 namespace NWB_TESTS.UnitTestsManagers
 {
+
+    
     public class UnitTestAuthorizationManager
     {
+        private Mock<IConfiguration> GetConfigurationMock()
+        {
+            Mock<IConfiguration> mock = new Mock<IConfiguration>();
+            mock.Setup(m => m.GetValue(It.IsAny<string>(), "EmailPassword")).Returns("WrongPassword");
+            return mock;
+        }
+
         [Theory]
         [InlineData("legalTicket1", false)]
         [InlineData("legalTicket2", false)]
@@ -51,7 +61,7 @@ namespace NWB_TESTS.UnitTestsManagers
             
 
             var mockFestivalManager = new Mock<IFestivalManager>();
-            AuthorizationManager authorizationManager = new AuthorizationManager(mock.Object, mockFestivalManager.Object);
+            AuthorizationManager authorizationManager = new AuthorizationManager(mock.Object, mockFestivalManager.Object, GetConfigurationMock().Object);
 
 
             //Act
@@ -69,7 +79,7 @@ namespace NWB_TESTS.UnitTestsManagers
             var mock = new Mock<IDataAccess>();
             var mockFestivalManager = new Mock<IFestivalManager>();
 
-            AuthorizationManager authorizationManager = new AuthorizationManager(mock.Object, mockFestivalManager.Object);
+            AuthorizationManager authorizationManager = new AuthorizationManager(mock.Object, mockFestivalManager.Object, GetConfigurationMock().Object);
 
             ApplicationUser ParticipantUser = new ApplicationUser("martin123", "Hejsa1234", ApplicationUser.Roles.PARTICIPANT);
            
@@ -91,7 +101,7 @@ namespace NWB_TESTS.UnitTestsManagers
             var mock = new Mock<IDataAccess>();
             var mockFestivalManager = new Mock<IFestivalManager>();
 
-            AuthorizationManager authorizationManager = new AuthorizationManager(mock.Object, mockFestivalManager.Object);
+            AuthorizationManager authorizationManager = new AuthorizationManager(mock.Object, mockFestivalManager.Object, GetConfigurationMock().Object);
 
             ApplicationUser ParticipantUser = new ApplicationUser("martin123", "Hejsa1234", ApplicationUser.Roles.ADMIN);
             bool expected = true;
@@ -112,7 +122,7 @@ namespace NWB_TESTS.UnitTestsManagers
             var mock = new Mock<IDataAccess>();
             var mockFestivalManager = new Mock<IFestivalManager>();
 
-            AuthorizationManager authorizationManager = new AuthorizationManager(mock.Object, mockFestivalManager.Object);
+            AuthorizationManager authorizationManager = new AuthorizationManager(mock.Object, mockFestivalManager.Object, GetConfigurationMock().Object);
 
 
             string expected = "�o#�H�OH�!ќ ���";
