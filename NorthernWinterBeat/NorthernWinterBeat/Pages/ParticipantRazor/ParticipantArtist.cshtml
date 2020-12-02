@@ -35,7 +35,7 @@
         if (Model.concert.End < DateTime.Now)
         {
             <button type="button" id="bookButton" class="btn btn-block btn-secondary text-center" data-toggle="modal" data-target="#removeBooking" disabled>
-                This concert have already been held
+                This concert has already been held
             </button>
         }
         else if (Model.concert.Bookings.Where(b => b.Participant == curPart).Count() > 0)
