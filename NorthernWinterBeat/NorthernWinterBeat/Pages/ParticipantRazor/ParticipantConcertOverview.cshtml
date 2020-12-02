@@ -18,10 +18,12 @@
         {
             Dates.Add(c.Start.Date);
         }
+        int datesButtonResponsiveWidth = (100 / Dates.Count()) - 1;
+
         foreach (var d in Dates)
         {
-            <div class="btn-group" style="width:32%" >
-                <button class="btn btn-secondary day-selection @((d.Date == Model.Day.Value.Date)? "selected" : "")" value=@d.ToString()>@d.DayOfWeek</button>
+            <div class="btn-group" style="width:@datesButtonResponsiveWidth%;" >
+                <button class="btn btn-secondary day-selection @((d.Date == Model.Day.Value.Date)? "selected" : "")" style="border-radius: 0.35em" value=@d.ToString()>@d.DayOfWeek</button>
             </div>
         }
     }
