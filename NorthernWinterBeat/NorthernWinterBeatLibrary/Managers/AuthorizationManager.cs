@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
+using Microsoft.Extensions.Configuration;
 using NorthernWinterBeat.Models;
 using NorthernWinterBeatLibrary.DataAccess;
 using NorthernWinterBeatLibrary.Models;
@@ -19,10 +20,13 @@ namespace NorthernWinterBeatLibrary.Managers
     {
         private IDataAccess DataAccess { get; set; }
         private IFestivalManager FestivalManager { get; set; }
-        public AuthorizationManager(IDataAccess dataAccess, IFestivalManager festivalManager)
+        private IConfiguration Configuration { get; }
+
+        public AuthorizationManager(IDataAccess dataAccess, IFestivalManager festivalManager, IConfiguration conf)
         {
             DataAccess = dataAccess;
             FestivalManager = festivalManager;
+            Configuration = conf;
         }
 
         public ApplicationUser GetUser(string username)
@@ -178,7 +182,7 @@ namespace NorthernWinterBeatLibrary.Managers
             SmtpServer.UseDefaultCredentials = true;
 
             SmtpServer.Port = 587;
-            SmtpServer.Credentials = new System.Net.NetworkCredential("nwb.reset@gmail.com", "Hejsa12345678");
+            SmtpServer.Credentials = new System.Net.NetworkCredential("nwb.reset@gmail.com", Configuration.GetValue<string>("EmailPassword"));
             SmtpServer.EnableSsl = true;
             try
             {
