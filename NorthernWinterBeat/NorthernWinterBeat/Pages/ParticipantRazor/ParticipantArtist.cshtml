@@ -28,14 +28,30 @@
     <img class="container-fluid" style="padding-right:0;padding-left:0;" src="https://www.winterbeat.dk/wp-content/uploads/2020/08/joe-.jpg" />
 
     @{
-        var claimTicketID = HttpContext.User.Claims.Where(c => c.Type == "TicketID").Select(t => t.Value).First();
-        var curPart = FestivalManager.GetParticipants().Where(p => p.Ticket?.TicketNumber == claimTicketID).First();
+        var claimTicketID = HttpContext.User.Claims.Where(c => c.Type == "TicketID").Select(t => t.Value).FirstOrDefault();
+        var curPart = FestivalManager.GetParticipants().Where(p => p.Ticket?.TicketNumber == claimTicketID).FirstOrDefault();
+
 
         if (Model.concert.End < DateTime.Now)
         {
-            <button type="button" id="bookButton" class="btn btn-block btn-success text-center" data-toggle="modal" data-target="#removeBooking">
-                Booked, remove booking?
+            <button type="button" id="bookButton" class="btn btn-block btn-secondary text-center" data-toggle="modal" data-target="#removeBooking" disabled>
+                This concert have already been held
             </button>
+        }
+        else if (Model.concert.Bookings.Where(b => b.Participant == curPart).Count() > 0)
+        {
+            if (Model.concert.Bookings.Where(b => b.Participant == curPart).Where(b => b.State == Booking.BookingState.INACTIVE).Count() == 0)
+            {
+                <button type="button" id="bookButton" class="btn btn-block btn-success text-center" data-toggle="modal" data-target="#removeBooking">
+                    Booked, remove booking?
+                </button>
+            }
+            else
+            {
+                <button type="button" id="bookButton" class="btn btn-block btn-secondary text-center" data-toggle="modal" data-target="#removeBooking" disabled>
+                    You have already activated your booking for this concert. 
+                </button>
+            }
         }
         else if (Model.concert.IsAtMaxCapacity)
         {
@@ -45,11 +61,9 @@
         }
         else if (!(curPart?.CanMakeBookingAt(Model.concert, FestivalManager) ?? false))
         {
-            {
-                <button type="button" id="bookButton" class="btn btn-block btn-danger text-center" data-toggle="modal" data-target="#newBooking">
-                    You already have a booking overlapping this concert. <b>Click here to book anyway.</b>
-                </button>
-            }
+            <button type="button" id="bookButton" class="btn btn-block btn-danger text-center" data-toggle="modal" data-target="#newBooking">
+                You already have a booking overlapping this concert. <b>Click here to book anyway.</b>
+            </button>
         }
         else
         {
