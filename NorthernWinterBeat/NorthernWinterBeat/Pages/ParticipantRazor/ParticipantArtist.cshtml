@@ -49,7 +49,7 @@
             else
             {
                 <button type="button" id="bookButton" class="btn btn-block btn-secondary text-center" data-toggle="modal" data-target="#removeBooking" disabled>
-                    You have already activated your booking for this concert. 
+                    You have already activated your booking for this concert.
                 </button>
             }
         }
@@ -61,10 +61,22 @@
         }
         else if (!(curPart?.CanMakeBookingAt(Model.concert, FestivalManager) ?? false))
         {
-            <button type="button" id="bookButton" class="btn btn-block btn-danger text-center" data-toggle="modal" data-target="#newBooking">
-                You already have a booking overlapping this concert. <b>Click here to book anyway.</b>
-            </button>
-        }
+            var overlappingBookings = curPart.GetParticipantBookings(FestivalManager)
+                                  .Where(b => Model.concert.Start < b.Concert.End && Model.concert.End > b.Concert.Start);
+
+            if (overlappingBookings.Any(b => b.State == Booking.BookingState.INACTIVE))
+            {
+                <button type="button" id="bookButton" class="btn btn-block btn-danger text-center" data-toggle="modal" data-target="#newBooking" disabled>
+                    You already have an activated booking overlapping this concert.
+                </button>
+            }
+            else
+            {
+                <button type="button" id="bookButton" class="btn btn-block btn-danger text-center" data-toggle="modal" data-target="#newBooking">
+                    You already have a booking overlapping this concert. <b>Click here to book anyway.</b>
+                </button>
+            }
+        } 
         else
         {
             <button type="button" id="bookButton" class="btn btn-block btn-outline-primary text-center" data-toggle="modal" data-target="#bookSpot">
