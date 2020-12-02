@@ -216,8 +216,10 @@ namespace NorthernWinterBeatLibrary.Managers
             } else if(resetPasswordRequest.SecretCode == SecretCode && resetPasswordRequest.ExpirationDate > DateTime.Now)
             {
                 ApplicationUser p = DataAccess.Retrieve<ApplicationUser>().Find(p => p.Username == email);
-                ApplicationUser newApplicationUser = new ApplicationUser();
-                newApplicationUser.Password = Encrypt(Password);
+                ApplicationUser newApplicationUser = new ApplicationUser
+                {
+                    Password = Encrypt(Password)
+                };
                 p.Update(newApplicationUser); 
                 DataAccess.Save();
                 DataAccess.Remove<ResetPasswordRequest>(resetPasswordRequest); 
