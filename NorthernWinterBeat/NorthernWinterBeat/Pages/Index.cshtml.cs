@@ -43,7 +43,7 @@ namespace NorthernWinterBeat.Pages
 
         public async Task<IActionResult> OnPostLoginAsync()
         {
-            string EmailInput = Request.Form["EmailEntered"];
+            string EmailInput = Request.Form["EmailEntered"].ToString().ToLower();
             string PasswordInput = Request.Form["PasswordEntered"];
 
             if (PasswordInput == "")

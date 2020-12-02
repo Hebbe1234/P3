@@ -53,6 +53,10 @@ namespace NorthernWinterBeatLibrary.DataAccess
             {
                 context.LegalTickets.Add(input as LegalTicket);
             }
+            else if (typeof(T) == typeof(ResetPasswordRequest))
+            {
+                context.ResetPasswordRequest.Add(input as ResetPasswordRequest);
+            }
             Save(); 
         }
 
@@ -90,6 +94,10 @@ namespace NorthernWinterBeatLibrary.DataAccess
             {
                 context.LegalTickets.Remove(input as LegalTicket);
             }
+            else if (typeof(T) == typeof(ResetPasswordRequest))
+            {
+                context.ResetPasswordRequest.Remove(input as ResetPasswordRequest);
+            }
             Save();
         }
 
@@ -124,6 +132,10 @@ namespace NorthernWinterBeatLibrary.DataAccess
                 else if (typeof(T) == typeof(LegalTicket))
                 {
                     return context.LegalTickets.ToList() as List<T>;
+                }
+                else if (typeof(T) == typeof(ResetPasswordRequest))
+                {
+                    return context.ResetPasswordRequest.ToList() as List<T>;
                 }
                 return new List<T>();
             }

@@ -42,7 +42,7 @@ namespace NorthernWinterBeat.Pages
         public IActionResult OnPost()
         {
             string NameEntered = Request.Form["NameEntered"];
-            string EmailEntered = Request.Form["EmailEntered"];
+            string EmailEntered = Request.Form["EmailEntered"].ToString().ToLower();
             string Password1Entered = Request.Form["Password1Entered"];
             string Password2Entered = Request.Form["Password2Entered"];
 

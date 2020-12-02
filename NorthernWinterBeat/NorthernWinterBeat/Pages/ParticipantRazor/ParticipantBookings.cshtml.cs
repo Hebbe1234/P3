@@ -13,7 +13,7 @@ namespace NorthernWinterBeat.Pages.ParticipantRazor
     public class ParticipantBookingsModel : PageModel
     {
 
-        public List<Booking> bookings { get; private set; }
+        public List<Booking> bookings { get; private set; } = new List<Booking>(); 
         public IFestivalManager FestivalManager { get; }
 
         public ParticipantBookingsModel(IFestivalManager festivalManager)
@@ -23,13 +23,19 @@ namespace NorthernWinterBeat.Pages.ParticipantRazor
 
         public void OnGet()
         {
-            var claimTicketID = HttpContext.User.Claims.Where(c => c.Type == "TicketID").Select(t => t.Value).First();
-            bookings = FestivalManager.GetParticipants().Where(p => p.Ticket?.TicketNumber == claimTicketID).First()?.GetParticipantBookings(FestivalManager);
+            bookings = GetBookings();
         }
+
+        private List<Booking> GetBookings()
+        {
+            var claimTicketID = HttpContext.User.Claims.Where(c => c.Type == "TicketID").Select(t => t.Value).FirstOrDefault();
+            var retBookings = FestivalManager.GetParticipants().Where(p => p.Ticket?.TicketNumber == claimTicketID).FirstOrDefault()?.GetParticipantBookings(FestivalManager);
+            return retBookings ?? new List<Booking>();
+        }
+
         public IActionResult OnPostRemoveBooking(int id)
         {
-            var claimTicketID = HttpContext.User.Claims.Where(c => c.Type == "TicketID").Select(t => t.Value).First();
-            bookings = FestivalManager.GetParticipants().Where(p => p.Ticket?.TicketNumber == claimTicketID).First()?.GetParticipantBookings(FestivalManager);
+            bookings = GetBookings();
 
             var booking = bookings.Find(b => b.ID == id);
             booking?.Concert?.RemoveBooking(booking);
@@ -37,8 +43,8 @@ namespace NorthernWinterBeat.Pages.ParticipantRazor
         }
         public IActionResult OnPostActivateBooking(int id)
         {
-            var claimTicketID = HttpContext.User.Claims.Where(c => c.Type == "TicketID").Select(t => t.Value).First();
-            bookings = FestivalManager.GetParticipants().Where(p => p.Ticket?.TicketNumber == claimTicketID).First()?.GetParticipantBookings(FestivalManager);
+            bookings = GetBookings();
+
             var booking = bookings.Find(b => b.ID == id);
 
             DateTime concertStartTime = booking.Concert.Start;
@@ -55,8 +61,8 @@ namespace NorthernWinterBeat.Pages.ParticipantRazor
         }
         public async Task<IActionResult> OnSignOutAsync()
         {
-            var claimTicketID = HttpContext.User.Claims.Where(c => c.Type == "TicketID").Select(t => t.Value).First();
-            Participant p = FestivalManager.GetParticipants().Where(p => p.Ticket?.TicketNumber == claimTicketID).First();
+            var claimTicketID = HttpContext.User.Claims.Where(c => c.Type == "TicketID").Select(t => t.Value).FirstOrDefault();
+            Participant p = FestivalManager.GetParticipants().Where(p => p.Ticket?.TicketNumber == claimTicketID).FirstOrDefault();
             await HttpContext.SignOutAsync();
             return RedirectToPage("../Pages/Index");
         }
