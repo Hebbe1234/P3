@@ -6,25 +6,18 @@
 @{
     if (Model.Participant != null)
     {
-        <div class="text-center">
-            <h1>Your booking</h1>
-            <div>
-                <p>Ticket number: </p>
-                <h3>@Model.Participant?.Ticket.TicketNumber</h3>
-                <p>Name</p>
-                <h3>@Model.Participant?.Name</h3>
-                <p>Email</p>
-                <h3>@Model.Participant?.Email</h3>
-                <br>
-                <p>Concert</p>
-                <h3>@Model.Concert?.Artist</h3>
-                <p>Venue</p>
-                <h3>@Model.Concert?.Venue?.Name</h3>
-                <p>Start time</p>
-                <h3>
-                    @Model.Concert?.Start
-                    @*@Model.Concert.Start.Date.ToString("dd-MM-yyyy") @Model.Concert.Start.Date.ToString("HH:mm")*@
-                </h3>
+        <div class="text-center" style="overflow-wrap:break-word">
+            <h2>Participant information</h2>
+            <div style="font-size:x-large">
+                <p>@Model.Participant?.Ticket.TicketNumber</p>
+                <p>@Model.Participant?.Name</p>
+                <p>@Model.Participant?.Email</p><br />
+            </div>
+            <h2>Concert information</h2>
+            <div style="font-size:x-large">
+                <p>@Model.Concert?.Artist</p>
+                <p>@Model.Concert?.Venue?.Name</p>
+                <p>@Model.Concert?.Start</p><br />
             </div>
             <div class="text-center">
                 <button type="button" class="btn btn-primary text-center" data-toggle="modal" data-target="#goBackBooking">
@@ -34,7 +27,7 @@
         </div>
     } else
     {
-        <p>It seems you dont have a valid booking to display <br>This is either an error, or because the booking have already been activated. If it is an error, go back and try again. </p>
+        <p>It seems you do not have a valid booking to display. <br>This is either an error, or because the booking has already been activated. If you have not activated your booking, please go back and try again. </p>
     }
 }
 
@@ -47,13 +40,13 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="goBackBookingLabel">Go back</h5>
+                <h5 class="modal-title" id="goBackBookingLabel">Return to bookings</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                Going back will make this booking invalid.
+                Are you sure you want to return to your bookings? Doing this will use this booking.
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
