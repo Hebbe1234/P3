@@ -14,10 +14,7 @@ namespace NorthernWinterBeatLibrary.Models
         {
             DataAccess = new EFDataAccess(ctx);
         }
-        public ApplicationUser()
-        {
 
-        }
         public ApplicationUser(string username, string password, Roles role)
         {
             Username = username;
