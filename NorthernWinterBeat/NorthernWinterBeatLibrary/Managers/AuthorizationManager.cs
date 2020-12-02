@@ -177,7 +177,7 @@ namespace NorthernWinterBeatLibrary.Managers
             mail.Subject = "Reset your password for NWB";
 
 
-            mail.Body = "Reset Email. Here is the reset code: \n" + SecretCode + "\n\nThe code can only be used for the next 20 minutes." + "\n\nOnly oncecode is active at a time, so if you have multiple reset emails, only the newest email works.";
+            mail.Body = "Hey, \n\nYour reset code is: \n" + SecretCode + "\n\nThe code can only be used for the next 20 minutes. Only the newest code sent works. \nWe recommend you change your password as fast as possible for security reasons.";
 
             SmtpServer.UseDefaultCredentials = true;
 
