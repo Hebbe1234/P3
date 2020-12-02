@@ -20,7 +20,7 @@
         }
         int datesButtonResponsiveWidth = (100 / Dates.Count()) - 1;
 
-        foreach (var d in Dates)
+        foreach (var d in Dates.OrderBy(day => day.Date))
         {
             <div class="btn-group" style="width:@datesButtonResponsiveWidth%;" >
                 <button class="btn btn-secondary day-selection @((d.Date == Model.Day.Value.Date)? "selected" : "")" style="border-radius: 0.35em" value=@d.ToString()>@d.DayOfWeek</button>
