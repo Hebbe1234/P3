@@ -20,24 +20,25 @@ namespace NorthernWinterBeat.Pages
 {
     public class MakeUserLoginModel : PageModel
     {
-
         [BindProperty(SupportsGet = true)]
         public string ticketNumber { get; set; }
         private IAuthorizationManager AuthorizationManager { get; }
-        private IFestivalManager FestivalManager { get; }
-        private IDataAccess DataAccess { get; }
         [BindProperty(SupportsGet = true)]
         public string Alert { get; set; }
 
-        public MakeUserLoginModel(IFestivalManager festivalManager, IAuthorizationManager authorizationManager, IDataAccess dataAccess)
+        public MakeUserLoginModel(IAuthorizationManager authorizationManager)
         {
             AuthorizationManager = authorizationManager;
-            FestivalManager = festivalManager;
-            DataAccess = dataAccess; 
         }
-        public void OnGet()
+        public IActionResult OnGet(string ticketNumber = "-1")
         {
-
+            if(ticketNumber == "-1")
+            {
+                return RedirectToPage("./Index");
+            } else
+            {
+                return Page();
+            }
         }
         public IActionResult OnPost()
         {
@@ -46,7 +47,6 @@ namespace NorthernWinterBeat.Pages
             string Password1Entered = Request.Form["Password1Entered"];
             string Password2Entered = Request.Form["Password2Entered"];
 
-            //Her kan koden valideres
             if (NameEntered == "")
             {
                 return RedirectToPage("./MakeUserLogin", new { Alert = "No Name", ticketNumber = ticketNumber });
@@ -66,8 +66,6 @@ namespace NorthernWinterBeat.Pages
                 return RedirectToPage("./MakeUserLogin", new { Alert = "Different Passwords", ticketNumber = ticketNumber });
             }
 
-            //Her kan det valideres hvorvidt usernamet er korrekt. 
-
             var user = AuthorizationManager.GetUser(EmailEntered);
             if (user != null)
             {
@@ -79,7 +77,5 @@ namespace NorthernWinterBeat.Pages
 
             return RedirectToPage("./Index", new { Alert = "User Created", ticketNumber = ticketNumber });
         }
-
-        
     }
 }

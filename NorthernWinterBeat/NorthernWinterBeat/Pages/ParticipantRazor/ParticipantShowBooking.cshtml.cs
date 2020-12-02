@@ -24,19 +24,22 @@ namespace NorthernWinterBeat.Pages.ParticipantRazor
         public void OnGet(int bookingID = -1)
         {
             Id = bookingID;
-            var claimTicketID = HttpContext.User.Claims.Where(c => c.Type == "TicketID").Select(t => t.Value).First();
-            var bookings = FestivalManager.GetParticipants().Where(p => p.Ticket?.TicketNumber == claimTicketID).First()?.GetParticipantBookings(FestivalManager);
-
-            var booking = bookings.Find(b => b.ID == bookingID);
-            if(booking == null || booking.State == Booking.BookingState.INACTIVE)
+            var claimTicketID = HttpContext.User.Claims.Where(c => c.Type == "TicketID").Select(t => t.Value).FirstOrDefault();
+            var bookings = FestivalManager.GetParticipants().Where(p => p.Ticket?.TicketNumber == claimTicketID).FirstOrDefault()?.GetParticipantBookings(FestivalManager);
+            if(bookings != null)
             {
-                Concert = null;
-                Participant = null;
-            } else
-            {
-                Participant = FestivalManager.GetParticipant(booking.Participant.ID);
-                Concert = FestivalManager.Calendar.GetConcert(booking.Concert.ID);
-                booking.Disable();
+                var booking = bookings.Find(b => b.ID == bookingID);
+                if (booking == null || booking.State == Booking.BookingState.INACTIVE)
+                {
+                    Concert = null;
+                    Participant = null;
+                }
+                else
+                {
+                    Participant = FestivalManager.GetParticipant(booking.Participant.ID);
+                    Concert = FestivalManager.Calendar.GetConcert(booking.Concert.ID);
+                    booking.Disable();
+                }
             }
         }
     }
