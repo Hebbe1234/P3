@@ -31,7 +31,7 @@ namespace NorthernWinterBeatLibrary.Managers
         public virtual DbSet<Booking> Booking { get; set; }
         public virtual DbSet<LegalTicket> LegalTickets { get; set; }
         public virtual DbSet<ApplicationUser> ApplicationUser { get; set; }
-        public virtual DbSet<PasswordRequest> ResetPasswordRequest { get; set; }
+        public virtual DbSet<PasswordRequest> PasswordRequest { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

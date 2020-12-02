@@ -55,7 +55,7 @@ namespace NorthernWinterBeatLibrary.DataAccess
             }
             else if (typeof(T) == typeof(PasswordRequest))
             {
-                context.ResetPasswordRequest.Add(input as PasswordRequest);
+                context.PasswordRequest.Add(input as PasswordRequest);
             }
             Save(); 
         }
@@ -96,7 +96,7 @@ namespace NorthernWinterBeatLibrary.DataAccess
             }
             else if (typeof(T) == typeof(PasswordRequest))
             {
-                context.ResetPasswordRequest.Remove(input as PasswordRequest);
+                context.PasswordRequest.Remove(input as PasswordRequest);
             }
             Save();
         }
@@ -135,7 +135,7 @@ namespace NorthernWinterBeatLibrary.DataAccess
                 }
                 else if (typeof(T) == typeof(PasswordRequest))
                 {
-                    return context.ResetPasswordRequest.ToList() as List<T>;
+                    return context.PasswordRequest.ToList() as List<T>;
                 }
                 return new List<T>();
             }
