@@ -36,7 +36,7 @@ namespace NorthernWinterBeatLibrary.Managers
 
         public void CreateParticipantUser(string NameEntered, string EmailEntered, string Password1Entered, string ticketNumber)
         {
-            var newUser = new ApplicationUser(EmailEntered, Encrypt(Password1Entered), ApplicationUser.Roles.PARTICIPANT)
+            var newUser = new ApplicationUser(EmailEntered, Encrypt(Password1Entered), ApplicationUser.Roles.PARTICIPANT, DataAccess)
             {
                 TicketID = ticketNumber
             };
@@ -48,7 +48,7 @@ namespace NorthernWinterBeatLibrary.Managers
 
         public void CreateVenueUser(int id, string Username, string Password1Entered)
         {
-            var newUser = new ApplicationUser(Username, Encrypt(Password1Entered), ApplicationUser.Roles.VENUE)
+            var newUser = new ApplicationUser(Username, Encrypt(Password1Entered), ApplicationUser.Roles.VENUE, DataAccess)
             {
                 VenueID = id
             };
@@ -164,8 +164,8 @@ namespace NorthernWinterBeatLibrary.Managers
                 DataAccess.Remove<ResetPasswordRequest>(item); 
             }
 
-            string SecretCode = SecretCodeGenerator();  
-            ResetPasswordRequest NewResetPasswordRequest = new ResetPasswordRequest(SecretCode, UserEmail);
+            string ResetCode = ResetCodeGenerator();  
+            ResetPasswordRequest NewResetPasswordRequest = new ResetPasswordRequest(ResetCode, UserEmail);
             DataAccess.Add(NewResetPasswordRequest); 
     
 
@@ -177,7 +177,7 @@ namespace NorthernWinterBeatLibrary.Managers
             mail.Subject = "Reset your password for NWB";
 
 
-            mail.Body = "Hey, \n\nYour reset code is: \n" + SecretCode + "\n\nThe code can only be used for the next 20 minutes. Only the newest code sent works. \nWe recommend you change your password as fast as possible for security reasons.";
+            mail.Body = "Hey, \n\nYour reset code is: \n" + ResetCode + "\n\nThe code can only be used for the next 20 minutes. Only the newest code sent works. \nWe recommend you change your password as fast as possible for security reasons.";
 
             SmtpServer.UseDefaultCredentials = true;
 
@@ -193,7 +193,7 @@ namespace NorthernWinterBeatLibrary.Managers
                 Console.WriteLine("The mail didnt send \n" + e.Message);
             }
         } 
-        public string SecretCodeGenerator()
+        public string ResetCodeGenerator()
         {
             var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
             var stringChars = new char[8];
@@ -207,16 +207,16 @@ namespace NorthernWinterBeatLibrary.Managers
             return new String(stringChars);
         }
 
-        public bool ChangePassword(string SecretCode, string email, string Password)
+        public bool ChangePassword(string resetCode, string email, string Password)
         {
             var resetPasswordRequest = DataAccess.Retrieve<ResetPasswordRequest>().OrderByDescending(p => p.ExpirationDate).ToList().Find(p => p.Email == email);
             if(resetPasswordRequest == null)
             {
                 return false; 
-            } else if(resetPasswordRequest.SecretCode == SecretCode && resetPasswordRequest.ExpirationDate > DateTime.Now)
+            } else if(resetPasswordRequest.ResetCode == resetCode && resetPasswordRequest.ExpirationDate > DateTime.Now)
             {
                 ApplicationUser p = DataAccess.Retrieve<ApplicationUser>().Find(p => p.Username == email);
-                ApplicationUser newApplicationUser = new ApplicationUser(p.Username, Encrypt(Password), p.Role);
+                ApplicationUser newApplicationUser = new ApplicationUser(p.Username, Encrypt(Password), p.Role, DataAccess);
 
                 p.Update(newApplicationUser); 
                 DataAccess.Save();

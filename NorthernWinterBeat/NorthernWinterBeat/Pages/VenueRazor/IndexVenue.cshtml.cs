@@ -9,17 +9,17 @@ using NorthernWinterBeatLibrary.Managers;
 
 namespace NorthernWinterBeat.Pages.VenueRazor
 {
-    public class IndexModel : PageModel
+    public class IndexVenueModel : PageModel
     {
-        public List<Concert> concerts { get; set; } = new List<Concert>();
-        public Venue venue { get; set; }
+        public List<Concert> Concerts { get; set; } = new List<Concert>();
+        public Venue Venue { get; set; }
 
         [BindProperty(SupportsGet = true)]
         public string SortBy { get; set; }
 
         private IFestivalManager FestivalManager { get; }
 
-        public IndexModel(IFestivalManager festivalManager, int id = 3)
+        public IndexVenueModel(IFestivalManager festivalManager)
         {
             FestivalManager = festivalManager;
         }
@@ -29,8 +29,8 @@ namespace NorthernWinterBeat.Pages.VenueRazor
             var currentVenueIDstring = HttpContext.User.Claims.Where(c => c.Type == "VenueID").Select(c => c.Value).FirstOrDefault();
             var currentVenueID = int.Parse(currentVenueIDstring);
 
-            concerts = FestivalManager.Calendar.GetConcertsAtVenue(currentVenueID);
-            venue = FestivalManager.Calendar.GetVenue(currentVenueID);
+            Concerts = FestivalManager.Calendar.GetConcertsAtVenue(currentVenueID);
+            Venue = FestivalManager.Calendar.GetVenue(currentVenueID);
         }
 
         public List<Concert> SortConcertBy(List<Concert> SortConcert)

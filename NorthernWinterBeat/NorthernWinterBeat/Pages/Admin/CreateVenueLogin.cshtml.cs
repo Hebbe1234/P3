@@ -55,7 +55,5 @@ namespace NorthernWinterBeat.Pages.Admin
             AuthorizationManager.CreateVenueUser(id, Username, Password1Entered); 
             return RedirectToPage("./Calendar");
         }
-
-        
     }
 }

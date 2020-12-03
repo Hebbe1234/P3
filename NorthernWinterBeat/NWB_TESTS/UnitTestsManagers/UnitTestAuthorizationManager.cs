@@ -97,7 +97,7 @@ namespace NWB_TESTS.UnitTestsManagers
 
             AuthorizationManager authorizationManager = new AuthorizationManager(mock.Object, mockFestivalManager.Object, GetConfigurationMock());
 
-            ApplicationUser ParticipantUser = new ApplicationUser("martin123", "Hejsa1234", ApplicationUser.Roles.PARTICIPANT);
+            ApplicationUser ParticipantUser = new ApplicationUser("martin123", "Hejsa1234", ApplicationUser.Roles.PARTICIPANT, mock.Object);
            
             bool expected = true; 
 
@@ -119,7 +119,7 @@ namespace NWB_TESTS.UnitTestsManagers
 
             AuthorizationManager authorizationManager = new AuthorizationManager(mock.Object, mockFestivalManager.Object, GetConfigurationMock());
 
-            ApplicationUser ParticipantUser = new ApplicationUser("martin123", "Hejsa1234", ApplicationUser.Roles.ADMIN);
+            ApplicationUser ParticipantUser = new ApplicationUser("martin123", "Hejsa1234", ApplicationUser.Roles.ADMIN, mock.Object);
             bool expected = true;
 
             //Act
@@ -149,6 +149,157 @@ namespace NWB_TESTS.UnitTestsManagers
             //Assert
             Assert.Equal(expected, result);
         }
+        [Fact]
+        public void ResetCodeGenerator_ReturnsA8CharString()
+        {
+            //Arrange
+            var mock = new Mock<IDataAccess>();
+            var mockFestivalManager = new Mock<IFestivalManager>();
+            AuthorizationManager authorizationManager = new AuthorizationManager(mock.Object, mockFestivalManager.Object, GetConfigurationMock());
+            int expectedLength = 8; 
+            //Act
+            string result = authorizationManager.ResetCodeGenerator();
 
+            //Assert
+            Assert.Equal(expectedLength, result.Count());
+        }
+        [Fact]
+        public void ResetCodeGenerator_ReturnsAStringConatingaTo9()
+        {
+            //Arrange
+            var mock = new Mock<IDataAccess>();
+            var mockFestivalManager = new Mock<IFestivalManager>();
+            AuthorizationManager authorizationManager = new AuthorizationManager(mock.Object, mockFestivalManager.Object, GetConfigurationMock());
+            bool expected = true;
+            //Act
+            bool result = authorizationManager.ResetCodeGenerator().All(c => (c >= 'a' && c <= 'z' || c >= 'A' && c <= 'Z' || c >= '0' && c <= '9' || c == '_'));
+
+            //Assert
+            Assert.Equal(expected, result);
+        }
+
+        [Fact]
+        public void ChangePassword_NoResetPasswordRequest()
+        {
+            //Arrange
+            var mock = new Mock<IDataAccess>();
+            string resetCode = "123Reset";
+            string email = "Email123";
+            string newPassword = "Password";
+            mock.Setup(D => D.Retrieve<ResetPasswordRequest>()).Returns(new List<ResetPasswordRequest>());
+            mock.Setup(D => D.Retrieve<ApplicationUser>()).Returns(new List<ApplicationUser>()
+            {
+                new ApplicationUser(email, "Password", ApplicationUser.Roles.PARTICIPANT, mock.Object),
+                new ApplicationUser("Wrong Email", "Password", ApplicationUser.Roles.PARTICIPANT, mock.Object),
+                new ApplicationUser("More Wrong Email", "Password", ApplicationUser.Roles.PARTICIPANT, mock.Object),
+            }) ;
+            var mockFestivalManager = new Mock<IFestivalManager>();
+            AuthorizationManager authorizationManager = new AuthorizationManager(mock.Object, mockFestivalManager.Object, GetConfigurationMock());
+            bool expected = false;
+
+            //Act
+            bool result = authorizationManager.ChangePassword(resetCode, email, newPassword);
+
+            //Assert
+            Assert.Equal(expected, result);
+        }
+        [Fact]
+        public void ChangePassword_WrongResetCode()
+        {
+            //Arrange
+            var mock = new Mock<IDataAccess>();
+            string resetCode = "123Reset";
+            string WrongResetCode = "WrongCode";
+            string email = "Email123";
+            string newPassword = "Password";
+            mock.Setup(D => D.Retrieve<ResetPasswordRequest>()).Returns(new List<ResetPasswordRequest>()
+            {
+                new ResetPasswordRequest(resetCode, email),
+                new ResetPasswordRequest(resetCode + "1", "WrongEMail"),
+                new ResetPasswordRequest(resetCode + "2", "AnotherWrongEmail")
+
+            });
+            mock.Setup(D => D.Retrieve<ApplicationUser>()).Returns(new List<ApplicationUser>()
+            {
+                new ApplicationUser(email, "Password", ApplicationUser.Roles.PARTICIPANT, mock.Object),
+                new ApplicationUser("Wrong Email", "Password", ApplicationUser.Roles.PARTICIPANT, mock.Object),
+                new ApplicationUser("More Wrong Email", "Password", ApplicationUser.Roles.PARTICIPANT, mock.Object),
+            });
+            var mockFestivalManager = new Mock<IFestivalManager>();
+            AuthorizationManager authorizationManager = new AuthorizationManager(mock.Object, mockFestivalManager.Object, GetConfigurationMock());
+            bool expected = false;
+
+            //Act
+            bool result = authorizationManager.ChangePassword(WrongResetCode, email, newPassword);
+
+            //Assert
+            Assert.Equal(expected, result);
+        }
+
+        [Fact]
+        public void ChangePassword_ExpiredResetPasswordRequest()
+        {
+            //Arrange
+            var mock = new Mock<IDataAccess>();
+            string resetCode = "123Reset";
+            string email = "Email123";
+            string newPassword = "Password";
+            mock.Setup(D => D.Retrieve<ResetPasswordRequest>()).Returns(new List<ResetPasswordRequest>()
+            {
+                new ResetPasswordRequest(resetCode, email) { ExpirationDate = DateTime.Now.AddHours(-1)},
+                new ResetPasswordRequest(resetCode + "1", "WrongEMail"),
+                new ResetPasswordRequest(resetCode + "2", "AnotherWrongEmail")
+
+            });
+            mock.Setup(D => D.Retrieve<ApplicationUser>()).Returns(new List<ApplicationUser>()
+            {
+                new ApplicationUser(email, "Password", ApplicationUser.Roles.PARTICIPANT, mock.Object),
+                new ApplicationUser("Wrong Email", "Password", ApplicationUser.Roles.PARTICIPANT, mock.Object),
+                new ApplicationUser("More Wrong Email", "Password", ApplicationUser.Roles.PARTICIPANT, mock.Object),
+            });
+            var mockFestivalManager = new Mock<IFestivalManager>();
+            AuthorizationManager authorizationManager = new AuthorizationManager(mock.Object, mockFestivalManager.Object, GetConfigurationMock());
+            bool expected = false;
+
+            //Act
+            bool result = authorizationManager.ChangePassword(resetCode, email, newPassword);
+
+            //Assert
+            Assert.Equal(expected, result);
+        }
+
+        [Fact]
+        public void ChangePassword_CorrectlyChangesPassword()
+        {
+            //Arrange
+            var mock = new Mock<IDataAccess>();
+            string resetCode = "123Reset";
+            string email = "Email123";
+            string newPassword = "Password";
+            mock.Setup(D => D.Retrieve<ResetPasswordRequest>()).Returns(new List<ResetPasswordRequest>()
+            {
+                new ResetPasswordRequest(resetCode, email),
+                new ResetPasswordRequest(resetCode + "1", "WrongEMail"),
+                new ResetPasswordRequest(resetCode + "2", "AnotherWrongEmail")
+
+            });
+            mock.Setup(D => D.Retrieve<ApplicationUser>()).Returns(new List<ApplicationUser>()
+            {
+                new ApplicationUser(email, "Password", ApplicationUser.Roles.PARTICIPANT, mock.Object),
+                new ApplicationUser("Wrong Email", "Password", ApplicationUser.Roles.PARTICIPANT, mock.Object),
+                new ApplicationUser("More Wrong Email", "Password", ApplicationUser.Roles.PARTICIPANT, mock.Object),
+            });
+            var mockFestivalManager = new Mock<IFestivalManager>();
+            AuthorizationManager authorizationManager = new AuthorizationManager(mock.Object, mockFestivalManager.Object, GetConfigurationMock());
+            bool expected = true;
+
+            //Act
+            bool result = authorizationManager.ChangePassword(resetCode, email, newPassword);
+
+
+
+            //Assert
+            Assert.Equal(expected, result);
+        }
     }
 }

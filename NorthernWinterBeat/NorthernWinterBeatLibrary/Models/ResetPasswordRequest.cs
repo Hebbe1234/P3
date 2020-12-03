@@ -11,9 +11,9 @@ namespace NorthernWinterBeatLibrary.Models
         public ResetPasswordRequest()
         {
         }
-        public ResetPasswordRequest(string _secretCode, string _email)
+        public ResetPasswordRequest(string _resetCode, string _email)
         {
-            SecretCode = _secretCode;
+            ResetCode = _resetCode;
             Email = _email;
             ExpirationDate = DateTime.Now.AddMinutes(20);
         }
@@ -21,7 +21,7 @@ namespace NorthernWinterBeatLibrary.Models
         [Key] 
         public int ID { get; set; }
         public DateTime ExpirationDate { get; set; }
-        public string SecretCode { get; set; }
+        public string ResetCode { get; set; }
         public string Email { get; set; }
     }
 }

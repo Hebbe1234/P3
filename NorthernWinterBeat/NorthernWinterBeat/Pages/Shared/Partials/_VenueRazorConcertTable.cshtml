@@ -2,10 +2,10 @@
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
-    @model NorthernWinterBeat.Pages.VenueRazor.IndexModel
+    @model NorthernWinterBeat.Pages.VenueRazor.IndexVenueModel
 }
 @{
-    List<Concert> SortConcert = new List<Concert>(Model.concerts);
+    List<Concert> SortConcert = new List<Concert>(Model.Concerts);
 
     SortConcert = Model.SortConcertBy(SortConcert);
 
