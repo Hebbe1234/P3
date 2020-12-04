@@ -5,13 +5,13 @@ using System.Text;
 
 namespace NorthernWinterBeatLibrary.Models
 {
-    public class ResetPasswordRequest
+    public class PasswordRequest
     {
 
-        public ResetPasswordRequest()
+        public PasswordRequest()
         {
         }
-        public ResetPasswordRequest(string _resetCode, string _email)
+        public PasswordRequest(string _resetCode, string _email)
         {
             ResetCode = _resetCode;
             Email = _email;

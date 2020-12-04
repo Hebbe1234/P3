@@ -164,7 +164,7 @@ namespace NorthernWinterBeatLibrary.Managers
 
         public bool ChangePassword(string resetCode, string email, string Password)
         {
-            var resetPasswordRequest = DataAccess.Retrieve<ResetPasswordRequest>().OrderByDescending(p => p.ExpirationDate).ToList().Find(p => p.Email == email);
+            var resetPasswordRequest = DataAccess.Retrieve<PasswordRequest>().OrderByDescending(p => p.ExpirationDate).ToList().Find(p => p.Email == email);
             if(resetPasswordRequest == null)
             {
                 return false; 
@@ -175,7 +175,7 @@ namespace NorthernWinterBeatLibrary.Managers
 
                 p.Update(newApplicationUser); 
                 DataAccess.Save();
-                DataAccess.Remove<ResetPasswordRequest>(resetPasswordRequest); 
+                DataAccess.Remove<PasswordRequest>(resetPasswordRequest); 
                 return true; 
             } else
             {

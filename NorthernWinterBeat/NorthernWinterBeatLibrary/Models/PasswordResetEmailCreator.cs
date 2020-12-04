@@ -32,15 +32,15 @@ namespace NorthernWinterBeatLibrary.Models
         }
         public void CreateMail(string recipientEmailAddress)
         {
-            List<ResetPasswordRequest> RPR = DataAccess.Retrieve<ResetPasswordRequest>().FindAll(x => x.Email == recipientEmailAddress);
-            foreach (ResetPasswordRequest item in RPR)
+            List<PasswordRequest> RPR = DataAccess.Retrieve<PasswordRequest>().FindAll(x => x.Email == recipientEmailAddress);
+            foreach (PasswordRequest item in RPR)
             {
-                DataAccess.Remove<ResetPasswordRequest>(item);
+                DataAccess.Remove<PasswordRequest>(item);
             }
 
             string ResetCode = ResetCodeGenerator();
-            ResetPasswordRequest NewResetPasswordRequest = new ResetPasswordRequest(ResetCode, recipientEmailAddress);
-            DataAccess.Add(NewResetPasswordRequest);
+            PasswordRequest NewPasswordRequest = new PasswordRequest(ResetCode, recipientEmailAddress);
+            DataAccess.Add(NewPasswordRequest);
 
 
 

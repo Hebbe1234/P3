@@ -28,11 +28,11 @@ namespace NorthernWinterBeat.Models
         public int Capacity { get; set; }
         private IDataAccess DataAccess { get; set; }
 
-        public void Update(Venue NewVenueInfo)
+        public void Update(Venue newVenueInfo)
         {
-            Capacity = NewVenueInfo.Capacity;
-            Address = NewVenueInfo.Address;
-            Name = NewVenueInfo.Name;
+            Capacity = newVenueInfo.Capacity;
+            Address = newVenueInfo.Address;
+            Name = newVenueInfo.Name;
 
             DataAccess.Save();
         }

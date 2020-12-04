@@ -14,7 +14,7 @@
             @{
                 var path = ImageManager.ContainerURL + '/' + (concert.PicturePath == "" ? "150.png" : concert.PicturePath);
             }
-            <td><img src="@path"style="height:7em" /></td>
+            <td><img src="@path"style="height:5em; width:5em;" /></td>
             <td><a class="btn-link text-dark">@concert?.Artist</a></td>
             <td>@concert.FormatTime(concert.Start) - @concert.FormatTime(concert.End)</td>
             <td>@(concert.Venue?.Name ?? "")</td>

@@ -53,6 +53,5 @@ namespace NWB_TESTS
             //Assert
             Assert.Equal(expected, result); 
         }
-
     }
 }
