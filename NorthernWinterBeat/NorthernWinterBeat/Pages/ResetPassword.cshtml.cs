@@ -37,7 +37,7 @@ namespace NorthernWinterBeat.Pages
             Participant p = FestivalManager.GetParticipants().Find(p => p.Email == UserEmail);
             if (p != null) 
             {
-                AuthorizationManager.SendEmail(UserEmail, p);
+                AuthorizationManager.SendEmail(UserEmail);
             }
         }
         public IActionResult OnPostResetPassword()

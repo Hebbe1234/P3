@@ -156,7 +156,7 @@ namespace NorthernWinterBeatLibrary.Managers
             return encrypted;
         }
 
-        public void SendEmail(string UserEmail, Participant p)
+        public void SendEmail(string UserEmail)
         {
             List<ResetPasswordRequest> RPR = DataAccess.Retrieve<ResetPasswordRequest>().FindAll(x => x.Email == UserEmail);
             foreach (ResetPasswordRequest item in RPR)
@@ -184,6 +184,11 @@ namespace NorthernWinterBeatLibrary.Managers
             SmtpServer.Port = 587;
             SmtpServer.Credentials = new System.Net.NetworkCredential("nwb.reset@gmail.com", Configuration.GetValue<string>("EmailPassword"));
             SmtpServer.EnableSsl = true;
+            SendEmailHelper(SmtpServer, mail); 
+        } 
+
+        public virtual void SendEmailHelper(SmtpClient SmtpServer, MailMessage mail)
+        {
             try
             {
                 SmtpServer.Send(mail);
@@ -192,7 +197,7 @@ namespace NorthernWinterBeatLibrary.Managers
             {
                 Console.WriteLine("The mail didnt send \n" + e.Message);
             }
-        } 
+        }
         public string ResetCodeGenerator()
         {
             var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
