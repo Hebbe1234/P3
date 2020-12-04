@@ -27,8 +27,6 @@ namespace NWB_TESTS.UnitTestsManagers
 
     public class UnitTestAuthorizationManager
     {
-        
-        
         private IConfiguration GetConfigurationMock()
         {
             var inMemorySettings = new Dictionary<string, string>
@@ -152,35 +150,6 @@ namespace NWB_TESTS.UnitTestsManagers
             Assert.Equal(expected, result);
         }
         [Fact]
-        public void ResetCodeGenerator_ReturnsA8CharString()
-        {
-            //Arrange
-            var mock = new Mock<IDataAccess>();
-            var mockFestivalManager = new Mock<IFestivalManager>();
-            AuthorizationManager authorizationManager = new AuthorizationManager(mock.Object, mockFestivalManager.Object, GetConfigurationMock());
-            int expectedLength = 8; 
-            //Act
-            string result = authorizationManager.ResetCodeGenerator();
-
-            //Assert
-            Assert.Equal(expectedLength, result.Count());
-        }
-        [Fact]
-        public void ResetCodeGenerator_ReturnsAStringConatingaTo9()
-        {
-            //Arrange
-            var mock = new Mock<IDataAccess>();
-            var mockFestivalManager = new Mock<IFestivalManager>();
-            AuthorizationManager authorizationManager = new AuthorizationManager(mock.Object, mockFestivalManager.Object, GetConfigurationMock());
-            bool expected = true;
-            //Act
-            bool result = authorizationManager.ResetCodeGenerator().All(c => (c >= 'a' && c <= 'z' || c >= 'A' && c <= 'Z' || c >= '0' && c <= '9' || c == '_'));
-
-            //Assert
-            Assert.Equal(expected, result);
-        }
-
-        [Fact]
         public void ChangePassword_NoResetPasswordRequest()
         {
             //Arrange
@@ -194,7 +163,7 @@ namespace NWB_TESTS.UnitTestsManagers
                 new ApplicationUser(email, "Password", ApplicationUser.Roles.PARTICIPANT, mock.Object),
                 new ApplicationUser("Wrong Email", "Password", ApplicationUser.Roles.PARTICIPANT, mock.Object),
                 new ApplicationUser("More Wrong Email", "Password", ApplicationUser.Roles.PARTICIPANT, mock.Object),
-            }) ;
+            });
             var mockFestivalManager = new Mock<IFestivalManager>();
             AuthorizationManager authorizationManager = new AuthorizationManager(mock.Object, mockFestivalManager.Object, GetConfigurationMock());
             bool expected = false;
@@ -280,16 +249,7 @@ namespace NWB_TESTS.UnitTestsManagers
                 new ApplicationUser("More Wrong Email", "Password", ApplicationUser.Roles.PARTICIPANT, mock.Object)
             };
         }
-        public List<ResetPasswordRequest> GenerateResetPasswordRequests(string resetCode, string email)
-        {
-            return new List<ResetPasswordRequest>()
-            {
-                new ResetPasswordRequest(resetCode, email),
-                new ResetPasswordRequest(resetCode, email),
-                new ResetPasswordRequest(resetCode + "1", "WrongEMail"),
-                new ResetPasswordRequest(resetCode + "2", "AnotherWrongEmail")
-            };
-        }
+
 
         [Fact]
         public void ChangePassword_CorrectlyChangesPassword()
@@ -299,7 +259,7 @@ namespace NWB_TESTS.UnitTestsManagers
             string resetCode = "123Reset";
             string email = "Email@123";
             string newPassword = "Password";
-            var ApplicationsUsers = GenerateApplicationUsers(email); 
+            var ApplicationsUsers = GenerateApplicationUsers(email);
             mock.Setup(D => D.Retrieve<ResetPasswordRequest>()).Returns(new List<ResetPasswordRequest>()
             {
                 new ResetPasswordRequest(resetCode, email),
@@ -309,16 +269,15 @@ namespace NWB_TESTS.UnitTestsManagers
             mock.Setup(D => D.Retrieve<ApplicationUser>()).Returns(ApplicationsUsers);
             var mockFestivalManager = new Mock<IFestivalManager>();
             AuthorizationManager authorizationManager = new AuthorizationManager(mock.Object, mockFestivalManager.Object, GetConfigurationMock());
-            string expectedPassword = authorizationManager.Encrypt(newPassword); 
+            string expectedPassword = authorizationManager.Encrypt(newPassword);
 
             //Act
             authorizationManager.ChangePassword(resetCode, email, newPassword);
-            string actualPassword = ApplicationsUsers[0].Password; 
+            string actualPassword = ApplicationsUsers[0].Password;
 
             //Assert
             Assert.Equal(expectedPassword, actualPassword);
         }
-
 
 
     }

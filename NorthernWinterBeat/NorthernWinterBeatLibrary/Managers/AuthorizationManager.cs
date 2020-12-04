@@ -158,58 +158,8 @@ namespace NorthernWinterBeatLibrary.Managers
 
         public void SendEmail(string UserEmail)
         {
-            List<ResetPasswordRequest> RPR = DataAccess.Retrieve<ResetPasswordRequest>().FindAll(x => x.Email == UserEmail);
-            foreach (ResetPasswordRequest item in RPR)
-            {
-                DataAccess.Remove<ResetPasswordRequest>(item); 
-            }
-
-            string ResetCode = ResetCodeGenerator();  
-            ResetPasswordRequest NewResetPasswordRequest = new ResetPasswordRequest(ResetCode, UserEmail);
-            DataAccess.Add(NewResetPasswordRequest); 
-    
-
-            MailMessage mail = new MailMessage();
-            SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com");
-
-            mail.From = new MailAddress("nwb.reset@gmail.com");
-            mail.To.Add(UserEmail);
-            mail.Subject = "Reset your password for NWB";
-
-
-            mail.Body = "Hey, \n\nYour reset code is: \n" + ResetCode + "\n\nThe code can only be used for the next 20 minutes. Only the newest code sent works. \nWe recommend you change your password as fast as possible for security reasons.";
-
-            SmtpServer.UseDefaultCredentials = true;
-
-            SmtpServer.Port = 587;
-            SmtpServer.Credentials = new System.Net.NetworkCredential("nwb.reset@gmail.com", Configuration.GetValue<string>("EmailPassword"));
-            SmtpServer.EnableSsl = true;
-            SendEmailHelper(SmtpServer, mail); 
-        } 
-
-        public virtual void SendEmailHelper(SmtpClient SmtpServer, MailMessage mail)
-        {
-            try
-            {
-                SmtpServer.Send(mail);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("The mail didnt send \n" + e.Message);
-            }
-        }
-        public string ResetCodeGenerator()
-        {
-            var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-            var stringChars = new char[8];
-            var random = new Random();
-
-            for (int i = 0; i < stringChars.Length; i++)
-            {
-                stringChars[i] = chars[random.Next(chars.Length)];
-            }
-
-            return new String(stringChars);
+            IPasswordResetEmailCreator passwordResetEmailCreator = new PasswordResetEmailCreator(DataAccess, Configuration);
+            passwordResetEmailCreator.CreateMail(UserEmail); 
         }
 
         public bool ChangePassword(string resetCode, string email, string Password)
