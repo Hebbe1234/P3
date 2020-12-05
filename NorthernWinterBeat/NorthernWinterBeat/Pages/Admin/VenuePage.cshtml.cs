@@ -15,13 +15,11 @@ namespace NorthernWinterBeat.Pages.Admin
 
         public Venue Venue { get; set; }
         public List<Concert> Concerts { get; set; }
-        //private IDataAccess DataAccess { get; set; }
         private IFestivalManager FestivalManager { get; }
 
         public VenuePageModel(IFestivalManager festivalManager)
         {
             FestivalManager = festivalManager;
-            //DataAccess = dataAccess;
         }
         [BindProperty(SupportsGet = true)]
         public int id { get; set; } = 1; 

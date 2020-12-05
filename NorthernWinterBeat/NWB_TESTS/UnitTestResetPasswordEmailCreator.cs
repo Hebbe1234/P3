@@ -1,19 +1,11 @@
-﻿using Microsoft.AspNetCore.Components.Authorization;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.ObjectPool;
-using MockQueryable.Moq;
+﻿using Microsoft.Extensions.Configuration;
 using Moq;
-using NorthernWinterBeat.Models;
 using NorthernWinterBeatLibrary.DataAccess;
 using NorthernWinterBeatLibrary.Managers;
 using NorthernWinterBeatLibrary.Models;
-using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Net.Mail;
-using System.Text;
+using System.Text.RegularExpressions;
 using Xunit;
 
 namespace NWB_TESTS
@@ -34,14 +26,14 @@ namespace NWB_TESTS
             return configuration;
 
         }
-        public List<ResetPasswordRequest> GenerateResetPasswordRequests(string resetCode, string email)
+        public List<PasswordRequest> GenerateResetPasswordRequests(string resetCode, string email)
         {
-            return new List<ResetPasswordRequest>()
+            return new List<PasswordRequest>()
             {
-                new ResetPasswordRequest(resetCode, email),
-                new ResetPasswordRequest(resetCode, email),
-                new ResetPasswordRequest(resetCode + "1", "WrongEMail"),
-                new ResetPasswordRequest(resetCode + "2", "AnotherWrongEmail")
+                new PasswordRequest(resetCode, email),
+                new PasswordRequest(resetCode, email),
+                new PasswordRequest(resetCode + "1", "WrongEMail"),
+                new PasswordRequest(resetCode + "2", "AnotherWrongEmail")
             };
         }
 
@@ -66,7 +58,7 @@ namespace NWB_TESTS
             IPasswordResetEmailCreator passwordResetEmailCreator = new PasswordResetEmailCreator(mock.Object, GetConfigurationMock());
             bool expected = true;
             //Act
-            bool result = passwordResetEmailCreator.ResetCodeGenerator().All(c => (c >= 'a' && c <= 'z' || c >= 'A' && c <= 'Z' || c >= '0' && c <= '9' || c == '_'));
+            bool result = Regex.IsMatch(passwordResetEmailCreator.ResetCodeGenerator(), "^[a-zA-z1-9_]+$");
 
             //Assert
             Assert.Equal(expected, result);
@@ -80,46 +72,20 @@ namespace NWB_TESTS
             string EmailFrom = "nwb.reset@gmail.com";
             string ResetCode = "Reset123";
             var mock = new Mock<IDataAccess>();
-            mock.Setup(a => a.Retrieve<ResetPasswordRequest>()).Returns(GenerateResetPasswordRequests(ResetCode, EmailReciever));
-            var test = new Mock<ResetPasswordRequest>();
+            mock.Setup(a => a.Retrieve<PasswordRequest>()).Returns(GenerateResetPasswordRequests(ResetCode, EmailReciever));
+            
+            var test = new Mock<PasswordRequest>();
+            
             var passwordResetEmailCreator = new Mock<PasswordResetEmailCreator>(mock.Object, GetConfigurationMock());
-            passwordResetEmailCreator.Setup(a => a.SendEmail());
-            passwordResetEmailCreator.Object.Mail = new MailMessage(); 
-            passwordResetEmailCreator.Object.SmtpServer = new SmtpClient("smtp.gmail.com");
+            passwordResetEmailCreator.Setup(a => a.SendEmail(It.IsAny<string>()));
 
             //Act
-            passwordResetEmailCreator.Object.CreateMail(EmailReciever);
-            string actualEmailReciever = passwordResetEmailCreator.Object.Mail.To.ToString();
-            string actualEmailFrom = passwordResetEmailCreator.Object.Mail.From.ToString(); 
+            var mail = passwordResetEmailCreator.Object.CreateMail(EmailReciever);
+            string actualEmailReciever = mail.To.ToString();
+            string actualEmailFrom = mail.From.ToString(); 
             //Assert
             Assert.Equal(EmailReciever, actualEmailReciever);
             Assert.Equal(EmailFrom, actualEmailFrom);
         }
-        //[Fact]
-        //public void CreateMail_RemovesResetPasswordRequests()
-        //{
-        //    //Arrange
-        //    string EmailReciever = "M@e123.com";
-        //    string EmailFrom = "nwb.reset@gmail.com";
-        //    string ResetCode = "Reset123";
-        //    int times = 2;
-        //    int count = 0;
-        //    var mock = new Mock<IDataAccess>();
-        //    mock.Setup(a => a.Retrieve<ResetPasswordRequest>()).Returns(GenerateResetPasswordRequests(ResetCode, EmailReciever));
-        //    var test = new Mock<ResetPasswordRequest>();
-        //    mock.Setup(a => a.Remove<ResetPasswordRequest>(test.Object)).Callback(() =>
-        //    {
-        //        count++;
-        //    });
-        //    var passwordResetEmailCreator = new Mock<PasswordResetEmailCreator>(mock.Object, GetConfigurationMock());
-        //    passwordResetEmailCreator.Setup(a => a.SendEmail());
-        //    passwordResetEmailCreator.Object.Mail = new MailMessage();
-        //    passwordResetEmailCreator.Object.SmtpServer = new SmtpClient("smtp.gmail.com");
-
-        //    //Act
-        //    passwordResetEmailCreator.Object.CreateMail(EmailReciever);
-        //    //Assert
-        //    Assert.Equal(times, count);
-        //}
     }
 }

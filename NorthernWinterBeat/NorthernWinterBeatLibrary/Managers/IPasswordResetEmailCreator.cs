@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net.Mail;
 using System.Text;
 
 namespace NorthernWinterBeatLibrary.Managers
 {
     public interface IPasswordResetEmailCreator
     {
-        public void CreateMail(string recipientEmailAddress);
-        public string ResetCodeGenerator(); 
+        MailMessage CreateMail(string recipientEmailAddress);
+        string ResetCodeGenerator();
+        void SendEmail(string recipientEmailAddress);
     }
 }

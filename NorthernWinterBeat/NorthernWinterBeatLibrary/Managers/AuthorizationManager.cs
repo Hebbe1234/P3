@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.Extensions.Configuration;
-using NorthernWinterBeat.Models;
 using NorthernWinterBeatLibrary.DataAccess;
 using NorthernWinterBeatLibrary.Models;
 using System;
@@ -156,31 +155,27 @@ namespace NorthernWinterBeatLibrary.Managers
             return encrypted;
         }
 
-        public void SendEmail(string UserEmail)
-        {
-            IPasswordResetEmailCreator passwordResetEmailCreator = new PasswordResetEmailCreator(DataAccess, Configuration);
-            passwordResetEmailCreator.CreateMail(UserEmail); 
-        }
+        public void SendEmail(string UserEmail) => new PasswordResetEmailCreator(DataAccess, Configuration).SendEmail(UserEmail);
 
         public bool ChangePassword(string resetCode, string email, string Password)
         {
             var resetPasswordRequest = DataAccess.Retrieve<PasswordRequest>().OrderByDescending(p => p.ExpirationDate).ToList().Find(p => p.Email == email);
-            if(resetPasswordRequest == null)
+            if (resetPasswordRequest == null)
             {
                 return false; 
-            } else if(resetPasswordRequest.ResetCode == resetCode && resetPasswordRequest.ExpirationDate > DateTime.Now)
-            {
-                ApplicationUser p = DataAccess.Retrieve<ApplicationUser>().Find(p => p.Username == email);
-                ApplicationUser newApplicationUser = new ApplicationUser(p.Username, Encrypt(Password), p.Role, DataAccess);
+            }
 
-                p.Update(newApplicationUser); 
-                DataAccess.Save();
-                DataAccess.Remove<PasswordRequest>(resetPasswordRequest); 
-                return true; 
-            } else
+            if (resetPasswordRequest.ResetCode != resetCode || resetPasswordRequest.ExpirationDate < DateTime.Now)
             {
                 return false;
             }
+
+            ApplicationUser p = DataAccess.Retrieve<ApplicationUser>().Find(p => p.Username == email);
+            ApplicationUser newApplicationUser = new ApplicationUser(p.Username, Encrypt(Password), p.Role, DataAccess);
+
+            p.Update(newApplicationUser);
+            DataAccess.Remove(resetPasswordRequest);
+            return true;
         }
     }
 }

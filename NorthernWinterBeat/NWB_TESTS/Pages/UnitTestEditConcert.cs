@@ -25,7 +25,11 @@ namespace NWB_TESTS.Pages
             var mockBlobStorage = new Mock<IImageManager>();
             EditConcertModel Model = new EditConcertModel(mockDataAcces.Object, mockFestivalManager.Object, mockBlobStorage.Object)
             { 
-                concert = new Concert(new DateTime(2020, 1, 1), new DateTime(2020, 01, 10), "5Artist", "2ArtistDescrition", mockDataAcces.Object) { ID = 1, Venue = new Venue("d", "address", 2, mockDataAcces.Object) },
+                concert = new Concert(new DateTime(2020, 1, 1), new DateTime(2020, 01, 10), "5Artist", "2ArtistDescrition", mockDataAcces.Object) 
+                { 
+                    ID = 1, 
+                    Venue = new Venue("d", "address", 2, mockDataAcces.Object) 
+                },
             };
             string result = "2020-01-01";
 

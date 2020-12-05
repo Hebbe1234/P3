@@ -1,19 +1,9 @@
-﻿using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
-using Microsoft.Extensions.Configuration;
-using NorthernWinterBeat.Models;
+﻿using Microsoft.Extensions.Configuration;
 using NorthernWinterBeatLibrary.DataAccess;
 using NorthernWinterBeatLibrary.Managers;
-using NorthernWinterBeatLibrary.Models;
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Net.Mail;
-using System.Security.Claims;
-using System.Security.Cryptography;
-using System.Text;
 
 namespace NorthernWinterBeatLibrary.Models
 {
@@ -21,53 +11,65 @@ namespace NorthernWinterBeatLibrary.Models
     {
         private IDataAccess DataAccess { get; set; }
         private IConfiguration Configuration { get; }
-        public MailMessage Mail { get; set; }
-        public SmtpClient SmtpServer { get; set; }
         public PasswordResetEmailCreator(IDataAccess dataAccess, IConfiguration conf)
         {
             DataAccess = dataAccess;
             Configuration = conf;
-            Mail = new MailMessage();
-            SmtpServer = new SmtpClient("smtp.gmail.com");
         }
-        public void CreateMail(string recipientEmailAddress)
-        {
-            List<PasswordRequest> RPR = DataAccess.Retrieve<PasswordRequest>().FindAll(x => x.Email == recipientEmailAddress);
-            foreach (PasswordRequest item in RPR)
-            {
-                DataAccess.Remove<PasswordRequest>(item);
-            }
-
-            string ResetCode = ResetCodeGenerator();
-            PasswordRequest NewPasswordRequest = new PasswordRequest(ResetCode, recipientEmailAddress);
-            DataAccess.Add(NewPasswordRequest);
-
-
-
-            Mail.From = new MailAddress("nwb.reset@gmail.com");
-            Mail.To.Add(recipientEmailAddress);
-            Mail.Subject = "Reset your password for NWB";
-
-
-            Mail.Body = "Hey, \n\nYour reset code is: \n" + ResetCode + "\n\nThe code can only be used for the next 20 minutes. Only the newest code sent works. \nWe recommend you change your password as fast as possible for security reasons.";
-
-            SmtpServer.UseDefaultCredentials = true;
-            SmtpServer.Port = 587;
-            SmtpServer.Credentials = new System.Net.NetworkCredential("nwb.reset@gmail.com", Configuration.GetValue<string>("EmailPassword"));
-            SmtpServer.EnableSsl = true;
-            SendEmail(); 
-        }
-        public virtual void SendEmail()
+        public virtual void SendEmail(string recipientEmailAddress)
         {
             try
             {
-                SmtpServer.Send(Mail);
+                RemovePreviousRequests(recipientEmailAddress);
+
+                var SmtpServer = new SmtpClient("smtp.gmail.com")
+                {
+                    UseDefaultCredentials = true,
+                    Port = 587,
+                    Credentials = new System.Net.NetworkCredential("nwb.reset@gmail.com", Configuration.GetValue<string>("EmailPassword")),
+                    EnableSsl = true
+                };
+
+                SmtpServer.Send(CreateMail(recipientEmailAddress));
             }
             catch (Exception e)
             {
                 Console.WriteLine("The mail didnt send \n" + e.Message);
             }
         }
+
+        public MailMessage CreateMail(string recipientEmailAddress)
+        {
+            var Mail = new MailMessage
+            {
+                From = new MailAddress("nwb.reset@gmail.com"),
+                Subject = "Reset your password for NWB"
+            };
+            Mail.To.Add(recipientEmailAddress);
+
+            var resetCode = CreateResetCode(recipientEmailAddress);
+            Mail.Body = "Hey, \n\nYour reset code is: \n" + resetCode + "\n\nThe code can only be used for the next 20 minutes. Only the newest code sent works. \nWe recommend you change your password as fast as possible for security reasons.";
+
+            return Mail;
+        }
+
+        private string CreateResetCode(string recipientEmailAddress)
+        {
+            string ResetCode = ResetCodeGenerator();
+            PasswordRequest NewPasswordRequest = new PasswordRequest(ResetCode, recipientEmailAddress);
+            DataAccess.Add(NewPasswordRequest);
+            return ResetCode;
+        }
+
+        private void RemovePreviousRequests(string recipientEmailAddress)
+        {
+            List<PasswordRequest> RPR = DataAccess.Retrieve<PasswordRequest>().FindAll(x => x.Email == recipientEmailAddress);
+            foreach (PasswordRequest item in RPR)
+            {
+                DataAccess.Remove(item);
+            }
+        }
+
         public string ResetCodeGenerator()
         {
             var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -78,7 +80,7 @@ namespace NorthernWinterBeatLibrary.Models
             {
                 stringChars[i] = chars[random.Next(chars.Length)];
             }
-            return new String(stringChars);
+            return new string(stringChars);
         }
     }
 }

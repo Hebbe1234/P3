@@ -6,6 +6,7 @@ using NorthernWinterBeat.Models;
 using NorthernWinterBeatLibrary.Managers;
 using System.Collections.Generic;
 using System.Globalization;
+using NorthernWinterBeatLibrary.Models;
 
 namespace NWB_TESTS
 {

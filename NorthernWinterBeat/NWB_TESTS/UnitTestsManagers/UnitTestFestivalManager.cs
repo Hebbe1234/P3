@@ -1,13 +1,13 @@
 ﻿using Moq;
-using NorthernWinterBeat.Models;
 using NorthernWinterBeatLibrary.DataAccess;
 using NorthernWinterBeatLibrary.Managers;
+using NorthernWinterBeatLibrary.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using Xunit;
 
-namespace NWB_TESTS
+namespace NWB_TESTS.UnitTestsManagers
 {
     public class UnitTestFestivalManager
     {
@@ -33,6 +33,31 @@ namespace NWB_TESTS
 
             //Assert
             Assert.Equal(expected, result);
+        }
+
+        [Fact]
+        public void GetParticipant_ReturnsTheCorrecParticipant_withID()
+        {
+            //Arrange
+
+            var mock = new Mock<IDataAccess>();
+            var p = new Participant(new Ticket("1"), mock.Object) { ID = 100 };
+
+            mock.Setup(D => D.Retrieve<Participant>()).Returns(new List<Participant>()
+            {
+                p,
+                new Participant(new Ticket("1"), mock.Object),
+                new Participant(new Ticket("1"), mock.Object),
+                new Participant(new Ticket("1"), mock.Object)
+            });
+
+            FestivalManager festivalManager = new FestivalManager(mock.Object);
+
+            //Act
+            var result = festivalManager.GetParticipant(100);
+            
+            //Assert
+            Assert.Equal(p, result);
         }
 
 

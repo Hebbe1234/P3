@@ -10,7 +10,7 @@ using NorthernWinterBeat.Models;
 using NorthernWinterBeatLibrary.DataAccess;
 using NorthernWinterBeatLibrary.Models;
 
-namespace NorthernWinterBeatLibrary.Managers
+namespace NorthernWinterBeatLibrary.DataAccess
 {
     public class NorthernWinterBeatConcertContext : DbContext
     {
