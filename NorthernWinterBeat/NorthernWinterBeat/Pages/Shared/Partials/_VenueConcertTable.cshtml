@@ -5,9 +5,9 @@
 @{
 
     int i = 0;
-    if (Model.concerts != null)
+    if (Model.Concerts != null)
     {
-        List<Concert> SortConcert = new List<Concert>(Model.concerts);
+        List<Concert> SortConcert = new List<Concert>(Model.Concerts);
         SortConcert = Model.SortConcerts(SortConcert);
         foreach (var item in SortConcert)
         {

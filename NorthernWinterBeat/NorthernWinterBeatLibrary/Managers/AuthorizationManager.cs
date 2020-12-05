@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.Extensions.Configuration;
-using NorthernWinterBeat.Models;
 using NorthernWinterBeatLibrary.DataAccess;
 using NorthernWinterBeatLibrary.Models;
 using System;
@@ -36,7 +35,7 @@ namespace NorthernWinterBeatLibrary.Managers
 
         public void CreateParticipantUser(string NameEntered, string EmailEntered, string Password1Entered, string ticketNumber)
         {
-            var newUser = new ApplicationUser(EmailEntered, Encrypt(Password1Entered), ApplicationUser.Roles.PARTICIPANT)
+            var newUser = new ApplicationUser(EmailEntered, Encrypt(Password1Entered), ApplicationUser.Roles.PARTICIPANT, DataAccess)
             {
                 TicketID = ticketNumber
             };
@@ -48,7 +47,7 @@ namespace NorthernWinterBeatLibrary.Managers
 
         public void CreateVenueUser(int id, string Username, string Password1Entered)
         {
-            var newUser = new ApplicationUser(Username, Encrypt(Password1Entered), ApplicationUser.Roles.VENUE)
+            var newUser = new ApplicationUser(Username, Encrypt(Password1Entered), ApplicationUser.Roles.VENUE, DataAccess)
             {
                 VenueID = id
             };
@@ -156,76 +155,27 @@ namespace NorthernWinterBeatLibrary.Managers
             return encrypted;
         }
 
-        public void SendEmail(string UserEmail, Participant p)
-        {
-            List<PasswordRequest> RPR = DataAccess.Retrieve<PasswordRequest>().FindAll(x => x.Email == UserEmail);
-            foreach (PasswordRequest item in RPR)
-            {
-                DataAccess.Remove<PasswordRequest>(item); 
-            }
+        public void SendEmail(string UserEmail) => new PasswordResetEmailCreator(DataAccess, Configuration).SendEmail(UserEmail);
 
-            string SecretCode = SecretCodeGenerator();  
-            PasswordRequest NewResetPasswordRequest = new PasswordRequest(SecretCode, UserEmail);
-            DataAccess.Add(NewResetPasswordRequest); 
-    
-
-            MailMessage mail = new MailMessage();
-            SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com");
-
-            mail.From = new MailAddress("nwb.reset@gmail.com");
-            mail.To.Add(UserEmail);
-            mail.Subject = "Reset your password for NWB";
-
-
-            mail.Body = "Hey, \n\nYour reset code is: \n" + SecretCode + "\n\nThe code can only be used for the next 20 minutes. Only the newest code sent works. \nWe recommend you change your password as fast as possible for security reasons.";
-
-            SmtpServer.UseDefaultCredentials = true;
-
-            SmtpServer.Port = 587;
-            SmtpServer.Credentials = new System.Net.NetworkCredential("nwb.reset@gmail.com", Configuration.GetValue<string>("EmailPassword"));
-            SmtpServer.EnableSsl = true;
-            try
-            {
-                SmtpServer.Send(mail);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("The mail didnt send \n" + e.Message);
-            }
-        } 
-        public string SecretCodeGenerator()
-        {
-            var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-            var stringChars = new char[8];
-            var random = new Random();
-
-            for (int i = 0; i < stringChars.Length; i++)
-            {
-                stringChars[i] = chars[random.Next(chars.Length)];
-            }
-
-            return new String(stringChars);
-        }
-
-        public bool ChangePassword(string SecretCode, string email, string Password)
+        public bool ChangePassword(string resetCode, string email, string Password)
         {
             var resetPasswordRequest = DataAccess.Retrieve<PasswordRequest>().OrderByDescending(p => p.ExpirationDate).ToList().Find(p => p.Email == email);
-            if(resetPasswordRequest == null)
+            if (resetPasswordRequest == null)
             {
                 return false; 
-            } else if(resetPasswordRequest.SecretCode == SecretCode && resetPasswordRequest.ExpirationDate > DateTime.Now)
-            {
-                ApplicationUser p = DataAccess.Retrieve<ApplicationUser>().Find(p => p.Username == email);
-                ApplicationUser newApplicationUser = new ApplicationUser(p.Username, Encrypt(Password), p.Role);
+            }
 
-                p.Update(newApplicationUser); 
-                DataAccess.Save();
-                DataAccess.Remove<PasswordRequest>(resetPasswordRequest); 
-                return true; 
-            } else
+            if (resetPasswordRequest.ResetCode != resetCode || resetPasswordRequest.ExpirationDate < DateTime.Now)
             {
                 return false;
             }
+
+            ApplicationUser p = DataAccess.Retrieve<ApplicationUser>().Find(p => p.Username == email);
+            ApplicationUser newApplicationUser = new ApplicationUser(p.Username, Encrypt(Password), p.Role, DataAccess);
+
+            p.Update(newApplicationUser);
+            DataAccess.Remove(resetPasswordRequest);
+            return true;
         }
     }
 }

@@ -7,12 +7,12 @@
 <div class="card">
     <div class="card-body">
         <div class="row">
-            <div class="col-8"> <h3> @Model.venue.Name </h3> </div>
-            <div class="col-8"> <p> <b>Capacity:</b> @Model.venue.Capacity </p> </div>
+            <div class="col-8"> <h3> @Model.Venue?.Name </h3> </div>
+            <div class="col-8"> <p> <b>Capacity:</b> @Model.Venue?.Capacity </p> </div>
         </div>
 
         <div class="row">
-            <div class="col-8"> <p> <b>Address:</b> @Model.venue.Address</p> </div>
+            <div class="col-8"> <p> <b>Address:</b> @Model.Venue?.Address</p> </div>
             <div class="col-4">
                 <button type="button" class="float-right" data-toggle="modal" onclick="location.href = '@(Url.Page("EditVenue", new { id = Model.id }))'">
                     <i class="fas fa-pencil-alt"></i>
@@ -108,7 +108,7 @@
                 <button type="button" class="btn btn-secondary" data-dismiss="modal"> No </button>
 
                 <form asp-page-handler="DeleteVenue" method="post" id="inForm1">
-                    @Html.Hidden("id", Model.venue.ID)
+                    @Html.Hidden("id", Model.Venue?.ID)
                     <button type="submit" class="btn btn-secondary" id="btnSubmit1" data-toggle="modal" data-target="#DeleteVenue">
                         Delete Venue
                     </button>

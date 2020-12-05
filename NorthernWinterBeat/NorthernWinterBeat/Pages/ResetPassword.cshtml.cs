@@ -4,9 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using NorthernWinterBeat.Models;
 using NorthernWinterBeatLibrary.Managers;
 using System.Net.Mail;
+using NorthernWinterBeatLibrary.Models;
 
 namespace NorthernWinterBeat.Pages
 {
@@ -37,7 +37,7 @@ namespace NorthernWinterBeat.Pages
             Participant p = FestivalManager.GetParticipants().Find(p => p.Email == UserEmail);
             if (p != null) 
             {
-                AuthorizationManager.SendEmail(UserEmail, p);
+                AuthorizationManager.SendEmail(UserEmail);
             }
         }
         public IActionResult OnPostResetPassword()

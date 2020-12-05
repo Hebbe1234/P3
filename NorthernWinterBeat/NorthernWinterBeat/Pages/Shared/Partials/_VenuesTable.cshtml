@@ -3,7 +3,7 @@
 *@
 @model NorthernWinterBeat.Pages.Admin.VenuesOverviewModel
 @{
-    List<NorthernWinterBeat.Models.Venue> venues = new List<Models.Venue>(Model.venues);
+    List<NorthernWinterBeat.Models.Venue> venues = new List<Models.Venue>(Model.Venues);
 
     venues = Model.SortVenues(venues);
 

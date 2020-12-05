@@ -12,7 +12,7 @@ namespace NorthernWinterBeatLibrary.Managers
 
 
     {
-        BlobContainerClient container;
+        private BlobContainerClient container { get; set; }
 
         private string cName = "";
 

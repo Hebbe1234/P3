@@ -12,7 +12,7 @@ namespace NorthernWinterBeat.Pages.Admin
     public class VenuesOverviewModel : PageModel
     {
 
-        public List<Venue> venues { get; set; } = new List<Venue>();
+        public List<Venue> Venues { get; set; } = new List<Venue>();
 
         [BindProperty (SupportsGet =true)]
         public string SortBy { get; set; }
@@ -21,13 +21,13 @@ namespace NorthernWinterBeat.Pages.Admin
         public VenuesOverviewModel(IFestivalManager festivalManager)
         {
             FestivalManager = festivalManager;
-            venues = FestivalManager.Calendar.GetVenues();
+            Venues = FestivalManager.Calendar.GetVenues();
         }
 
 
         public void OnGet()
         {
-            venues = FestivalManager.Calendar.GetVenues(); 
+            Venues = FestivalManager.Calendar.GetVenues(); 
         }
 
         public List<Venue> SortVenues(List<Venue> SortVenues)

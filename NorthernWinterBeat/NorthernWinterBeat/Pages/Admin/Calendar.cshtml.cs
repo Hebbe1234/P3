@@ -11,7 +11,7 @@ namespace NorthernWinterBeat.Pages.Admin
 {
     public class CalendarModel : PageModel
     {
-        public List<Concert> concerts { get; set; } = new List<Concert>();
+        public List<Concert> Concerts { get; set; } = new List<Concert>();
 
         [BindProperty(SupportsGet = true)]
         public string SortBy { get; set; }
@@ -20,12 +20,12 @@ namespace NorthernWinterBeat.Pages.Admin
         public CalendarModel(IFestivalManager festivalManager)
         {
             FestivalManager = festivalManager; 
-            concerts = FestivalManager.Calendar.GetConcerts();
+            Concerts = FestivalManager.Calendar.GetConcerts();
         }
         
         public void OnGet()
         {
-            concerts = FestivalManager.Calendar.GetConcerts();
+            Concerts = FestivalManager.Calendar.GetConcerts();
         }
 
         public List<Concert> SortConcertBy(List<Concert> SortConcert)

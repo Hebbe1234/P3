@@ -13,15 +13,13 @@ namespace NorthernWinterBeat.Pages.Admin
     public class VenuePageModel : PageModel
     {
 
-        public Venue venue { get; set; }
-        public List<Concert> concerts { get; set; }
-        private IDataAccess DataAccess { get; set; }
+        public Venue Venue { get; set; }
+        public List<Concert> Concerts { get; set; }
         private IFestivalManager FestivalManager { get; }
 
-        public VenuePageModel(IDataAccess dataAccess, IFestivalManager festivalManager)
+        public VenuePageModel(IFestivalManager festivalManager)
         {
             FestivalManager = festivalManager;
-            DataAccess = dataAccess;
         }
         [BindProperty(SupportsGet = true)]
         public int id { get; set; } = 1; 
@@ -30,25 +28,25 @@ namespace NorthernWinterBeat.Pages.Admin
         public string SortBy { get; set; }
         public void OnGet(int id)
         {
-            venue = FestivalManager.Calendar.GetVenue(id);
-            concerts = FestivalManager.Calendar?.GetConcertsAtVenue(venue.ID); 
+            Venue = FestivalManager.Calendar.GetVenue(id);
+            Concerts = FestivalManager.Calendar?.GetConcertsAtVenue(Venue.ID); 
         }
 
         public List<Concert> SortConcerts(List<Concert> sortConcerts)
         {
             if(SortBy == "Artist")
             {
-                var list = sortConcerts.OrderBy(c => c.Artist).ToList<Concert>();
+                var list = sortConcerts.OrderBy(c => c.Artist).ThenBy(c => c.Start).ToList<Concert>();
                 return list;
             } else if(SortBy == "Capacity")
             {
-                return sortConcerts.OrderBy(c => c.Venue?.Capacity).ToList<Concert>();
+                return sortConcerts.OrderBy(c => c.Venue?.Capacity).ThenBy(c => c.Start).ToList<Concert>();
             } else if(SortBy == "Time")
             {
-                return sortConcerts.OrderBy(c => c.Start).ToList<Concert>();
+                return sortConcerts.OrderBy(c => c.Start).ThenBy(c => c.Artist).ToList<Concert>();
             } else
             {
-                return sortConcerts.OrderBy(c => c.Start).ToList<Concert>();
+                return sortConcerts.OrderBy(c => c.Start).ThenBy(c => c.Artist).ToList<Concert>();
             }
         }
 
@@ -56,8 +54,8 @@ namespace NorthernWinterBeat.Pages.Admin
         {
             this.SortBy = sortBy;
             this.id = id;
-            this.venue = FestivalManager.Calendar.GetVenue(id);
-            this.concerts = FestivalManager.Calendar?.GetConcertsAtVenue(venue.ID);
+            this.Venue = FestivalManager.Calendar.GetVenue(id);
+            this.Concerts = FestivalManager.Calendar?.GetConcertsAtVenue(Venue.ID);
             return Partial("Partials/_VenueConcertTable", this);
         }
            

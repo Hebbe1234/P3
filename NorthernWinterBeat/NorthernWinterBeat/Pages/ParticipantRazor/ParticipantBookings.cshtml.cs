@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using NorthernWinterBeat.Models;
 using NorthernWinterBeatLibrary.Managers;
+using NorthernWinterBeatLibrary.Models;
 
 namespace NorthernWinterBeat.Pages.ParticipantRazor
 {

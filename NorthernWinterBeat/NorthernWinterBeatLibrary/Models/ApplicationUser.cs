@@ -15,11 +15,12 @@ namespace NorthernWinterBeatLibrary.Models
             DataAccess = new EFDataAccess(ctx);
         }
 
-        public ApplicationUser(string username, string password, Roles role)
+        public ApplicationUser(string username, string password, Roles role, IDataAccess dataAccess)
         {
             Username = username;
             Password = password;
             Role = role;
+            DataAccess = dataAccess; 
         }
         public enum Roles
         {

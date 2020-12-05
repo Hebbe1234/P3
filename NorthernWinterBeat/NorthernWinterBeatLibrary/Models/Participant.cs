@@ -1,18 +1,17 @@
 ﻿using NorthernWinterBeatLibrary.DataAccess;
 using NorthernWinterBeatLibrary.Managers;
-using NorthernWinterBeatLibrary.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
-namespace NorthernWinterBeat.Models
+namespace NorthernWinterBeatLibrary.Models
 {
-    public class Participant 
-	{
+    public class Participant
+    {
 
         public string Name { get; set; } = "";
-		public Ticket Ticket { get; protected set; }
+        public Ticket Ticket { get; protected set; }
         public string Email { get; set; }
         public string Username { get; set; }
         public int ID { get; set; }
@@ -28,18 +27,18 @@ namespace NorthernWinterBeat.Models
             DataAccess = new EFDataAccess(ctx);
         }
 
-        public Participant(Ticket _ticket, IDataAccess dataAccess) 
+        public Participant(Ticket _ticket, IDataAccess dataAccess)
         {
             DataAccess = dataAccess;
             Ticket = _ticket;
-            
+
         }
 
         public Participant(Ticket _ticket, string name, string email, IDataAccess dataAccess) : this(_ticket, dataAccess)
         {
             Name = name;
             Email = email;
-            Username = Email; 
+            Username = Email;
         }
 
 
@@ -58,19 +57,19 @@ namespace NorthernWinterBeat.Models
 
         public List<Booking> GetParticipantBookings(IFestivalManager festivalManager)
         {
-            return (festivalManager.Calendar
+            return festivalManager.Calendar
                  .GetConcerts()
-                 .SelectMany(c => c.Bookings))
+                 .SelectMany(c => c.Bookings)
                  .ToList()
-                 .FindAll(b => b.Participant?.ID == this.ID);
+                 .FindAll(b => b.Participant?.ID == ID);
         }
 
         public void Update(Participant NewParticipant)
         {
             Name = NewParticipant?.Name;
             Username = NewParticipant?.Username;
-           
-            DataAccess.Save();    
+
+            DataAccess.Save();
         }
     }
 }

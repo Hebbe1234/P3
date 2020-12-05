@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using NorthernWinterBeat.Models;
 using NorthernWinterBeatLibrary.DataAccess;
+using NorthernWinterBeatLibrary.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
