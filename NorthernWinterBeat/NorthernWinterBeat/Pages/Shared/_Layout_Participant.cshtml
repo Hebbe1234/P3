@@ -52,30 +52,29 @@
 
     <header class="blog-header py-3" style=" background-image: url(../Graphics/Pictures/NWB_Tekstureksempler_C6.jpg);
         background-repeat: no-repeat;
-        backface-visibility: visible">
-        <div class="row flex-nowrap justify-content-between align-items-center" >
-            <div class="col-4 pt-1">
+        backface-visibility: visible;
+        width: 100%">
+        <div class="row align-items-center" style="margin:0">
+            <div class="col-4">
                 <a class="text-muted" href="#"></a>
             </div>
-                <div class="col-4 text-center">
-                    <a asp-page="/ParticipantRazor/ParticipantConcertOverview" class="blog-header-logo text-dark">
-                        <img src="~/Graphics/Pictures/NWB_Logo_White_Transparent.png"
-                            style="
-                            max-height:5em; max-width:100%;"/>
-                    </a>
-                </div>
-                <div class="col-4 d-flex justify-content-end align-items-center"
-                     style=" top: -1.6em; right: 0.8em;">
-                    <a asp-page="/ParticipantRazor/LogOut" id="LogOutLink" 
-                       class="btn btn-sm btn-outline-secondary" style="background-color:whitesmoke;"> Log out </a>
-                </div>
+            <div class="col-4 text-center">
+                <a asp-page="/participantrazor/participantconcertoverview" class="blog-header-logo text-dark">
+                    <img src="~/graphics/pictures/nwb_logo_white_transparent.png"
+                         style="
+                            max-height:5em; max-width:100%;" />
+                </a>
             </div>
-</header>
+            <div class="col-4 d-flex justify-content-end align-items-center">
+                <a asp-page="/ParticipantRazor/LogOut" id="LogOutLink"
+                   class="btn btn-sm btn-outline-secondary" style="background-color:whitesmoke;"> Log out </a>
+            </div>
+        </div>
+    </header>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
 
-    @RenderSection("Scripts", required: false)
 
     <div class="container">
         <main role="main" class="pb-3">
@@ -91,6 +90,9 @@
             $(this).addClass('active');
         });
     </script>
+
+    @RenderSection("Scripts", required: false)
+
 </body>
 </html>
 
