@@ -11,7 +11,6 @@ namespace NorthernWinterBeat.Pages.Admin
 {
     public class VenuesOverviewModel : PageModel
     {
-
         public List<Venue> Venues { get; set; } = new List<Venue>();
 
         [BindProperty (SupportsGet =true)]
@@ -23,7 +22,6 @@ namespace NorthernWinterBeat.Pages.Admin
             FestivalManager = festivalManager;
             Venues = FestivalManager.Calendar.GetVenues();
         }
-
 
         public void OnGet()
         {

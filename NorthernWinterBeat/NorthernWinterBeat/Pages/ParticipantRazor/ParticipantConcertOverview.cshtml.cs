@@ -10,10 +10,7 @@ namespace NorthernWinterBeat.Pages
 {
     public class ParticipantConcertOverviewModel : PageModel
     {
-
-
         public List<Concert> Concerts = new List<Concert>();
-
         [BindProperty(SupportsGet = true)]
         public DateTime? Day { get; set; } = null;
         private IFestivalManager FestivalManager { get; }

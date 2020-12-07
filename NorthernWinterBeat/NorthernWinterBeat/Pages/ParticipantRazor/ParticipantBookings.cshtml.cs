@@ -12,7 +12,6 @@ namespace NorthernWinterBeat.Pages.ParticipantRazor
 {
     public class ParticipantBookingsModel : PageModel
     {
-
         public List<Booking> bookings { get; private set; } = new List<Booking>(); 
         public IFestivalManager FestivalManager { get; }
 

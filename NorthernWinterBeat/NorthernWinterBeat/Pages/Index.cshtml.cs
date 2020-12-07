@@ -84,7 +84,6 @@ namespace NorthernWinterBeat.Pages
             {
                 Console.WriteLine("WRONG PASSWORD");
             }
-
             //Her endes der hvis der er indtastet noget forkert eller intet, derfor reloades der. 
             return RedirectToPage("./Index", new { Alert = "Wrong Password" });
         }

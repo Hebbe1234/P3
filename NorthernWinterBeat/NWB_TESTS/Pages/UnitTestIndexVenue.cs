@@ -41,6 +41,7 @@ namespace NWB_TESTS.Pages
             //Act
             var resultConcerts = p1.SortConcertBy(p1.Concerts);
 
+            //Assert
             Assert.Equal("1Artist", resultConcerts[0].Artist);
             Assert.Equal("2Artist", resultConcerts[1].Artist);
             Assert.Equal("3Artist", resultConcerts[2].Artist);
@@ -62,6 +63,7 @@ namespace NWB_TESTS.Pages
             //Act
             var resultConcerts = p1.SortConcertBy(p1.Concerts);
 
+            //Assert
             Assert.Equal(0, resultConcerts[0].ID);
             Assert.Equal(1, resultConcerts[1].ID);
             Assert.Equal(2, resultConcerts[2].ID);

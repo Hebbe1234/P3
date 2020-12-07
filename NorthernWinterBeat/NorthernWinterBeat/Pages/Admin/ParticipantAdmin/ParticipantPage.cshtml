@@ -12,7 +12,6 @@
         <div class="row">
             <div class="col-8"> <p>Email: @Model?.Participant?.Email</p> </div>
             <div class="col-8"> <p>Ticket Nr: @Model.Participant?.Ticket.TicketNumber </p> </div>
-            @*<div class="col-8"> <p>Date of Creation: @Model.Participant?.missing </p> </div>*@
             <div class="col-4">
                 <button type="button" class="float-right" data-toggle="modal" onclick="location.href = '@(Url.Page("EditParticipant", new { id = Model.Participant?.ID }))'">
                     <i class="fas fa-pencil-alt"></i>

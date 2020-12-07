@@ -12,7 +12,6 @@ namespace NorthernWinterBeatLibrary.Models
 
         public LegalTicket()
         {
-
         }
 
         public LegalTicket(string ticketNumber)

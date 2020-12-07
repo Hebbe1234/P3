@@ -9,8 +9,6 @@ using System.Text;
 namespace NorthernWinterBeatLibrary.Managers
 {
     public class ImageManager : IImageManager
-
-
     {
         private BlobContainerClient container { get; set; }
 

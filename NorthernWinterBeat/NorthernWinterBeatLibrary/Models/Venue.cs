@@ -27,7 +27,6 @@ namespace NorthernWinterBeat.Models
         public string Address { get; set; }
         public int Capacity { get; set; }
         private IDataAccess DataAccess { get; set; }
-
         public void Update(Venue newVenueInfo)
         {
             Capacity = newVenueInfo.Capacity;

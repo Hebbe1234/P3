@@ -16,8 +16,6 @@
             <div class="col-8"> <h3> @Model.concert.Artist </h3> </div>
         </div>
 
-
-
         <div class="row">
 
             <div class="col-8">
@@ -64,10 +62,10 @@
                             <button class="btn btn-default th-button">Name</button>
                         </th>
                         <th>
-                            <button class="btn btn-default th-button">Username</button> @*Hvis udername bliver Email, bliver dette til email *@
+                            <button class="btn btn-default th-button">Email</button>
                         </th>
                         <th>
-                            <button class="btn btn-default th-button">BookingDato  </button>
+                            <button class="btn btn-default th-button">Booking Date</button>
                         </th>
                         <th>
                             <button class="btn btn-default th-button-right no-outline"> Remove Booking</button>
@@ -143,7 +141,7 @@
 
                 <form asp-page-handler="DeleteConcert" method="post">
                     @Html.Hidden("id", Model.concert.ID)
-                    <button type="submit" class="btn btn-secondary" @*data-toggle="modal"*@>
+                    <button type="submit" class="btn btn-secondary">
                         Delete concert
                     </button>
                 </form>

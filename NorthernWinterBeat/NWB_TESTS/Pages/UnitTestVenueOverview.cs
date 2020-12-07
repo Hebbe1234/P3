@@ -44,6 +44,7 @@ namespace NWB_TESTS.Pages
             var resultVenues = Model.SortVenues(Model.Venues);
 
 
+            //Assert
             Assert.Equal(Expected[0], resultVenues[0].Name);
             Assert.Equal(Expected[1], resultVenues[1].Name);
             Assert.Equal(Expected[2], resultVenues[2].Name);
@@ -68,6 +69,7 @@ namespace NWB_TESTS.Pages
             var resultVenues = Model.SortVenues(Model.Venues);
 
 
+            //Assert
             Assert.Equal(Expected[0], resultVenues[0].Capacity);
             Assert.Equal(Expected[1], resultVenues[1].Capacity);
             Assert.Equal(Expected[2], resultVenues[2].Capacity);
@@ -92,6 +94,7 @@ namespace NWB_TESTS.Pages
             var resultVenues = Model.SortVenues(Model.Venues);
 
 
+            //Assert
             Assert.Equal(Expected[0], resultVenues[0].Address);
             Assert.Equal(Expected[1], resultVenues[1].Address);
             Assert.Equal(Expected[2], resultVenues[2].Address);
