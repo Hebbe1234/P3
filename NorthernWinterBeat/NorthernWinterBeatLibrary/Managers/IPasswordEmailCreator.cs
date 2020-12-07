@@ -5,7 +5,7 @@ using System.Text;
 
 namespace NorthernWinterBeatLibrary.Managers
 {
-    public interface IPasswordResetEmailCreator
+    public interface IPasswordEmailCreator
     {
         MailMessage CreateMail(string recipientEmailAddress);
         string ResetCodeGenerator();

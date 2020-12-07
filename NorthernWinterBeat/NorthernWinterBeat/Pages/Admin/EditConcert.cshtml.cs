@@ -22,7 +22,6 @@ namespace NorthernWinterBeat.Pages.Admin
         }
         private IFestivalManager FestivalManager { get; }
 
-
         public Concert concert { get; set; }
         public List<Venue> venues { get; set; } = new List<Venue>();
         public IDataAccess DataAccess { get; set; }
@@ -103,5 +102,4 @@ namespace NorthernWinterBeat.Pages.Admin
             return RedirectToPage("./ConcertPage", new { id = id });
         }
     }
-   
 }

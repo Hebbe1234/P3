@@ -9,7 +9,6 @@ namespace NorthernWinterBeatLibrary.Models
 {
     public class ApplicationUser
     {
-
         private ApplicationUser(NorthernWinterBeatConcertContext ctx)
         {
             DataAccess = new EFDataAccess(ctx);

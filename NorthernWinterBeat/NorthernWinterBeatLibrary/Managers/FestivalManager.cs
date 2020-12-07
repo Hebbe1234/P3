@@ -17,7 +17,6 @@ namespace NorthernWinterBeatLibrary.Managers
         private List<Participant> participants { get; set; }
         private IDataAccess DataAccess { get; set; }
         public Calendar Calendar { get; set; }
-
         public FestivalManager(IDataAccess dataAccess)
         {
             DataAccess = dataAccess;
@@ -39,6 +38,5 @@ namespace NorthernWinterBeatLibrary.Managers
         {
             return participants;
         }
-
     }
 }

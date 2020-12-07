@@ -20,7 +20,6 @@ namespace NorthernWinterBeatLibrary.Managers
         private IDataAccess DataAccess { get; set; }
         private IFestivalManager FestivalManager { get; set; }
         private IConfiguration Configuration { get; }
-
         public AuthorizationManager(IDataAccess dataAccess, IFestivalManager festivalManager, IConfiguration conf)
         {
             DataAccess = dataAccess;
@@ -72,7 +71,6 @@ namespace NorthernWinterBeatLibrary.Managers
                 new Claim("TicketID", user.TicketID ?? "")
             };
 
-
             var claimsIdentity = new ClaimsIdentity(
                 claims, CookieAuthenticationDefaults.AuthenticationScheme);
 
@@ -82,7 +80,6 @@ namespace NorthernWinterBeatLibrary.Managers
             };
 
             return (claimsIdentity, authProperties);
-
         }
 
         //FROM https://docs.microsoft.com/en-us/dotnet/api/system.security.cryptography.aes?view=net-5.0
@@ -155,7 +152,7 @@ namespace NorthernWinterBeatLibrary.Managers
             return encrypted;
         }
 
-        public void SendEmail(string UserEmail) => new PasswordResetEmailCreator(DataAccess, Configuration).SendEmail(UserEmail);
+        public void SendEmail(string UserEmail) => new PasswordEmailCreator(DataAccess, Configuration).SendEmail(UserEmail);
 
         public bool ChangePassword(string resetCode, string email, string Password)
         {

@@ -18,7 +18,6 @@ namespace NorthernWinterBeatLibrary.DataAccess
             context = _ctx;
         }
 
-
         public void Add<T>(T input)
         {
             if (input == null)
