@@ -9,15 +9,15 @@
 
 <form method="post" asp-page-handler="EditVenue">
 
-    @Html.Hidden("id", Model.venue.ID)
+    @Html.Hidden("id", Model.venue?.ID)
     <h3>Venue</h3>
-    <input name="VenueEntered" type="text" placeholder="@Model.venue.Name"  required value="@Model.venue.Name" />
+    <input name="VenueEntered" type="text" placeholder="@Model.venue?.Name"  required value="@Model.venue?.Name" />
     <br>
     <h3>Capacity</h3>
-    <input name="CapacityEntered" type="number" placeholder="@Model.venue.Capacity" value="@Model.venue.Capacity" />
+    <input name="CapacityEntered" type="number" placeholder="@Model.venue?.Capacity" value="@Model.venue?.Capacity" />
     <br>
     <h3>Address</h3>
-    <input name="AddressEntered" type="text" placeholder="@Model.venue.Address" value="@Model.venue.Address" />
+    <input name="AddressEntered" type="text" placeholder="@Model.venue?.Address" value="@Model.venue?.Address" />
 
     <br>
 
@@ -44,7 +44,7 @@
 
                 <input type="button" class="btn btn-secondary" data-dismiss="modal" value="No" />
                 <form method="post" asp-page-handler="Cancel" >
-                    @Html.Hidden("id", Model.venue.ID)
+                    @Html.Hidden("id", Model.venue?.ID)
                     <input type="submit" class="btn btn-primary" value="Yes" />
                 </form>
             </div>
