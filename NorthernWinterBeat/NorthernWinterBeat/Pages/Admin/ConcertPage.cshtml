@@ -13,21 +13,19 @@
 <div class="card">
     <div class="card-body">
         <div class="row">
-            <div class="col-8"> <h3> @Model.concert.Artist </h3> </div>
+            <div class="col-8"> <h3> @Model.concert?.Artist </h3> </div>
         </div>
-
-
 
         <div class="row">
 
             <div class="col-8">
-                <p><b>Capacity:</b> @Model?.concert?.Bookings?.Count() / @Model.concert.Venue?.Capacity </p>
+                <p><b>Capacity:</b> @Model?.concert?.Bookings?.Count() / @Model.concert?.Venue?.Capacity </p>
                 <p><b>Venue: </b>@Model.concert.Venue?.Name </p>
 
                 <p>
                     <b>Start:</b> <br />
 
-                    <b> @Model.concert.Start.DayOfWeek </b>@Model.concert.Start.ToString("dd-MM") <br> @Model.concert.Start.ToShortTimeString() - @Model.concert.End.ToShortTimeString()
+                    <b> @Model.concert?.Start.DayOfWeek </b>@Model.concert?.Start.ToString("dd-MM") <br> @Model.concert?.Start.ToShortTimeString() - @Model.concert?.End.ToShortTimeString()
                 </p>
             </div>
 
@@ -39,7 +37,7 @@
             </div>
 
 
-            <div class="col-8"> <p> <b>Description:</b> <br> @Model.concert.ArtistDescription </p> </div>
+            <div class="col-8"> <p> <b>Description:</b> <br> @Model.concert?.ArtistDescription </p> </div>
             <div class="col-4">
                 <button type="button" class="float-right" data-toggle="modal" onclick="location.href = '@(Url.Page("EditConcert", new { id = Model.concert.ID }))'">
                     <i class="fas fa-pencil-alt"></i>
@@ -64,10 +62,10 @@
                             <button class="btn btn-default th-button">Name</button>
                         </th>
                         <th>
-                            <button class="btn btn-default th-button">Username</button> @*Hvis udername bliver Email, bliver dette til email *@
+                            <button class="btn btn-default th-button">Email</button>
                         </th>
                         <th>
-                            <button class="btn btn-default th-button">BookingDato  </button>
+                            <button class="btn btn-default th-button">Booking Date</button>
                         </th>
                         <th>
                             <button class="btn btn-default th-button-right no-outline"> Remove Booking</button>
@@ -76,7 +74,7 @@
                 </thead>
                 <tbody>
                     @{
-                        @foreach (Booking booking in Model.concert.Bookings)
+                        @foreach (Booking booking in Model.concert?.Bookings)
                         {
                             <tr>
                                 <td>
@@ -142,8 +140,8 @@
                 <button type="button" class="btn btn-secondary" data-dismiss="modal"> No </button>
 
                 <form asp-page-handler="DeleteConcert" method="post">
-                    @Html.Hidden("id", Model.concert.ID)
-                    <button type="submit" class="btn btn-secondary" @*data-toggle="modal"*@>
+                    @Html.Hidden("id", Model.concert?.ID)
+                    <button type="submit" class="btn btn-secondary">
                         Delete concert
                     </button>
                 </form>

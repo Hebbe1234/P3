@@ -21,9 +21,23 @@ namespace NorthernWinterBeat
 
             CreateDbIfNotExists(host);
 
-            host.Run();
+            Run(host); 
         }
-
+        private static void Run(IHost host)
+        {
+            try
+            {
+                host.Run();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("*******************************************");
+                Console.WriteLine(e.Message);
+                Console.WriteLine(e.StackTrace);
+                Console.WriteLine("*******************************************");
+                Run(host);
+            }
+        }
 
         private static void CreateDbIfNotExists(IHost host)
         {
@@ -52,6 +66,5 @@ namespace NorthernWinterBeat
                 {
                     builder.AddJsonFile("appSecret.json");
                 });
-    
     }
 }

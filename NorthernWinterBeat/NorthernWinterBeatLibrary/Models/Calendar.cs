@@ -11,7 +11,6 @@ using System.Threading.Tasks;
 public class Calendar
 {
     private List<Concert> concerts = new List<Concert>();
-
     private List<Venue> venues = new List<Venue>();
     private IDataAccess DataAccess { get; set; }
 
@@ -56,11 +55,6 @@ public class Calendar
     {
         return concerts.Find(c => c.ID == id);
     }
-    /// <summary>
-    /// Returns the venue with corrosponding Id
-    /// </summary>
-    /// <param name="venueId"></param>
-    /// <returns></returns>
     public Venue GetVenue(int venueId)
     {
         return venues.Find(v => v.ID == venueId); 
@@ -69,11 +63,6 @@ public class Calendar
     {
         return venues; 
     }
-    /// <summary>
-    /// Takes a VenueID, and returns all the concert happening at the venue
-    /// </summary>
-    /// <param name="venueId"></param>
-    /// <returns></returns>
     public List<Concert> GetConcertsAtVenue(int venueId)
     {
         return concerts.FindAll(c => c.Venue?.ID == venueId); 
@@ -99,7 +88,6 @@ public class Calendar
             DataAccess.Remove(venue);
         }
     }
-   
 }
 
 

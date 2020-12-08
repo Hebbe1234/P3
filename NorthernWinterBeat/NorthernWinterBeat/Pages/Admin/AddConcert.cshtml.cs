@@ -42,7 +42,6 @@ namespace NorthernWinterBeat.Pages.Admin.Pages
                 BlobStorageManager.Upload(Image, file.OpenReadStream());
             }
             
-            // Dette virker lidt fjollet umiddelbart. 
             string Venue = Request.Form["VenueEntered"];
             string Date = Request.Form["DateEntered"];
             string StartTime = Request.Form["StartTimeEntered"];

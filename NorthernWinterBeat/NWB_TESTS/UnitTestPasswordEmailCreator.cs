@@ -10,7 +10,7 @@ using Xunit;
 
 namespace NWB_TESTS
 {
-    public class UnitTestResetPasswordEmailCreator
+    public class UnitTestPasswordEmailCreator
     {
         private IConfiguration GetConfigurationMock()
         {
@@ -42,7 +42,7 @@ namespace NWB_TESTS
         {
             //Arrange
             var mock = new Mock<IDataAccess>();
-            IPasswordResetEmailCreator passwordResetEmailCreator = new PasswordResetEmailCreator(mock.Object, GetConfigurationMock());
+            IPasswordEmailCreator passwordResetEmailCreator = new PasswordEmailCreator(mock.Object, GetConfigurationMock());
             int expectedLength = 8;
             //Act
             string result = passwordResetEmailCreator.ResetCodeGenerator();
@@ -55,10 +55,11 @@ namespace NWB_TESTS
         {
             //Arrange
             var mock = new Mock<IDataAccess>();
-            IPasswordResetEmailCreator passwordResetEmailCreator = new PasswordResetEmailCreator(mock.Object, GetConfigurationMock());
+            IPasswordEmailCreator passwordResetEmailCreator = new PasswordEmailCreator(mock.Object, GetConfigurationMock());
             bool expected = true;
             //Act
-            bool result = Regex.IsMatch(passwordResetEmailCreator.ResetCodeGenerator(), "^[a-zA-z0-9]+$");
+
+            bool result = Regex.IsMatch(passwordResetEmailCreator.ResetCodeGenerator(), "^[a-zA-Z0-9_]+$");
 
             //Assert
             Assert.Equal(expected, result);
@@ -76,7 +77,7 @@ namespace NWB_TESTS
             
             var test = new Mock<PasswordRequest>();
             
-            var passwordResetEmailCreator = new Mock<PasswordResetEmailCreator>(mock.Object, GetConfigurationMock());
+            var passwordResetEmailCreator = new Mock<PasswordEmailCreator>(mock.Object, GetConfigurationMock());
             passwordResetEmailCreator.Setup(a => a.SendEmail(It.IsAny<string>()));
 
             //Act

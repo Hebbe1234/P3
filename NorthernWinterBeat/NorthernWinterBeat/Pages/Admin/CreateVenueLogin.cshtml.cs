@@ -26,7 +26,6 @@ namespace NorthernWinterBeat.Pages.Admin
         public void OnGet(int id)
         {
             venue = FestivalManager.Calendar.GetVenue(id);
-
         }
         public IActionResult OnPostCreateVenueLogin(int id)
         {

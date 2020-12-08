@@ -28,7 +28,6 @@ namespace NorthernWinterBeat.Pages.VenueRazor
             }
 
             return Page();
-            
         }
     }
 }

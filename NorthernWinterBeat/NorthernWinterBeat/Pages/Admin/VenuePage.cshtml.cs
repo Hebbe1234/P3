@@ -12,7 +12,6 @@ namespace NorthernWinterBeat.Pages.Admin
 {
     public class VenuePageModel : PageModel
     {
-
         public Venue Venue { get; set; }
         public List<Concert> Concerts { get; set; }
         private IFestivalManager FestivalManager { get; }

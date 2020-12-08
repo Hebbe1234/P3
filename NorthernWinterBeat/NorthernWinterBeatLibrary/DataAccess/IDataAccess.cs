@@ -8,9 +8,7 @@ namespace NorthernWinterBeatLibrary.DataAccess
     {
         public void Save();
         public List<T> Retrieve<T>();
-
         public void Add<T>(T input);
-
         public void Remove<T>(T input);
     }
 }

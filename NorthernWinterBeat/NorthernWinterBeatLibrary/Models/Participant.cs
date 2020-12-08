@@ -9,7 +9,6 @@ namespace NorthernWinterBeatLibrary.Models
 {
     public class Participant
     {
-
         public string Name { get; set; } = "";
         public Ticket Ticket { get; protected set; }
         public string Email { get; set; }
@@ -19,7 +18,6 @@ namespace NorthernWinterBeatLibrary.Models
         private IDataAccess DataAccess;
         public Participant()
         {
-
         }
 
         public Participant(NorthernWinterBeatConcertContext ctx)

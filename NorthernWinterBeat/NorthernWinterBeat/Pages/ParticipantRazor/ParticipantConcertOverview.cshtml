@@ -18,7 +18,11 @@
         {
             Dates.Add(c.Start.Date);
         }
-        int datesButtonResponsiveWidth = (100 / Dates.Count()) - 1;
+        int datesButtonResponsiveWidth = 1;
+        if (Dates.Count > 0)
+        {
+            datesButtonResponsiveWidth = (100 / Dates.Count) - 1;
+        }
 
         foreach (var d in Dates.OrderBy(day => day.Date))
         {

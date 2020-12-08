@@ -18,7 +18,6 @@ namespace NorthernWinterBeatLibrary.DataAccess
             context = _ctx;
         }
 
-
         public void Add<T>(T input)
         {
             if (input == null)
@@ -156,6 +155,10 @@ namespace NorthernWinterBeatLibrary.DataAccess
                 Console.WriteLine(e.Message);
             }
             catch(DbUpdateConcurrencyException e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            catch(DbUpdateException e)
             {
                 Console.WriteLine(e.Message);
             }

@@ -13,7 +13,7 @@
 
 <div class="d-md-block" id="ArtistBlock">
     <form method="post" asp-page-handler="GoBack">
-        @Html.Hidden("Day", Model.concert.Start)
+        @Html.Hidden("Day", Model.concert?.Start)
         <h1>
             <button class="btn hBack" style="background-color:transparent" type="submit">
                 <svg width="2.5em" height="2.5em" viewBox="0 0 16 16" class="bi bi-arrow-left-circle" fill="blue" xmlns="http://www.w3.org/2000/svg">
@@ -22,11 +22,11 @@
                     <path fill-rule="evenodd" d="M12 8a.5.5 0 0 1-.5.5H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5a.5.5 0 0 1 .5.5z" />
                     Sorry, your browser does not support inline SVG.
                 </svg>
-            </button> @Model.concert.Artist
+            </button> @Model.concert?.Artist
         </h1>
     </form>
     @{
-        var path = ImageManager.ContainerURL + '/' + (Model.concert.PicturePath == "" ? "150.png" : Model.concert.PicturePath);
+        var path = ImageManager.ContainerURL + '/' + (Model.concert?.PicturePath == "" ? "150.png" : Model.concert?.PicturePath);
     }
 
     <img class="container-fluid" style="padding-right:0;padding-left:0;" src="@path" />
@@ -36,15 +36,15 @@
         var curPart = FestivalManager.GetParticipants().Where(p => p.Ticket?.TicketNumber == claimTicketID).FirstOrDefault();
 
 
-        if (Model.concert.End < DateTime.Now)
+        if (Model.concert?.End < DateTime.Now)
         {
             <button type="button" id="bookButton" class="btn btn-block btn-secondary text-center" data-toggle="modal" data-target="#removeBooking" disabled>
                 This concert has already been held
             </button>
         }
-        else if (Model.concert.Bookings.Where(b => b.Participant == curPart).Count() > 0)
+        else if (Model.concert?.Bookings.Where(b => b.Participant == curPart).Count() > 0)
         {
-            if (Model.concert.Bookings.Where(b => b.Participant == curPart).Where(b => b.State == Booking.BookingState.INACTIVE).Count() == 0)
+            if (Model.concert?.Bookings.Where(b => b.Participant == curPart).Where(b => b.State == Booking.BookingState.INACTIVE).Count() == 0)
             {
                 <button type="button" id="bookButton" class="btn btn-block btn-success text-center" data-toggle="modal" data-target="#removeBooking">
                     Booked, remove booking?
@@ -57,7 +57,7 @@
                 </button>
             }
         }
-        else if (Model.concert.IsAtMaxCapacity)
+        else if (Model.concert?.IsAtMaxCapacity ?? false)
         {
             <button type="button" id="bookButton" class="btn btn-block btn-danger text-center" data-toggle="modal" data-target="#bookSpot" disabled>
                 This concert is at max capacity
@@ -66,18 +66,18 @@
         else if (!(curPart?.CanMakeBookingAt(Model.concert, FestivalManager) ?? false))
         {
             var overlappingBookings = curPart.GetParticipantBookings(FestivalManager)
-                                  .Where(b => Model.concert.Start < b.Concert.End && Model.concert.End > b.Concert.Start);
+                                  .Where(b => Model.concert?.Start < b.Concert.End && Model.concert?.End > b.Concert.Start);
 
             if (overlappingBookings.Any(b => b.State == Booking.BookingState.INACTIVE))
             {
                 <button type="button" id="bookButton" class="btn btn-block btn-danger text-center" data-toggle="modal" data-target="#newBooking" disabled>
-                    You already have an activated booking overlapping this concert.
+                    You already have an activated booking overlapping this concert?
                 </button>
             }
             else
             {
                 <button type="button" id="bookButton" class="btn btn-block btn-danger text-center" data-toggle="modal" data-target="#newBooking">
-                    You already have a booking overlapping this concert. <b>Click here to book anyway.</b>
+                    You already have a booking overlapping this concert? <b>Click here to book anyway.</b>
                 </button>
             }
         }
@@ -89,15 +89,15 @@
         }
     }
     <div>
-        <h4>@Model.concert.Artist</h4>
+        <h4>@Model.concert?.Artist</h4>
         <p>
-            @Model.concert.ArtistDescription
+            @Model.concert?.ArtistDescription
         </p>
     </div>
     <h2>Concert Information</h2>
-    <p>@Model.concert.Start.DayOfWeek @Model.concert.Start.ToString("dd-MM"), @Model.concert.Start.ToShortTimeString() - @Model.concert.End.ToShortTimeString()</p>
-    <p>@Model.concert.Venue?.Name</p>
-    <p>@Model.concert.Venue?.Address</p>
+    <p>@Model.concert?.Start.DayOfWeek @Model.concert?.Start.ToString("dd-MM"), @Model.concert?.Start.ToShortTimeString() - @Model.concert?.End.ToShortTimeString()</p>
+    <p>@Model.concert?.Venue?.Name</p>
+    <p>@Model.concert?.Venue?.Address</p>
 </div>
 
 
@@ -115,7 +115,7 @@
                 Are you sure want to book a spot for this concert? It will remove your booking for the concert(s)
                 @{ 
                     Concert concert = Model.concert; 
-                    List<Concert> overlappedConcerts = curPart.GetParticipantBookings(FestivalManager).Select(b => b.Concert).Where(c => concert.Start < c.End && concert.End > c.Start).ToList();
+                    List<Concert> overlappedConcerts = curPart.GetParticipantBookings(FestivalManager).Select(b => b.Concert).Where(c => concert?.Start < c.End && concert?.End > c.Start).ToList();
                     foreach (Concert overlap in overlappedConcerts)
                     {
                         <p>@overlap.Artist</p>
@@ -125,7 +125,7 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
                 <form asp-page-handler="NewBooking" method="post">
-                    @Html.Hidden("id", Model.concert.ID)
+                    @Html.Hidden("id", Model.concert?.ID)
                     <button class="btn btn-primary">
                         Yes
                     </button>
@@ -153,7 +153,7 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
                 <form asp-page-handler="RemoveBooking" method="post">
-                    @Html.Hidden("id", Model.concert.ID)
+                    @Html.Hidden("id", Model.concert?.ID)
                     <button class="btn btn-primary">
                         Yes
                     </button>
@@ -182,7 +182,7 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
                 <form asp-page-handler="BookSpot" method="post">
-                    @Html.Hidden("id", Model.concert.ID)
+                    @Html.Hidden("id", Model.concert?.ID)
                     <button class="btn btn-primary">
                         Yes
                     </button>

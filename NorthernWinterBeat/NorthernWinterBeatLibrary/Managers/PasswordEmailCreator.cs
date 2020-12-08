@@ -7,11 +7,11 @@ using System.Net.Mail;
 
 namespace NorthernWinterBeatLibrary.Models
 {
-    public class PasswordResetEmailCreator : IPasswordResetEmailCreator
+    public class PasswordEmailCreator : IPasswordEmailCreator
     {
         private IDataAccess DataAccess { get; set; }
         private IConfiguration Configuration { get; }
-        public PasswordResetEmailCreator(IDataAccess dataAccess, IConfiguration conf)
+        public PasswordEmailCreator(IDataAccess dataAccess, IConfiguration conf)
         {
             DataAccess = dataAccess;
             Configuration = conf;
@@ -32,7 +32,7 @@ namespace NorthernWinterBeatLibrary.Models
 
                 SmtpServer.Send(CreateMail(recipientEmailAddress));
             }
-            catch (Exception e)
+            catch (SmtpException e)
             {
                 Console.WriteLine("The mail didnt send \n" + e.Message);
             }
