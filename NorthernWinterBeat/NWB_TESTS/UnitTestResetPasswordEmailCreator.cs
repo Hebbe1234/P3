@@ -58,7 +58,7 @@ namespace NWB_TESTS
             IPasswordResetEmailCreator passwordResetEmailCreator = new PasswordResetEmailCreator(mock.Object, GetConfigurationMock());
             bool expected = true;
             //Act
-            bool result = Regex.IsMatch(passwordResetEmailCreator.ResetCodeGenerator(), "^[a-zA-z1-9_]+$");
+            bool result = Regex.IsMatch(passwordResetEmailCreator.ResetCodeGenerator(), "^[a-zA-z0-9]+$");
 
             //Assert
             Assert.Equal(expected, result);
