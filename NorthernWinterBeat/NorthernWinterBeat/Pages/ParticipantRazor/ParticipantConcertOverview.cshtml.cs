@@ -56,9 +56,15 @@ namespace NorthernWinterBeat.Pages
         public PartialViewResult OnGetConcertsOverviewPartial(string concertDay, string SortBy)
         {
             this.SortBy = SortBy;
-            this.Day = DateTime.Parse(concertDay);
-            this.Concerts = FestivalManager.Calendar.GetConcerts();
-            return Partial("Partials/_ConcertOverviewTable", this);
+            if(concertDay == "undefined")
+            {
+                return Partial("Partials/_ConcertOverviewTable", this);
+            } else
+            {
+                this.Day = DateTime.Parse(concertDay);
+                this.Concerts = FestivalManager.Calendar.GetConcerts();
+                return Partial("Partials/_ConcertOverviewTable", this);
+            }
         }
         public List<Concert> SortConcertBy(List<Concert> SortConcert)
         {

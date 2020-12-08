@@ -4,12 +4,12 @@
 }
 
 <div class="text-lg-center">
-    <h3 class="display-3"> Create a login for the venue @Model.venue.Name </h3>
+    <h3 class="display-3"> Create a login for the venue @Model.venue?.Name </h3>
 </div>
 
 <form method="post" asp-page-handler="CreateVenueLogin">
 
-    @Html.Hidden("id", Model.venue.ID)
+    @Html.Hidden("id", Model.venue?.ID)
     <h4>Username</h4>
     <input name="VenueUsername" type="text" placeholder="" required value="" />
     <br>
@@ -25,5 +25,5 @@
     <br>
     <input type="submit" value="Confirm">
 
-    <input type="button" value="Cancel" onclick="location.href = '@(Url.Page("VenuePage", new { id = Model.venue.ID }))'" />
+    <input type="button" value="Cancel" onclick="location.href = '@(Url.Page("VenuePage", new { id = Model.venue?.ID }))'" />
 </form>

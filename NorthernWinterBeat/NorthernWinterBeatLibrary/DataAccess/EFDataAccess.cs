@@ -158,6 +158,10 @@ namespace NorthernWinterBeatLibrary.DataAccess
             {
                 Console.WriteLine(e.Message);
             }
+            catch(DbUpdateException e)
+            {
+                Console.WriteLine(e.Message);
+            }
         }
     }
 }

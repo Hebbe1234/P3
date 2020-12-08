@@ -8,21 +8,21 @@
 </div>
 
 <form method="post" asp-page-handler="EditConcert" data-ajax="false" runat="Server" enctype="multipart/form-data">
-    @Html.Hidden("id", Model.concert.ID)
+    @Html.Hidden("id", Model.concert?.ID)
     <h3>Artist</h3>
-    <input name="ArtistEntered" type="text" placeholder="Enter artist" minlength="1" contenteditable="true" value="@Model.concert.Artist" />
+    <input name="ArtistEntered" type="text" placeholder="Enter artist" minlength="1" contenteditable="true" value="@Model.concert?.Artist" />
     <br>
     <h3>Description</h3>
-    <textarea cols="75" rows="10" name="DescriptionEntered" placeholder="Enter description">@Model.concert.ArtistDescription</textarea>
+    <textarea cols="75" rows="10" name="DescriptionEntered" placeholder="Enter description">@Model.concert?.ArtistDescription</textarea>
     <br>
     <h3>Venue</h3>
     <select id="myList" name="VenueEntered">
-        <option value="@Model?.concert?.Venue?.Name"> @Model?.concert?.Venue?.Name</option>
+        <option value="@Model.concert?.Venue?.Name"> @Model.concert?.Venue?.Name</option>
 
         @{
             foreach (var venue in Model.venues)
             {
-                if (venue.Name != Model?.concert?.Venue?.Name)
+                if (venue.Name != Model.concert?.Venue?.Name)
                 {
                     <option value="@venue.Name"> @venue.Name</option>
                 }
@@ -31,7 +31,7 @@
     </select>
 
     <h3>Image</h3>
-    @(Model.concert.PicturePath != "" ? "Current:" + Model.concert.PicturePath : "")
+    @(Model.concert?.PicturePath != "" ? "Current:" + Model.concert?.PicturePath : "")
     <br />
     <input name="ImageEntered" type="file" placeholder="Add image" />
     <br>
@@ -41,10 +41,10 @@
            value="@Model.FindDate()" />
     <br>
     <h3>Start time</h3>
-    <input name="StartTimeEntered" type="time" placeholder="Enter start time" contenteditable="true" value="@Model.concert.FormatTime(Model.concert.Start)" />
+    <input name="StartTimeEntered" type="time" placeholder="Enter start time" contenteditable="true" value="@Model.concert?.FormatTime(Model.concert.Start)" />
     <br>
     <h3>End time</h3>
-    <input name="EndTimeEntered" type="time" placeholder="Enter end time" contenteditable="true" value="@Model.concert.FormatTime(Model.concert.End)"/>
+    <input name="EndTimeEntered" type="time" placeholder="Enter end time" contenteditable="true" value="@Model.concert?.FormatTime(Model.concert.End)"/>
     <br>
     <br>
 
@@ -72,7 +72,7 @@
 
                 <input type="button" class="btn btn-secondary" data-dismiss="modal" value="No" />
                 <form method="post" asp-page-handler="Cancel">
-                    @Html.Hidden("id", Model.concert.ID)
+                    @Html.Hidden("id", Model.concert?.ID)
                     <input type="submit" class="btn btn-primary" value="Yes" />
                 </form>
 
