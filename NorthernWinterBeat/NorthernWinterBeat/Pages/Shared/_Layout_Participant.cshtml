@@ -66,8 +66,14 @@
                 </a>
             </div>
             <div class="col-4 d-flex justify-content-end align-items-center">
-                <a asp-page="/ParticipantRazor/LogOut" id="LogOutLink"
-                   class="btn btn-sm btn-outline-secondary" style="background-color:whitesmoke;"> Log out </a>
+                <form asp-page="/ParticipantRazor/LogOut" method="post">
+
+
+                    <button id="LogOutLink"
+                            class="btn btn-sm btn-outline-secondary" style="background-color:whitesmoke;">
+                        Log out
+                    </button>
+                </form>
             </div>
         </div>
     </header>
@@ -88,6 +94,12 @@
         $(selector).on('click', function () {
             $(selector).removeClass('active');
             $(this).addClass('active');
+        });
+
+        $('#LogOutLink').on('click', function () {
+            $('#LogOutLink').attr('disabled', true)
+            document.location = 'LogOut';
+
         });
     </script>
 

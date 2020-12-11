@@ -162,7 +162,7 @@ namespace NorthernWinterBeatLibrary.Managers
                 return false; 
             }
 
-            if (resetPasswordRequest.ResetCode != resetCode || resetPasswordRequest.ExpirationDate < DateTime.Now)
+            if (resetPasswordRequest == null ||resetPasswordRequest.ResetCode != resetCode || resetPasswordRequest.ExpirationDate < DateTime.Now)
             {
                 return false;
             }
